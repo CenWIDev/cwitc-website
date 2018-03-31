@@ -1,0 +1,77 @@
+@import "vars";
+
+body {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-family: 'Roboto Mono', monospace;
+}
+
+a, p, li {
+  font-family: 'Roboto', sans-serif;
+}
+
+header {
+  background-color: $brand;
+  text-align: center;
+  padding: 1vh 0;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  ul {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    list-style: none;
+
+    li {
+      margin: 0 1vw;
+
+      a {
+        color: white;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: black;
+      }
+    }
+  }
+}
+
+div.main-wrapper {
+  flex-grow: 1;
+  padding: 1vh 5vw;
+
+  @media (min-width: 1000px) {
+    width: 70vw;
+    margin: 0 auto;
+  }
+}
+
+footer {
+  background-color: black;
+  color: white;
+  padding: 3vh 0;
+  text-align: center;
+
+  a {
+    color: $brand;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: lighten($brand, 5%);
+  }
+}

@@ -1,0 +1,9 @@
+<ul>
+  {{#each collections.pages}}
+    {{#unless this.hideFromNav}}
+      <li>
+        <a href="/{{this.path}}">{{this.title}}</a>
+      </li>
+    {{/unless}}
+  {{/each}}
+</ul>
