@@ -31,10 +31,6 @@ const pipeline =
         .use(collections({
             pages: {
                 pattern: '*.md'
-            },
-            posts: {
-                pattern: 'blog/*.md',
-                sortBy: 'date'
             }
         }))
         .use(markdown())

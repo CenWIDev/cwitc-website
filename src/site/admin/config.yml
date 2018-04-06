@@ -8,19 +8,19 @@ media_folder: "src/site/assets"
 public_folder: "/assets"
 
 collections:
-  - name: "blog"
-    label: "Blog"
-    folder: "src/site/blog" # The path to the folder where the documents are stored
-    create: true # Allow users to create new documents in this collection
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
-    fields: # The fields for each document, usually in front matter
-      - {label: "Layout", name: "layout", widget: "hidden", default: "article.hbs"}
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
+  # - name: "blog"
+  #   label: "Blog"
+  #   folder: "src/site/blog" # The path to the folder where the documents are stored
+  #   create: true # Allow users to create new documents in this collection
+  #   slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+  #   fields: # The fields for each document, usually in front matter
+  #     - {label: "Layout", name: "layout", widget: "hidden", default: "article.hbs"}
+  #     - {label: "Title", name: "title", widget: "string"}
+  #     - {label: "Publish Date", name: "date", widget: "datetime"}
+  #     - {label: "Body", name: "body", widget: "markdown"}
 
   - name: "settings"
-    label: "Settings"
+    label: "Global Settings"
     create: false
     delete: false
     editor:
@@ -31,7 +31,5 @@ collections:
         file: "app-config.json"
         description: "General Site Settings"
         fields:
-          - {label: "Site Name", name: "siteName", widget: "string"}
-          - {label: "Author", name: "author", widget: "string"}
-          - {label: "Generator", name: "generator", widget: "string"}
-          - {label: "Generator URL", name: "generatorUrl", widget: "string"}
+          - { label: "Site Name", name: "siteName", widget: "string" }
+          - { label: "Conference Date", name: "conferenceDate", widget: "date" }

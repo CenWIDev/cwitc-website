@@ -2,4 +2,4 @@
 title: About
 layout: page.hbs
 ---
-This is a small Metalsmith demonstration site that aims at showing you a very basic site build with Metalsmith.
+Just a site some guys are putting together for a conference!
