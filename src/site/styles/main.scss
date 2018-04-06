@@ -5,17 +5,21 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
-  background-color: $brand;
+  color: white;
+  background-color: $brand-dark;
   text-align: center;
   padding: 1vh 0;
 
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  h1 {
+    color: $brand-primary;
+  }
 
   a {
     color: black;
@@ -37,7 +41,8 @@ header {
       }
 
       a:hover {
-        color: black;
+        color: white;
+        text-decoration: underline;
       }
     }
   }
@@ -54,17 +59,17 @@ div.main-wrapper {
 }
 
 footer {
-  background-color: black;
+  background-color: $brand-dark;
   color: white;
   padding: 3vh 0;
   text-align: center;
 
   a {
-    color: $brand;
+    color: $brand-primary;
     text-decoration: none;
   }
 
   a:hover {
-    color: lighten($brand, 5%);
+    color: lighten($brand-primary, 5%);
   }
 }
