@@ -36,7 +36,8 @@ const pipeline =
         }))
         .use(markdown())
         .use(permalinks({
-            pattern: ':collections/:title'
+            pattern: ':collections/:title',
+            relative: false
         }))
         .use(discoverPartials({
             directory: 'src/layouts/partials',
