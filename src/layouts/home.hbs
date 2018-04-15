@@ -1,7 +1,40 @@
 {{> header}}
 
-<div class="markdown-body">
-  {{{ contents }}}
-</div>
+<h3>{{siteName}}</h3>
+<h5>{{moment conferenceDate 'LL'}}</h5>
+<h5>{{moment conferenceStartTime 'LT'}} - {{moment conferenceEndTime 'LT'}}</h5>
+
+<ul>
+  <li>{{hero.hostDescription}}</li>
+  <li>{{hero.tagline}}</li>
+</ul>
+<ul>
+  <li>{{registrationComingSoonText}}</li>
+</ul>
+<ul>
+  <li>{{schedule.header}}</li>
+  <li>{{schedule.comingSoonText}}</li>
+  <li>{{schedule.previousYearScheduleText}}</li>
+</ul>
+<ul>
+  <li>{{about.header}}</li>
+  <li>{{about.aboutText}}</li>
+  <li>{{about.readMoreText}}</li>
+</ul>
+<ul>
+  <li>{{registration.header}}</li>
+  <li>{{registration.accomodationInfoText}}</li>
+  <li>{{registration.registrationPrompt}}</li>
+  <li>{{registration.scholarshipInfoText}}</li>
+</ul>
+<ul>
+  <li>{{sponsors.header}}</li>
+  <ul>
+    {{#each sponsors.platniumSponsors}}
+      <li><a href="{{this.url}}"><img src="{{this.logo}}"/></a></li>
+    {{/each}}
+  </ul>
+  <li>{{sponsors.sponsorPrompt}}</li>
+</ul>
 
 {{> footer}}

@@ -7,6 +7,7 @@ const
     permalinks = require('metalsmith-permalinks'),
     sass = require('metalsmith-sass'),
     handlebars = require('handlebars'),
+    helpers = require('handlebars-helpers'),
     autoprefixer = require('metalsmith-autoprefixer'),
     assets = require('metalsmith-assets'),
     // copy = require('metalsmith-copy-assets-540'),
@@ -19,6 +20,8 @@ const environment = process.argv[2] || 'dev';
 handlebars.registerHelper('json', function(context) {
     return circularJSON.stringify(context);
 });
+
+helpers();
 
 const pipeline =
     metalsmith(__dirname)

@@ -16,6 +16,7 @@
   "devDependencies": {
     "circular-json": "^0.5.1",
     "handlebars": "^4.0.11",
+    "handlebars-helpers": "^0.10.0",
     "jstransformer-handlebars": "^1.1.0",
     "metalsmith": "^2.3.0",
     "metalsmith-assets": "^0.1.0",
