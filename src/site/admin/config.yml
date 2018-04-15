@@ -19,6 +19,81 @@ collections:
   #     - {label: "Publish Date", name: "date", widget: "datetime"}
   #     - {label: "Body", name: "body", widget: "markdown"}
 
+  - name: "home"
+    label: "Home"
+    create: false
+    delete: false
+    editor:
+      preview: false;
+    folder: "src/site"
+    fields:
+      - label: "Hero"
+        name: "hero"
+        widget: "object"
+        fields:
+          - { label: "Tagline", name: "tagline", widget: "text" }
+          - { label: "Host Description", name: "hostDescription", widget: "text" }
+
+      - { label: "Enable Registration", name: "enableRegistration", widget: "boolean", default: false }
+      - { label: "Registration Coming Soon Text", name: "registrationComingSoonText", widget: "text" }
+      - { label: "Registration Button Text", name: "registrationComingSoonText", widget: "text" }
+
+      - label: "Schedule and Sessions"
+        name: "schedule"
+        widget: "object"
+        fields:
+          - { label: "Header", name: "header", widget: "text" }
+          - { label: "Coming Soon Text", name: "comingSoonText", widget: "text" }
+          - { label: "Previous Year Schedule Text", name: "previousYearScheduleText", widget: "text" }
+
+      - label: "About CWITA"
+        name: "about"
+        widget: "object"
+        fields:
+          - { label: "Header", name: "header", widget: "text" }
+          - { label: "About Text", name: "aboutText", widget: "text" }
+          - { label: "Read More Text", name: "readMoreText", widget: "text" }
+
+      - label: "Registration"
+        name: "registration"
+        widget: "object"
+        fields:
+          - { label: "Header", name: "header", widget: "text" }
+          - { label: "Scholarship Info Text", name: "scholarshipInfoText", widget: "text" }
+          - { label: "Accomodation Info Text", name: "accomodationInfoText", widget: "text" }
+          - { label: "Registration Prompt", name: "registrationPrompt", widget: "text" }
+
+      - label: "Sponsors"
+        name: "sponsors"
+        widget: "object"
+        fields:
+          - { label: "Header", name: "header", widget: "text" }
+          - label: "Platnium Sponsors"
+            name: "platniumSponsors"
+            widget: "list"
+            fields:
+              - { label: "Logo", name: "logo", widget: "image" }
+              - { label: "URL", name: "url", widget: "text" }
+          - label: "Gold Sponsors"
+            name: "goldSponsors"
+            widget: "list"
+            fields:
+              - { label: "Logo", name: "logo", widget: "image" }
+              - { label: "URL", name: "url", widget: "text" }
+          - label: "Silver Sponsors"
+            name: "silverSponsors"
+            widget: "list"
+            fields:
+              - { label: "Logo", name: "logo", widget: "image" }
+              - { label: "URL", name: "url", widget: "text" }
+          - label: "Bronze Sponsors"
+            name: "bronzeSponsors"
+            widget: "list"
+            fields:
+              - { label: "Logo", name: "logo", widget: "image" }
+              - { label: "URL", name: "url", widget: "text" }
+          - { label: "Sponsor Prompt", name: "sponsorPrompt", widget: "text" }
+
   - name: "settings"
     label: "Global Settings"
     create: false
@@ -33,3 +108,5 @@ collections:
         fields:
           - { label: "Site Name", name: "siteName", widget: "string" }
           - { label: "Conference Date", name: "conferenceDate", widget: "date" }
+          - { label: "Conference Start Time", name: "conferenceStartTime", widget: "datetime" }
+          - { label: "Conference End Time", name: "conferenceEndTime", widget: "datetime" }
