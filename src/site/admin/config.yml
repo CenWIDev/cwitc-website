@@ -27,6 +27,9 @@ collections:
       preview: false;
     folder: "src/site"
     fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "home.hbs" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: true }
       - label: "Hero"
         name: "hero"
         widget: "object"
