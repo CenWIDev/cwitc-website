@@ -28,7 +28,7 @@ collections:
     files:
       - name: "home"
         label: "Home Page"
-        file: "index.md"
+        file: "src/site/index.md"
         description: "Home Page"
         fields:
           - { label: "Layout", name: "layout", widget: "hidden", default: "home.hbs" }
