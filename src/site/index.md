@@ -11,6 +11,7 @@ hero:
     knowledge. Entrepreneurs and educators will also be in attendance.
 enableRegistration: false
 registrationComingSoonText: Registration Opening Soon!
+registrationButtonText: Register Now!
 schedule:
   comingSoonText: >-
     Schedule and session information for 2018 is coming soon. You can view the
