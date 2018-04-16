@@ -1,0 +1,21 @@
+@import "vars";
+
+$hero-height: 70vh;
+
+.home-header {
+  background: url(/assets/hero_background.jpg), $brand-dark;
+  background-blend-mode: multiply;
+  background-position: center bottom;
+  height: $hero-height;
+  padding: 0;
+
+  h1 { color: white;}
+
+  svg {
+    position: absolute;
+    width: 100%;
+    height: $hero-height;
+    top: 0;
+    fill: $background;
+  }
+}
