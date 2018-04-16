@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: master
+  branch: home
 
 # publish_mode: editorial_workflow
 
