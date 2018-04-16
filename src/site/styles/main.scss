@@ -1,6 +1,7 @@
 @import "vars";
 
 @import "markdown-styles";
+@import "home-header";
 
 /* Required */
 @import "node_modules/bootstrap/scss/functions";
@@ -10,64 +11,15 @@
 /* Bootstrap Components as needed */
 @import "node_modules/bootstrap/scss/reboot";
 @import "node_modules/bootstrap/scss/grid";
+@import "node_modules/bootstrap/scss/utilities/flex";
 @import "node_modules/bootstrap/scss/nav";
+@import "node_modules/bootstrap/scss/card";
 
 body {
-  background-color: white;
+  background-color: $background;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-
-header {
-  color: white;
-  background-color: $brand-dark;
-  text-align: center;
-  padding: 1vh 0;
-
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-
-  h1 {
-    color: $brand-primary;
-  }
-
-  a {
-    color: black;
-    text-decoration: none;
-  }
-
-  ul {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    list-style: none;
-
-    li {
-      margin: 0 1vw;
-
-      a {
-        color: white;
-        text-decoration: none;
-      }
-
-      a:hover {
-        color: white;
-        text-decoration: underline;
-      }
-    }
-  }
-}
-
-div.main-wrapper {
-  flex-grow: 1;
-  padding: 1vh 5vw;
-
-  @media (min-width: 1000px) {
-    width: 70vw;
-    margin: 0 auto;
-  }
 }
 
 footer {

@@ -10,9 +10,13 @@
     <link rel="stylesheet" href="/styles/main.css" type="text/css" />
   </head>
   <body>
-    <header>
-        <a href="/"><h1>{{ siteName }}</h1></a>
-        {{> nav }}
-    </header>
+    {{#if home}}
+      {{> home-header }}
+    {{else}}
+      <header>
+          <a href="/"><h1>{{ siteName }}</h1></a>
+          {{> nav }}
+      </header>
+    {{/if}}
 
-    <div class="main-wrapper">
+    <div class="container">
