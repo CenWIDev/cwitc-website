@@ -1,3 +1,6 @@
+page_default_fields: &page_default_fields
+  - { label: "Page Title", name: "pageTitle", widget: "string" }
+
 backend:
   name: git-gateway
   branch: home
@@ -20,6 +23,7 @@ collections:
         file: "src/site/index.md"
         description: "Home Page"
         fields:
+          <<: *page_default_fields
           - { label: "Layout", name: "layout", widget: "hidden", default: "home.hbs" }
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: true }
