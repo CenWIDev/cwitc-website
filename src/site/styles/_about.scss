@@ -1,0 +1,25 @@
+.community-link-icon {
+  display: inline-block;
+  cursor: pointer;
+  width: 33px;
+  height: 33px;
+  transform: rotate(180deg) translateZ(0px);
+  fill: #000;
+}
+
+.community-link {
+  display: inline-block;
+  margin-left: 1rem;
+  font-weight:bold;
+
+  a {
+    text-decoration: none;
+    color: #000;
+
+    &:hover {
+      text-decoration: none;
+      color: #000;
+    }
+  }
+}
+
