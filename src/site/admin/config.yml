@@ -1,6 +1,78 @@
 page_default_fields: &page_default_fields
   - { label: "Page Title", name: "pageTitle", widget: "string" }
 
+home_page_fields: &home_page_fields
+  - { label: "Layout", name: "layout", widget: "hidden", default: "home.hbs" }
+  - { label: "Title", name: "title", widget: "string" }
+  - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: true }
+
+  - label: "Hero"
+    name: "hero"
+    widget: "object"
+    fields:
+      - { label: "Tagline", name: "tagline", widget: "text" }
+      - { label: "Host Description", name: "hostDescription", widget: "string" }
+
+  - { label: "Enable Registration", name: "enableRegistration", widget: "boolean", default: false }
+  - { label: "Registration Coming Soon Text", name: "registrationComingSoonText", widget: "string" }
+  - { label: "Registration Button Text", name: "registrationButtonText", widget: "string" }
+
+  - label: "Schedule and Sessions"
+    name: "schedule"
+    widget: "object"
+    fields:
+      - { label: "Header", name: "header", widget: "string" }
+      - { label: "Coming Soon Text", name: "comingSoonText", widget: "text" }
+      - { label: "Previous Year Schedule Text", name: "previousYearScheduleText", widget: "string" }
+
+  - label: "About CWITA"
+    name: "about"
+    widget: "object"
+    fields:
+      - { label: "Header", name: "header", widget: "string" }
+      - { label: "About Text", name: "aboutText", widget: "text" }
+      - { label: "Read More Text", name: "readMoreText", widget: "string" }
+
+  - label: "Registration"
+    name: "registration"
+    widget: "object"
+    fields:
+      - { label: "Header", name: "header", widget: "string" }
+      - { label: "Scholarship Info Text", name: "scholarshipInfoText", widget: "text" }
+      - { label: "Accomodation Info Text", name: "accomodationInfoText", widget: "string" }
+      - { label: "Registration Prompt", name: "registrationPrompt", widget: "string" }
+
+  - label: "Sponsors"
+    name: "sponsors"
+    widget: "object"
+    fields:
+      - { label: "Header", name: "header", widget: "string" }
+      - label: "Platnium Sponsors"
+        name: "platniumSponsors"
+        widget: "list"
+        fields:
+          - { label: "Logo", name: "logo", widget: "image" }
+          - { label: "URL", name: "url", widget: "string" }
+      - label: "Gold Sponsors"
+        name: "goldSponsors"
+        widget: "list"
+        fields:
+          - { label: "Logo", name: "logo", widget: "image" }
+          - { label: "URL", name: "url", widget: "string" }
+      - label: "Silver Sponsors"
+        name: "silverSponsors"
+        widget: "list"
+        fields:
+          - { label: "Logo", name: "logo", widget: "image" }
+          - { label: "URL", name: "url", widget: "string" }
+      - label: "Bronze Sponsors"
+        name: "bronzeSponsors"
+        widget: "list"
+        fields:
+          - { label: "Logo", name: "logo", widget: "image" }
+          - { label: "URL", name: "url", widget: "string" }
+      - { label: "Sponsor Prompt", name: "sponsorPrompt", widget: "string" }
+
 backend:
   name: git-gateway
   branch: home
@@ -23,77 +95,7 @@ collections:
         file: "src/site/index.md"
         description: "Home Page"
         fields:
-          <<: [*page_default_fields]
-          - { label: "Layout", name: "layout", widget: "hidden", default: "home.hbs" }
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: true }
-
-          - label: "Hero"
-            name: "hero"
-            widget: "object"
-            fields:
-              - { label: "Tagline", name: "tagline", widget: "text" }
-              - { label: "Host Description", name: "hostDescription", widget: "string" }
-
-          - { label: "Enable Registration", name: "enableRegistration", widget: "boolean", default: false }
-          - { label: "Registration Coming Soon Text", name: "registrationComingSoonText", widget: "string" }
-          - { label: "Registration Button Text", name: "registrationButtonText", widget: "string" }
-
-          - label: "Schedule and Sessions"
-            name: "schedule"
-            widget: "object"
-            fields:
-              - { label: "Header", name: "header", widget: "string" }
-              - { label: "Coming Soon Text", name: "comingSoonText", widget: "text" }
-              - { label: "Previous Year Schedule Text", name: "previousYearScheduleText", widget: "string" }
-
-          - label: "About CWITA"
-            name: "about"
-            widget: "object"
-            fields:
-              - { label: "Header", name: "header", widget: "string" }
-              - { label: "About Text", name: "aboutText", widget: "text" }
-              - { label: "Read More Text", name: "readMoreText", widget: "string" }
-
-          - label: "Registration"
-            name: "registration"
-            widget: "object"
-            fields:
-              - { label: "Header", name: "header", widget: "string" }
-              - { label: "Scholarship Info Text", name: "scholarshipInfoText", widget: "text" }
-              - { label: "Accomodation Info Text", name: "accomodationInfoText", widget: "string" }
-              - { label: "Registration Prompt", name: "registrationPrompt", widget: "string" }
-
-          - label: "Sponsors"
-            name: "sponsors"
-            widget: "object"
-            fields:
-              - { label: "Header", name: "header", widget: "string" }
-              - label: "Platnium Sponsors"
-                name: "platniumSponsors"
-                widget: "list"
-                fields:
-                  - { label: "Logo", name: "logo", widget: "image" }
-                  - { label: "URL", name: "url", widget: "string" }
-              - label: "Gold Sponsors"
-                name: "goldSponsors"
-                widget: "list"
-                fields:
-                  - { label: "Logo", name: "logo", widget: "image" }
-                  - { label: "URL", name: "url", widget: "string" }
-              - label: "Silver Sponsors"
-                name: "silverSponsors"
-                widget: "list"
-                fields:
-                  - { label: "Logo", name: "logo", widget: "image" }
-                  - { label: "URL", name: "url", widget: "string" }
-              - label: "Bronze Sponsors"
-                name: "bronzeSponsors"
-                widget: "list"
-                fields:
-                  - { label: "Logo", name: "logo", widget: "image" }
-                  - { label: "URL", name: "url", widget: "string" }
-              - { label: "Sponsor Prompt", name: "sponsorPrompt", widget: "string" }
+          <<: [*page_default_fields, *home_page_fields]
 
   - name: "settings"
     label: "Global Settings"
