@@ -16,7 +16,8 @@
   <script>
     var defaultPageControl = createClass({
       render: function() {
-        return h('input', { type: 'text' });
+        return h('div', { class: 'nc-controlPane-widget nc-objectControl-root'},
+          h('input', { type: 'text', class: 'nc-controlPage-widget' }));
       }
     });
 
