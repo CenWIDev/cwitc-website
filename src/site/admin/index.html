@@ -12,16 +12,5 @@
 <body>
   <!-- Include the script that builds the page and powers Netlify CMS -->
   <script src="https://unpkg.com/netlify-cms@^1.0.0/dist/cms.js"></script>
-
-  <script>
-    var defaultPageControl = createClass({
-      render: function() {
-        return h('div', { class: 'nc-controlPane-widget nc-objectControl-root'},
-          h('input', { type: 'text', class: 'nc-controlPage-widget' }));
-      }
-    });
-
-    CMS.registerWidget('defaultPage', defaultPageControl);
-  </script>
 </body>
 </html>
