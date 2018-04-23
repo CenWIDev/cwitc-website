@@ -1,5 +1,6 @@
 @import "vars";
 
+$svg-height: 20vh;
 $hero-height: 70vh;
 
 .home-header {
@@ -9,13 +10,42 @@ $hero-height: 70vh;
   height: $hero-height;
   padding: 0;
 
-  h1 { color: white;}
+  .top-nav-container {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2vh;
+
+    img {
+      height: 5vw;
+    }
+
+    ul {
+      align-items: center;
+    }
+  }
+
+  .cta {
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50%;
+
+    .conference-date {
+      margin-right: 20px;
+    }
+
+    .conference-times {
+      margin-left: 20px;
+    }
+  }
 
   svg {
     position: absolute;
     width: 100%;
-    height: $hero-height;
-    top: 0;
+    height: $svg-height;
+    top: $hero-height - $svg-height;
     fill: $background;
   }
 }

@@ -1,5 +1,7 @@
 <header class="home-header">
-  <div class="container">
+  <div class="container top-nav-container">
+    <img src="/assets/cwitc_logo.png" />
+
     <ul class="nav justify-content-end">
       <li class="nav-item">
         <a class="nav-link active" href="#">Active</a>
@@ -14,12 +16,20 @@
         <a class="nav-link disabled" href="#">Disabled</a>
       </li>
     </ul>
+  </div>
 
-    <img src="/assets/cwitc_logo.png" />
+  <div class="container cta">
+    <div class="row">
+      <h1 class="col-12">{{ siteName }}</h1>
+      <h3 class="col-lg-3 offset-lg-3 col-xs-12">{{moment conferenceDate 'LL'}}</h3>
+      <h3 class="col-lg-3 col-xs-12">{{moment conferenceStartTime 'LT'}} - {{moment conferenceEndTime 'LT'}}</h3>
+      <p class="col-12">{{registrationComingSoonText}}</p>
+    </div>
   </div>
 
   {{!-- Adds Edge to backgroud image --}}
   <svg viewBox="0 0 10 10" preserveAspectRatio="none">
-    <polygon stroke-width="0" points="0,10 10,6, 10,10" />
+    <polygon stroke-width="0" points="0,10 10,0, 10,10" />
   </svg>
 </header>
+<div class="container"></div>

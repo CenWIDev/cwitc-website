@@ -1,17 +1,41 @@
 {{> header home=true}}
 
-<div class="card card-body">
-  <h3>{{siteName}}</h3>
-  <h5>{{moment conferenceDate 'LL'}}</h5>
-  <h5>{{moment conferenceStartTime 'LT'}} - {{moment conferenceEndTime 'LT'}}</h5>
+<div class="container home">
+  <div class="row schedule">
+    <div class="col-lg-2 offset-lg-2 icon-container icon-container--left">
+      <img class="schedule__icon icon" src="/site-assets/calendar.svg" />
+    </div>
+    <div class="col-lg-6">
+      <h2 class="schedule_header">{{schedule.header}}</h2>
+      <p class="schedule_text">{{schedule.comingSoonText}}</p>
+      <a class="schedule_link" href="#"><p>{{schedule.previousYearScheduleText}}</p></a>
+    </div>
+  </div>
+  <div class="row about">
+    <div class="col-lg-6 offset-lg-2">
+      <h2>{{about.header}}</h2>
+      <p>{{about.aboutText}}</p>
+      <a href="#"><p>{{about.readMoreText}}</p></a>
+    </div>
+    <div class="col-lg-2 icon-container icon-container--right">
+      <img class="about__icon icon" src="/site-assets/info.svg" />
+    </div>
+  </div>
+  <div class="row registration">
+    <div class="col-lg-2 offset-lg-2 icon-container icon-container--left">
+      <img class="registration__icon icon" src="/site-assets/compass2.svg" />
+    </div>
+    <div class="col-lg-6">
+      <h2>{{registration.header}}</h2>
+      <p>{{registration.accomodationInfoText}}</p>
+      <p>{{registration.scholarshipInfoText}}</p>
+      <p>{{registration.registrationPrompt}}</p>
+      <a href="#"><p>{{registrationComingSoonText}}</p></a>
+    </div>
+  </div>
+</div>
 
-  <ul>
-    <li>{{hero.hostDescription}}</li>
-    <li>{{hero.tagline}}</li>
-  </ul>
-  <ul>
-    <li>{{registrationComingSoonText}}</li>
-  </ul>
+{{!-- <div class="card card-body">
   <ul>
     <li>{{schedule.header}}</li>
     <li>{{schedule.comingSoonText}}</li>
@@ -37,6 +61,6 @@
     </ul>
     <li>{{sponsors.sponsorPrompt}}</li>
   </ul>
-</div>
+</div> --}}
 
 {{> footer}}

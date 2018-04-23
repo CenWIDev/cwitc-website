@@ -1,0 +1,27 @@
+.home {
+
+  .row {
+    padding: 5vh 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid black;
+    }
+  }
+
+  .icon-container {
+    display: flex;
+
+    &--left {
+      justify-content: flex-start;
+    }
+
+    &--right {
+      justify-content: flex-end;
+    }
+
+    .icon {
+      width: 75%;
+      height: 100%;
+    }
+  }
+}
