@@ -1,0 +1,59 @@
+@import "vars";
+
+$svg-height: 20vh;
+$hero-height: 70vh;
+
+.home-header {
+  background: url(/assets/hero_background.jpg), $brand-dark;
+  background-blend-mode: multiply;
+  background-position: center bottom;
+  height: $hero-height;
+  padding: 0;
+
+  .top-nav-container {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2vh;
+
+    a {
+      color: $brand-light;
+
+      &:hover {
+        color: darken($brand-light, 20%);
+      }
+    }
+
+    img {
+      height: 5vw;
+    }
+
+    ul {
+      align-items: center;
+    }
+  }
+
+  .cta {
+    color: $brand-light;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50%;
+
+    .conference-date {
+      margin-right: 20px;
+    }
+
+    .conference-times {
+      margin-left: 20px;
+    }
+  }
+
+  svg {
+    position: absolute;
+    width: 100%;
+    height: $svg-height;
+    top: $hero-height - $svg-height;
+    fill: $background;
+  }
+}
