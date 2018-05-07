@@ -1,17 +1,24 @@
 {{> header}}
 
-<h2>{{title}}</h2>
+<div class="page-hero">
+  <h1>{{title}}</h1>
+</div>
 
-{{{contents}}}
+<div class="container">
 
-<a href="https://www.cwitc.org/our-community" target="_self">
-  <div class="d-flex align-items-center justify-content-start">
-    <div class="community-link-icon">
-        <i class="fas fa-angle-double-right fa-3x"></i>
+  {{{contents}}}
+
+  <a href="https://www.cwitc.org/our-community" target="_self">
+    <div class="d-flex align-items-center justify-content-start">
+      <div class="community-link-icon">
+          <i class="fas fa-angle-double-right fa-3x"></i>
+      </div>
+      <div class="community-link">
+          <span>Discover Central Wisconsin!</span>
+      </div>
     </div>
-    <div class="community-link">
-        <span>Discover Central Wisconsin!</span>
-    </div>
-  </div>
-</a>
+  </a>
+
+</div>
+
 {{> footer}}
