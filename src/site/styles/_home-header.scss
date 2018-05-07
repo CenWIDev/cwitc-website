@@ -15,6 +15,14 @@ $hero-height: 70vh;
     justify-content: space-between;
     padding-top: 2vh;
 
+    a {
+      color: $brand-light;
+
+      &:hover {
+        color: darken($brand-light, 20%);
+      }
+    }
+
     img {
       height: 5vw;
     }
@@ -25,7 +33,7 @@ $hero-height: 70vh;
   }
 
   .cta {
-    color: white;
+    color: $brand-light;
     text-align: center;
     display: flex;
     flex-direction: column;

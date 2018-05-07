@@ -32,9 +32,17 @@ body {
   min-height: 100vh;
 }
 
+a {
+  color: $brand-primary;
+
+  &:hover {
+    color: darken($brand-primary, 10%);
+  }
+}
+
 footer {
   background-color: $brand-dark;
-  color: white;
+  color: $brand-light;
   padding: 3vh 0;
   text-align: center;
 
