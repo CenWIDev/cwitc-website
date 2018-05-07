@@ -21,8 +21,8 @@
   <div class="container cta">
     <div class="row">
       <h1 class="col-12">{{ siteName }}</h1>
-      <h3 class="col-lg-3 offset-lg-3 col-xs-12">{{moment conferenceDate 'LL'}}</h3>
-      <h3 class="col-lg-3 col-xs-12">{{moment conferenceStartTime 'LT'}} - {{moment conferenceEndTime 'LT'}}</h3>
+      <h3 class="col-lg-3 offset-lg-3 col-xs-12 d-lg-flex justify-content-lg-end">{{moment conferenceDate 'LL'}}</h3>
+      <h3 class="col-lg-3 col-xs-12 d-lg-flex justify-content-lg-start">{{moment conferenceStartTime 'LT'}} - {{moment conferenceEndTime 'LT'}}</h3>
       <p class="col-12">{{registrationComingSoonText}}</p>
     </div>
   </div>
@@ -32,4 +32,3 @@
     <polygon stroke-width="0" points="0,10 10,0, 10,10" />
   </svg>
 </header>
-<div class="container"></div>
