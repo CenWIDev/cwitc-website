@@ -21,7 +21,6 @@ collections:
         description: "Home Page"
         fields:
             - { label: "Layout", name: "layout", widget: "hidden", default: "home.hbs" }
-            - { label: "Default Page", name: "defaultPage", widget: "defaultPage" }
             - { label: "Title", name: "title", widget: "string" }
             - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: true }
 

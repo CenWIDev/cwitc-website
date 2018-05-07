@@ -3,17 +3,25 @@
 $svg-height: 20vh;
 $hero-height: 70vh;
 
-.home-header {
-  background: url(/assets/hero_background.jpg), $brand-dark;
-  background-blend-mode: multiply;
-  background-position: center bottom;
-  height: $hero-height;
+.header {
   padding: 0;
+
+  &.home-header {
+    background: url(/assets/hero_background.jpg), $brand-dark;
+    background-blend-mode: multiply;
+    background-position: center bottom;
+    height: $hero-height;
+  }
+
+  &.standard-header {
+    background-color: $brand-dark;
+  }
 
   .top-nav-container {
     display: flex;
     justify-content: space-between;
-    padding-top: 2vh;
+    align-items: center;
+    padding: 2vh 0;
 
     a {
       color: $brand-light;
