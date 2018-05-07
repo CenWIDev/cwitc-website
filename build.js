@@ -10,7 +10,7 @@ const
     helpers = require('handlebars-helpers'),
     autoprefixer = require('metalsmith-autoprefixer'),
     assets = require('metalsmith-assets'),
-    // copy = require('metalsmith-copy-assets-540'),
+    copy = require('metalsmith-copy-assets-540'),
     browsersync = require('metalsmith-browser-sync'),
     circularJSON = require('circular-json'),
     appConfig = require('./app-config.json');
@@ -31,6 +31,15 @@ const pipeline =
         .use(assets({
             source: 'src/site/assets',
             destination: 'assets'
+        }))
+        .use(copy({
+            src: [
+                'node_modules/bootstrap/js/dist/util.js',
+                'node_modules/bootstrap/js/dist/dropdown.js',
+                'node_modules/jquery/dist/jquery.slim.min.js',
+                'node_modules/popper.js/dist/umd/popper.min.js'
+            ],
+            dest: 'site-assets/js'
         }))
         .use(collections({
             pages: {

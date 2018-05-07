@@ -1,40 +1,66 @@
-{{> header}}
+{{> header home=true}}
 
-<h3>{{siteName}}</h3>
-<h5>{{moment conferenceDate 'LL'}}</h5>
-<h5>{{moment conferenceStartTime 'LT'}} - {{moment conferenceEndTime 'LT'}}</h5>
+<div class="container home">
+  <div class="row schedule">
+    <div class="col-2 offset-lg-2 icon-container">
+      <svg class="icon icon-calendar"><use xlink:href="#icon-calendar"></use></svg>
+    </div>
+    <div class="col-10 col-lg-6">
+      <h2 class="schedule_header">{{schedule.header}}</h2>
+      <p class="schedule_text">{{schedule.comingSoonText}}</p>
+      <a class="schedule_link" href="#"><p>{{schedule.previousYearScheduleText}}</p></a>
+    </div>
+  </div>
+  <div class="row about">
+    <div class="col-10 col-lg-6 offset-lg-2 order-2 order-sm-2">
+      <h2>{{about.header}}</h2>
+      <p>{{about.aboutText}}</p>
+      <a href="#"><p>{{about.readMoreText}}</p></a>
+    </div>
+    <div class="col-2 order-1 order-sm-2 icon-container justify-content-sm-end">
+      <svg class="icon icon-info"><use xlink:href="#icon-info"></use></svg>
+    </div>
+  </div>
+  <div class="row registration">
+    <div class="col-2 offset-lg-2 icon-container">
+      <svg class="icon icon-compass2"><use xlink:href="#icon-compass2"></use></svg>
+    </div>
+    <div class="col-10 col-lg-6">
+      <h2>{{registration.header}}</h2>
+      <p>{{registration.accomodationInfoText}}</p>
+      <p>{{registration.scholarshipInfoText}}</p>
+      <p>{{registration.registrationPrompt}}</p>
+      <a href="#"><p>{{registrationComingSoonText}}</p></a>
+    </div>
+  </div>
+</div>
 
-<ul>
-  <li>{{hero.hostDescription}}</li>
-  <li>{{hero.tagline}}</li>
-</ul>
-<ul>
-  <li>{{registrationComingSoonText}}</li>
-</ul>
-<ul>
-  <li>{{schedule.header}}</li>
-  <li>{{schedule.comingSoonText}}</li>
-  <li>{{schedule.previousYearScheduleText}}</li>
-</ul>
-<ul>
-  <li>{{about.header}}</li>
-  <li>{{about.aboutText}}</li>
-  <li>{{about.readMoreText}}</li>
-</ul>
-<ul>
-  <li>{{registration.header}}</li>
-  <li>{{registration.accomodationInfoText}}</li>
-  <li>{{registration.registrationPrompt}}</li>
-  <li>{{registration.scholarshipInfoText}}</li>
-</ul>
-<ul>
-  <li>{{sponsors.header}}</li>
+{{!-- <div class="card card-body">
   <ul>
-    {{#each sponsors.platniumSponsors}}
-      <li><a href="{{this.url}}"><img src="{{this.logo}}"/></a></li>
-    {{/each}}
+    <li>{{schedule.header}}</li>
+    <li>{{schedule.comingSoonText}}</li>
+    <li>{{schedule.previousYearScheduleText}}</li>
   </ul>
-  <li>{{sponsors.sponsorPrompt}}</li>
-</ul>
+  <ul>
+    <li>{{about.header}}</li>
+    <li>{{about.aboutText}}</li>
+    <li>{{about.readMoreText}}</li>
+  </ul>
+  <ul>
+    <li>{{registration.header}}</li>
+    <li>{{registration.accomodationInfoText}}</li>
+    <li>{{registration.registrationPrompt}}</li>
+    <li>{{registration.scholarshipInfoText}}</li>
+  </ul>
+  <ul>
+    <li>{{sponsors.header}}</li>
+    <ul>
+      {{#each sponsors.platniumSponsors}}
+        <li><a href="{{this.url}}"><img src="{{this.logo}}"/></a></li>
+      {{/each}}
+    </ul>
+    <li>{{sponsors.sponsorPrompt}}</li>
+  </ul>
+</div> --}}
 
 {{> footer}}
