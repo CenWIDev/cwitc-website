@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: home
+  branch: about
 
 # publish_mode: editorial_workflow
 
@@ -91,6 +91,26 @@ collections:
                     - { label: "Logo", name: "logo", widget: "image" }
                     - { label: "URL", name: "url", widget: "string" }
                 - { label: "Sponsor Prompt", name: "sponsorPrompt", widget: "string" }
+
+  - name: "about"
+    label: "About"
+    create: false
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "about"
+        label: "About Page"
+        file: "src/site/about.md"
+        description: "About Page"
+        fields:
+            - { label: "Layout", name: "layout", widget: "hidden", default: "about.hbs" }
+            - { label: "Default Page", name: "defaultPage", widget: "defaultPage" }
+            - { label: "Title", name: "title", widget: "string" }
+            - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
+            - { label: "Discover Wisconsin Link", name: "discoverWisLink", widget: "string", default: 'https://www.cwitc.org/our-community' }
+            - { label: "Page Content", name: "contents", widget: "markdown" }
+
 
   - name: "settings"
     label: "Global Settings"
