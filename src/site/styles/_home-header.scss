@@ -25,6 +25,10 @@ $hero-height: 70vh;
 
     img {
       height: 5vw;
+
+      @media (max-width: 768px) {
+        height: 100px;
+      }
     }
 
     ul {
