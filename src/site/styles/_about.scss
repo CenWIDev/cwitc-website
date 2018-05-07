@@ -1,25 +1,25 @@
 @import "vars";
 
+.community-link-wrapper {
+  margin-bottom: 3rem;  
+}
+
+a.community-link {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 .community-link-icon {
   display: inline-block;
   cursor: pointer;
-  fill: $brand-dark;
+  fill: $brand-primary;
 }
 
-.community-link {
+.community-link-text {
   display: inline-block;
   margin-left: 1rem;
   font-weight:bold;
-
-  a {
-    text-decoration: none;
-    color: $brand-dark;
-
-    &:hover {
-      text-decoration: none;
-      color: $brand-dark;
-    }
-  }
 }
 
 .page-hero {
