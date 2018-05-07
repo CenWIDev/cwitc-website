@@ -13,11 +13,4 @@
   <body>
     {{> icon-symbols }}
 
-    {{#if home}}
-      {{> home-header }}
-    {{else}}
-      <header>
-          <a href="/"><h1>{{ siteName }}</h1></a>
-          {{> nav }}
-      </header>
-    {{/if}}
+    {{> home-header home=home}}

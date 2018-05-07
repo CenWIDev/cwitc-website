@@ -1,0 +1,17 @@
+@import "vars";
+
+.nav {
+
+  .dropdown-menu {
+    left: -100% !important;
+    transform: translate3d(0px, 40px, 0px) !important;
+
+    a {
+      color: $brand-dark;
+
+      &:hover {
+        color: lighten($brand-dark, 20%);
+      }
+    }
+  }
+}

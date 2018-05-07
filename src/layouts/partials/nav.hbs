@@ -1,9 +1,22 @@
-<ul>
+<ul class="nav justify-content-end d-none d-md-block">
   {{#each collections.pages}}
     {{#unless this.hideFromNav}}
-      <li>
-        <a href="/{{this.path}}">{{this.title}}</a>
+      <li class="nav-item">
+        <a class="nav-link" href="/{{this.path}}">{{this.title}}</a>
       </li>
     {{/unless}}
   {{/each}}
+</ul>
+
+<ul class="nav justify-content-end d-md-none">
+   <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menu</a>
+    <div class="dropdown-menu">
+      {{#each collections.pages}}
+        {{#unless this.hideFromNav}}
+          <a class="dropdown-item" href="/{{this.path}}">{{this.title}}</a>
+        {{/unless}}
+      {{/each}}
+    </div>
+  </li>
 </ul>
