@@ -109,7 +109,7 @@ collections:
             - { label: "Title", name: "title", widget: "string" }
             - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
             - { label: "Discover Wisconsin Link", name: "discoverWisLink", widget: "string", default: 'https://www.cwitc.org/our-community' }
-            - { label: "Page Content", name: "contents", widget: "markdown" }
+            - { label: "Page Content", name: "body", widget: "markdown" }
 
 
   - name: "settings"
