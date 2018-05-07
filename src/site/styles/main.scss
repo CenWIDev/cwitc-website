@@ -21,15 +21,6 @@
 @import "node_modules/bootstrap/scss/dropdown";
 @import "node_modules/bootstrap/scss/card";
 
-.icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
-}
-
 body {
   background-color: $background;
   display: none;
