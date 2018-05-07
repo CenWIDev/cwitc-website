@@ -105,7 +105,6 @@ collections:
         description: "About Page"
         fields:
             - { label: "Layout", name: "layout", widget: "hidden", default: "about.hbs" }
-            - { label: "Default Page", name: "defaultPage", widget: "defaultPage" }
             - { label: "Title", name: "title", widget: "string" }
             - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
             - { label: "Discover Wisconsin Link", name: "discoverWisLink", widget: "string", default: 'https://www.cwitc.org/our-community' }
