@@ -130,9 +130,9 @@ collections:
             name: "contact"
             widget: "object"
             fields:
-              - { label: "Address Line 1", name: "addressLine1", widget: "text" }
-              - { label: "Address Line 3", name: "addressLine2", widget: "text" }
-              - { label: "Address Line 3", name: "addressLine3", widget: "text" }
+              - { label: "Address Line 1", name: "addressLine1", widget: "string" }
+              - { label: "Address Line 3", name: "addressLine2", widget: "string" }
+              - { label: "Address Line 3", name: "addressLine3", widget: "string" }
               - { label: "Email", name: "email", widget: "string" }
           - label: "Social Links"
             name: "socialLinks"
