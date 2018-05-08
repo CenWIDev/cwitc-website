@@ -3,6 +3,7 @@
 @import "markdown-styles";
 @import "home-header";
 @import "home";
+@import "footer";
 @import "nav";
 
 /* Required */
@@ -43,18 +44,3 @@ a {
   }
 }
 
-footer {
-  background-color: $brand-dark;
-  color: $brand-light;
-  padding: 3vh 0;
-  text-align: center;
-
-  a {
-    color: $brand-primary;
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: lighten($brand-primary, 5%);
-  }
-}

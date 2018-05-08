@@ -1,7 +1,17 @@
     <footer>
-      <p>© {{ siteName }}</p>
-      <p>{{ contact.address }}</p>
-      <p>{{ contact.email }}</p>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 offset-sm-6">
+              <pre>{{ contact.address }}</pre>
+              <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+          </div>
+        </div>
+        <div class="row copyright">
+          <div class="col"><p>© {{ siteName }}</p></div>
+        </div>
+      </div>
+
+
     </footer>
 
     <script src="/site-assets/js/jquery.slim.min.js"></script>
