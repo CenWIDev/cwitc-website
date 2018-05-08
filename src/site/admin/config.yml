@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: master
+  branch: home
 
 # publish_mode: editorial_workflow
 
@@ -107,3 +107,9 @@ collections:
           - { label: "Conference Date", name: "conferenceDate", widget: "date" }
           - { label: "Conference Start Time", name: "conferenceStartTime", widget: "datetime" }
           - { label: "Conference End Time", name: "conferenceEndTime", widget: "datetime" }
+          - label: "Contact Information"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Address", name: "address", widget: "text" }
+              - { label: "Email", name: "email", widget: "string" }
