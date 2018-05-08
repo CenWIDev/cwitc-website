@@ -1,26 +1,46 @@
-@import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/variables";
-
 footer {
   background-color: $brand-dark;
   color: $brand-light;
   padding: 3vh 0;
 
-  pre {
-    font-family: $font-family-base;
-  }
-
   a {
     color: $brand-primary;
     text-decoration: none;
+
+    &:hover {
+      color: lighten($brand-primary, 5%);
+    }
   }
 
-  a:hover {
-    color: lighten($brand-primary, 5%);
+  .address {
+
+    p {
+      margin: 0;
+    }
   }
 
-  .copyright {
-    text-align: center;
-    margin-top: 5vh;
+  .social-icons {
+
+    a {
+      color: $brand-light;
+      flex-basis: 5vw;
+      height: 3vw;
+      width: 3vw;
+
+      @include media-breakpoint-down(sm) {
+        flex-basis: 10vw;
+        height: 6vw;
+        width: 6vw;
+      }
+
+      &:hover {
+        color: darken($brand-light, 20%);
+      }
+
+      .icon {
+        height: 100%;
+        width: 100%;
+      }
+    }
   }
 }

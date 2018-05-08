@@ -4,7 +4,14 @@
   "conferenceStartTime": "2018-10-06T08:30:00",
   "conferenceEndTime": "2018-10-06T16:00:00",
   "contact": {
-    "address": "Mid-State Technical College - Stevens Point Campus\n1001 Center Point Dr.\nStevens Point, WI 54481",
+    "addressLine1": "Mid-State Technical College - Stevens Point Campus",
+    "addressLine2": "1001 Center Point Dr.",
+    "addressLine3": "Stevens Point, WI 54481",
     "email": "info@cwita.org"
+  },
+  "socialLinks": {
+    "facebook": "https://www.facebook.com/events/150935532253338/",
+    "twitter": "https://twitter.com/CenWI_ITConf",
+    "github": "https://github.com/CenWIDev/cwitc-website"
   }
 }
