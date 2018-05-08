@@ -1,5 +1,20 @@
     <footer>
-      <p>© {{ siteName }}</p>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-5 social-icons d-flex justify-content-center justify-content-sm-end">
+            <a href="{{socialLinks.facebook}}"><i class="fab fa-facebook icon"></i></a>
+            <a href="{{socialLinks.twitter}}"><i class="fab fa-twitter icon"></i></a>
+            <a href="{{socialLinks.github}}"><i class="fab fa-github icon"></i></a>
+          </div>
+          <div class="col-sm-7 address text-center text-sm-left mt-2 mt-sm-0">
+              <p>{{ contact.addressLine1 }}</p>
+              <p>{{ contact.addressLine2 }}</p>
+              <p>{{ contact.addressLine3 }}</p>
+              <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+              <p class="mt-4">© {{ siteName }}</p>
+          </div>
+        </div>
+      </div>
     </footer>
 
     <script src="/site-assets/js/jquery.slim.min.js"></script>

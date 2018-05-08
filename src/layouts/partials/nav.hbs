@@ -2,7 +2,7 @@
   {{#each collections.pages}}
     {{#unless this.hideFromNav}}
       <li class="nav-item">
-        <a class="nav-link" href="/{{this.path}}">{{this.title}}</a>
+        <a class="nav-link" href="/{{this.path}}">{{#if this.navText}}{{this.navText}}{{else}}{{this.title}}{{/if}}</a>
       </li>
     {{/unless}}
   {{/each}}
@@ -14,7 +14,7 @@
     <div class="dropdown-menu">
       {{#each collections.pages}}
         {{#unless this.hideFromNav}}
-          <a class="dropdown-item" href="/{{this.path}}">{{this.title}}</a>
+          <a class="dropdown-item" href="/{{this.path}}">{{#if this.navText}}{{this.navText}}{{else}}{{this.title}}{{/if}}</a>
         {{/unless}}
       {{/each}}
     </div>

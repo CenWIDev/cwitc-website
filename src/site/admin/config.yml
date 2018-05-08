@@ -22,6 +22,7 @@ collections:
         fields:
             - { label: "Layout", name: "layout", widget: "hidden", default: "home.hbs" }
             - { label: "Title", name: "title", widget: "string" }
+            - { label: "Navigation Text", name: "navText", widget: "string"  }
             - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: true }
 
             - label: "Hero"
@@ -105,6 +106,7 @@ collections:
         fields:
             - { label: "Layout", name: "layout", widget: "hidden", default: "about.hbs" }
             - { label: "Title", name: "title", widget: "string" }
+            - { label: "Navigation Text", name: "navText", widget: "string" }
             - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
             - { label: "Discover Wisconsin Link", name: "discoverWisLink", widget: "string", default: 'https://www.cwitc.org/our-community' }
             - { label: "Page Content", name: "body", widget: "markdown" }
@@ -126,3 +128,18 @@ collections:
           - { label: "Conference Date", name: "conferenceDate", widget: "date" }
           - { label: "Conference Start Time", name: "conferenceStartTime", widget: "datetime" }
           - { label: "Conference End Time", name: "conferenceEndTime", widget: "datetime" }
+          - label: "Contact Information"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Address Line 1", name: "addressLine1", widget: "string" }
+              - { label: "Address Line 3", name: "addressLine2", widget: "string" }
+              - { label: "Address Line 3", name: "addressLine3", widget: "string" }
+              - { label: "Email", name: "email", widget: "string" }
+          - label: "Social Links"
+            name: "socialLinks"
+            widget: "object"
+            fields:
+              - { label: "Facebook", name: "facebook", widget: "string" }
+              - { label: "Twitter", name: "twitter", widget: "string" }
+              - { label: "Github", name: "github", widget: "string" }
