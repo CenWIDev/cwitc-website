@@ -37,7 +37,7 @@ sponsors:
       url: 'http://cwita.org/'
   sponsorPrompt: Interested in becoming a partner or sponsor?
 changefreq: monthly
-priority: '1.0'
+priority: 1.0
 private: false
 ---
 
