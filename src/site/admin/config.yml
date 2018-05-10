@@ -1,6 +1,25 @@
+# Netlify CMS Config File
+
+## Use the following fields for every page. Copy and paste them into each page.
+
+# - { label: "Layout", name: "layout", widget: "hidden", default: "page.hbs" }
+# - { label: "Title", name: "title", widget: "string" }
+# - { label: "Navigation Text", name: "navText", widget: "string" }
+# - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
+## Keep SEO options at the bottom
+# - label: "SEO"
+#   name: "hero"
+#   widget: "object"
+#   fields:
+#     - { label: "Page Change Frequency", name: "changefreq", widget: "select", default: "monthly", allow_add: false,
+#         options: [ "always", "hourly", "daily", "weekly", "monthly" ]}
+#     - { label: "Page SEO Priority", name: "priority", widget: "select", default: "0.5", allow_add: false,
+#         options: [ "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0" ]}
+#     - { lable: "Exclude From Sitemap", name: "private", widget: "boolean", default: false }
+
 backend:
   name: git-gateway
-  branch: master
+  branch: seo
 
 # publish_mode: editorial_workflow
 
@@ -92,6 +111,17 @@ collections:
                     - { label: "URL", name: "url", widget: "string" }
                 - { label: "Sponsor Prompt", name: "sponsorPrompt", widget: "string" }
 
+            # Keep SEO options at the bottom
+            - label: "SEO"
+              name: "hero"
+              widget: "object"
+              fields:
+                - { label: "Page Change Frequency", name: "changefreq", widget: "select", default: "monthly", allow_add: false,
+                    options: [ "always", "hourly", "daily", "weekly", "monthly" ]}
+                - { label: "Page SEO Priority", name: "priority", widget: "select", default: "0.5", allow_add: false,
+                    options: [ "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0" ]}
+                - { lable: "Exclude From Sitemap", name: "private", widget: "boolean", default: false }
+
   - name: "about"
     label: "About"
     create: false
@@ -110,6 +140,17 @@ collections:
             - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
             - { label: "Discover Wisconsin Link", name: "discoverWisLink", widget: "string", default: 'https://www.cwitc.org/our-community' }
             - { label: "Page Content", name: "body", widget: "markdown" }
+
+            # Keep SEO options at the bottom
+            - label: "SEO"
+              name: "hero"
+              widget: "object"
+              fields:
+                - { label: "Page Change Frequency", name: "changefreq", widget: "select", default: "monthly", allow_add: false,
+                    options: [ "always", "hourly", "daily", "weekly", "monthly" ]}
+                - { label: "Page SEO Priority", name: "priority", widget: "select", default: "0.5", allow_add: false,
+                    options: [ "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0" ]}
+                - { lable: "Exclude From Sitemap", name: "private", widget: "boolean", default: false }
 
 
   - name: "settings"
