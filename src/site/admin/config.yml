@@ -110,8 +110,8 @@ collections:
             # Keep SEO options at the bottom
             - { label: "Page Change Frequency", name: "changefreq", widget: "select", default: "monthly", allow_add: false,
                 options: [ "always", "hourly", "daily", "weekly", "monthly" ]}
-            - { label: "Page SEO Priority", name: "priority", widget: "select", default: "0.5", allow_add: false,
-                options: [ "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0" ]}
+            - { label: "Page SEO Priority", name: "priority", widget: "select", default: 0.5, allow_add: false,
+                options: [ 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 ]}
             - { label: "Exclude From Sitemap", name: "private", widget: "boolean", default: false }
 
   - name: "about"
