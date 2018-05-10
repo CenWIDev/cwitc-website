@@ -4,8 +4,8 @@ title: Home
 navText: Home
 hideFromNav: true
 hero:
-  changefreq: weekly
-  priority: '1.0'
+  hostDescription: test description
+  tagline: Test tagline
 enableRegistration: false
 registrationComingSoonText: Registration Opening Soon!
 registrationButtonText: Register Now!
@@ -36,5 +36,8 @@ sponsors:
     - logo: /assets/cwita_logo.png
       url: 'http://cwita.org/'
   sponsorPrompt: Interested in becoming a partner or sponsor?
+changefreq: monthly
+priority: '1.0'
+private: false
 ---
 
