@@ -7,15 +7,11 @@
 # - { label: "Navigation Text", name: "navText", widget: "string" }
 # - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
 ## Keep SEO options at the bottom
-# - label: "SEO"
-#   name: "hero"
-#   widget: "object"
-#   fields:
-#     - { label: "Page Change Frequency", name: "changefreq", widget: "select", default: "monthly", allow_add: false,
-#         options: [ "always", "hourly", "daily", "weekly", "monthly" ]}
-#     - { label: "Page SEO Priority", name: "priority", widget: "select", default: "0.5", allow_add: false,
-#         options: [ "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0" ]}
-#     - { label: "Exclude From Sitemap", name: "private", widget: "boolean", default: false }
+# - { label: "Page Change Frequency", name: "changefreq", widget: "select", default: "monthly", allow_add: false,
+#     options: [ "always", "hourly", "daily", "weekly", "monthly" ]}
+# - { label: "Page SEO Priority", name: "priority", widget: "select", default: "0.5", allow_add: false,
+#     options: [ "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0" ]}
+# - { label: "Exclude From Sitemap", name: "private", widget: "boolean", default: false }
 
 backend:
   name: git-gateway
@@ -44,13 +40,12 @@ collections:
             - { label: "Navigation Text", name: "navText", widget: "string"  }
             - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: true }
 
-            - { label: "Hero",
-                name: "hero",
-                widget: "object",
-                fields:
-                  - { label: "Tagline", name: "tagline", widget: "text" }
-                  - { label: "Host Description", name: "hostDescription", widget: "string" }
-              }
+            - label: "Hero"
+              name: "hero"
+              widget: "object"
+              fields:
+                - { label: "Tagline", name: "tagline", widget: "text" }
+                - { label: "Host Description", name: "hostDescription", widget: "string" }
 
             - { label: "Enable Registration", name: "enableRegistration", widget: "boolean", default: false }
             - { label: "Registration Coming Soon Text", name: "registrationComingSoonText", widget: "string" }
@@ -113,17 +108,11 @@ collections:
                 - { label: "Sponsor Prompt", name: "sponsorPrompt", widget: "string" }
 
             # Keep SEO options at the bottom
-            - {
-                label: "SEO",
-                name: "hero",
-                widget: "object",
-                fields:
-                  - { label: "Page Change Frequency", name: "changefreq", widget: "select", default: "monthly", allow_add: false,
-                      options: [ "always", "hourly", "daily", "weekly", "monthly" ]}
-                  - { label: "Page SEO Priority", name: "priority", widget: "select", default: "0.5", allow_add: false,
-                      options: [ "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0" ]}
-                  - { label: "Exclude From Sitemap", name: "private", widget: "boolean", default: false }
-              }
+            - { label: "Page Change Frequency", name: "changefreq", widget: "select", default: "monthly", allow_add: false,
+                options: [ "always", "hourly", "daily", "weekly", "monthly" ]}
+            - { label: "Page SEO Priority", name: "priority", widget: "select", default: "0.5", allow_add: false,
+                options: [ "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0" ]}
+            - { label: "Exclude From Sitemap", name: "private", widget: "boolean", default: false }
 
   - name: "about"
     label: "About"
@@ -145,15 +134,11 @@ collections:
             - { label: "Page Content", name: "body", widget: "markdown" }
 
             # Keep SEO options at the bottom
-            - label: "SEO"
-              name: "hero"
-              widget: "object"
-              fields:
-                - { label: "Page Change Frequency", name: "changefreq", widget: "select", default: "monthly", allow_add: false,
-                    options: [ "always", "hourly", "daily", "weekly", "monthly" ]}
-                - { label: "Page SEO Priority", name: "priority", widget: "select", default: "0.5", allow_add: false,
-                    options: [ "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0" ]}
-                - { label: "Exclude From Sitemap", name: "private", widget: "boolean", default: false }
+            - { label: "Page Change Frequency", name: "changefreq", widget: "select", default: "monthly", allow_add: false,
+                options: [ "always", "hourly", "daily", "weekly", "monthly" ]}
+            - { label: "Page SEO Priority", name: "priority", widget: "select", default: "0.5", allow_add: false,
+                options: [ "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0" ]}
+            - { label: "Exclude From Sitemap", name: "private", widget: "boolean", default: false }
 
 
   - name: "settings"
