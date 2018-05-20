@@ -36,8 +36,5 @@ sponsors:
     - logo: /assets/cwita_logo.png
       url: 'http://cwita.org/'
   sponsorPrompt: Interested in becoming a partner or sponsor?
-changefreq: monthly
-priority: '0.9'
-private: false
 ---
 

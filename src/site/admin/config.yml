@@ -106,9 +106,9 @@ collections:
                 - { label: "Sponsor Prompt", name: "sponsorPrompt", widget: "string" }
 
             # Keep SEO options at the bottom
-            - { label: "Page Change Frequency", name: "changefreq", widget: "hidden", default: "monthly" }
-            - { label: "Page SEO Priority", name: "priority", widget: "hidden", default: "1.0" }
-            - { label: "Exclude From Sitemap", name: "private", widget: "hidden", default: false }
+            - { label: "Page Change Frequency", name: "changefreqa", widget: "hidden", default: "monthly" }
+            - { label: "Page SEO Priority", name: "prioritya", widget: "hidden", default: "1.0" }
+            - { label: "Exclude From Sitemap", name: "privatea", widget: "hidden", default: false }
 
   - name: "about"
     label: "About"
