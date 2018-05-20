@@ -3,7 +3,8 @@ layout: home.hbs
 title: Home
 navText: Home
 hideFromNav: true
-hostDescription: 'Hosted by Midstate Technical College in Stevens Point, WI'
+host:
+  description: 'Hosted by Midstate Technical College in Stevens Point, WI'
   tagline: >-
     The Central Wisconsin IT Conference is a one-day conference designed to
     bring together IT professionals from the Midwest, from entry-level
