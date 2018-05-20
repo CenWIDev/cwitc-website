@@ -39,7 +39,7 @@ sponsors:
 socialShareDescription: >-
   A one-day conference designed to bring IT professionals from around the
   Midwest together for professional development and networking.
-socialShareImage: /assets/cwitc_logo.png
+socialShareImage: /assets/cwitc_logo_large.png
 changefreq: monthly
 priority: 1.0
 private: false
