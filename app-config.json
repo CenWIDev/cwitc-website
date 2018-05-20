@@ -10,9 +10,10 @@
     "addressLine3": "Stevens Point, WI 54481",
     "email": "info@cwita.org"
   },
-  "socialLinks": {
+  "social": {
     "facebook": "https://www.facebook.com/events/150935532253338/",
     "twitter": "https://twitter.com/CenWI_ITConf",
+    "twitterUsername": "@CenWi_ITConf",
     "github": "https://github.com/CenWIDev/cwitc-website"
   }
 }

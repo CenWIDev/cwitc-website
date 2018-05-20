@@ -5,6 +5,9 @@
 # - { label: "Title", name: "title", widget: "string" }
 # - { label: "Navigation Text", name: "navText", widget: "string" }
 # - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
+# # Social Media Sharing
+# - { label: "Social Media Share Description", name: "socialShareDescription", widget: "string" }
+# - { label: "Social Media Share Image", name: "socialShareImage", widget: "string" }
 
 backend:
   name: git-gateway
@@ -99,6 +102,10 @@ collections:
                     - { label: "URL", name: "url", widget: "string" }
                 - { label: "Sponsor Prompt", name: "sponsorPrompt", widget: "string" }
 
+            # Social Media Sharing
+            - { label: "Social Media Share Description", name: "socialShareDescription", widget: "string" }
+            - { label: "Social Media Share Image", name: "socialShareImage", widget: "string" }
+
   - name: "about"
     label: "About"
     create: false
@@ -142,10 +149,15 @@ collections:
               - { label: "Address Line 3", name: "addressLine2", widget: "string" }
               - { label: "Address Line 3", name: "addressLine3", widget: "string" }
               - { label: "Email", name: "email", widget: "string" }
-          - label: "Social Links"
-            name: "socialLinks"
+          - label: "Social"
+            name: "social"
             widget: "object"
             fields:
               - { label: "Facebook", name: "facebook", widget: "string" }
               - { label: "Twitter", name: "twitter", widget: "string" }
+              - { label: "Twitter Username", name: "twitterUsername", widget: "string" }
               - { label: "Github", name: "github", widget: "string" }
+
+          # Social Media Sharing
+          - { label: "Social Media Share Description", name: "socialShareDescription", widget: "string" }
+          - { label: "Social Media Share Image", name: "socialShareImage", widget: "string" }
