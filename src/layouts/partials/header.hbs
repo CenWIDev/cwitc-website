@@ -10,10 +10,10 @@
     <link rel="canonical" href="{{ siteUrl }}{{ path }}" />
 
     {{!-- Open Graph Meta Tags --}}
-    <meta property="og:url" content="{{ siteUrl }}{{ path }}" />
+    <meta property="og:url" content="{{ siteUrl }}/{{ path }}" />
     <meta property="og:title" content="{{ title }}" />
     <meta property="og:description" content="{{ socialShareDescription }}" />
-    <meta property="og:image" content="{{ socialShareImage }}" />
+    <meta property="og:image" content="{{ siteUrl}}{{ socialShareImage }}" />
 
     {{!-- Twitter Meta Tags (Uses Open Graph Tags for Title, Description, and Image --}}
     <meta property="twitter:card" content="summary" />
