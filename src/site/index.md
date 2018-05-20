@@ -5,7 +5,7 @@ navText: Home
 hideFromNav: true
 hero:
   hostDescription: test description
-  tagline: Test tagline
+  tagline: Test tagline 2
 enableRegistration: false
 registrationComingSoonText: Registration Opening Soon!
 registrationButtonText: Register Now!
