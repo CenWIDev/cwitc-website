@@ -1,4 +1,5 @@
 ---
+layout: home.hbs
 title: Home
 navText: Home
 hideFromNav: true
@@ -39,5 +40,8 @@ socialShareDescription: >-
   A one-day conference designed to bring IT professionals from around the
   Midwest together for professional development and networking.
 socialShareImage: /assets/cwitc_logo.png
+changefreq: monthly
+priority: 1.0
+private: false
 ---
 
