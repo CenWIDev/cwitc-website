@@ -1,5 +1,4 @@
 ---
-layout: home.hbs
 title: Home
 navText: Home
 hideFromNav: true
@@ -36,8 +35,9 @@ sponsors:
     - logo: /assets/cwita_logo.png
       url: 'http://cwita.org/'
   sponsorPrompt: Interested in becoming a partner or sponsor?
-changefreq: monthly
-priority: 1.0
-private: false
+socialShareDescription: >-
+  A one-day conference designed to bring IT professionals from around the
+  Midwest together for professional development and networking.
+socialShareImage: /assets/cwitc_logo.png
 ---
 
