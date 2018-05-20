@@ -7,11 +7,9 @@
 # - { label: "Navigation Text", name: "navText", widget: "string" }
 # - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
 ## Keep SEO options at the bottom
-# - { label: "Page Change Frequency", name: "changefreq", widget: "select", default: "monthly", allow_add: false,
-#     options: [ "always", "hourly", "daily", "weekly", "monthly" ]}
-# - { label: "Page SEO Priority", name: "priority", widget: "select", default: "0.5", allow_add: false,
-#     options: [ "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0" ]}
-# - { label: "Exclude From Sitemap", name: "private", widget: "boolean", default: false }
+# - { label: "Page Change Frequency", name: "changefreq", widget: "hidden", default: "monthly" }
+# - { label: "Page SEO Priority", name: "priority", widget: "hidden", default: "0.5" } # set this after copypasta
+# - { label: "Exclude From Sitemap", name: "private", widget: "hidden", default: false }
 
 backend:
   name: git-gateway
@@ -108,25 +106,9 @@ collections:
                 - { label: "Sponsor Prompt", name: "sponsorPrompt", widget: "string" }
 
             # Keep SEO options at the bottom
-            - { label: "Page Change Frequency", name: "changefreq", widget: "select", default: "monthly", allow_add: false,
-                options: [ "always", "hourly", "daily", "weekly", "monthly" ]}
-            - label: "Page SEO Priority"
-              name: "priority"
-              widget: "select"
-              default: 0.5
-              allow_add: false
-              options:
-                - { label: "0.1", value: 0.1 }
-                - { label: "0.2", value: 0.2 }
-                - { label: "0.3", value: 0.3 }
-                - { label: "0.4", value: 0.4 }
-                - { label: "0.5", value: 0.5 }
-                - { label: "0.6", value: 0.6 }
-                - { label: "0.7", value: 0.7 }
-                - { label: "0.8", value: 0.8 }
-                - { label: "0.9", value: 0.9 }
-                - { label: "1.0", value: 1.0 }
-            - { label: "Exclude From Sitemap", name: "private", widget: "boolean", default: false }
+            - { label: "Page Change Frequency", name: "changefreq", widget: "hidden", default: "monthly" }
+            - { label: "Page SEO Priority", name: "priority", widget: "hidden", default: "1.0" }
+            - { label: "Exclude From Sitemap", name: "private", widget: "hidden", default: false }
 
   - name: "about"
     label: "About"
@@ -148,11 +130,9 @@ collections:
             - { label: "Page Content", name: "body", widget: "markdown" }
 
             # Keep SEO options at the bottom
-            - { label: "Page Change Frequency", name: "changefreq", widget: "select", default: "monthly", allow_add: false,
-                options: [ "always", "hourly", "daily", "weekly", "monthly" ]}
-            - { label: "Page SEO Priority", name: "priority", widget: "select", default: "0.5", allow_add: false,
-                options: [ "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0" ]}
-            - { label: "Exclude From Sitemap", name: "private", widget: "boolean", default: false }
+            - { label: "Page Change Frequency", name: "changefreq", widget: "hidden", default: "monthly" }
+            - { label: "Page SEO Priority", name: "priority", widget: "hidden", default: "0.5" }
+            - { label: "Exclude From Sitemap", name: "private", widget: "hidden", default: false }
 
 
   - name: "settings"
