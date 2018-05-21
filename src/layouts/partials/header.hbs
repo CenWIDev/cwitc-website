@@ -6,6 +6,20 @@
     <title>{{ title }} - {{ siteName }}</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="canonical" href="{{ siteUrl }}/{{ path }}" />
+
+    {{!-- Open Graph Meta Tags --}}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ siteUrl }}/{{ path }}" />
+    <meta property="og:title" content="{{ title }}" />
+    <meta property="og:description" content="{{ socialShareDescription }}" />
+    <meta property="og:image" content="{{ siteUrl}}{{ socialShareImage }}" />
+
+    {{!-- Twitter Meta Tags (Uses Open Graph Tags for Title, Description, and Image --}}
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:site:id" content="{{ social.twitterUsername }}" />
+
     <link rel="icon" href="/assets/favicon.png">
     <link rel="stylesheet" href="/styles/main.css" type="text/css" />
     <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js" integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR" crossorigin="anonymous"></script>

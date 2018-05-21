@@ -1,3 +1,20 @@
+# Netlify CMS Config File
+
+## Use the following fields for every page. Copy and paste them into each page.
+
+# - { label: "Layout", name: "layout", widget: "hidden", default: "page.hbs" }
+# - { label: "Title", name: "title", widget: "string" }
+# - { label: "Navigation Text", name: "navText", widget: "string" }
+# - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
+# # Social Media Sharing
+# - { label: "Social Media Share Description", name: "socialShareDescription", widget: "string" }
+# - { label: "Social Media Share Image", name: "socialShareImage", widget: "image" }
+# # Sitemap Generation
+# - { label: "Sitemap Change Frequency", name: "changefreq", widget: "hidden" }
+# - { label: "Sitemap Priority", name: "priority", widget: "hidden" }
+# - { label: "Include in Sitemap", name: "private", widget: "hidden" }
+
+
 backend:
   name: git-gateway
   branch: master
@@ -20,7 +37,7 @@ collections:
         file: "src/site/index.md"
         description: "Home Page"
         fields:
-            - { label: "Layout", name: "layout", widget: "hidden", default: "home.hbs" }
+          - { label: "Layout", name: "layout", widget: "hidden" }
             - { label: "Title", name: "title", widget: "string" }
             - { label: "Navigation Text", name: "navText", widget: "string"  }
             - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: true }
@@ -92,6 +109,15 @@ collections:
                     - { label: "URL", name: "url", widget: "string" }
                 - { label: "Sponsor Prompt", name: "sponsorPrompt", widget: "string" }
 
+            # Social Media Sharing
+            - { label: "Social Media Share Description", name: "socialShareDescription", widget: "string" }
+            - { label: "Social Media Share Image", name: "socialShareImage", widget: "image" }
+
+            # Sitemap Generation
+            - { label: "Sitemap Change Frequency", name: "changefreq", widget: "hidden" }
+            - { label: "Sitemap Priority", name: "priority", widget: "hidden" }
+            - { label: "Include in Sitemap", name: "private", widget: "hidden" }
+
   - name: "about"
     label: "About"
     create: false
@@ -104,13 +130,21 @@ collections:
         file: "src/site/about.md"
         description: "About Page"
         fields:
-            - { label: "Layout", name: "layout", widget: "hidden", default: "about.hbs" }
+            - { label: "Layout", name: "layout", widget: "hidden" }
             - { label: "Title", name: "title", widget: "string" }
             - { label: "Navigation Text", name: "navText", widget: "string" }
             - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
             - { label: "Discover Wisconsin Link", name: "discoverWisLink", widget: "string", default: 'https://www.cwitc.org/our-community' }
             - { label: "Page Content", name: "body", widget: "markdown" }
 
+            # Social Media Sharing
+            - { label: "Social Media Share Description", name: "socialShareDescription", widget: "string" }
+            - { label: "Social Media Share Image", name: "socialShareImage", widget: "image" }
+
+            # Sitemap Generation
+            - { label: "Sitemap Change Frequency", name: "changefreq", widget: "hidden" }
+            - { label: "Sitemap Priority", name: "priority", widget: "hidden" }
+            - { label: "Include in Sitemap", name: "private", widget: "hidden" }
 
   - name: "settings"
     label: "Global Settings"
@@ -125,6 +159,7 @@ collections:
         description: "General Site Settings"
         fields:
           - { label: "Site Name", name: "siteName", widget: "string" }
+          - { label: "Site URL", name: "siteUrl", widget: "string" }
           - { label: "Conference Date", name: "conferenceDate", widget: "date" }
           - { label: "Conference Start Time", name: "conferenceStartTime", widget: "datetime" }
           - { label: "Conference End Time", name: "conferenceEndTime", widget: "datetime" }
@@ -136,10 +171,11 @@ collections:
               - { label: "Address Line 3", name: "addressLine2", widget: "string" }
               - { label: "Address Line 3", name: "addressLine3", widget: "string" }
               - { label: "Email", name: "email", widget: "string" }
-          - label: "Social Links"
-            name: "socialLinks"
+          - label: "Social"
+            name: "social"
             widget: "object"
             fields:
               - { label: "Facebook", name: "facebook", widget: "string" }
               - { label: "Twitter", name: "twitter", widget: "string" }
+              - { label: "Twitter Username", name: "twitterUsername", widget: "string" }
               - { label: "Github", name: "github", widget: "string" }

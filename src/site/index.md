@@ -1,9 +1,10 @@
 ---
 layout: home.hbs
 title: Home
+navText: Home
 hideFromNav: true
-hero:
-  hostDescription: 'Hosted by Midstate Technical College in Stevens Point, WI'
+host:
+  description: 'Hosted by Midstate Technical College in Stevens Point, WI'
   tagline: >-
     The Central Wisconsin IT Conference is a one-day conference designed to
     bring together IT professionals from the Midwest, from entry-level
@@ -39,5 +40,12 @@ sponsors:
     - logo: /assets/cwita_logo.png
       url: 'http://cwita.org/'
   sponsorPrompt: Interested in becoming a partner or sponsor?
+socialShareDescription: >-
+  A one-day conference designed to bring IT professionals from around the
+  Midwest together for professional development and networking.
+socialShareImage: /assets/cwitc_logo_large.png
+changefreq: monthly
+priority: 1.0
+private: false
 ---
 

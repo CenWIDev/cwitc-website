@@ -5,6 +5,7 @@ const
     discoverPartials = require('metalsmith-discover-partials'),
     collections = require('metalsmith-collections'),
     permalinks = require('metalsmith-permalinks'),
+    sitemap = require('metalsmith-mapsite'),
     sass = require('metalsmith-sass'),
     handlebars = require('handlebars'),
     helpers = require('handlebars-helpers'),
@@ -61,6 +62,10 @@ const pipeline =
         .use(autoprefixer())
         .use(layouts({
             directory: 'src/layouts'
+        }))
+        .use(sitemap({
+            hostname: 'https://cwitc.org',
+            omitIndex: true
         }));
 
     if (environment === 'dev') {
