@@ -6,12 +6,14 @@ hideFromNav: false
 changefreq: monthly
 priority: 1.0
 private: false
+accommodationsHeader: "Accommodations"
 accommodations:
   description: "The brand new Cobblestone Hotel & Suites in Stevens Point, WI is located next door to our event location."
   addressLine1: "Cobblestone Hotel & Suites"
   addressLine2: "1117 Centerpoint Drive"
   addressLine3: "Stevens Point, WI 54481"
   telephone: "715-343-0522"
+communityLinksHeader: "Discover Central Wisconsin!"
 communityLinks:
   - { linkText: "Stevens Point Convention & Visitors Bureau", url: "https://www.stevenspointarea.com/" }
   - { linkText: "Portage County Business Council", url: "http://portagecountybiz.com/" }
