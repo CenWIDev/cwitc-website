@@ -44,3 +44,15 @@ a {
   }
 }
 
+pre {
+  font-family: inherit;
+  white-space: normal;
+}
+
+.page-hero {
+  height: 30vh;
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

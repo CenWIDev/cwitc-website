@@ -1,34 +1,32 @@
 @import "vars";
 
-.community-link-wrapper {
-  margin-bottom: 3rem;
-}
-
-a.community-link {
-  &:hover {
-    text-decoration: none;
+.about-page {
+  .community-link-wrapper {
+    margin-bottom: 3rem;
   }
-}
-
-.community-link-icon {
-  display: inline-block;
-  cursor: pointer;
-  fill: $brand-primary;
-}
-
-.community-link-text {
-  display: inline-block;
-  margin-left: 1rem;
-  font-weight:bold;
-}
-
-.page-hero {
-  background: url(/assets/about_hero_background.png);
-  height: 30vh;
-  min-height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  margin-bottom: 3rem;
+  
+  a.community-link {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  
+  .community-link-icon {
+    display: inline-block;
+    cursor: pointer;
+    fill: $brand-primary;
+  }
+  
+  .community-link-text {
+    display: inline-block;
+    margin-left: 1rem;
+    font-weight:bold;
+  }
+  
+  .page-hero {
+    background: url(/assets/about_hero_background.png);
+    color: #fff;
+    margin-bottom: 3rem;
+    min-height: 300px;
+  }
 }

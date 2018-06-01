@@ -146,22 +146,29 @@ collections:
             - { label: "Sitemap Priority", name: "priority", widget: "hidden" }
             - { label: "Include in Sitemap", name: "private", widget: "hidden" }
 
-  - name: "community"
-    label: "Community"
+  - name: "conduct"
+    label: "Code Of Conduct"
     create: false
     delete: false
     editor:
       preview: false
     files:
-      - name: "community"
-        label: "Community Page"
-        file: "src/site/our-community.md"
-        description: "Community Page"
+      - name: "conduct"
+        label: "Code Of conduct Page"
+        file: "src/site/code-of-conduct.md"
+        description: "Code Of conduct Page"
         fields:
             - { label: "Layout", name: "layout", widget: "hidden" }
             - { label: "Title", name: "title", widget: "string" }
             - { label: "Navigation Text", name: "navText", widget: "string" }
             - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
+
+  - name: "community"
+    label: "Community"
+      - name: "community"
+        label: "Community Page"
+        file: "src/site/our-community.md"
+        description: "Community Page"
             - { label: "Community Links Header", name: "communityLinksHeader", widget: "string" }
             - label: "Community Links"
               name: "communityLinks"
