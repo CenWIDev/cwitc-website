@@ -5,7 +5,7 @@ navText: About
 hideFromNav: false
 discoverWisLink: 'https://www.cwitc.org/our-community'
 changefreq: monthly
-priority: 1.0
+priority: 0.5
 private: false
 ---
 The Central Wisconsin Information Technology Alliance (CWITA) is a voluntary organization of employers focused on Information Technology workforce challenges and solutions, with support from the North Central Wisconsin Workforce Development Board, UW-Stevens Point, Northcentral, Mid-State and Nicolet Technical Colleges, chambers of commerce, K-12 educational institutions, economic development entities, and other associated partners.
