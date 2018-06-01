@@ -3,9 +3,8 @@ layout: page.hbs
 title: Code Of Conduct
 navText: Code Of Conduct
 hideFromNav: false
-discoverWisLink: 'https://www.cwitc.org/our-community'
 changefreq: monthly
-priority: 1.0
+priority: 0.5
 private: false
 ---
 ## Conduct
