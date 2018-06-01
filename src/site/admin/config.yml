@@ -146,6 +146,39 @@ collections:
             - { label: "Sitemap Priority", name: "priority", widget: "hidden" }
             - { label: "Include in Sitemap", name: "private", widget: "hidden" }
 
+  - name: "community"
+    label: "Community"
+    create: false
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "community"
+        label: "Community Page"
+        file: "src/site/our-community.md"
+        description: "Community Page"
+        fields:
+            - { label: "Layout", name: "layout", widget: "hidden" }
+            - { label: "Title", name: "title", widget: "string" }
+            - { label: "Navigation Text", name: "navText", widget: "string" }
+            - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
+            - label: "Community Links"
+              name: "communityLinks"
+              widget: "list"
+                  fields:
+                    - { label: "Link Text", name: "linkText", widget: "string" }
+                    - { label: "URL", name: "url", widget: "string" }
+            - { label: "Page Content", name: "body", widget: "markdown" }
+
+            # Social Media Sharing
+            - { label: "Social Media Share Description", name: "socialShareDescription", widget: "string" }
+            - { label: "Social Media Share Image", name: "socialShareImage", widget: "image" }
+
+            # Sitemap Generation
+            - { label: "Sitemap Change Frequency", name: "changefreq", widget: "hidden" }
+            - { label: "Sitemap Priority", name: "priority", widget: "hidden" }
+            - { label: "Include in Sitemap", name: "private", widget: "hidden" }
+
   - name: "settings"
     label: "Global Settings"
     create: false

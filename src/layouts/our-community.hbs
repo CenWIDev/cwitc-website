@@ -1,0 +1,48 @@
+{{> header}}
+
+<div class="page-hero">
+  <h1>{{title}}</h1>
+</div>
+
+<div class="our-community">
+<div class="container">
+
+  <div class="row">
+    <div class="offset-lg-2 col-lg-8">
+      {{{contents}}}
+    </div>
+  </div>
+
+  <div class="row community-links">
+    <div class="col-10 col-lg-6 offset-lg-2 order-2 order-sm-2">
+      <h3>Discover Central Wiconsin!</h3>
+      <ul>
+        {{#each communityLinks }}
+          <li>
+            <a href="{{this.url}}" target="_blank">{{this.linkText}}</a>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="col-2 order-1 order-sm-2 icon-container justify-content-sm-end">
+      <i class="fas fa-map-signs icon"></i>
+    </div>
+  </div>
+
+  <div class="row accommodations">
+    <div class="col-2 offset-lg-2 icon-container">
+      <i class="far fa-building icon"></i>
+    </div>
+    <div class="col-10 col-lg-6">
+      <h3>Accommodations</h3>
+      <p class="lead">{{accommodations.description}}</p>
+      <div class="font-italic">{{accommodations.addressLine1}}</div>
+      <div>{{accommodations.addressLine2}}</div>
+      <div>{{accommodations.addressLine3}}</div>
+      <div><a href="tel{{accomodations.telephone}}"></a>{{accommodations.telephone}}</div>
+    </div>
+  </div>
+
+</div>
+
+{{> footer}}
