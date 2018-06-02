@@ -38,85 +38,85 @@ collections:
         description: "Home Page"
         fields:
           - { label: "Layout", name: "layout", widget: "hidden" }
-            - { label: "Title", name: "title", widget: "string" }
-            - { label: "Navigation Text", name: "navText", widget: "string"  }
-            - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: true }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Navigation Text", name: "navText", widget: "string"  }
+          - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: true }
 
-            - label: "Hero"
-              name: "hero"
-              widget: "object"
-              fields:
-                - { label: "Tagline", name: "tagline", widget: "text" }
-                - { label: "Host Description", name: "hostDescription", widget: "string" }
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Tagline", name: "tagline", widget: "text" }
+              - { label: "Host Description", name: "hostDescription", widget: "string" }
 
-            - { label: "Enable Registration", name: "enableRegistration", widget: "boolean", default: false }
-            - { label: "Registration Coming Soon Text", name: "registrationComingSoonText", widget: "string" }
-            - { label: "Registration Button Text", name: "registrationButtonText", widget: "string" }
+          - { label: "Enable Registration", name: "enableRegistration", widget: "boolean", default: false }
+          - { label: "Registration Coming Soon Text", name: "registrationComingSoonText", widget: "string" }
+          - { label: "Registration Button Text", name: "registrationButtonText", widget: "string" }
 
-            - label: "Schedule and Sessions"
-              name: "schedule"
-              widget: "object"
-              fields:
-                - { label: "Header", name: "header", widget: "string" }
-                - { label: "Coming Soon Text", name: "comingSoonText", widget: "text" }
-                - { label: "Previous Year Schedule Text", name: "previousYearScheduleText", widget: "string" }
+          - label: "Schedule and Sessions"
+            name: "schedule"
+            widget: "object"
+            fields:
+              - { label: "Header", name: "header", widget: "string" }
+              - { label: "Coming Soon Text", name: "comingSoonText", widget: "text" }
+              - { label: "Previous Year Schedule Text", name: "previousYearScheduleText", widget: "string" }
 
-            - label: "About CWITA"
-              name: "about"
-              widget: "object"
-              fields:
-                - { label: "Header", name: "header", widget: "string" }
-                - { label: "About Text", name: "aboutText", widget: "text" }
-                - { label: "Read More Text", name: "readMoreText", widget: "string" }
+          - label: "About CWITA"
+            name: "about"
+            widget: "object"
+            fields:
+              - { label: "Header", name: "header", widget: "string" }
+              - { label: "About Text", name: "aboutText", widget: "text" }
+              - { label: "Read More Text", name: "readMoreText", widget: "string" }
 
-            - label: "Registration"
-              name: "registration"
-              widget: "object"
-              fields:
-                - { label: "Header", name: "header", widget: "string" }
-                - { label: "Scholarship Info Text", name: "scholarshipInfoText", widget: "text" }
-                - { label: "Accomodation Info Text", name: "accomodationInfoText", widget: "string" }
-                - { label: "Registration Prompt", name: "registrationPrompt", widget: "string" }
+          - label: "Registration"
+            name: "registration"
+            widget: "object"
+            fields:
+              - { label: "Header", name: "header", widget: "string" }
+              - { label: "Scholarship Info Text", name: "scholarshipInfoText", widget: "text" }
+              - { label: "Accomodation Info Text", name: "accomodationInfoText", widget: "string" }
+              - { label: "Registration Prompt", name: "registrationPrompt", widget: "string" }
 
-            - label: "Sponsors"
-              name: "sponsors"
-              widget: "object"
-              fields:
-                - { label: "Header", name: "header", widget: "string" }
-                - label: "Platnium Sponsors"
-                  name: "platniumSponsors"
-                  widget: "list"
-                  fields:
-                    - { label: "Logo", name: "logo", widget: "image" }
-                    - { label: "URL", name: "url", widget: "string" }
-                - label: "Gold Sponsors"
-                  name: "goldSponsors"
-                  widget: "list"
-                  fields:
-                    - { label: "Logo", name: "logo", widget: "image" }
-                    - { label: "URL", name: "url", widget: "string" }
-                - label: "Silver Sponsors"
-                  name: "silverSponsors"
-                  widget: "list"
-                  fields:
-                    - { label: "Logo", name: "logo", widget: "image" }
-                    - { label: "URL", name: "url", widget: "string" }
-                - label: "Bronze Sponsors"
-                  name: "bronzeSponsors"
-                  widget: "list"
-                  fields:
-                    - { label: "Logo", name: "logo", widget: "image" }
-                    - { label: "URL", name: "url", widget: "string" }
-                - { label: "Sponsor Prompt", name: "sponsorPrompt", widget: "string" }
+          - label: "Sponsors"
+            name: "sponsors"
+            widget: "object"
+            fields:
+              - { label: "Header", name: "header", widget: "string" }
+              - label: "Platnium Sponsors"
+                name: "platniumSponsors"
+                widget: "list"
+                fields:
+                  - { label: "Logo", name: "logo", widget: "image" }
+                  - { label: "URL", name: "url", widget: "string" }
+              - label: "Gold Sponsors"
+                name: "goldSponsors"
+                widget: "list"
+                fields:
+                  - { label: "Logo", name: "logo", widget: "image" }
+                  - { label: "URL", name: "url", widget: "string" }
+              - label: "Silver Sponsors"
+                name: "silverSponsors"
+                widget: "list"
+                fields:
+                  - { label: "Logo", name: "logo", widget: "image" }
+                  - { label: "URL", name: "url", widget: "string" }
+              - label: "Bronze Sponsors"
+                name: "bronzeSponsors"
+                widget: "list"
+                fields:
+                  - { label: "Logo", name: "logo", widget: "image" }
+                  - { label: "URL", name: "url", widget: "string" }
+              - { label: "Sponsor Prompt", name: "sponsorPrompt", widget: "string" }
 
-            # Social Media Sharing
-            - { label: "Social Media Share Description", name: "socialShareDescription", widget: "string" }
-            - { label: "Social Media Share Image", name: "socialShareImage", widget: "image" }
+          # Social Media Sharing
+          - { label: "Social Media Share Description", name: "socialShareDescription", widget: "string" }
+          - { label: "Social Media Share Image", name: "socialShareImage", widget: "image" }
 
-            # Sitemap Generation
-            - { label: "Sitemap Change Frequency", name: "changefreq", widget: "hidden" }
-            - { label: "Sitemap Priority", name: "priority", widget: "hidden" }
-            - { label: "Include in Sitemap", name: "private", widget: "hidden" }
+          # Sitemap Generation
+          - { label: "Sitemap Change Frequency", name: "changefreq", widget: "hidden" }
+          - { label: "Sitemap Priority", name: "priority", widget: "hidden" }
+          - { label: "Include in Sitemap", name: "private", widget: "hidden" }
 
   - name: "about"
     label: "About"
@@ -130,21 +130,21 @@ collections:
         file: "src/site/about.md"
         description: "About Page"
         fields:
-            - { label: "Layout", name: "layout", widget: "hidden" }
-            - { label: "Title", name: "title", widget: "string" }
-            - { label: "Navigation Text", name: "navText", widget: "string" }
-            - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
-            - { label: "Discover Wisconsin Link", name: "discoverWisLink", widget: "string", default: 'https://www.cwitc.org/our-community' }
-            - { label: "Page Content", name: "body", widget: "markdown" }
+          - { label: "Layout", name: "layout", widget: "hidden" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Navigation Text", name: "navText", widget: "string" }
+          - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
+          - { label: "Discover Wisconsin Link", name: "discoverWisLink", widget: "string", default: 'https://www.cwitc.org/our-community' }
+          - { label: "Page Content", name: "body", widget: "markdown" }
 
-            # Social Media Sharing
-            - { label: "Social Media Share Description", name: "socialShareDescription", widget: "string" }
-            - { label: "Social Media Share Image", name: "socialShareImage", widget: "image" }
+          # Social Media Sharing
+          - { label: "Social Media Share Description", name: "socialShareDescription", widget: "string" }
+          - { label: "Social Media Share Image", name: "socialShareImage", widget: "image" }
 
-            # Sitemap Generation
-            - { label: "Sitemap Change Frequency", name: "changefreq", widget: "hidden" }
-            - { label: "Sitemap Priority", name: "priority", widget: "hidden" }
-            - { label: "Include in Sitemap", name: "private", widget: "hidden" }
+          # Sitemap Generation
+          - { label: "Sitemap Change Frequency", name: "changefreq", widget: "hidden" }
+          - { label: "Sitemap Priority", name: "priority", widget: "hidden" }
+          - { label: "Include in Sitemap", name: "private", widget: "hidden" }
 
   - name: "conduct"
     label: "Code Of Conduct"
@@ -158,20 +158,20 @@ collections:
         file: "src/site/code-of-conduct.md"
         description: "Code Of conduct Page"
         fields:
-            - { label: "Layout", name: "layout", widget: "hidden" }
-            - { label: "Title", name: "title", widget: "string" }
-            - { label: "Navigation Text", name: "navText", widget: "string" }
-            - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
-            - { label: "Page Content", name: "body", widget: "markdown" }
+          - { label: "Layout", name: "layout", widget: "hidden" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Navigation Text", name: "navText", widget: "string" }
+          - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
+          - { label: "Page Content", name: "body", widget: "markdown" }
 
-            # Social Media Sharing
-            - { label: "Social Media Share Description", name: "socialShareDescription", widget: "string" }
-            - { label: "Social Media Share Image", name: "socialShareImage", widget: "image" }
+          # Social Media Sharing
+          - { label: "Social Media Share Description", name: "socialShareDescription", widget: "string" }
+          - { label: "Social Media Share Image", name: "socialShareImage", widget: "image" }
 
-            # Sitemap Generation
-            - { label: "Sitemap Change Frequency", name: "changefreq", widget: "hidden" }
-            - { label: "Sitemap Priority", name: "priority", widget: "hidden" }
-            - { label: "Include in Sitemap", name: "private", widget: "hidden" }
+          # Sitemap Generation
+          - { label: "Sitemap Change Frequency", name: "changefreq", widget: "hidden" }
+          - { label: "Sitemap Priority", name: "priority", widget: "hidden" }
+          - { label: "Include in Sitemap", name: "private", widget: "hidden" }
 
   - name: "community"
     label: "Community"
@@ -185,37 +185,41 @@ collections:
         file: "src/site/our-community.md"
         description: "Community Page"
         fields:
-            - { label: "Layout", name: "layout", widget: "hidden" }
-            - { label: "Title", name: "title", widget: "string" }
-            - { label: "Navigation Text", name: "navText", widget: "string" }
-            - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
-            - { label: "Community Links Header", name: "communityLinksHeader", widget: "string" }
-            - label: "Community Links"
-              name: "communityLinks"
-              widget: "list"
-                  fields:
-                    - { label: "Link Text", name: "linkText", widget: "string" }
-                    - { label: "URL", name: "url", widget: "string" }
-            - { label: "Accommodations Header", name: "accommodationsHeader", widget: "string" }
-            - label: "Accommodations"
-              name: "accommodations"
-              widget: "object"
-              fields:
-                - { label: "Description", name: "description", widget: "string" }
-                - { label: "Address Line 1", name: "addressLine1", widget: "string" }
-                - { label: "Address Line 3", name: "addressLine2", widget: "string" }
-                - { label: "Address Line 3", name: "addressLine3", widget: "string" }
-                - { label: "Telephone", name: "telephone", widget: "string" }
-            - { label: "Page Content", name: "body", widget: "markdown" }
+          - { label: "Layout", name: "layout", widget: "hidden" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Navigation Text", name: "navText", widget: "string" }
+          - { label: "Hide From Navigation", name: "hideFromNav", widget: "boolean", default: false }
+          - { label: "Page Content", name: "body", widget: "markdown" }
 
-            # Social Media Sharing
-            - { label: "Social Media Share Description", name: "socialShareDescription", widget: "string" }
-            - { label: "Social Media Share Image", name: "socialShareImage", widget: "image" }
+          # Community Links
+          - { label: "Community Links Header", name: "communityLinksHeader", widget: "string" }
+          - label: "Community Links"
+            name: "communityLinks"
+            widget: "list"
+            fields:
+              - { label: "Link Text", name: "linkText", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
 
-            # Sitemap Generation
-            - { label: "Sitemap Change Frequency", name: "changefreq", widget: "hidden" }
-            - { label: "Sitemap Priority", name: "priority", widget: "hidden" }
-            - { label: "Include in Sitemap", name: "private", widget: "hidden" }
+          # Accommodations
+          - { label: "Accommodations Header", name: "accommodationsHeader", widget: "string" }
+          - label: "Accommodations"
+            name: "accommodations"
+            widget: "object"
+            fields:
+              - { label: "Description", name: "description", widget: "string" }
+              - { label: "Address Line 1", name: "addressLine1", widget: "string" }
+              - { label: "Address Line 3", name: "addressLine2", widget: "string" }
+              - { label: "Address Line 3", name: "addressLine3", widget: "string" }
+              - { label: "Telephone", name: "telephone", widget: "string" }
+
+          # Social Media Sharing
+          - { label: "Social Media Share Description", name: "socialShareDescription", widget: "string" }
+          - { label: "Social Media Share Image", name: "socialShareImage", widget: "image" }
+
+          # Sitemap Generation
+          - { label: "Sitemap Change Frequency", name: "changefreq", widget: "hidden" }
+          - { label: "Sitemap Priority", name: "priority", widget: "hidden" }
+          - { label: "Include in Sitemap", name: "private", widget: "hidden" }
 
   - name: "settings"
     label: "Global Settings"
