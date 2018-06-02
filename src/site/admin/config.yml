@@ -210,8 +210,8 @@ collections:
               - { label: "Address Line 1", name: "addressLine1", widget: "string" }
               - { label: "Address Line 3", name: "addressLine2", widget: "string" }
               - { label: "Address Line 3", name: "addressLine3", widget: "string" }
-              - label: "URL"
-                name: "url"
+              - label: "Website"
+                name: "website"
                 widget: "object"
                 fields: 
                   - { label: "Link Text", name: "linkText", widget: "string" }
