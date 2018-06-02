@@ -12,6 +12,9 @@ accommodations:
   addressLine1: "Cobblestone Hotel & Suites"
   addressLine2: "1117 Centerpoint Drive"
   addressLine3: "Stevens Point, WI 54481"
+  website: 
+    linkText: "www.staycobblestone.com"
+    url: "https://www.staycobblestone.com/wi/stevens-point/"
   telephone: "715-343-0522"
 communityLinksHeader: "Discover Central Wisconsin!"
 communityLinks:
