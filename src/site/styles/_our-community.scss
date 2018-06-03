@@ -25,10 +25,13 @@
   }
 
   .page-hero {
-    background: url(/assets/about_hero_background.png);
-    color: #fff;
+    background: url(/assets/our_community_hero_background.png), $brand-dark;
+    background-blend-mode: multiply;
+    background-position: center bottom;
+    background-size: 100% auto;
+    height: 300px;
     margin-bottom: 3rem;
-    min-height: 300px;
+    color: #fff;
   }
 
 }
