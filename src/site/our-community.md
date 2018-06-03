@@ -4,7 +4,7 @@ title: Central Wisconsin Community
 navText: Community
 hideFromNav: false
 changefreq: monthly
-priority: 1.0
+priority: 0.5
 private: false
 accommodationsHeader: "Accommodations"
 accommodations:
