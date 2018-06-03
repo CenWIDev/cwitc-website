@@ -28,10 +28,20 @@
     background: url(/assets/our_community_hero_background.png), rgba(120,120,120,1);
     background-blend-mode: multiply;
     background-position: center bottom;
-    background-size: 100% auto;
+    background-size: auto 100%;
     height: 300px;
     margin-bottom: 3rem;
     color: #fff;
+
+    h1 {
+      text-align: center;
+    }
+  }
+
+  @media(min-width: 672px) {
+    .page-hero {
+      background-size: 100% auto;
+    }
   }
 
 }
