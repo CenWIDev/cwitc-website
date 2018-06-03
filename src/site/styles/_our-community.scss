@@ -28,10 +28,7 @@
     background: url(/assets/our_community_hero_background.png), lighten($brand-dark, 40);
     background-blend-mode: multiply;
     background-position: center bottom;
-    background-size: 100% auto;
-    @include media-breakpoint-down(sm) {
-      background-size: auto 100%;
-    }
+    background-size: cover;
     height: 300px;
     margin-bottom: 3rem;
     color: $brand-light;
