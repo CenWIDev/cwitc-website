@@ -1,0 +1,32 @@
+@import "vars";
+
+.venue {
+  display: flex;
+  flex-direction: column;
+
+  .page-hero {
+    background: url(/assets/our_community_hero_background.png), lighten($brand-dark, 40);
+    background-blend-mode: multiply;
+    background-position: center bottom;
+    background-size: cover;
+    height: 300px;
+    color: $brand-light;
+    flex-direction: column;
+
+    h1, h2 {
+      text-align: center;
+    }
+  }
+
+  div.map {
+    width: 100vw;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: coral;
+    font-weight: bold;
+  }
+
+}
