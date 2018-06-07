@@ -5,20 +5,22 @@
 
 $svg-height: 20vh;
 $hero-height: 70vh;
+$xxs-hero-height: 80vh;
+$xxs: 340px;
+$safari-svg-fix: 0.5px;
 
 .header {
   padding: 0;
-
-  .container {
-    position: relative;
-    z-index: 1;
-  }
 
   &.home-header {
     background: url(/assets/hero_background.jpg), $brand-dark;
     background-blend-mode: multiply;
     background-position: center bottom;
     height: $hero-height;
+
+    @media (max-width: $xxs) {
+      height: $xxs-hero-height;
+    }
   }
 
   &.standard-header {
@@ -53,6 +55,8 @@ $hero-height: 70vh;
   }
 
   .cta {
+    position: relative;
+    z-index: 1;
     color: $brand-light;
     text-align: center;
 
@@ -80,7 +84,14 @@ $hero-height: 70vh;
     position: absolute;
     width: 100%;
     height: $svg-height;
-    top: $hero-height - $svg-height;
+
+    // add half pixel to correct ios safari...
+    top: calc(#{$hero-height} - #{$svg-height} + #{$safari-svg-fix});
+
+    @media (max-width: $xxs) {
+      top: calc(#{$xxs-hero-height} - #{$svg-height} + #{$safari-svg-fix});
+    }
+
     fill: $background;
   }
 }
