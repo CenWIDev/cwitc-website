@@ -9,6 +9,11 @@ $hero-height: 70vh;
 .header {
   padding: 0;
 
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+
   &.home-header {
     background: url(/assets/hero_background.jpg), $brand-dark;
     background-blend-mode: multiply;
@@ -50,10 +55,10 @@ $hero-height: 70vh;
   .cta {
     color: $brand-light;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 50%;
+
+    @include media-breakpoint-down(xs) {
+      h1 { font-size: 1.5rem; }
+    }
 
     .conference-date {
       margin-right: 20px;
@@ -61,6 +66,13 @@ $hero-height: 70vh;
 
     .conference-times {
       margin-left: 20px;
+    }
+
+    .register-cta {
+
+      p {
+        margin-bottom: 0;
+      }
     }
   }
 
