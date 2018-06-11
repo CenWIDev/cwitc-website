@@ -11,13 +11,40 @@
     <div class="container cta">
       <div class="row">
         <h1 class="col-12">{{ siteName }}</h1>
+      </div>
+      <div class="row">
         <h3 class="col-lg-3 offset-lg-3 col-xs-12 d-lg-flex justify-content-lg-end">{{moment conferenceDate 'LL'}}</h3>
         <h3 class="col-lg-3 col-xs-12 d-lg-flex justify-content-lg-start">{{moment conferenceStartTime 'LT'}} - {{moment conferenceEndTime 'LT'}}</h3>
-        <p class="col-12">{{registrationComingSoonText}}</p>
       </div>
+
+      <div class="row">
+        <p class="col-12">{{ hero.hostDescription }}</p>
+      </div>
+
+      {{#if enableRegistration}}
+        <div class="row justify-content-center mt-3 mt-lg-3">
+          <div class="register-cta col-md-9">
+            <div class="row">
+              <div class="col-lg-5 col-md-12 d-lg-flex">
+                <div class="d-flex flex-wrap align-items-center justify-content-around mb-3 mb-lg-0">
+                  <a class="btn btn-lg btn-secondary col-12 col-md-5 col-lg-12" href="{{registrationUrl}}" role="button">{{registrationButtonText}}</a>
+                  <a class="btn btn-lg btn-primary col-12 col-md-5 col-lg-12 mt-2 mt-md-0" href="{{sponsorUrl}}" role="button">{{sponsorButtonText}}</a>
+                </div>
+              </div>
+              <div class="col-12 col-lg-7 text-left d-none d-md-block">
+                  <p>{{ hero.tagline }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{else}}
+        <div class="row">
+          <p class="col-12">{{disabledRegistrationText}}</p>
+        </div>
+      {{/if}}
     </div>
 
-    {{!-- Adds Edge to backgroud image --}}
+    {{!-- Adds Diagonal Edge to backgroud image --}}
     <svg viewBox="0 0 10 10" preserveAspectRatio="none">
       <polygon stroke-width="0" points="0,10 10,0, 10,10" />
     </svg>
