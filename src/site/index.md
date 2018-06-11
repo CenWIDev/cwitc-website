@@ -11,7 +11,7 @@ hero:
     technologists to senior level managers to explore new ideas and share
     knowledge. Entrepreneurs and educators will also be in attendance.
 enableRegistration: true
-registrationComingSoonText: Registration Opening Soon!
+disabledRegistrationText: Registration Opening Soon!
 registrationButtonText: Register Now
 registrationUrl: >-
   https://www.eventbrite.com/e/2018-central-wisconsin-it-conference-registration-43204463714

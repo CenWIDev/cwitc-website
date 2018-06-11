@@ -50,7 +50,7 @@ collections:
               - { label: "Host Description", name: "hostDescription", widget: "string" }
 
           - { label: "Enable Registration", name: "enableRegistration", widget: "boolean", default: false }
-          - { label: "Registration Coming Soon Text", name: "registrationComingSoonText", widget: "string" }
+          - { label: "Disabled Registration Text", name: "disabledRegistrationText", widget: "string" }
           - { label: "Registration Button Text", name: "registrationButtonText", widget: "string" }
           - { label: "Registration URL", name: "registrationUrl", widget: "string" }
           - { label: "Sponsor Button Text", name: "sponsorButtonText", widget: "string" }
