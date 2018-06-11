@@ -10,8 +10,8 @@ hero:
     bring together IT professionals from the Midwest, from entry-level
     technologists to senior level managers to explore new ideas and share
     knowledge. Entrepreneurs and educators will also be in attendance.
-enableRegistration: true
-disabledRegistrationText: Registration Opening Soon!
+enableRegistration: false
+disabledRegistrationText: Thanks for a great conference! See you next year!
 registrationButtonText: Register Now
 registrationUrl: >-
   https://www.eventbrite.com/e/2018-central-wisconsin-it-conference-registration-43204463714
