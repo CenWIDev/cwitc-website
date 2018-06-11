@@ -18,33 +18,33 @@
       </div>
 
       <div class="row">
-        {{!-- <p class="col-12">{{registrationComingSoonText}}</p> --}}
         <p class="col-12">{{ host.description }}</p>
       </div>
 
-      <div class="row justify-content-center mt-3 mt-lg-3">
-        <div class="register-cta col-md-9">
-          <div class="row">
-            <div class="col-lg-5 col-md-12 d-lg-flex">
-              <div class="d-flex flex-wrap align-items-center justify-content-around mb-3 mb-lg-0">
-                <a class="btn btn-lg btn-secondary col-12 col-md-5 col-lg-12" href="//www.google.com" role="button">Register Now</a>
-                <a class="btn btn-lg btn-primary col-12 col-md-5 col-lg-12 mt-2 mt-md-0" href="//www.google.com" role="button">Become a Sponsor</a>
+      {{#if enableRegistration}}
+        <div class="row justify-content-center mt-3 mt-lg-3">
+          <div class="register-cta col-md-9">
+            <div class="row">
+              <div class="col-lg-5 col-md-12 d-lg-flex">
+                <div class="d-flex flex-wrap align-items-center justify-content-around mb-3 mb-lg-0">
+                  <a class="btn btn-lg btn-secondary col-12 col-md-5 col-lg-12" href="{{registrationUrl}}" role="button">{{registrationButtonText}}</a>
+                  <a class="btn btn-lg btn-primary col-12 col-md-5 col-lg-12 mt-2 mt-md-0" href="{{sponsorUrl}}" role="button">{{sponsorButtonText}}</a>
+                </div>
               </div>
-            </div>
-            <div class="col-12 col-lg-7 text-left d-none d-md-block">
-                <p>{{ host.tagline }}</p>
-                {{!-- <div class="card">
-                  <div class="card-body">
-                    <p>{{ host.tagline }}</p>
-                  </div>
-                </div> --}}
+              <div class="col-12 col-lg-7 text-left d-none d-md-block">
+                  <p>{{ host.tagline }}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      {{else}}
+        <div class="row">
+          <p class="col-12">{{registrationComingSoonText}}</p>
+        </div>
+      {{/if}}
     </div>
 
-    {{!-- Adds Edge to backgroud image --}}
+    {{!-- Adds Diagonal Edge to backgroud image --}}
     <svg viewBox="0 0 10 10" preserveAspectRatio="none">
       <polygon stroke-width="0" points="0,10 10,0, 10,10" />
     </svg>
