@@ -34,7 +34,7 @@ module.exports = {
       options: contentfulConfig,
     },
     {
-      resolve: `gatsby-plugin-emotion`,
+      resolve: `gatsby-plugin-styled-components`,
     },
   ],
 }
