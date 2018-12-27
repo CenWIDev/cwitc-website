@@ -28,6 +28,14 @@ If you're looking to contribute, get in contact with Josh Evenson ([@joshin_my_t
     Rename **`empty.env`** to **`.env`** and set your Contentful API variables.
     This file is purposely in `.gitignore`. Contact Josh Evenson for access to Contentful API keys.
 
+1. **Add empty.env to git exclude**
+
+    Edit the `.git/info/exclude` file in the working directory, and add a new line with the text `empty.env`
+    Run the following git command:
+    ```sh
+    git update-index --assume-unchanged empty.env
+    ```
+
 1.  **Start developing.**
 
     Navigate into your new site’s directory and start it up.
