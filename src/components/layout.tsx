@@ -4,7 +4,7 @@ import { StaticQuery, graphql } from 'gatsby';
 
 import Header from './header';
 
-import './layout.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 type Props = {
     children: React.ReactNode;
@@ -13,41 +13,25 @@ type Props = {
 const Layout = ({ children }: Props) => (
     <StaticQuery
         query={graphql`
-            query PageTitleQuery {
-                allContentfulHome {
-                    edges {
-                        node {
-                            name
-                            hidePageFromNav
-                        }
-                    }
-                }
-                site {
-                    siteMetadata {
-                        title
-                    }
+            query GlobalSiteSettings {
+                contentfulGlobalSiteSettings {
+                    siteName
                 }
             }
         `}
-        render={data => (
+        render={({ contentfulGlobalSiteSettings }) => (
             <>
                 <Helmet
-                    title={ `${data.allContentfulHome.edges[0].node.name} - ${ data.site.siteMetadata.title }` }
+                    title={`${ contentfulGlobalSiteSettings.siteName }`}
                     meta={[
                         { name: 'description', content: 'Sample' },
                         { name: 'keywords', content: 'sample, something' }
                     ]}>
                     <html lang="en" />
                 </Helmet>
-                <Header siteTitle={data.allContentfulHome.edges[0].node.name} />
-                <div
-                    style={{
-                        margin: '0 auto',
-                        maxWidth: 960,
-                        padding: '0px 1.0875rem 1.45rem',
-                        paddingTop: 0
-                    }}>
-                    {children}
+                <Header />
+                <div className="container">
+                    { children }
                 </div>
             </>
         )}

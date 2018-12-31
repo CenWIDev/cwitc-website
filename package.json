@@ -6,6 +6,7 @@
   "dependencies": {
     "@types/react-helmet": "^5.0.7",
     "babel-plugin-styled-components": "^1.10.0",
+    "bootstrap": "^4.2.1",
     "dotenv": "^6.0.0",
     "gatsby": "^2.0.0",
     "gatsby-plugin-manifest": "^2.0.2",

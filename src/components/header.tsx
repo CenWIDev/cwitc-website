@@ -1,34 +1,42 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { StaticQuery, graphql } from 'gatsby';
 
-type Props = {
-    siteTitle: string;
+type HeaderNavigationPage = {
+    slug: string;
+    navigationText: string;
 };
 
-const Header = ({ siteTitle }: Props) => (
-    <div
-        style={{
-            background: 'rebeccapurple',
-            marginBottom: '1.45rem'
-        }}>
-        <div
-            style={{
-                margin: '0 auto',
-                maxWidth: 960,
-                padding: '1.45rem 1.0875rem'
-            }}>
-            <h1 style={{ margin: 0 }}>
-                <Link
-                    to="/"
-                    style={{
-                        color: 'white',
-                        textDecoration: 'none'
-                    }}>
-                    {siteTitle}
-                </Link>
-            </h1>
-        </div>
-    </div>
+const Header = () => (
+    <StaticQuery
+        query={graphql`
+            query NavigationQuery {
+                contentfulGlobalSiteSettings {
+                    headerLogo {
+                        resize(width: 500) {
+                            src
+                        }
+                    }
+                    headerNavigationPages {
+                        navigationText
+                        slug
+                    }
+                }
+            }
+        `}
+        render={({ contentfulGlobalSiteSettings }) => (
+            <div className="navbar nav-bar-light bg-light justify-content-between">
+                <img src={ contentfulGlobalSiteSettings.headerLogo.resize.src }></img>
+                <ul className="nav">
+                    {contentfulGlobalSiteSettings.headerNavigationPages.map(({ slug, navigationText }: HeaderNavigationPage) => (
+                        <li className="nav-item" key={ slug }>
+                            <Link to={ slug } className="nav-link">{ navigationText }</Link>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        )}
+    />
 );
 
 export default Header;
