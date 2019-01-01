@@ -9,7 +9,7 @@ type HeaderNavigationPage = {
 };
 
 const HeaderWrapper = styled.header`
-    background-color: rgba(47, 46, 46, 1);
+    background-color: ${ props => props.theme.brandDark };
 `;
 
 const HeaderLogo = styled.img`

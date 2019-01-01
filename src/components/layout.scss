@@ -1,11 +1,2 @@
-$brand-primary: rgba(236, 47, 75, 1);
-$brand-secondary: rgba(34, 165, 211, 1);
-$brand-dark: rgba(47, 46, 46, 1);
-
-$theme-colors: (
-    "primary": $brand-primary,
-    "secondary": $brand-secondary,
-    "dark": $brand-dark,
-);
-
+@import './vars';
 @import 'node_modules/bootstrap/scss/bootstrap';
