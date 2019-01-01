@@ -28,6 +28,7 @@ module.exports = {
     'gatsby-plugin-offline',
     `gatsby-plugin-typescript`,
     'gatsby-transformer-remark',
+    'gatsby-plugin-sass',
     'gatsby-plugin-sharp',
     {
       resolve: `gatsby-source-contentful`,

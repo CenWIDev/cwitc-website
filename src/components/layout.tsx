@@ -4,7 +4,7 @@ import { StaticQuery, graphql } from 'gatsby';
 
 import Header from './header';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './layout.scss';
 
 type Props = {
     children: React.ReactNode;
