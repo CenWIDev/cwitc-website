@@ -4,6 +4,7 @@
   "version": "0.3.0",
   "author": "Filip Havrlent <filip@havrlent.com>",
   "dependencies": {
+    "@contentful/gatsby-transformer-contentful-richtext": "^12.1.2",
     "@types/react-helmet": "^5.0.7",
     "babel-plugin-styled-components": "^1.10.0",
     "bootstrap": "^4.2.1",

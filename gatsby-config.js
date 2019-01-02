@@ -34,6 +34,7 @@ module.exports = {
       resolve: `gatsby-source-contentful`,
       options: contentfulConfig,
     },
+    '@contentful/gatsby-transformer-contentful-richtext',
     {
       resolve: `gatsby-plugin-styled-components`,
     },
