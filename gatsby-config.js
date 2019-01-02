@@ -38,5 +38,6 @@ module.exports = {
     {
       resolve: `gatsby-plugin-styled-components`,
     },
-  ],
+    'gatsby-plugin-netlify' // This must be last in the config list
+  ]
 }
