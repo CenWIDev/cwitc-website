@@ -8,21 +8,18 @@ const contentfulConfig = {
 }
 
 module.exports = {
-  siteMetadata: {
-    title: 'Gatsby Contentful TypeScript starter',
-  },
   plugins: [
     'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: 'gatsby-starter-contentful-typescript',
-        short_name: 'starter',
+        name: 'Central Wisconsin IT Conference',
+        short_name: 'CWITC',
         start_url: '/',
-        background_color: '#663399',
-        theme_color: '#663399',
-        display: 'minimal-ui',
-        icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
+        background_color: '#ec2f4b',
+        theme_color: '#ec2f4b',
+        display: 'browser',
+        icon: 'src/images/favicon.png', // This path is relative to the root of the site.
       },
     },
     'gatsby-plugin-offline',
