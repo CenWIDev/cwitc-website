@@ -8,18 +8,18 @@ type HeaderNavigationPage = {
     navigationText: string;
 };
 
-const HeaderWrapper = styled.header`
-    background-color: ${ props => props.theme.brandDark };
-`;
-
 const HeaderLogo = styled.img`
     height: 5vw;
 `;
 
 const NavigationWrapper = styled.ul`
-    a { color: white; }
+    a {
+        color: ${ props => props.theme.brandWhite };
 
-    a:hover { color: lightgrey; }
+        &:hover {
+            color: ${ props => props.theme.brandGray };
+        }
+    }
 `;
 
 const Header = () => (
@@ -40,7 +40,7 @@ const Header = () => (
             }
         `}
         render={({ contentfulGlobalSiteSettings }) => (
-            <HeaderWrapper>
+            <header className="bg-dark">
                 <div className="container">
                     <div className="navbar justify-content-between">
                         <HeaderLogo src={ contentfulGlobalSiteSettings.headerLogo.resize.src }></HeaderLogo>
@@ -53,7 +53,7 @@ const Header = () => (
                         </NavigationWrapper>
                     </div>
                 </div>
-            </HeaderWrapper>
+            </header>
         )}
     />
 );
