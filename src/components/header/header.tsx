@@ -27,18 +27,18 @@ const Header = () => (
             }
         `}
         render={({ contentfulGlobalSiteSettings }) => (
-            <header className="bg-dark">
-                <div className="container">
-                    <div className="navbar justify-content-between">
+            <header>
+                <div>
+                    <div>
                         <HeaderLogo src={ contentfulGlobalSiteSettings.headerLogo.resize.src }></HeaderLogo>
-                        <NavigationWrapper className="nav">
+                        <NavigationWrapper>
                             {contentfulGlobalSiteSettings.headerNavigationPages.map(({ slug, navigationText }: HeaderNavigationPage) => (
-                                <li className="nav-item" key={ slug }>
-                                    <Link to={ slug } className="nav-link">{ navigationText }</Link>
+                                <li key={ slug }>
+                                    <Link to={ slug }>{ navigationText }</Link>
                                 </li>
                             ))}
                         </NavigationWrapper>
-                        <NavigationMenuButton className="btn btn-outline-light" type="button">
+                        <NavigationMenuButton type="button">
                             <span>Menu</span>
                         </NavigationMenuButton>
                     </div>

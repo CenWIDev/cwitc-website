@@ -30,7 +30,7 @@ const Layout = ({ children }: Props) => (
                     <html lang="en" />
                 </Helmet>
                 <Header />
-                <div className="container">
+                <div>
                     { children }
                 </div>
             </>

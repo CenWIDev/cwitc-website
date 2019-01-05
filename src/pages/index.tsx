@@ -12,14 +12,14 @@ class IndexPage extends Component {
   render() {
     return (
       <Layout>
-        <div className="row">
-          <div className="col">
+        <div>
+          <div>
             <Header>Hi people</Header>
             <p>Welcome to your new Gatsby site.</p>
             <p>Now go build something great.</p>
             <Link to="/page-2/">Go to page 2</Link>
           </div>
-          <div className="col">
+          <div>
             <Header>Hi people</Header>
             <p>Welcome to your new Gatsby site.</p>
             <p>Now go build something great.</p>
