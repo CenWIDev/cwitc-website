@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { StaticQuery, graphql } from 'gatsby';
 
-import { HeaderLogo, NavigationMenuButton, NavigationWrapper } from './styled';
+import { HeaderWrapper, HeaderLogo, NavigationMenuButton, NavigationItems } from './styled';
 
 type HeaderNavigationPage = {
     slug: string;
@@ -27,23 +27,19 @@ const Header = () => (
             }
         `}
         render={({ contentfulGlobalSiteSettings }) => (
-            <header>
-                <div>
-                    <div>
-                        <HeaderLogo src={ contentfulGlobalSiteSettings.headerLogo.resize.src }></HeaderLogo>
-                        <NavigationWrapper>
-                            {contentfulGlobalSiteSettings.headerNavigationPages.map(({ slug, navigationText }: HeaderNavigationPage) => (
-                                <li key={ slug }>
-                                    <Link to={ slug }>{ navigationText }</Link>
-                                </li>
-                            ))}
-                        </NavigationWrapper>
-                        <NavigationMenuButton type="button">
-                            <span>Menu</span>
-                        </NavigationMenuButton>
-                    </div>
-                </div>
-            </header>
+            <HeaderWrapper>
+                <HeaderLogo src={ contentfulGlobalSiteSettings.headerLogo.resize.src } />
+                <NavigationItems>
+                    {contentfulGlobalSiteSettings.headerNavigationPages.map(({ slug, navigationText }: HeaderNavigationPage) => (
+                        <li key={ slug }>
+                            <Link to={ slug }>{ navigationText }</Link>
+                        </li>
+                    ))}
+                </NavigationItems>
+                <NavigationMenuButton type="button">
+                    <span>Menu</span>
+                </NavigationMenuButton>
+            </HeaderWrapper>
         )}
     />
 );
