@@ -2,7 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { StaticQuery, graphql } from 'gatsby';
 
-import GloalStyle from '../styles/global-style';
+import GlobalStyle from '../styles/global-style';
 import Header from './header/header';
 
 type Props = {
@@ -20,7 +20,7 @@ const Layout = ({ children }: Props) => (
         `}
         render={({ contentfulGlobalSiteSettings }) => (
             <>
-                <GloalStyle />
+                <GlobalStyle />
                 <Helmet
                     title={`${ contentfulGlobalSiteSettings.siteName }`}
                     meta={[

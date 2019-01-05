@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { StaticQuery, graphql } from 'gatsby';
 
+import { Container } from './../layout/container';
 import { HeaderWrapper, HeaderLogo, NavigationMenuButton, NavigationItems } from './styled';
 
 type HeaderNavigationPage = {
@@ -28,17 +29,19 @@ const Header = () => (
         `}
         render={({ contentfulGlobalSiteSettings }) => (
             <HeaderWrapper>
-                <HeaderLogo src={ contentfulGlobalSiteSettings.headerLogo.resize.src } />
-                <NavigationItems>
-                    {contentfulGlobalSiteSettings.headerNavigationPages.map(({ slug, navigationText }: HeaderNavigationPage) => (
-                        <li key={ slug }>
-                            <Link to={ slug }>{ navigationText }</Link>
-                        </li>
-                    ))}
-                </NavigationItems>
-                <NavigationMenuButton type="button">
-                    <span>Menu</span>
-                </NavigationMenuButton>
+                <Container>
+                    <HeaderLogo src={ contentfulGlobalSiteSettings.headerLogo.resize.src } />
+                    <NavigationItems>
+                        {contentfulGlobalSiteSettings.headerNavigationPages.map(({ slug, navigationText }: HeaderNavigationPage) => (
+                            <li key={ slug }>
+                                <Link to={ slug }>{ navigationText }</Link>
+                            </li>
+                        ))}
+                    </NavigationItems>
+                    <NavigationMenuButton type="button">
+                        <span>Menu</span>
+                    </NavigationMenuButton>
+                </Container>
             </HeaderWrapper>
         )}
     />
