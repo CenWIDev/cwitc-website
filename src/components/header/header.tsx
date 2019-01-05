@@ -1,26 +1,13 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import { StaticQuery, graphql } from 'gatsby';
-import styled  from 'styled-components';
+
+import { HeaderLogo, NavigationMenuButton, NavigationWrapper } from './styled';
 
 type HeaderNavigationPage = {
     slug: string;
     navigationText: string;
 };
-
-const HeaderLogo = styled.img`
-    height: 5vw;
-`;
-
-const NavigationWrapper = styled.ul`
-    a {
-        color: ${ props => props.theme.brandWhite };
-
-        &:hover {
-            color: ${ props => props.theme.brandGray };
-        }
-    }
-`;
 
 const Header = () => (
     <StaticQuery
@@ -51,6 +38,9 @@ const Header = () => (
                                 </li>
                             ))}
                         </NavigationWrapper>
+                        <NavigationMenuButton className="btn btn-outline-light" type="button">
+                            <span>Menu</span>
+                        </NavigationMenuButton>
                     </div>
                 </div>
             </header>

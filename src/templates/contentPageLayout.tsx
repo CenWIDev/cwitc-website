@@ -1,7 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 import { graphql } from 'gatsby';
 
-import Layout from './layout';
+import Layout from './../components/layout';
 
 export default class ContentPageLayout extends Component {
 

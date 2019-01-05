@@ -22,7 +22,7 @@ exports.createPages = ({ graphql, actions }) => {
                 data.allContentfulContentPageLayout.edges.forEach(({node}) => {
                     createPage({
                         path: `/${ node.page.slug }`,
-                        component: path.resolve('./src/components/contentPageLayout.tsx'),
+                        component: path.resolve('./src/templates/contentPageLayout.tsx'),
                         context: {
                             slug: node.page.slug
                         }
