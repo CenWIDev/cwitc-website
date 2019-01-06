@@ -6,10 +6,11 @@ import GlobalStyle from '../styles/global-style';
 import Header from './header/header';
 
 type Props = {
+    isHomePage: boolean;
     children: React.ReactNode;
 };
 
-const Layout = ({ children }: Props) => (
+const Layout = ({ isHomePage, children }: Props) => (
     <StaticQuery
         query={graphql`
             query GlobalSiteSettings {
@@ -29,7 +30,7 @@ const Layout = ({ children }: Props) => (
                     ]}>
                     <html lang="en" />
                 </Helmet>
-                <Header />
+                <Header useHero={ isHomePage }/>
                 <div>
                     { children }
                 </div>

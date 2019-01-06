@@ -1,22 +1,25 @@
 import React from 'react';
-import { Link } from 'gatsby';
-import { StaticQuery, graphql } from 'gatsby';
+import { Link, StaticQuery, graphql } from 'gatsby';
 
 import { Container } from './../layout/container';
-import { HeaderWrapper, HeaderLogo, NavigationMenuButton, NavigationItems } from './styled';
+import { HeaderWrapper, HeaderLogo, NavigationItems } from './styled';
 
 type HeaderNavigationPage = {
     slug: string;
     navigationText: string;
 };
 
-const Header = () => (
+type HeaderProps = {
+    useHero: boolean;
+};
+
+const Header = ({ useHero }: HeaderProps) => (
     <StaticQuery
         query={graphql`
             query NavigationQuery {
                 contentfulGlobalSiteSettings {
                     headerLogo {
-                        resize(width: 500) {
+                        fixed(width: 500) {
                             src
                         }
                     }
@@ -24,13 +27,20 @@ const Header = () => (
                         navigationText
                         slug
                     }
+                    homePageHeroImage {
+                        fixed(width: 2541) {
+                            src
+                        }
+                    }
                 }
             }
         `}
         render={({ contentfulGlobalSiteSettings }) => (
-            <HeaderWrapper>
+            <HeaderWrapper useHero={ useHero } image={contentfulGlobalSiteSettings.homePageHeroImage.fixed.src}>
                 <Container>
-                    <HeaderLogo src={ contentfulGlobalSiteSettings.headerLogo.resize.src } />
+                    <Link to="/">
+                        <HeaderLogo src={ contentfulGlobalSiteSettings.headerLogo.fixed.src } />
+                    </Link>
                     <NavigationItems>
                         {contentfulGlobalSiteSettings.headerNavigationPages.map(({ slug, navigationText }: HeaderNavigationPage) => (
                             <li key={ slug }>
@@ -38,9 +48,9 @@ const Header = () => (
                             </li>
                         ))}
                     </NavigationItems>
-                    <NavigationMenuButton type="button">
+                    {/* <NavigationMenuButton type="button">
                         <span>Menu</span>
-                    </NavigationMenuButton>
+                    </NavigationMenuButton> */}
                 </Container>
             </HeaderWrapper>
         )}
