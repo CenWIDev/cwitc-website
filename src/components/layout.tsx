@@ -6,11 +6,11 @@ import GlobalStyle from '../styles/global-style';
 import Header from './header/header';
 
 type Props = {
-    isHomePage: boolean;
+    isHomePage?: boolean ;
     children: React.ReactNode;
 };
 
-const Layout = ({ isHomePage, children }: Props) => (
+const Layout = ({ isHomePage = false, children }: Props) => (
     <StaticQuery
         query={graphql`
             query GlobalSiteSettings {

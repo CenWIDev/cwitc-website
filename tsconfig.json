@@ -12,6 +12,7 @@
     "noImplicitReturns": true,
     "strict": true,
     "strictFunctionTypes": true,
+    "strictPropertyInitialization": false,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "pretty": true,

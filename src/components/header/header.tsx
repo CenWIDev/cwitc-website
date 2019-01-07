@@ -1,13 +1,9 @@
 import React from 'react';
-import { Link, StaticQuery, graphql } from 'gatsby';
+import { StaticQuery, graphql } from 'gatsby';
 
-import { Container } from './../layout/container';
-import { HeaderWrapper, HeaderLogo, NavigationItems } from './styled';
-
-type HeaderNavigationPage = {
-    slug: string;
-    navigationText: string;
-};
+import { Hero } from './../hero/hero';
+import { HeaderWrapper } from './header-wrapper';
+import { Navigation } from './../navigation/navigation';
 
 type HeaderProps = {
     useHero: boolean;
@@ -37,21 +33,10 @@ const Header = ({ useHero }: HeaderProps) => (
         `}
         render={({ contentfulGlobalSiteSettings }) => (
             <HeaderWrapper useHero={ useHero } image={contentfulGlobalSiteSettings.homePageHeroImage.fixed.src}>
-                <Container>
-                    <Link to="/">
-                        <HeaderLogo src={ contentfulGlobalSiteSettings.headerLogo.fixed.src } />
-                    </Link>
-                    <NavigationItems>
-                        {contentfulGlobalSiteSettings.headerNavigationPages.map(({ slug, navigationText }: HeaderNavigationPage) => (
-                            <li key={ slug }>
-                                <Link to={ slug }>{ navigationText }</Link>
-                            </li>
-                        ))}
-                    </NavigationItems>
-                    {/* <NavigationMenuButton type="button">
-                        <span>Menu</span>
-                    </NavigationMenuButton> */}
-                </Container>
+                <Navigation
+                    logoSource={contentfulGlobalSiteSettings.headerLogo.fixed.src}
+                    navigationItems={contentfulGlobalSiteSettings.headerNavigationPages} />
+                <Hero />
             </HeaderWrapper>
         )}
     />
