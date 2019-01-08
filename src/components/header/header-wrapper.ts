@@ -30,6 +30,7 @@ const HeroHeaderWrapper = css`
     background-size: cover;
     align-items: flex-start;
     height: 70vh;
+    min-height: 380px;
 
     @media (orientation: portrait) {
         height: 50vh;
