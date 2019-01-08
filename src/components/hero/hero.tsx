@@ -17,13 +17,35 @@ const HeroWrapper = styled(Container)`
     align-items: center;
 `;
 
+export type HeroConfig = {
+    heading: string;
+    subheading?: string;
+    conferenceDate: string;
+    startTime: string;
+    endTime: string;
+    description: string;
+    primaryButtonText: string;
+    primaryButtonAction?: string;
+    secondaryButtonText: string;
+    secondaryButtonAction?: string;
+};
+
+type HeroProps = {
+    config: HeroConfig;
+};
+
 export class Hero extends Component {
 
+    public props: HeroProps;
+
     public render(): ReactNode {
+        const { config } = this.props;
+
         return (
             <HeroWrapper>
-                <Heading>Hero Component</Heading>
-                <Subheading>Subheading</Subheading>
+                <Heading>{ config.heading }</Heading>
+                <Subheading>{ config.conferenceDate }</Subheading>
+                <Subheading>{ config.startTime } - { config.endTime }</Subheading>
 
             </HeroWrapper>
         );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StaticQuery, graphql } from 'gatsby';
 
-import { Hero } from './../hero/hero';
+import { Hero, HeroConfig } from './../hero/hero';
 import { HeaderWrapper } from './header-wrapper';
 import { Navigation } from './../navigation/navigation';
 
@@ -13,7 +13,10 @@ const Header = ({ useHero }: HeaderProps) => (
     <StaticQuery
         query={graphql`
             query NavigationQuery {
-                contentfulGlobalSiteSettings {
+                global: contentfulGlobalSiteSettings {
+                    conferenceDate: conferenceStartDateTime(formatString: "LL")
+                    startTime: conferenceStartDateTime(formatString: "LT")
+                    endTime: conferenceEndDateTime(formatString: "LT")
                     headerLogo {
                         fixed(width: 500) {
                             src
@@ -29,16 +32,36 @@ const Header = ({ useHero }: HeaderProps) => (
                         }
                     }
                 }
+                hero: contentfulHomePageHero {
+                    heading
+                    description {
+                      description
+                    }
+                    primaryButtonText
+                    secondaryButtonText
+                  }
             }
         `}
-        render={({ contentfulGlobalSiteSettings }) => (
-            <HeaderWrapper useHero={ useHero } image={contentfulGlobalSiteSettings.homePageHeroImage.fixed.src}>
-                <Navigation
-                    logoSource={contentfulGlobalSiteSettings.headerLogo.fixed.src}
-                    navigationItems={contentfulGlobalSiteSettings.headerNavigationPages} />
-                <Hero />
-            </HeaderWrapper>
-        )}
+        render={({ global, hero }) => {
+            const heroConfig: HeroConfig = {
+                heading: hero.heading,
+                description: hero.description.description,
+                conferenceDate: global.conferenceDate,
+                startTime: global.startTime,
+                endTime: global.endTime,
+                primaryButtonText: hero.primaryButtonText,
+                secondaryButtonText: hero.secondaryButtonText
+            };
+
+            return (
+                <HeaderWrapper useHero={ useHero } image={global.homePageHeroImage.fixed.src}>
+                    <Navigation
+                        logoSource={global.headerLogo.fixed.src}
+                        navigationItems={global.headerNavigationPages} />
+                    <Hero config={ heroConfig } />
+                </HeaderWrapper>
+            );
+        }}
     />
 );
 
