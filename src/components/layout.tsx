@@ -1,6 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { StaticQuery, graphql } from 'gatsby';
+import { BaseCSS as BaseBootstrapGrid } from 'styled-bootstrap-grid';
 
 import GlobalStyle from '../styles/global-style';
 import Header from './header/header';
@@ -22,6 +23,7 @@ const Layout = ({ isHomePage = false, children }: Props) => (
         render={({ contentfulGlobalSiteSettings }) => (
             <>
                 <GlobalStyle />
+                <BaseBootstrapGrid />
                 <Helmet
                     title={`${ contentfulGlobalSiteSettings.siteName }`}
                     meta={[

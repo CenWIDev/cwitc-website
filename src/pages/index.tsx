@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Link, StaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
+import { Container } from 'styled-bootstrap-grid';
 
 import Layout from '../components/layout';
-import { Container } from '../components/layout/container';
 
 const Header = styled.h1`
   color: '#0505';

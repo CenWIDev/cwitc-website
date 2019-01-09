@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
+import { media } from 'styled-bootstrap-grid';
 import { color } from '../../styles/variables';
-import { mediaMinWidth } from '../../styles/utilities';
 
 type HeaderWrapperProps = {
     useHero: boolean;
@@ -19,7 +19,7 @@ export const HeaderWrapper = styled.header`
     img {
         height: 10vw;
 
-        ${ mediaMinWidth.sm`height: 4vw;` }
+        ${ media['sm']`height: 4vw;` }
     }
 `;
 

@@ -16,8 +16,9 @@ export const color = {
 };
 
 export const sizes = {
-    xl: 1200,
-    lg: 992,
-    md: 768,
-    sm: 576
+    xl: '1200px',
+    lg: '992px',
+    md: '768px',
+    sm: '576px',
+    xs: '575px'
 };

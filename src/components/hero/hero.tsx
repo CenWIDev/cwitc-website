@@ -1,40 +1,35 @@
 import React, { Component, ReactNode } from 'react';
 import styled from 'styled-components';
+import { Container, Row, Col } from 'styled-bootstrap-grid';
 import { darken } from 'polished';
 
-import { Container } from './../layout/container';
-import { color } from './../../styles/variables'
+import { color, sizes } from './../../styles/variables'
 
 const Heading = styled.h1`
     color: ${ color.white };
     grid-area: heading;
     text-align: center;
+
+    @media (max-width: ${ sizes.sm }) {
+        font-size: 1.17em;
+    }
 `;
 
 const Subheading = styled.h3`
     color: ${ color.white };
-    width: 49%;
+    text-align: center;
 
-    &.date { text-align: right; }
-`;
+    &.date {
+        @media (min-width: ${ sizes.sm }) {
+            text-align: right;
+        }
+    }
 
-const SubheadingWrapper = styled.div`
-    display: flex;
-    justify-content: space-between;
-    grid-area: date;
-`;
-
-const HeroWrapper = styled.div`
-    width: 70%;
-    margin: 0 auto;
-    display: grid;
-    grid-gap: 15px;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas:
-        "heading heading heading"
-        "date date date"
-        "primaryButton blurb blurb"
-        "secondaryButton blurb blurb";
+    &.time {
+        @media (min-width: ${ sizes.sm }) {
+            text-align: left;
+        }
+    }
 `;
 
 const Button = styled.button`
@@ -49,6 +44,7 @@ const Button = styled.button`
     border-radius: 0.25rem;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
+    width: 100%;
 
     &.primary {
         color: ${ color.white };
@@ -77,6 +73,35 @@ const Description = styled.p`
     margin: 0;
 `;
 
+const ButtonColumn = styled(Col)`
+    display: block;
+
+    @media (min-width: ${ sizes.sm }) {
+        display: flex;
+    }
+
+    @media (min-width: ${ sizes.sm }) and (max-width: ${ sizes.lg }) {
+        > div:first-child {
+            padding-left: 0;
+        }
+
+        > div:last-child {
+            padding-right: 0;
+        }
+    }
+
+    @media (min-width: ${ sizes.lg }) {
+        flex-direction: column;
+        justify-content: space-around;
+
+        > div {
+            flex-basis: auto;
+            padding: inherit;
+        }
+    }
+
+`;
+
 export type HeroConfig = {
     heading: string;
     subheading?: string;
@@ -103,18 +128,32 @@ export class Hero extends Component {
 
         return (
             <Container>
-                <HeroWrapper>
-                    <Heading>{ config.heading }</Heading>
-                    <SubheadingWrapper>
+                <Row>
+                    <Col>
+                        <Heading>{ config.heading }</Heading>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={12} sm={6}>
                         <Subheading className="date">{ config.conferenceDate }</Subheading>
-                        <Subheading className="times">{ config.startTime } - { config.endTime }</Subheading>
-                    </SubheadingWrapper>
-                    <Button className="primary">{ config.primaryButtonText }</Button>
-                    <Button className="secondary">{ config.secondaryButtonText }</Button>
-                    <Description>
-                        { config.description }
-                    </Description>
-                </HeroWrapper>
+                    </Col>
+                    <Col xs={12} sm={6}>
+                        <Subheading className="time">{ config.startTime } - { config.endTime }</Subheading>
+                    </Col>
+                </Row>
+                <Row>
+                    <ButtonColumn sm={12} md={10} mdOffset={1} lg={3} lgOffset={2}>
+                        <Col xs={8} xsOffset={2} sm={6} smOffset={0} lg={12}>
+                            <Button className="primary">{ config.primaryButtonText }</Button>
+                        </Col>
+                        <Col xs={8} xsOffset={2} sm={6} smOffset={0} lg={12}>
+                            <Button className="secondary">{ config.secondaryButtonText }</Button>
+                        </Col>
+                    </ButtonColumn>
+                    <Col md={10} mdOffset={1} lg={5} lgOffset={0}>
+                        <Description>{ config.description }</Description>
+                    </Col>
+                </Row>
             </Container>
         );
     }
