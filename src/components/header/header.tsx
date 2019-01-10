@@ -58,7 +58,7 @@ const Header = ({ useHero }: HeaderProps) => (
                     <Navigation
                         logoSource={global.headerLogo.fixed.src}
                         navigationItems={global.headerNavigationPages} />
-                    <Hero config={ heroConfig } />
+                    { useHero ? <Hero config={ heroConfig } /> : null }
                 </HeaderWrapper>
             );
         }}

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Container, Row, Col } from 'styled-bootstrap-grid';
 import { darken } from 'polished';
 
-import { color, sizes } from './../../styles/variables'
+import { color, sizes, desktop_logo_height, mobile_logo_height, heading_padding } from './../../styles/variables'
 
 const Heading = styled.h1`
     color: ${ color.white };
@@ -116,8 +116,19 @@ export type HeroConfig = {
 };
 
 type HeroProps = {
+    className?: string;
     config: HeroConfig;
 };
+
+const StyledContainer = styled(Container)`
+    position: relative;
+    top: 50%;
+    transform: translateY(calc(-50% - ${ mobile_logo_height } - ${ heading_padding }));
+
+    @media (min-width: ${ sizes.sm }) {
+        transform: translateY(calc(-50% - ${ desktop_logo_height } - ${ heading_padding }));
+    }
+`;
 
 export class Hero extends Component {
 
@@ -127,7 +138,7 @@ export class Hero extends Component {
         const { config } = this.props;
 
         return (
-            <Container>
+            <StyledContainer>
                 <Row>
                     <Col>
                         <Heading>{ config.heading }</Heading>
@@ -154,7 +165,7 @@ export class Hero extends Component {
                         <Description>{ config.description }</Description>
                     </Col>
                 </Row>
-            </Container>
+            </StyledContainer>
         );
     }
 }

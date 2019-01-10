@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
-import { media } from 'styled-bootstrap-grid';
-import { color } from '../../styles/variables';
+import { color, heading_padding } from './../../styles/variables';
 
 type HeaderWrapperProps = {
     useHero: boolean;
@@ -8,19 +7,15 @@ type HeaderWrapperProps = {
 };
 
 export const HeaderWrapper = styled.header`
+    position: relative;
+
     width: 100vw;
-    padding: 1vw 0;
+    padding: ${ heading_padding } 0;
     display: flex;
     flex-direction: column;
     background: ${color.dark};
 
     ${ props => props.useHero ? HeroHeaderWrapper : '' }
-
-    img {
-        height: 10vw;
-
-        ${ media['sm']`height: 4vw;` }
-    }
 `;
 
 const HeroHeaderWrapper = css`
@@ -28,11 +23,11 @@ const HeroHeaderWrapper = css`
     background-blend-mode: multiply;
     background-position: center bottom;
     background-size: cover;
-    align-items: flex-start;
-    height: 70vh;
+    align-items: center;
+    height: 60vh;
     min-height: 380px;
 
     @media (orientation: portrait) {
-        height: 50vh;
+        height: 40vh;
     }
 `;
