@@ -6,6 +6,9 @@ import { BaseCSS as BaseBootstrapGrid } from 'styled-bootstrap-grid';
 import GlobalStyle from '../styles/global-style';
 import Header from './header/header';
 
+// Polyfills
+import 'core-js/es6/number';
+
 type Props = {
     isHomePage?: boolean ;
     children: React.ReactNode;

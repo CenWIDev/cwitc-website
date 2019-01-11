@@ -120,16 +120,6 @@ type HeroProps = {
     config: HeroConfig;
 };
 
-const StyledContainer = styled(Container)`
-    position: relative;
-    top: 50%;
-    transform: translateY(calc(-50% - ${ mobile_logo_height } - ${ heading_padding }));
-
-    @media (min-width: ${ sizes.sm }) {
-        transform: translateY(calc(-50% - ${ desktop_logo_height } - ${ heading_padding }));
-    }
-`;
-
 export class Hero extends Component {
 
     public props: HeroProps;
@@ -138,7 +128,7 @@ export class Hero extends Component {
         const { config } = this.props;
 
         return (
-            <StyledContainer>
+            <Container>
                 <Row>
                     <Col>
                         <Heading>{ config.heading }</Heading>
@@ -165,7 +155,7 @@ export class Hero extends Component {
                         <Description>{ config.description }</Description>
                     </Col>
                 </Row>
-            </StyledContainer>
+            </Container>
         );
     }
 }

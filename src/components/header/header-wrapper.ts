@@ -11,8 +11,11 @@ export const HeaderWrapper = styled.header`
 
     width: 100vw;
     padding: ${ heading_padding } 0;
+
     display: flex;
     flex-direction: column;
+    justify-content: center;
+
     background: ${color.dark};
 
     ${ props => props.useHero ? HeroHeaderWrapper : '' }
@@ -27,7 +30,17 @@ const HeroHeaderWrapper = css`
     height: 60vh;
     min-height: 380px;
 
-    @media (orientation: portrait) {
-        height: 40vh;
+    /* Internet Explorer Styles */
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        &:before {
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.75);
+            background-blend-mode: unset;
+        }
     }
 `;
