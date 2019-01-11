@@ -1,13 +1,8 @@
 import React, { Component } from 'react'
-import { Link, StaticQuery, graphql } from 'gatsby'
-import styled from 'styled-components'
-import { Container } from 'styled-bootstrap-grid';
+import { StaticQuery, graphql } from 'gatsby'
+import { Container, Row, Col } from 'styled-bootstrap-grid';
 
 import Layout from '../components/layout';
-
-const Header = styled.h1`
-  color: '#0505';
-`;
 
 class IndexPage extends Component {
     render() {
@@ -23,17 +18,21 @@ class IndexPage extends Component {
                                 }
                             }
                         }
+                        hero: contentfulHomePageHero {
+                            description {
+                              description
+                            }
+                        }
                     }
                 `}
-                render={({ contentfulLandingPageLayout }) => (
+                render={({ contentfulLandingPageLayout, hero }) => (
                     <Layout isHomePage={ true }>
-                        <Container >
-                            <div>
-                                <Header>{ contentfulLandingPageLayout.heading }</Header>
-                                <p>Welcome to your new Gatsby site.</p>
-                                <p>Now go build something great.</p>
-                                <Link to="/page-2/">Go to page 2</Link>
-                            </div>
+                        <Container>
+                            <Row>
+                                <Col hiddenSmUp>
+                                    <p>{ hero.description.description }</p>
+                                </Col>
+                            </Row>
                         </Container>
                     </Layout>
                 )}

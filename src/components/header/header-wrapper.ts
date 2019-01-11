@@ -29,6 +29,11 @@ const HeroHeaderWrapper = css`
     align-items: center;
     height: 60vh;
     min-height: 380px;
+    margin-bottom: 1vh;
+
+    @media (orientation: portrait) {
+        height: 40vh;
+    }
 
     /* Internet Explorer Styles */
     @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
