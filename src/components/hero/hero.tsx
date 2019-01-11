@@ -3,15 +3,14 @@ import styled from 'styled-components';
 import { Container, Row, Col } from 'styled-bootstrap-grid';
 import { darken } from 'polished';
 
-import { color, sizes, desktop_logo_height, mobile_logo_height, heading_padding } from './../../styles/variables'
+import { color, sizes } from './../../styles/variables'
 
 const Heading = styled.h1`
     color: ${ color.white };
-    grid-area: heading;
     text-align: center;
 
     @media (max-width: ${ sizes.sm }) {
-        font-size: 1.17em;
+        font-size: 1.5em;
     }
 `;
 
@@ -49,7 +48,6 @@ const Button = styled.button`
     &.primary {
         color: ${ color.white };
         background-color: ${ color.primary };
-        grid-area: primaryButton;
 
         &:hover {
             background-color: ${ darken(0.075, color.primary) };
@@ -59,18 +57,24 @@ const Button = styled.button`
     &.secondary {
         color: ${ color.white };
         background-color: ${ color.secondary };
-        grid-area: secondaryButton;
 
         &:hover {
             background-color: ${ darken(0.075, color.secondary) };
+        }
+
+        @media (max-width: ${ sizes.xs }) {
+            margin-top: 1vh;
         }
     }
 `;
 
 const Description = styled.p`
-    grid-area: blurb;
     color: ${ color.white };
     margin: 0;
+
+    @media (max-width: ${ sizes.lg }) {
+        margin-top: 1vh;
+    }
 `;
 
 const ButtonColumn = styled(Col)`
@@ -144,14 +148,14 @@ export class Hero extends Component {
                 </Row>
                 <Row>
                     <ButtonColumn sm={12} md={10} mdOffset={1} lg={3} lgOffset={2}>
-                        <Col xs={8} xsOffset={2} sm={6} smOffset={0} lg={12}>
+                        <Col xs={10} xsOffset={1} sm={6} smOffset={0} lg={12}>
                             <Button className="primary">{ config.primaryButtonText }</Button>
                         </Col>
-                        <Col xs={8} xsOffset={2} sm={6} smOffset={0} lg={12}>
+                        <Col xs={10} xsOffset={1} sm={6} smOffset={0} lg={12}>
                             <Button className="secondary">{ config.secondaryButtonText }</Button>
                         </Col>
                     </ButtonColumn>
-                    <Col md={10} mdOffset={1} lg={5} lgOffset={0}>
+                    <Col hiddenXsDown md={10} mdOffset={1} lg={5} lgOffset={0}>
                         <Description>{ config.description }</Description>
                     </Col>
                 </Row>
