@@ -1,70 +1,20 @@
 import React, { Component, ReactNode } from 'react';
 import styled from 'styled-components';
 import { Container, Row, Col } from 'styled-bootstrap-grid';
-import { darken } from 'polished';
 
+import { Heading, Subheading } from './../headings/headings';
+import { PrimaryButton, SecondaryButton } from './../button/button';
 import { color, sizes } from './../../styles/variables'
 
-const Heading = styled.h1`
-    color: ${ color.white };
-    text-align: center;
-
-    @media (max-width: ${ sizes.sm }) {
-        font-size: 1.5em;
+const Date = styled(Subheading)`
+    @media (min-width: ${ sizes.sm }) {
+        text-align: right;
     }
 `;
 
-const Subheading = styled.h3`
-    color: ${ color.white };
-    text-align: center;
-
-    &.date {
-        @media (min-width: ${ sizes.sm }) {
-            text-align: right;
-        }
-    }
-
-    &.time {
-        @media (min-width: ${ sizes.sm }) {
-            text-align: left;
-        }
-    }
-`;
-
-const Button = styled.button`
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
-    user-select: none;
-    border: 1px solid transparent;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: 0.25rem;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-
-    width: 100%;
-
-    &.primary {
-        color: ${ color.white };
-        background-color: ${ color.primary };
-
-        &:hover {
-            background-color: ${ darken(0.075, color.primary) };
-        }
-    }
-
-    &.secondary {
-        color: ${ color.white };
-        background-color: ${ color.secondary };
-
-        &:hover {
-            background-color: ${ darken(0.075, color.secondary) };
-        }
-
-        @media (max-width: ${ sizes.xs }) {
-            margin-top: 1vh;
-        }
+const Time = styled(Subheading)`
+    @media (min-width: ${ sizes.sm }) {
+        text-align: left;
     }
 `;
 
@@ -79,6 +29,16 @@ const Description = styled.p`
 
 const ButtonColumn = styled(Col)`
     display: block;
+
+    ${ PrimaryButton }, ${ SecondaryButton } {
+        width: 100%;
+    }
+
+    ${ SecondaryButton } {
+        @media (max-width: ${ sizes.xs }) {
+            margin-top: 1vh;
+        }
+    }
 
     @media (min-width: ${ sizes.sm }) {
         display: flex;
@@ -140,19 +100,19 @@ export class Hero extends Component {
                 </Row>
                 <Row>
                     <Col xs={12} sm={6}>
-                        <Subheading className="date">{ config.conferenceDate }</Subheading>
+                        <Date>{ config.conferenceDate }</Date>
                     </Col>
                     <Col xs={12} sm={6}>
-                        <Subheading className="time">{ config.startTime } - { config.endTime }</Subheading>
+                        <Time>{ config.startTime } - { config.endTime }</Time>
                     </Col>
                 </Row>
                 <Row>
                     <ButtonColumn sm={12} md={10} mdOffset={1} lg={3} lgOffset={2}>
                         <Col xs={10} xsOffset={1} sm={6} smOffset={0} lg={12}>
-                            <Button className="primary">{ config.primaryButtonText }</Button>
+                            <PrimaryButton>{ config.primaryButtonText }</PrimaryButton>
                         </Col>
                         <Col xs={10} xsOffset={1} sm={6} smOffset={0} lg={12}>
-                            <Button className="secondary">{ config.secondaryButtonText }</Button>
+                            <SecondaryButton>{ config.secondaryButtonText }</SecondaryButton>
                         </Col>
                     </ButtonColumn>
                     <Col hiddenXsDown md={10} mdOffset={1} lg={5} lgOffset={0}>
