@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { color, heading_padding } from './../../styles/variables';
+import { NavigationWrapper } from './../navigation/navigation-wrapper';
 
 type HeaderWrapperProps = {
     useHero: boolean;
@@ -33,6 +34,16 @@ const HeroHeaderWrapper = css`
 
     @media (orientation: portrait) {
         height: 40vh;
+    }
+
+    ${ NavigationWrapper } {
+        position: absolute;
+        top: 1vw;
+
+        /* Internet Explorer Styles */
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            transform: translateX(-50%);
+        }
     }
 
     /* Internet Explorer Styles */
