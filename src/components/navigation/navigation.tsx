@@ -1,9 +1,24 @@
 import React, { Component, ReactNode } from 'react';
+import styled from 'styled-components';
 import { Link, navigate } from "gatsby"
-import { getUser, isLoggedIn, logout } from "../../services/auth"
+import { AuthService } from "../../services/auth"
 
-import { NavigationItems } from './../navigation/navigation-items';
-import { NavigationWrapper } from './../navigation/navigation-wrapper';
+import { sizes, color } from './../../styles/variables';
+import { Button } from './../button/button';
+import { NavigationItems } from './navigation-items';
+import { NavigationWrapper } from './navigation-wrapper';
+import { NavigationMobile } from './navigation-mobile';
+
+const NavButton = styled(Button)`
+    background-color: rgba(255, 255, 255, 0.25);
+    color: ${ color.white };
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+
+    @media (min-width: ${ sizes.md }) {
+        display: none;
+    }
+`;
 
 type HeaderNavigationPage = {
     slug: string;
@@ -17,39 +32,78 @@ type NavigationProps = {
 
 export class Navigation extends Component {
 
+    private readonly authService: AuthService = new AuthService();
+
     public props: NavigationProps;
 
-    public render(): ReactNode {
-        const content = { message: "", login: true }
-        if (isLoggedIn()) {
-            content.message = `Hello, ${getUser().name}`
-        } else {
-            content.message = "You are not logged in"
-        }
+    public state = {
+        displayMobileNav: false
+    };
 
+    public logout(event: any): void {
+        event.preventDefault();
+        this.authService.logout(() => navigate('/'));
+    }
+
+    public showMobileNav(): void {
+        this.setState({
+            displayMobileNav: true
+        });
+    }
+
+    public hideMobileNav(): void {
+        this.setState({
+            displayMobileNav: false
+        });
+    }
+
+    public render(): ReactNode {
         return (
-            <NavigationWrapper>
-                <Link to="/">
-                    <img src={ this.props.logoSource } />
-                </Link>
-                <span>{content.message}</span>
-                <NavigationItems>
-                    {this.props.navigationItems.map(({ slug, navigationText }: HeaderNavigationPage) => (
-                        <li key={ slug }>
-                            <Link to={ slug }>{ navigationText }</Link>
+            <>
+                <NavigationWrapper overlay={ this.state.displayMobileNav }>
+                    <Link to="/">
+                        <img src={ this.props.logoSource } />
+                    </Link>
+                    <NavigationItems>
+                        {this.props.navigationItems.map(({ slug, navigationText }: HeaderNavigationPage) => (
+                            <li key={ slug }>
+                                <Link to={ slug }>{ navigationText }</Link>
+                            </li>
+                        ))}
+                        <li>
+                            { this.authService.isLoggedIn ? <Link to="/app/profile">Profile</Link> : null }
                         </li>
-                    ))}
-                    <li>
-                        { isLoggedIn() ? <Link to="/app/profile">Profile</Link> : null }
-                    </li>
-                    <li>
-                        { isLoggedIn() ?
-                            <a href="/" onClick={event => { event.preventDefault(); logout(() => navigate(`/app/login`)); }}>Logout</a> :
-                            <Link to="/app/login">Login</Link>
-                        }
-                    </li>
-                </NavigationItems>
-            </NavigationWrapper>
+                        <li>
+                            {
+                                this.authService.isLoggedIn ?
+                                    <a href="/" onClick={ event => this.logout(event) }>Logout</a> :
+                                    <Link to="/app/login">Login</Link>
+                            }
+                        </li>
+                    </NavigationItems>
+                    <NavButton type="button" onClick={ () => this.showMobileNav() }>Menu</NavButton>
+                </NavigationWrapper>
+                <NavigationMobile showMenu={ this.state.displayMobileNav }>
+                    <button className="close" onClick={ () => this.hideMobileNav() } type="button">X</button>
+                    <ul>
+                        {this.props.navigationItems.map(({ slug, navigationText }: HeaderNavigationPage) => (
+                            <li key={ slug }>
+                                <Link to={ slug }>{ navigationText }</Link>
+                            </li>
+                        ))}
+                        <li>
+                            { this.authService.isLoggedIn ? <Link to="/app/profile">Profile</Link> : null }
+                        </li>
+                        <li>
+                            {
+                                this.authService.isLoggedIn ?
+                                    <a href="/" onClick={ event => this.logout(event) }>Logout</a> :
+                                    <Link to="/app/login">Login</Link>
+                            }
+                        </li>
+                    </ul>
+                </NavigationMobile>
+            </>
         );
     }
 }

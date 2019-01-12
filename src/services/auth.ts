@@ -1,32 +1,49 @@
-export const isBrowser = () => typeof window !== "undefined";
-
-export const getUser = () =>
-  isBrowser() && window.localStorage.getItem("gatsbyUser")
-    ? JSON.parse(<string>window.localStorage.getItem("gatsbyUser"))
-    : {};
-
-const setUser = (user: any) =>
-  window.localStorage.setItem("gatsbyUser", JSON.stringify(user));
-
-export const handleLogin = ({ username, password }: { username: string, password: string }) => {
-  if (username === `john` && password === `pass`) {
-    return setUser({
-      username: `john`,
-      name: `Johnny`,
-      email: `johnny@example.org`,
-    })
-  }
-
-  return false
+export type User = {
+    username: string;
+    name: string;
+    email: string;
 };
 
-export const isLoggedIn = () => {
-  const user = getUser()
+export class AuthService {
+    private readonly user_storage_key: string = 'gatsbyUser';
 
-  return !!user.username
-};
+    public get isBrowser() {
+        return typeof window !== 'undefined';
+    }
 
-export const logout = (callback: Function) => {
-  setUser({})
-  callback()
-};
+    public get isLoggedIn() {
+        const user = this.getUser();
+        return !!user.username;
+    }
+
+    public getUser(): User {
+        return this.isBrowser && window.localStorage.getItem(this.user_storage_key)
+            ? JSON.parse(<string>window.localStorage.getItem(this.user_storage_key))
+            : {};
+    }
+
+    public setUser(user: User): void {
+        window.localStorage.setItem('gatsbyUser', JSON.stringify(user));
+    }
+
+    public login(username: string, password: string): User {
+        if (username === `john` && password === `pass`) {
+            const user: User = {
+                username: `john`,
+                name: `Johnny`,
+                email: `johnny@example.org`
+            };
+
+            this.setUser(user);
+
+            return user;
+        }
+
+        throw Error('Invalid username or password');
+    }
+
+    public logout(callback: Function): void {
+        window.localStorage.removeItem(this.user_storage_key);
+        callback();
+    }
+}

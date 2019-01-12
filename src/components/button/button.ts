@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { color } from '../../styles/variables'
 import { darken } from 'polished';
 
-const Button = styled.button`
+export const Button = styled.button`
     /* Styles copied from Bootstrap 4 */
     display: inline-block;
     text-align: center;

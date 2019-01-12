@@ -1,15 +1,29 @@
-import React from "react";
+import React, { Component, ReactNode } from "react";
 import { navigate } from "gatsby";
-import { isLoggedIn } from "./../../services/auth";
+import { AuthService } from "./../../services/auth";
 
-const PrivateRoute = ({ component: Component, location, ...rest }: any) => {
-    if (!isLoggedIn() && location.pathname !== `/app/login`) {
-        // If the user is not logged in, redirect to the login page.
-        navigate(`/app/login`);
-        return null;
+type PrivateRouteProps = {
+    component: Component;
+    location: any;
+};
+
+export class PrivateRoute extends Component {
+
+    private readonly authService: AuthService = new AuthService();
+
+    public props: PrivateRouteProps & any;
+
+    public render(): ReactNode {
+        const { component: Component, location, ...rest } = this.props;
+
+        if (!this.authService.isLoggedIn && location.pathname !== `/app/login`) {
+            // If the user is not logged in, redirect to the login page.
+            navigate(`/app/login`);
+            return null;
+        }
+
+        return (
+            <Component {...rest} />
+        );
     }
-
-    return <Component {...rest} />
 }
-
-export default PrivateRoute;
