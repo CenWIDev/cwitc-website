@@ -22,8 +22,12 @@ module.exports = {
         icon: 'src/images/favicon.png', // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: 'gatsby-plugin-create-client-paths',
+      options: { prefixes: [`/app/*`] }
+    },
     'gatsby-plugin-offline',
-    `gatsby-plugin-typescript`,
+    'gatsby-plugin-typescript',
     'gatsby-transformer-remark',
     'gatsby-plugin-sass',
     'gatsby-plugin-sharp',

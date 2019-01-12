@@ -10,6 +10,7 @@
     "core-js": "^2.6.2",
     "dotenv": "^6.0.0",
     "gatsby": "^2.0.82",
+    "gatsby-plugin-create-client-paths": "^2.0.3",
     "gatsby-plugin-manifest": "^2.0.2",
     "gatsby-plugin-netlify": "^2.0.6",
     "gatsby-plugin-offline": "^2.0.5",
