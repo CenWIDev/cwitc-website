@@ -36,3 +36,16 @@ export const NavigationMobile = styled.div`
         }
     }
 `;
+
+export const Overlay = styled.span`
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+    background-blend-mode: unset;
+    z-index: 50;
+
+    ${ props => props.enabled ? '' : 'display: none;' }
+`;
