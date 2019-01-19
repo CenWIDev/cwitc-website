@@ -1,5 +1,5 @@
 import React, { Component, ReactNode } from "react";
-import { AuthService, User } from "../../services/auth"
+import AuthService, { User } from "../../services/auth"
 
 type ProfileProps = {
     path: string;
@@ -7,12 +7,10 @@ type ProfileProps = {
 
 export default class Profile extends Component {
 
-    private readonly authService: AuthService = new AuthService();
-
     public props: ProfileProps;
 
     public get user(): User {
-        return this.authService.getUser();
+        return AuthService.getUser();
     }
 
     public render(): ReactNode{

@@ -2,14 +2,13 @@ import React, { Component, ReactNode } from "react";
 import { navigate } from "gatsby";
 import { Container, Row, Col } from 'styled-bootstrap-grid';
 
-import { AuthService } from "./../../services/auth";
+import AuthService from "./../../services/auth";
 
 type LoginProps = {
     path: string;
 };
 
 export default class Login extends Component {
-    private readonly authService: AuthService = new AuthService();
 
     public props: LoginProps;
 
@@ -19,17 +18,17 @@ export default class Login extends Component {
         error: ''
     };
 
-    public handleUpdate(event: any): void {
+    handleUpdate = (event: any): void => {
         this.setState({
             [event.target.name]: event.target.value,
         });
     }
 
-    public handleSubmit(event: any): void {
+    handleSubmit = (event: any): void => {
         event.preventDefault();
 
         try {
-            this.authService.login(this.state.username, this.state.password);
+            AuthService.login(this.state.username, this.state.password);
             navigate(`/app/profile`);
         }
         catch (err) {
@@ -38,7 +37,7 @@ export default class Login extends Component {
     }
 
     public render(): ReactNode {
-        if (this.authService.isLoggedIn) {
+        if (AuthService.isLoggedIn()) {
             navigate(`/app/profile`);
         }
 
@@ -48,17 +47,17 @@ export default class Login extends Component {
                     <h1>Log in</h1>
                 </Row>
                 <Row>
-                    <form method="post" onSubmit={ event => this.handleSubmit(event) }>
+                    <form method="post" onSubmit={ this.handleSubmit }>
                         <Col>
                             <label>
                                 Username
-                                <input type="text" name="username" onChange={ event => this.handleUpdate(event) } />
+                                <input type="text" name="username" onChange={ this.handleUpdate } />
                             </label>
                         </Col>
                         <Col>
                             <label>
                                 Password
-                                <input type="password" name="password" onChange={ event =>this.handleUpdate(event) } />
+                                <input type="password" name="password" onChange={ this.handleUpdate } />
                             </label>
                         </Col>
                         <Col>

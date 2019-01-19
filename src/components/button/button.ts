@@ -14,15 +14,6 @@ export const Button = styled.button`
     line-height: 1.5;
     border-radius: 0.25rem;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-
-    &.secondary {
-        color: ${ color.white };
-        background-color: ${ color.secondary };
-
-        &:hover {
-            background-color: ${ darken(0.075, color.secondary) };
-        }
-    }
 `;
 
 export const PrimaryButton = styled(Button)`

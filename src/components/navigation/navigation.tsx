@@ -1,7 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 import styled from 'styled-components';
-import { Link, navigate } from "gatsby"
-import { AuthService } from "../../services/auth"
+import { Link, navigate } from "gatsby";
+import AuthService from "../../services/auth";
 
 import { sizes, color } from './../../styles/variables';
 import { Button } from './../button/button';
@@ -32,8 +32,6 @@ type NavigationProps = {
 
 export class Navigation extends Component {
 
-    private readonly authService: AuthService = new AuthService();
-
     public props: NavigationProps;
 
     public state = {
@@ -42,7 +40,7 @@ export class Navigation extends Component {
 
     public logout(event: any): void {
         event.preventDefault();
-        this.authService.logout(() => navigate('/'));
+        AuthService.logout(() => navigate('/'));
     }
 
     public showMobileNav(): void {
@@ -71,11 +69,11 @@ export class Navigation extends Component {
                             </li>
                         ))}
                         <li>
-                            { this.authService.isLoggedIn ? <Link to="/app/profile">Profile</Link> : null }
+                            { AuthService.isLoggedIn() ? <Link to="/app/profile">Profile</Link> : null }
                         </li>
                         <li>
                             {
-                                this.authService.isLoggedIn ?
+                                AuthService.isLoggedIn() ?
                                     <a href="/" onClick={ event => this.logout(event) }>Logout</a> :
                                     <Link to="/app/login">Login</Link>
                             }
@@ -93,11 +91,11 @@ export class Navigation extends Component {
                             </li>
                         ))}
                         <li>
-                            { this.authService.isLoggedIn ? <Link to="/app/profile">Profile</Link> : null }
+                            { AuthService.isLoggedIn() ? <Link to="/app/profile">Profile</Link> : null }
                         </li>
                         <li>
                             {
-                                this.authService.isLoggedIn ?
+                                AuthService.isLoggedIn() ?
                                     <a href="/" onClick={ event => this.logout(event) }>Logout</a> :
                                     <Link to="/app/login">Login</Link>
                             }
