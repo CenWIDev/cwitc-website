@@ -1,7 +1,11 @@
+import firebase from 'firebase';
+import 'firebase/auth';
+import { firebaseApp } from './firebase';
+
 export type User = {
-    username: string;
-    name: string;
-    email: string;
+    userId: string;
+    name: string | null;
+    email: string | null;
 };
 
 const user_storage_key: string = 'gatsbyUser';
@@ -10,38 +14,47 @@ const isBrowser = () => {
     return typeof window !== 'undefined';
 };
 
-const isLoggedIn = () => {
+const createUser = (credential: firebase.auth.UserCredential): User => {
+    if (credential && credential.user) {
+        return {
+            userId: credential.user.uid,
+            name: credential.user.displayName,
+            email: credential.user.email
+        }
+    }
+
+    throw new Error('Failed to create user');
+};
+
+export const isLoggedIn = () => {
     const user = getUser();
-    return !!user.username;
+    return !!user.userId;
 };
 
-const getUser = () => {
-    return isBrowser && window.localStorage.getItem(user_storage_key)
-        ? JSON.parse(<string>window.localStorage.getItem(user_storage_key))
-        : {};
+export const getUser = (): User => {
+    return isBrowser && window.localStorage.getItem(user_storage_key) ?
+        JSON.parse(<string>window.localStorage.getItem(user_storage_key)) :
+        { };
 };
 
-const setUser = (user: User): void => {
+export const setUser = (user: User): void => {
     window.localStorage.setItem('gatsbyUser', JSON.stringify(user));
 };
 
-const login = (username: string, password: string): User => {
-    if (username === `john` && password === `pass`) {
-        const user: User = {
-            username: `john`,
-            name: `Johnny`,
-            email: `johnny@example.org`
-        };
+export const login = async (provider: string): Promise<User> => {
+    const authProvider = new firebase.auth[`${ provider }AuthProvider`]();
 
-        setUser(user);
+    const credential: firebase.auth.UserCredential = await firebaseApp.auth().signInWithPopup(authProvider);
 
-        return user;
-    }
+    const user: User = createUser(credential);
 
-    throw Error('Invalid username or password');
+    setUser(user);
+
+    return user;
 };
 
-const logout = (callback: Function): void => {
+export const logout = async (callback: Function): Promise<void> => {
+    await firebase.auth().signOut();
     window.localStorage.removeItem(user_storage_key);
     callback();
 }

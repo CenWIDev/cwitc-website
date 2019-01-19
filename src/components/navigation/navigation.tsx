@@ -38,22 +38,22 @@ export class Navigation extends Component {
         displayMobileNav: false
     };
 
-    public logout(event: any): void {
+    logout = async (event: any): Promise<void> => {
         event.preventDefault();
-        AuthService.logout(() => navigate('/'));
-    }
+        await AuthService.logout(() => navigate('/'));
+    };
 
-    public showMobileNav(): void {
+    showMobileNav = (): void => {
         this.setState({
             displayMobileNav: true
         });
-    }
+    };
 
-    public hideMobileNav(): void {
+    hideMobileNav = (): void => {
         this.setState({
             displayMobileNav: false
         });
-    }
+    };
 
     public render(): ReactNode {
         return (
@@ -74,16 +74,16 @@ export class Navigation extends Component {
                         <li>
                             {
                                 AuthService.isLoggedIn() ?
-                                    <a href="/" onClick={ event => this.logout(event) }>Logout</a> :
+                                    <a href="/" onClick={ this.logout }>Logout</a> :
                                     <Link to="/app/login">Login</Link>
                             }
                         </li>
                     </NavigationItems>
-                    <NavButton type="button" onClick={ () => this.showMobileNav() }>Menu</NavButton>
+                    <NavButton type="button" onClick={ this.showMobileNav }>Menu</NavButton>
                 </NavigationWrapper>
-                <Overlay enabled={ this.state.displayMobileNav } onClick={ () => this.hideMobileNav() } />
+                <Overlay enabled={ this.state.displayMobileNav } onClick={ this.hideMobileNav } />
                 <NavigationMobile showMenu={ this.state.displayMobileNav }>
-                    <button className="close" onClick={ () => this.hideMobileNav() } type="button">X</button>
+                    <button className="close" onClick={ this.hideMobileNav } type="button">X</button>
                     <ul>
                         {this.props.navigationItems.map(({ slug, navigationText }: HeaderNavigationPage) => (
                             <li key={ slug }>
@@ -96,7 +96,7 @@ export class Navigation extends Component {
                         <li>
                             {
                                 AuthService.isLoggedIn() ?
-                                    <a href="/" onClick={ event => this.logout(event) }>Logout</a> :
+                                    <a href="/" onClick={ this.logout }>Logout</a> :
                                     <Link to="/app/login">Login</Link>
                             }
                         </li>

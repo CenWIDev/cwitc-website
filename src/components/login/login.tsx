@@ -24,14 +24,15 @@ export default class Login extends Component {
         });
     }
 
-    handleSubmit = (event: any): void => {
+    handleSubmit = async (event: any, provider: string): Promise<void> => {
         event.preventDefault();
 
         try {
-            AuthService.login(this.state.username, this.state.password);
+            await AuthService.login(provider);
             navigate(`/app/profile`);
         }
         catch (err) {
+            console.error(err);
             this.setState({ error: 'Invalid username or password' });
         }
     }
@@ -47,23 +48,7 @@ export default class Login extends Component {
                     <h1>Log in</h1>
                 </Row>
                 <Row>
-                    <form method="post" onSubmit={ this.handleSubmit }>
-                        <Col>
-                            <label>
-                                Username
-                                <input type="text" name="username" onChange={ this.handleUpdate } />
-                            </label>
-                        </Col>
-                        <Col>
-                            <label>
-                                Password
-                                <input type="password" name="password" onChange={ this.handleUpdate } />
-                            </label>
-                        </Col>
-                        <Col>
-                            <input type="submit" value="Log In" />
-                        </Col>
-                    </form>
+                    <button onClick={ async (event) => await this.handleSubmit(event, 'Github') }>Login with GitHub</button>
                 </Row>
             </Container>
         );
