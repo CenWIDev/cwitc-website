@@ -2,7 +2,8 @@ import React, { Component, ReactNode } from "react";
 import { navigate } from "gatsby";
 import { Container, Row, Col } from 'styled-bootstrap-grid';
 
-import AuthService from "./../../services/auth";
+import { Button } from './../button/button';
+import AuthService, { LoginProvider } from "./../../services/auth";
 
 type LoginProps = {
     path: string;
@@ -12,29 +13,9 @@ export default class Login extends Component {
 
     public props: LoginProps;
 
-    public state = {
-        username: '',
-        password: '',
-        error: ''
-    };
-
-    handleUpdate = (event: any): void => {
-        this.setState({
-            [event.target.name]: event.target.value,
-        });
-    }
-
-    handleSubmit = async (event: any, provider: string): Promise<void> => {
-        event.preventDefault();
-
-        try {
-            await AuthService.login(provider);
-            navigate(`/app/profile`);
-        }
-        catch (err) {
-            console.error(err);
-            this.setState({ error: 'Invalid username or password' });
-        }
+    handleSubmit = async (provider: LoginProvider): Promise<void> => {
+        await AuthService.login(provider);
+        navigate(`/app/profile`);
     }
 
     public render(): ReactNode {
@@ -45,10 +26,10 @@ export default class Login extends Component {
         return (
             <Container>
                 <Row>
-                    <h1>Log in</h1>
-                </Row>
-                <Row>
-                    <button onClick={ async (event) => await this.handleSubmit(event, 'Github') }>Login with GitHub</button>
+                    <Col sm={ 6 } smOffset={ 3 }>
+                        <h1>Log in</h1>
+                        <Button onClick={ async () => await this.handleSubmit(LoginProvider.github) }>Login with GitHub</Button>
+                    </Col>
                 </Row>
             </Container>
         );

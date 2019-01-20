@@ -8,6 +8,13 @@ export type User = {
     email: string | null;
 };
 
+export enum LoginProvider {
+    github,
+    facebook,
+    twitter,
+    google
+}
+
 const user_storage_key: string = 'gatsbyUser';
 
 const isBrowser = () => {
@@ -41,8 +48,16 @@ export const setUser = (user: User): void => {
     window.localStorage.setItem('gatsbyUser', JSON.stringify(user));
 };
 
-export const login = async (provider: string): Promise<User> => {
-    const authProvider = new firebase.auth[`${ provider }AuthProvider`]();
+export const login = async (provider: LoginProvider): Promise<User> => {
+    let authProvider: firebase.auth.AuthProvider;
+
+    switch (provider) {
+        case LoginProvider.github:
+            authProvider = new firebase.auth.GithubAuthProvider();
+            break;
+        default:
+            throw new Error('Unsupported auth provider!');
+    }
 
     const credential: firebase.auth.UserCredential = await firebaseApp.auth().signInWithPopup(authProvider);
 
