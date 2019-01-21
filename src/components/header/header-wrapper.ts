@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { color, heading_padding } from './../../styles/variables';
+import { color, sizes, heading_padding } from './../../styles/variables';
 import { NavigationWrapper } from './../navigation/navigation-wrapper';
 
 type HeaderWrapperProps = {
@@ -30,7 +30,11 @@ const HeroHeaderWrapper = css`
     align-items: center;
     height: 60vh;
     min-height: 380px;
-    margin-bottom: 1vh;
+    margin-bottom: 3rem;
+
+    @media (max-width: ${ sizes.sm }) {
+        margin-bottom: 2rem;
+    }
 
     @media (orientation: portrait) {
         height: 40vh;
