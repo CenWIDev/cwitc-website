@@ -5,6 +5,7 @@ import { BaseCSS as BaseBootstrapGrid } from 'styled-bootstrap-grid';
 
 import GlobalStyle from '../styles/global-style';
 import Header from './header/header';
+import Footer, { FooterProps } from './footer/footer';
 
 // Polyfills
 import 'core-js/es6/number';
@@ -20,27 +21,51 @@ const Layout = ({ isHomePage = false, children }: Props) => (
             query GlobalSiteSettings {
                 siteSettings: contentfulGlobalSiteSettings {
                     siteName
+                    addressLine1
+                    addressLine2
+                    cityStatePostalCode
+                    contactEmailAddress
+                    facebookEventUrl
+                    twitterUsername
+                    linkedInProfileUrl
+                    gitHubProfileUrl
                 }
             }
         `}
-        render={({ siteSettings }) => (
-            <>
-                <GlobalStyle />
-                <BaseBootstrapGrid />
-                <Helmet
-                    title={`${ siteSettings.siteName }`}
-                    meta={[
-                        { name: 'description', content: 'Sample' },
-                        { name: 'keywords', content: 'sample, something' }
-                    ]}>
-                    <html lang="en" />
-                </Helmet>
-                <Header useHero={ isHomePage }/>
-                <div>
-                    { children }
-                </div>
-            </>
-        )}
+        render={({ siteSettings }) => {
+
+            const footerConfig: FooterProps = {
+                addressLine1: siteSettings.addressLine1,
+                addressLine2: siteSettings.addressLine2,
+                cityStatePostalCode: siteSettings.cityStatePostalCode,
+                contactEmailAddress: siteSettings.contactEmailAddress,
+                facebookUrl: siteSettings.facebookEventUrl,
+                twitterUsername: siteSettings.twitterUsername,
+                linkedInUrl: siteSettings.linkedInProfileUrl,
+                githubUrl: siteSettings.gitHubProfileUrl,
+                siteName: siteSettings.siteName
+            };
+
+            return (
+                <>
+                    <GlobalStyle />
+                    <BaseBootstrapGrid />
+                    <Helmet
+                        title={`${ siteSettings.siteName }`}
+                        meta={[
+                            { name: 'description', content: 'Sample' },
+                            { name: 'keywords', content: 'sample, something' }
+                        ]}>
+                        <html lang="en" />
+                    </Helmet>
+                    <Header useHero={ isHomePage }/>
+                    <div>
+                        { children }
+                    </div>
+                    <Footer { ...footerConfig }/>
+                </>
+            );
+        }}
     />
 );
 

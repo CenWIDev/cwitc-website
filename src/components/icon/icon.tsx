@@ -9,6 +9,8 @@ type IconProps = {
 }
 
 const IconContainer = styled.span`
+    display: block;
+
     svg {
         width: 100%;
         height: 100%;
