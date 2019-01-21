@@ -51,11 +51,11 @@ const IconCard = ({ title, descriptionHtml, iconName, justification = IconCardJu
     );
 };
 
-export type IconCardJustification = "left" | "right";
+export type IconCardJustification = 'left' | 'right';
 
 export class IconCardJustifications {
-    public static readonly LEFT: "left" = 'left';
-    public static readonly RIGHT: "right" = 'right';
+    public static readonly LEFT: 'left' = 'left';
+    public static readonly RIGHT: 'right' = 'right';
 }
 
 export type IconCardProps = {

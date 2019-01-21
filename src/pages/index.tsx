@@ -37,7 +37,7 @@ class IndexPage extends Component {
                     }
                 `}
                 render={({ landingPageContent, hero }) => (
-                    <Layout isHomePage={ true }>
+                    <Layout isHomePage>
                         <Container>
                             <Row>
                                 <Col hiddenSmUp>
@@ -56,7 +56,7 @@ class IndexPage extends Component {
                                     return (
                                         <>
                                             <IconCard { ...iconCardProps } />
-                                            { index !== landingPageContent.cards.length -1 ? <CardRule /> : null }
+                                            { index !== landingPageContent.cards.length - 1 ? <CardRule /> : null }
                                         </>
                                     );
                                 })

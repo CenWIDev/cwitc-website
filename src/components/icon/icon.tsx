@@ -22,12 +22,15 @@ const Icon = ({ name, className, onClick }: IconProps) => {
         iconHtml = feather.icons[name].toSvg();
     }
     catch (err) {
+        // tslint:disable-next-line:no-console
         console.error(`${ name } is not a valid feather icon! https://feathericons.com/`);
         iconHtml = feather.icons.info.toSvg();
     }
 
     const clickHandler = () => {
-        if (onClick) onClick();
+        if (onClick) {
+            onClick();
+        }
     };
 
     return (

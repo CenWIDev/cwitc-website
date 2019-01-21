@@ -18,17 +18,17 @@ const Layout = ({ isHomePage = false, children }: Props) => (
     <StaticQuery
         query={graphql`
             query GlobalSiteSettings {
-                contentfulGlobalSiteSettings {
+                siteSettings: contentfulGlobalSiteSettings {
                     siteName
                 }
             }
         `}
-        render={({ contentfulGlobalSiteSettings }) => (
+        render={({ siteSettings }) => (
             <>
                 <GlobalStyle />
                 <BaseBootstrapGrid />
                 <Helmet
-                    title={`${ contentfulGlobalSiteSettings.siteName }`}
+                    title={`${ siteSettings.siteName }`}
                     meta={[
                         { name: 'description', content: 'Sample' },
                         { name: 'keywords', content: 'sample, something' }

@@ -1,6 +1,6 @@
-import React, { Component, ReactNode } from "react";
-import { navigate } from "gatsby";
-import AuthService from "./../../services/auth";
+import React, { Component, ReactNode } from 'react';
+import { navigate } from 'gatsby';
+import AuthService from './../../services/auth';
 
 type PrivateRouteProps = {
     component: Component;
@@ -17,6 +17,7 @@ export class PrivateRoute extends Component {
         if (!AuthService.isLoggedIn() && location.pathname !== `/app/login`) {
             // If the user is not logged in, redirect to the login page.
             navigate(`/app/login`);
+
             return null;
         }
 

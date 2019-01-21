@@ -1,7 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 import styled from 'styled-components';
-import { Link, navigate } from "gatsby";
-import AuthService from "../../services/auth";
+import { Link, navigate } from 'gatsby';
+import AuthService from '../../services/auth';
 
 import { sizes, color } from './../../styles/variables';
 import { Button } from './../button/button';
@@ -28,7 +28,7 @@ type HeaderNavigationPage = {
 
 type NavigationProps = {
     logoSource: string;
-    navigationItems: Array<HeaderNavigationPage>;
+    navigationItems: HeaderNavigationPage[];
 };
 
 export class Navigation extends Component {

@@ -18,7 +18,7 @@
     "jsx-no-multiline-js": false,
     "label-position": true,
     "newline-before-return": true,
-    "no-any": true,
+    "no-any": false,
     "no-arg": true,
     "no-bitwise": true,
     "no-console": [
@@ -45,8 +45,6 @@
     "no-unused-expression": true,
     "one-line": [
       true,
-      "check-catch",
-      "check-else",
       "check-open-brace",
       "check-whitespace"
     ],

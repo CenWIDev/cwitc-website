@@ -33,14 +33,15 @@ const createUser = (credential: firebase.auth.UserCredential): User => {
     throw new Error('Failed to create user');
 };
 
-export const isLoggedIn = () => {
+export const isLoggedIn = (): boolean => {
     const user = getUser();
+
     return !!user.userId;
 };
 
 export const getUser = (): User => {
     return isBrowser && window.localStorage.getItem(user_storage_key) ?
-        JSON.parse(<string>window.localStorage.getItem(user_storage_key)) :
+        JSON.parse(<string> window.localStorage.getItem(user_storage_key)) :
         { };
 };
 

@@ -1,9 +1,9 @@
-import React, { Component, ReactNode } from "react";
-import { navigate } from "gatsby";
+import React, { Component, ReactNode } from 'react';
+import { navigate } from 'gatsby';
 import { Container, Row, Col } from 'styled-bootstrap-grid';
 
 import { Button } from './../button/button';
-import AuthService, { LoginProvider } from "./../../services/auth";
+import AuthService, { LoginProvider } from './../../services/auth';
 
 type LoginProps = {
     path: string;

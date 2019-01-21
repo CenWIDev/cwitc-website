@@ -1,5 +1,5 @@
-import React, { Component, ReactNode } from "react";
-import AuthService, { User } from "../../services/auth"
+import React, { Component, ReactNode } from 'react';
+import AuthService, { User } from '../../services/auth'
 
 type ProfileProps = {
     path: string;
@@ -13,7 +13,7 @@ export default class Profile extends Component {
         return AuthService.getUser();
     }
 
-    public render(): ReactNode{
+    public render(): ReactNode {
         return (
             <>
                 <h1>Your profile</h1>
