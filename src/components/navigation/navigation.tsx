@@ -8,6 +8,7 @@ import { Button } from './../button/button';
 import { NavigationItems } from './navigation-items';
 import { NavigationWrapper } from './navigation-wrapper';
 import { NavigationMobile, Overlay } from './navigation-mobile';
+import Icon from './../icon/icon';
 
 const NavButton = styled(Button)`
     background-color: rgba(255, 255, 255, 0.25);
@@ -83,7 +84,7 @@ export class Navigation extends Component {
                 </NavigationWrapper>
                 <Overlay enabled={ this.state.displayMobileNav } onClick={ this.hideMobileNav } />
                 <NavigationMobile showMenu={ this.state.displayMobileNav }>
-                    <button className="close" onClick={ this.hideMobileNav } type="button">X</button>
+                    <Icon className="close" onClick={ this.hideMobileNav } name="x-circle" />
                     <ul>
                         {this.props.navigationItems.map(({ slug, navigationText }: HeaderNavigationPage) => (
                             <li key={ slug }>

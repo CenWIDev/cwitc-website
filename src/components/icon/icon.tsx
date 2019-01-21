@@ -1,12 +1,23 @@
 import React from 'react';
+import styled from 'styled-components';
 import feather from 'feather-icons';
 
 type IconProps = {
-    name: string
+    name: string,
+    className?: string,
+    onClick?: Function
 }
 
-const Icon = ({ name }: IconProps) => {
+const IconContainer = styled.span`
+    svg {
+        width: 100%;
+        height: 100%;
+    }
+`;
+
+const Icon = ({ name, className, onClick }: IconProps) => {
     let iconHtml: string;
+
     try {
         iconHtml = feather.icons[name].toSvg();
     }
@@ -15,7 +26,15 @@ const Icon = ({ name }: IconProps) => {
         iconHtml = feather.icons.info.toSvg();
     }
 
-    return <span dangerouslySetInnerHTML={{ __html: iconHtml }}></span>;
+    const clickHandler = () => {
+        if (onClick) onClick();
+    };
+
+    return (
+        <IconContainer
+            className={ ['icon', `icon-${ name }`, className].join(' ') }
+            onClick={ clickHandler }
+            dangerouslySetInnerHTML={{ __html: iconHtml }} />);
 };
 
 export default Icon;
