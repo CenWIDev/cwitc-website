@@ -32,3 +32,19 @@ exports.createPages = ({ graphql, actions }) => {
             });
     });
 };
+
+// https://github.com/gatsbyjs/gatsby/issues/8612#issuecomment-428820523
+exports.onCreateWebpackConfig = ({actions, stage}) => {
+    if (stage === "build-html") {
+        actions.setWebpackConfig({
+            module: {
+                rules: [
+                    {
+                        test: /firebase/,
+                        use: ['null-loader']
+                    },
+                ],
+            }
+        })
+    }
+};

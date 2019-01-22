@@ -40,7 +40,7 @@ export const isLoggedIn = (): boolean => {
 };
 
 export const getUser = (): User => {
-    return isBrowser && window.localStorage.getItem(user_storage_key) ?
+    return isBrowser() && window.localStorage.getItem(user_storage_key) ?
         JSON.parse(<string> window.localStorage.getItem(user_storage_key)) :
         { };
 };
