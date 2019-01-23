@@ -1,3 +1,5 @@
+const { EntryHyperlinkRenderer } = require('./contentful/entry-hyperlink-renderer');
+
 if (process.env.ENVIROMENT !== 'production') {
   require('dotenv').config()
 }
@@ -35,7 +37,14 @@ module.exports = {
       resolve: `gatsby-source-contentful`,
       options: contentfulConfig,
     },
-    '@contentful/gatsby-transformer-contentful-richtext',
+    {
+      resolve: '@contentful/gatsby-transformer-contentful-richtext',
+      options: {
+        renderOptions: {
+          renderNode: EntryHyperlinkRenderer
+        }
+      }
+    },
     {
       resolve: `gatsby-plugin-styled-components`,
     },
