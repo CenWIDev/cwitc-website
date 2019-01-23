@@ -54,10 +54,10 @@ class IndexPage extends Component {
                                     };
 
                                     return (
-                                        <>
+                                        <React.Fragment key={ index }>
                                             <IconCard { ...iconCardProps } />
                                             { index !== landingPageContent.cards.length - 1 ? <CardRule /> : null }
-                                        </>
+                                        </React.Fragment>
                                     );
                                 })
                             }

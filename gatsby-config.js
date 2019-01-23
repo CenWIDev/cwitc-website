@@ -1,3 +1,7 @@
+const { INLINES } = require('@contentful/rich-text-types');
+const { HyperlinkRenderer } = require('./contentful/hyperlink-renderer');
+const { EntryHyperlinkRenderer } = require('./contentful/entry-hyperlink-renderer');
+
 if (process.env.ENVIROMENT !== 'production') {
   require('dotenv').config()
 }
@@ -35,7 +39,17 @@ module.exports = {
       resolve: `gatsby-source-contentful`,
       options: contentfulConfig,
     },
-    '@contentful/gatsby-transformer-contentful-richtext',
+    {
+      resolve: '@contentful/gatsby-transformer-contentful-richtext',
+      options: {
+        renderOptions: {
+          renderNode: {
+            [INLINES.HYPERLINK]: HyperlinkRenderer,
+            [INLINES.ENTRY_HYPERLINK]: EntryHyperlinkRenderer
+          }
+        }
+      }
+    },
     {
       resolve: `gatsby-plugin-styled-components`,
     },
