@@ -69,9 +69,13 @@ export class Navigation extends Component {
                                 <Link to={ slug }>{ navigationText }</Link>
                             </li>
                         ))}
-                        <li>
-                            { AuthService.isLoggedIn() ? <Link to="/app/profile">Profile</Link> : null }
-                        </li>
+                        {
+                            AuthService.isLoggedIn() ?
+                            <>
+                                <li><Link to="/app/profile">Profile</Link></li>
+                                <li><Link to="/app/submit-session">Submit Session</Link></li>
+                            </> : null
+                        }
                         <li>
                             {
                                 AuthService.isLoggedIn() ?
