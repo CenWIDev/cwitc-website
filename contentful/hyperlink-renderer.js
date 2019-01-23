@@ -1,11 +1,11 @@
-module.exports.EntryHyperlinkRenderer = node => {
+module.exports.HyperlinkRenderer = node => {
     const text = node.content
         .reduce((accumulator, currentContent) => {
             return `${ accumulator } ${ currentContent.value }`;
         }, '')
         .trim();
 
-    const slug = `/${ node.data.target.fields.slug['en-US'] }`;
+    const location = node.data.uri;
 
-    return `<a href="${ slug }">${ text }</a>`;
+    return `<a href="${ location }" rel="noopener">${ text }</a>`;
 };

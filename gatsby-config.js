@@ -1,3 +1,5 @@
+const { INLINES } = require('@contentful/rich-text-types');
+const { HyperlinkRenderer } = require('./contentful/hyperlink-renderer');
 const { EntryHyperlinkRenderer } = require('./contentful/entry-hyperlink-renderer');
 
 if (process.env.ENVIROMENT !== 'production') {
@@ -41,7 +43,10 @@ module.exports = {
       resolve: '@contentful/gatsby-transformer-contentful-richtext',
       options: {
         renderOptions: {
-          renderNode: EntryHyperlinkRenderer
+          renderNode: {
+            [INLINES.HYPERLINK]: HyperlinkRenderer,
+            [INLINES.ENTRY_HYPERLINK]: EntryHyperlinkRenderer
+          }
         }
       }
     },
