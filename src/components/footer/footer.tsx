@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Container, Row, Col } from 'styled-bootstrap-grid';
 
 import { FacebookIcon, TwitterIcon, GitHubIcon, LinkedInIcon } from './../icon';
 import { color } from './../../styles/variables';
@@ -10,15 +9,6 @@ const FooterWrapper = styled.footer`
     padding: 5vw 0 10vw;
     color: ${ color.white };
     background-color: ${ color.dark };
-`;
-
-const FooterRow = styled(Row)`
-    justify-content: space-between;
-`;
-
-const SocialIconCol = styled(Col)`
-    display: flex;
-    justify-content: space-between;
 `;
 
 const SocialLink = styled.a`
@@ -34,9 +24,9 @@ const AddressWrapper = styled.div`
 
 const Footer = (props: FooterProps) => (
     <FooterWrapper>
-        <Container>
-            <FooterRow>
-                <SocialIconCol sm={ 5 }>
+        <div className="container">
+            <div className="row justify-content-between">
+                <div className="col-sm-5 d-flex justify-content-between">
                     <SocialLink href={ props.facebookUrl } target="_blank" rel="noopener">
                         <FacebookIcon />
                     </SocialLink>
@@ -49,8 +39,8 @@ const Footer = (props: FooterProps) => (
                     <SocialLink href={ props.githubUrl } target="_blank" rel="noopener">
                         <GitHubIcon />
                     </SocialLink>
-                </SocialIconCol>
-                <Col sm={ 6 }>
+                </div>
+                <div className="col-sm-6">
                     <AddressWrapper>
                         <p>{ props.addressLine1 }</p>
                         <p>{ props.addressLine2 }</p>
@@ -58,9 +48,9 @@ const Footer = (props: FooterProps) => (
                         <a href={` mailto:${ props.contactEmailAddress } `}>{ props.contactEmailAddress }</a>
                     </AddressWrapper>
                     <p>&copy; { (new Date()).getFullYear() } { props.siteName }</p>
-                </Col>
-            </FooterRow>
-        </Container>
+                </div>
+            </div>
+        </div>
     </FooterWrapper>
 );
 

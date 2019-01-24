@@ -10,7 +10,6 @@ type HeaderWrapperProps = {
 export const HeaderWrapper = styled.header`
     position: relative;
 
-    width: 100vw;
     padding: ${ heading_padding } 0;
 
     display: flex;
