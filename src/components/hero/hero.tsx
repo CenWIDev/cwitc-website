@@ -2,7 +2,6 @@ import React, { Component, ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { Heading, Subheading } from './../headings/headings';
-import { PrimaryButton, SecondaryButton } from './../button/button';
 import { color, sizes } from './../../styles/variables'
 
 const Date = styled(Subheading)`
@@ -29,11 +28,11 @@ const Description = styled.p`
 const ButtonColumn = styled.div`
     display: block;
 
-    ${ PrimaryButton }, ${ SecondaryButton } {
+    .btn {
         width: 100%;
     }
 
-    ${ SecondaryButton } {
+    .btn-secondary {
         @media (max-width: ${ sizes.xs }) {
             margin-top: 1vh;
         }
@@ -108,10 +107,10 @@ export class Hero extends Component {
                 <div className="row">
                     <ButtonColumn className="col-sm-12 col-md-10 offset-md-1 col-lg-3 offset-lg-2">
                         <div className="col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12">
-                            <PrimaryButton>{ config.primaryButtonText }</PrimaryButton>
+                            <button className="btn btn-primary">{ config.primaryButtonText }</button>
                         </div>
                         <div className="col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12">
-                            <SecondaryButton>{ config.secondaryButtonText }</SecondaryButton>
+                            <button className="btn btn-secondary">{ config.secondaryButtonText }</button>
                         </div>
                     </ButtonColumn>
                     <div className="d-none d-sm-block col-md-10 offset-md-1 col-lg-5 offset-lg-0">

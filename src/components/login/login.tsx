@@ -1,7 +1,6 @@
 import React, { Component, ReactNode } from 'react';
 import { navigate } from 'gatsby';
 
-import { Button } from './../button/button';
 import AuthService, { LoginProvider } from './../../services/auth';
 
 type LoginProps = {
@@ -27,7 +26,7 @@ export default class Login extends Component {
                 <div className="row">
                     <div className="col-sm-6 offset-sm-3">
                         <h1>Log in</h1>
-                        <Button onClick={ async () => await this.handleSubmit(LoginProvider.github) }>Login with GitHub</Button>
+                        <button className="btn btn-outline-primary" onClick={ async () => await this.handleSubmit(LoginProvider.github) }>Login with GitHub</button>
                     </div>
                 </div>
             </div>
