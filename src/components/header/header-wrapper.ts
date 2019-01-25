@@ -16,13 +16,13 @@ export const HeaderWrapper = styled.header`
     flex-direction: column;
     justify-content: center;
 
-    background: ${color.dark};
+    background: ${ props => props.theme.dark };
 
     ${ props => props.useHero ? HeroHeaderWrapper : '' }
 `;
 
 const HeroHeaderWrapper = css`
-    background: url(${ (props: HeaderWrapperProps) => props.image }), ${ color.dark };
+    background: url(${ (props: HeaderWrapperProps) => props.image }), ${ (props: any) => props.theme.dark };
     background-blend-mode: multiply;
     background-position: center bottom;
     background-size: cover;

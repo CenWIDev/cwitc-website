@@ -59,7 +59,7 @@ export class Navigation extends Component {
     public render(): ReactNode {
         return (
             <>
-                <NavigationWrapper overlay={ this.state.displayMobileNav }>
+                <NavigationWrapper className="container" overlay={ this.state.displayMobileNav }>
                     <Link to="/">
                         <img src={ this.props.logoSource } />
                     </Link>

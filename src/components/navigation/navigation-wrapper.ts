@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import { Container } from 'styled-bootstrap-grid';
 
 import { sizes, desktop_logo_height, mobile_logo_height } from './../../styles/variables';
 
-export const NavigationWrapper = styled(Container)`
+export const NavigationWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;

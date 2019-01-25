@@ -1,6 +1,5 @@
 import React, { Component, ReactNode } from 'react';
 import styled from 'styled-components';
-import { Container, Row, Col } from 'styled-bootstrap-grid';
 
 import { Heading, Subheading } from './../headings/headings';
 import { PrimaryButton, SecondaryButton } from './../button/button';
@@ -27,7 +26,7 @@ const Description = styled.p`
     }
 `;
 
-const ButtonColumn = styled(Col)`
+const ButtonColumn = styled.div`
     display: block;
 
     ${ PrimaryButton }, ${ SecondaryButton } {
@@ -92,34 +91,34 @@ export class Hero extends Component {
         const { config } = this.props;
 
         return (
-            <Container>
-                <Row>
-                    <Col>
+            <div className="container">
+                <div className="row">
+                    <div className="col">
                         <Heading>{ config.heading }</Heading>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={12} sm={6}>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-12 col-sm-6">
                         <Date>{ config.conferenceDate }</Date>
-                    </Col>
-                    <Col xs={12} sm={6}>
+                    </div>
+                    <div className="col-12 col-sm-6">
                         <Time>{ config.startTime } - { config.endTime }</Time>
-                    </Col>
-                </Row>
-                <Row>
-                    <ButtonColumn sm={12} md={10} mdOffset={1} lg={3} lgOffset={2}>
-                        <Col xs={10} xsOffset={1} sm={6} smOffset={0} lg={12}>
+                    </div>
+                </div>
+                <div className="row">
+                    <ButtonColumn className="col-sm-12 col-md-10 offset-md-1 col-lg-3 offset-lg-2">
+                        <div className="col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12">
                             <PrimaryButton>{ config.primaryButtonText }</PrimaryButton>
-                        </Col>
-                        <Col xs={10} xsOffset={1} sm={6} smOffset={0} lg={12}>
+                        </div>
+                        <div className="col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12">
                             <SecondaryButton>{ config.secondaryButtonText }</SecondaryButton>
-                        </Col>
+                        </div>
                     </ButtonColumn>
-                    <Col hiddenXsDown md={10} mdOffset={1} lg={5} lgOffset={0}>
+                    <div className="d-none d-sm-block col-md-10 offset-md-1 col-lg-5 offset-lg-0">
                         <Description>{ config.description }</Description>
-                    </Col>
-                </Row>
-            </Container>
+                    </div>
+                </div>
+            </div>
         );
     }
 }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components';
-import { Container, Row, Col } from 'styled-bootstrap-grid';
 
 import Layout from '../components/layout';
 import IconCard , { IconCardProps, IconCardJustifications } from './../components/icon-card/icon-card';
@@ -38,12 +37,12 @@ class IndexPage extends Component {
                 `}
                 render={({ landingPageContent, hero }) => (
                     <Layout isHomePage>
-                        <Container>
-                            <Row>
-                                <Col hiddenSmUp>
+                        <div className="container">
+                            <div className="row">
+                                <div className="col d-block d-sm-none">
                                     <p>{ hero.description.description }</p>
-                                </Col>
-                            </Row>
+                                </div>
+                            </div>
                             {
                                 landingPageContent.cards.map((contentfulIconCard: any, index: number) => {
                                     const iconCardProps: IconCardProps = {
@@ -61,7 +60,7 @@ class IndexPage extends Component {
                                     );
                                 })
                             }
-                        </Container>
+                        </div>
                     </Layout>
                 )}
             />

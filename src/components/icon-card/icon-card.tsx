@@ -1,11 +1,10 @@
 import React from 'react';
-import { Row, Col } from 'styled-bootstrap-grid';
 import styled from 'styled-components';
 
 import { sizes } from './../../styles/variables';
 import Icon from './../icon/icon';
 
-const CenterRow = styled(Row)`
+const CenterRow = styled.div`
     justify-content: center;
 
     @media (max-width: ${ sizes.sm }) {
@@ -15,15 +14,18 @@ const CenterRow = styled(Row)`
     }
 `;
 
-const IconCol = styled(Col)`
+const IconCol = styled.div`
+    display: flex;
     order: ${ props => props.left ? 0 : 2 };
+
+    .icon { width: 100%; }
 
     @media (max-width: ${ sizes.sm }) {
         order: 0;
     }
 `;
 
-const TextCol = styled(Col)`
+const TextCol = styled.div`
     order: 1;
 `;
 
@@ -39,11 +41,11 @@ const IconCard = ({ title, descriptionHtml, iconName, justification = IconCardJu
     const isLeft = justification === IconCardJustifications.LEFT;
 
     return (
-        <CenterRow>
-            <IconCol left={ isLeft } sm={ 3 } md={ 2 } lg={ 1 }>
+        <CenterRow className="row">
+            <IconCol className="col-sm-3 col-md-2 col-lg-1" left={ isLeft }>
                 <Icon name={ iconName } />
             </IconCol>
-            <TextCol sm={ 9 } md={ 8 } lg={ 7 }>
+            <TextCol className="col-sm-9 col-md-8 col-md-7">
                 <h3>{ title }</h3>
                 <Description dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
             </TextCol>
