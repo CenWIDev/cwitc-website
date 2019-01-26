@@ -13,17 +13,5 @@ $theme-colors: (
     "gray": $gray
 );
 
-// Sizes
-$sizeXs: 0;
-$sizeSm: 576;
-$sizeMd: 768;
-$sizeLg: 992;
-$sizeXl: 1200;
-
-// $grid-breakpoints: (
-//     xs: $size_xs,
-//     sm: $size_sm,
-//     md: $size_md,
-//     lg: $size_lg,
-//     xl: $size_xl
-// );
+// Bootstrap and its default variables
+@import "~bootstrap/scss/bootstrap";

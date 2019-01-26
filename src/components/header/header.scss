@@ -1,7 +1,4 @@
 @import "./../vars";
-@import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/variables";
-@import "node_modules/bootstrap/scss/mixins";
 
 .header-wrapper {
     position: relative;
@@ -9,6 +6,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    background-color: $dark;
 
     &.hero {
         background-position: center bottom;

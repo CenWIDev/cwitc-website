@@ -56,7 +56,7 @@ const Header = ({ useHero }: HeaderProps) => (
 
             return (
                 <header
-                    className={`header-wrapper ${ useHero ? 'hero' : null }`}
+                    className={`header-wrapper ${ useHero ? 'hero' : '' }`}
                     style={{
                         backgroundImage: useHero ? `url(${ global.homePageHeroImage.fixed.src })`: ''
                     }}>

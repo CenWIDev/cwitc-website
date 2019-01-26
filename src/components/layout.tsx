@@ -1,17 +1,12 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import { ThemeProvider } from 'styled-components';
 import { StaticQuery, graphql } from 'gatsby';
 
 import Header from './header/header';
 import Footer, { FooterProps } from './footer/footer';
 
 // Imports Bootstrap
-import './base.scss';
-
-// Imports SCSS vars for use in JS
-// https://link.medium.com/PuCloq5hJT
-const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./_vars.scss');
+import './_vars.scss';
 
 // Polyfills
 import 'core-js/es6/number';
@@ -53,23 +48,21 @@ const Layout = ({ isHomePage = false, children }: Props) => (
             };
 
             return (
-                <ThemeProvider theme={ theme }>
-                    <>
-                        <Helmet
-                            title={`${ siteSettings.siteName }`}
-                            meta={[
-                                { name: 'description', content: 'Sample' },
-                                { name: 'keywords', content: 'sample, something' }
-                            ]}>
-                            <html lang="en" />
-                        </Helmet>
-                        <Header useHero={ isHomePage }/>
-                        <div>
-                            { children }
-                        </div>
-                        <Footer { ...footerConfig }/>
-                    </>
-                </ThemeProvider>
+                <>
+                    <Helmet
+                        title={`${ siteSettings.siteName }`}
+                        meta={[
+                            { name: 'description', content: 'Sample' },
+                            { name: 'keywords', content: 'sample, something' }
+                        ]}>
+                        <html lang="en" />
+                    </Helmet>
+                    <Header useHero={ isHomePage }/>
+                    <div>
+                        { children }
+                    </div>
+                    <Footer { ...footerConfig }/>
+                </>
             );
         }}
     />
