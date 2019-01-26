@@ -20,13 +20,17 @@ const SocialLink = styled.a`
 
 const AddressWrapper = styled.div`
     margin-bottom: 1rem;
+
+    p {
+        margin-bottom: 0;
+    }
 `;
 
 const Footer = (props: FooterProps) => (
     <FooterWrapper>
         <div className="container">
-            <div className="row justify-content-between">
-                <div className="col-sm-5 d-flex justify-content-between">
+            <div className="row justify-content-center">
+                <div className="col-sm-12 col-md-5 col-lg-4 d-flex justify-content-between mb-3">
                     <SocialLink href={ props.facebookUrl } target="_blank" rel="noopener">
                         <FacebookIcon />
                     </SocialLink>
@@ -40,7 +44,7 @@ const Footer = (props: FooterProps) => (
                         <GitHubIcon />
                     </SocialLink>
                 </div>
-                <div className="col-sm-6">
+                <div className="col-sm-12 col-md-5">
                     <AddressWrapper>
                         <p>{ props.addressLine1 }</p>
                         <p>{ props.addressLine2 }</p>
