@@ -1,7 +1,7 @@
 import React from 'react';
 import { StaticQuery, graphql } from 'gatsby';
 
-import { Hero, HeroConfig } from './../hero/hero';
+import Hero, { HeroConfig } from './../hero/hero';
 import { HeaderWrapper } from './header-wrapper';
 import { Navigation } from './../navigation/navigation';
 

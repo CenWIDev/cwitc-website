@@ -32,9 +32,9 @@ const HeroHeaderWrapper = css`
         margin-bottom: 2rem;
     }
 
-    @media (orientation: portrait) {
+    /* @media (orientation: portrait) {
         height: 50vh;
-    }
+    } */
 
     ${ NavigationWrapper } {
         position: absolute;
