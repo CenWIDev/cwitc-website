@@ -3,10 +3,6 @@ import { navigate } from 'gatsby';
 
 import AuthService, { LoginProvider } from './../../services/auth';
 
-type LoginProps = {
-    path: string;
-};
-
 export default class Login extends Component {
 
     public props: LoginProps;
@@ -33,3 +29,7 @@ export default class Login extends Component {
         );
     }
 }
+
+export type LoginProps = {
+    path: string;
+};

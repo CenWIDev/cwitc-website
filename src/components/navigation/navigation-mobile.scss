@@ -1,16 +1,20 @@
-import styled from 'styled-components';
+@import "./../vars";
 
-export const NavigationMobile = styled.div`
+.navigation-mobile {
     position: absolute;
     top: 1vw;
     left: 59vw;
-    background: white;
+    background: $white;
     width: 40vw;
     border-radius: .25em;
     padding: 3vw;
     z-index: 100;
 
-    ${ props => props.showMenu ? '' : 'display: none;' }
+    display: none;
+
+    &.open {
+        display: block;
+    }
 
     .close {
         border-radius: 50%;
@@ -31,12 +35,12 @@ export const NavigationMobile = styled.div`
 
         a {
             font-size: 1.5em;
-            color: ${ props => props.theme.dark };
+            color: $dark;
         }
     }
-`;
+}
 
-export const Overlay = styled.span`
+.overlay {
     position: fixed;
     height: 100vh;
     width: 100vw;
@@ -45,6 +49,9 @@ export const Overlay = styled.span`
     background-color: rgba(0, 0, 0, 0.25);
     background-blend-mode: unset;
     z-index: 50;
+    display: none;
 
-    ${ props => props.enabled ? '' : 'display: none;' }
-`;
+    &.open {
+        display: block;
+    }
+}

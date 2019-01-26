@@ -2,20 +2,10 @@ import React, { Component, ReactNode } from 'react';
 import { Link, navigate } from 'gatsby';
 import AuthService from '../../services/auth';
 
-import { NavigationItems } from './navigation-items';
-import { NavigationWrapper } from './navigation-wrapper';
-import { NavigationMobile, Overlay } from './navigation-mobile';
 import Icon from './../icon/icon';
 
-type HeaderNavigationPage = {
-    slug: string;
-    navigationText: string;
-};
-
-type NavigationProps = {
-    logoSource: string;
-    navigationItems: HeaderNavigationPage[];
-};
+import './navigation.scss';
+import './navigation-mobile.scss';
 
 export class Navigation extends Component {
 
@@ -65,23 +55,33 @@ export class Navigation extends Component {
 
         return (
             <>
-                <NavigationWrapper className="container navigation-wrapper" overlay={ this.state.displayMobileNav }>
+                <div className="container navigation-wrapper">
                     <Link to="/">
                         <img src={ this.props.logoSource } />
                     </Link>
-                    <NavigationItems>
+                    <ul className="navigation-items">
                         { navItems }
-                    </NavigationItems>
+                    </ul>
                     <button className="btn btn-outline-light d-block d-md-none" type="button" onClick={ this.showMobileNav }>Menu</button>
-                </NavigationWrapper>
-                <Overlay enabled={ this.state.displayMobileNav } onClick={ this.hideMobileNav } />
-                <NavigationMobile showMenu={ this.state.displayMobileNav }>
+                </div>
+                <span className={`overlay ${ this.state.displayMobileNav ? 'open' : '' }`} onClick={ this.hideMobileNav } />
+                <div className={`navigation-mobile ${ this.state.displayMobileNav ? 'open' : '' } `}>
                     <Icon className="close" onClick={ this.hideMobileNav } name="x-circle" />
                     <ul>
                         { navItems }
                     </ul>
-                </NavigationMobile>
+                </div>
             </>
         );
     }
 }
+
+export type HeaderNavigationPage = {
+    slug: string;
+    navigationText: string;
+};
+
+export type NavigationProps = {
+    logoSource: string;
+    navigationItems: HeaderNavigationPage[];
+};
