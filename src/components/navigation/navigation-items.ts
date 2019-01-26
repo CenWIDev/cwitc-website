@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { color } from '../../styles/variables';
 import { sizes } from './../../styles/variables';
 
 export const NavigationItems = styled.ul`
@@ -22,10 +21,10 @@ export const NavigationItems = styled.ul`
     }
 
     a {
-        color: ${ color.white };
+        color: ${ props => props.theme.white };
 
         &:hover {
-            color: ${ color.gray };
+            color: ${ props => props.theme.gray };
             text-decoration: none;
         }
     }

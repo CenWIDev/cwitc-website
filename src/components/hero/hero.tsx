@@ -2,25 +2,24 @@ import React, { Component, ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { Heading, Subheading } from './../headings/headings';
-import { color, sizes } from './../../styles/variables'
 
 const Date = styled(Subheading)`
-    @media (min-width: ${ sizes.sm }) {
+    @media (min-width: ${ props => props.theme.sizeSm }px) {
         text-align: right;
     }
 `;
 
 const Time = styled(Subheading)`
-    @media (min-width: ${ sizes.sm }) {
+    @media (min-width: ${ props => props.theme.sizeSm }px) {
         text-align: left;
     }
 `;
 
 const Description = styled.p`
-    color: ${ color.white };
+    color: ${ props => props.theme.white };
     margin: 0;
 
-    @media (max-width: ${ sizes.lg }) {
+    @media (max-width: ${ props => props.theme.sizeLg }px) {
         margin-top: 1vh;
     }
 `;
@@ -33,16 +32,16 @@ const ButtonColumn = styled.div`
     }
 
     .btn-secondary {
-        @media (max-width: ${ sizes.xs }) {
+        @media (max-width: ${ props => props.theme.sizeXs }px) {
             margin-top: 1vh;
         }
     }
 
-    @media (min-width: ${ sizes.sm }) {
+    @media (min-width: ${ props => props.theme.sizeSm }px) {
         display: flex;
     }
 
-    @media (min-width: ${ sizes.sm }) and (max-width: ${ sizes.lg }) {
+    @media (min-width: ${ props => props.theme.sizeSm }px) and (max-width: ${ props => props.theme.sizeLg }px) {
         > div:first-child {
             padding-left: 0;
         }
@@ -52,7 +51,7 @@ const ButtonColumn = styled.div`
         }
     }
 
-    @media (min-width: ${ sizes.lg }) {
+    @media (min-width: ${ props => props.theme.sizeLG }px) {
         flex-direction: column;
         justify-content: space-around;
 

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { color } from '../../styles/variables';
 
 export const NavigationMobile = styled.div`
     position: absolute;
@@ -32,7 +31,7 @@ export const NavigationMobile = styled.div`
 
         a {
             font-size: 1.5em;
-            color: ${ color.dark };
+            color: ${ props => props.theme.dark };
         }
     }
 `;

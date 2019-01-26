@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { color, sizes, heading_padding } from './../../styles/variables';
 import { NavigationWrapper } from './../navigation/navigation-wrapper';
 
 type HeaderWrapperProps = {
@@ -9,8 +8,6 @@ type HeaderWrapperProps = {
 
 export const HeaderWrapper = styled.header`
     position: relative;
-
-    padding: ${ heading_padding } 0;
 
     display: flex;
     flex-direction: column;
@@ -31,17 +28,18 @@ const HeroHeaderWrapper = css`
     min-height: 380px;
     margin-bottom: 3rem;
 
-    @media (max-width: ${ sizes.sm }) {
+    @media (max-width: ${ (props: any) => props.theme.sizeSm}px) {
         margin-bottom: 2rem;
     }
 
     @media (orientation: portrait) {
-        height: 40vh;
+        height: 50vh;
     }
 
     ${ NavigationWrapper } {
         position: absolute;
-        top: 1vw;
+        top: 0;
+        padding-top: 10px;
 
         /* Internet Explorer Styles */
         @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {

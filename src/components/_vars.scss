@@ -1,4 +1,4 @@
-// Your variable overrides
+// Colors
 $primary: rgba(236, 47, 75, 1);
 $secondary: rgba(34, 165, 211, 1);
 $dark: rgba(47, 46, 46, 1);
@@ -12,3 +12,18 @@ $theme-colors: (
     "white": $white,
     "gray": $gray
 );
+
+// Sizes
+$sizeXs: 0;
+$sizeSm: 576;
+$sizeMd: 768;
+$sizeLg: 992;
+$sizeXl: 1200;
+
+// $grid-breakpoints: (
+//     xs: $size_xs,
+//     sm: $size_sm,
+//     md: $size_md,
+//     lg: $size_lg,
+//     xl: $size_xl
+// );

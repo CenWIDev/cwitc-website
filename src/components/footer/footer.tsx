@@ -2,19 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { FacebookIcon, TwitterIcon, GitHubIcon, LinkedInIcon } from './../icon';
-import { color } from './../../styles/variables';
 
 const FooterWrapper = styled.footer`
     margin-top: 3vw;
     padding: 5vw 0 10vw;
-    color: ${ color.white };
-    background-color: ${ color.dark };
+    color: ${ props => props.theme.white };
+    background-color: ${ props => props.theme.dark };
 `;
 
 const SocialLink = styled.a`
     svg {
         height: 50px;
-        fill: ${ color.white };
+        fill: ${ props => props.theme.white };
     }
 `;
 
