@@ -2,8 +2,9 @@ import React from 'react';
 import { StaticQuery, graphql } from 'gatsby';
 
 import Hero, { HeroConfig } from './../hero/hero';
-import { HeaderWrapper } from './header-wrapper';
 import { Navigation } from './../navigation/navigation';
+
+import "./header.scss";
 
 type HeaderProps = {
     useHero: boolean;
@@ -54,12 +55,18 @@ const Header = ({ useHero }: HeaderProps) => (
             };
 
             return (
-                <HeaderWrapper useHero={ useHero } image={global.homePageHeroImage.fixed.src}>
+                <header
+                    className={`header-wrapper ${ useHero ? 'hero' : null }`}
+                    style={{
+                        backgroundImage: useHero ? `url(${ global.homePageHeroImage.fixed.src })`: ''
+                    }}>
                     <Navigation
                         logoSource={global.headerLogo.fixed.src}
                         navigationItems={global.headerNavigationPages} />
-                    { useHero ? <Hero config={ heroConfig } /> : null }
-                </HeaderWrapper>
+                    {
+                        useHero ? <Hero config={ heroConfig } /> : null
+                    }
+                </header>
             );
         }}
     />

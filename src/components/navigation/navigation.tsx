@@ -65,7 +65,7 @@ export class Navigation extends Component {
 
         return (
             <>
-                <NavigationWrapper className="container" overlay={ this.state.displayMobileNav }>
+                <NavigationWrapper className="container navigation-wrapper" overlay={ this.state.displayMobileNav }>
                     <Link to="/">
                         <img src={ this.props.logoSource } />
                     </Link>

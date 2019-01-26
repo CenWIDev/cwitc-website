@@ -6,6 +6,7 @@ export const NavigationWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 15px;
 
     img {
         height: ${ mobile_logo_height };
