@@ -1,71 +1,26 @@
 import React from 'react';
-import styled from 'styled-components';
 
-import { sizes } from './../../styles/variables';
 import Icon from './../icon/icon';
 
-const CenterRow = styled.div`
-    justify-content: center;
-
-    @media (max-width: ${ sizes.sm }) {
-        .large-icon svg {
-            height: 100px;
-        }
-    }
-`;
-
-const IconCol = styled.div`
-    display: flex;
-    order: ${ props => props.left ? 0 : 2 };
-
-    .icon { width: 100%; }
-
-    @media (max-width: ${ sizes.sm }) {
-        order: 0;
-    }
-`;
-
-const TextCol = styled.div`
-    order: 1;
-
-    h3 {
-        display: flex;
-    }
-
-    .icon {
-        align-items: center;
-        margin-right: 1rem;
-    }
-
-    h3 .icon svg {
-        height: 1.5rem;
-    }
-`;
-
-const Description = styled.span`
-    a {
-        display: block;
-        margin-top: 2rem;
-    }
-`;
+import './icon-card.scss';
 
 const IconCard = ({ title, descriptionHtml, iconName, justification = IconCardJustifications.LEFT }: IconCardProps) => {
 
     const isLeft = justification === IconCardJustifications.LEFT;
 
     return (
-        <CenterRow className="row">
-            <IconCol className="d-none d-sm-block col-sm-3 col-md-2 col-lg-1" left={ isLeft }>
+        <div className="icon-card-container row justify-content-center">
+            <div className={`icon-col d-none d-sm-flex col-sm-2 col-lg-1 ${ isLeft ? '' : 'right' }`}>
                 <Icon className="large-icon" name={ iconName } />
-            </IconCol>
-            <TextCol className="col-sm-9 col-md-8 col-md-7">
+            </div>
+            <div className="text-col col-sm-9 col-md-8 col-md-7">
                 <h3>
                     <Icon className="d-flex d-sm-none" name={ iconName } />
                     { title }
                 </h3>
-                <Description dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
-            </TextCol>
-        </CenterRow>
+                <span className="description" dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
+            </div>
+        </div>
     );
 };
 
