@@ -35,23 +35,33 @@ const Header = ({ useHero }: HeaderProps) => (
                 }
                 hero: contentfulHomePageHero {
                     heading
+                    subheading
                     description {
-                      description
+                        description
                     }
-                    primaryButtonText
-                    secondaryButtonText
-                  }
+                    primaryButton {
+                        childContentfulRichText {
+                            html
+                        }
+                    }
+                    secondaryButton {
+                        childContentfulRichText {
+                            html
+                        }
+                    }
+                }
             }
         `}
         render={({ global, hero }) => {
             const heroConfig: HeroConfig = {
                 heading: hero.heading,
+                subheading: hero.subheading,
                 description: hero.description.description,
                 conferenceDate: global.conferenceDate,
                 startTime: global.startTime,
                 endTime: global.endTime,
-                primaryButtonText: hero.primaryButtonText,
-                secondaryButtonText: hero.secondaryButtonText
+                primaryButtonHtml: hero.primaryButton.childContentfulRichText.html,
+                secondaryButtonHtml: hero.secondaryButton.childContentfulRichText.html
             };
 
             return (
@@ -61,11 +71,9 @@ const Header = ({ useHero }: HeaderProps) => (
                         backgroundImage: useHero ? `url(${ global.homePageHeroImage.fixed.src })`: ''
                     }}>
                     <Navigation
-                        logoSource={global.headerLogo.fixed.src}
-                        navigationItems={global.headerNavigationPages} />
-                    {
-                        useHero ? <Hero config={ heroConfig } /> : null
-                    }
+                        logoSource={ global.headerLogo.fixed.src }
+                        navigationItems={ global.headerNavigationPages } />
+                    { useHero ? <Hero config={ heroConfig } /> : null }
                 </header>
             );
         }}

@@ -9,18 +9,23 @@
         }
     }
 
-    h1, h3 { color: $white; text-align: center; }
+    h1, h4 { color: $white; text-align: center; }
 
-    h3.date {
+    h4.date {
         @include media-breakpoint-up(sm) {
             text-align: right;
         }
     }
 
-    h3.time {
+    h4.time {
         @include media-breakpoint-up(sm) {
             text-align: left;
         }
+    }
+
+    .subheading {
+        text-align: center;
+        color: $white;
     }
 
     .description {
@@ -35,11 +40,21 @@
     .button-column {
         display: block;
 
-        .btn {
+        p {
+            margin: 0;
+        }
+
+        a {
+            @extend .btn;
             width: 100%;
         }
 
-        .btn-secondary {
+        .primary a {
+            @extend .btn-primary;
+        }
+
+        .secondary a {
+            @extend .btn-secondary;
 
             @include media-breakpoint-down(xs) {
                 margin-top: 1vh;

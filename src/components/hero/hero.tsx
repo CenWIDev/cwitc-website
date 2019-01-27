@@ -18,20 +18,25 @@ export default class Hero extends Component {
                 </div>
                 <div className="row">
                     <div className="col-12 col-sm-6">
-                        <h3 className="date">{ config.conferenceDate }</h3>
+                        <h4 className="date">{ config.conferenceDate }</h4>
                     </div>
                     <div className="col-12 col-sm-6">
-                        <h3 className="time">{ config.startTime } - { config.endTime }</h3>
+                        <h4 className="time">{ config.startTime } - { config.endTime }</h4>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <p className="subheading">{ config.subheading }</p>
                     </div>
                 </div>
                 <div className="row">
                     <div className="button-column col-sm-12 col-md-10 offset-md-1 col-lg-3 offset-lg-2">
-                        <div className="col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12">
-                            <button className="btn btn-primary">{ config.primaryButtonText }</button>
-                        </div>
-                        <div className="col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12">
-                            <button className="btn btn-secondary">{ config.secondaryButtonText }</button>
-                        </div>
+                        <div
+                            className="primary col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12"
+                            dangerouslySetInnerHTML={{ __html: config.primaryButtonHtml }}/>
+                        <div
+                            className="secondary col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12"
+                            dangerouslySetInnerHTML={{ __html: config.secondaryButtonHtml }} />
                     </div>
                     <div className="d-none d-sm-block col-md-10 offset-md-1 col-lg-5 offset-lg-0">
                         <p className="description">{ config.description }</p>
@@ -44,15 +49,13 @@ export default class Hero extends Component {
 
 export type HeroConfig = {
     heading: string;
-    subheading?: string;
+    subheading: string;
     conferenceDate: string;
     startTime: string;
     endTime: string;
     description: string;
-    primaryButtonText: string;
-    primaryButtonAction?: string;
-    secondaryButtonText: string;
-    secondaryButtonAction?: string;
+    primaryButtonHtml: string;
+    secondaryButtonHtml: string;
 };
 
 export type HeroProps = {

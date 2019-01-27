@@ -3,12 +3,18 @@
 .navigation-mobile {
     position: absolute;
     top: 1vw;
-    left: 59vw;
     background: $white;
-    width: 40vw;
     border-radius: .25em;
     padding: 3vw;
     z-index: 100;
+    left: 29vw;
+    width: 70vw;
+
+    @include media-breakpoint-up(sm) {
+        left: 49vw;
+        width: 50vw;
+    }
+
 
     display: none;
 
