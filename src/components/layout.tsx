@@ -12,11 +12,12 @@ import './_vars.scss';
 import 'core-js/es6/number';
 
 type Props = {
-    isHomePage?: boolean ;
+    isHomePage?: boolean;
+    className?: string;
     children: React.ReactNode;
 };
 
-const Layout = ({ isHomePage = false, children }: Props) => (
+const Layout = ({ isHomePage = false, className, children }: Props) => (
     <StaticQuery
         query={graphql`
             query GlobalSiteSettings {
@@ -58,7 +59,7 @@ const Layout = ({ isHomePage = false, children }: Props) => (
                         <html lang="en" />
                     </Helmet>
                     <Header useHero={ isHomePage }/>
-                    <div>
+                    <div className={ className }>
                         { children }
                     </div>
                     <Footer { ...footerConfig }/>

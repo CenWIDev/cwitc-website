@@ -1,0 +1,34 @@
+@import "./../components/vars";
+
+.content-page-wrapper {
+
+    .hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 3vw;
+        position: relative;
+
+        height: 30vh;
+        min-height: 250px;
+
+        h1, h3 {
+            color: $white;
+            text-align: center;
+            z-index: 2;
+        }
+
+        // Gray overlay over image
+        &:before {
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.60);
+            background-blend-mode: unset;
+            z-index: 1;
+        }
+    }
+}

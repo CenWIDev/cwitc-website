@@ -30,14 +30,23 @@ export default class Hero extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="button-column col-sm-12 col-md-10 offset-md-1 col-lg-3 offset-lg-2">
-                        <div
-                            className="primary col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12"
-                            dangerouslySetInnerHTML={{ __html: config.primaryButtonHtml }}/>
-                        <div
-                            className="secondary col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12"
-                            dangerouslySetInnerHTML={{ __html: config.secondaryButtonHtml }} />
-                    </div>
+                    {
+                        config.primaryButtonHtml || config.secondaryButtonHtml ?
+                            <div className="button-column col-sm-12 col-md-10 offset-md-1 col-lg-3 offset-lg-2">
+                                {
+                                    config.primaryButtonHtml ?
+                                        <div
+                                            className="primary col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12"
+                                            dangerouslySetInnerHTML={{ __html: config.primaryButtonHtml }}/> : null
+                                }
+                                {
+                                    config.secondaryButtonHtml ?
+                                        <div
+                                            className="secondary col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12"
+                                            dangerouslySetInnerHTML={{ __html: config.secondaryButtonHtml }} /> : null
+                                }
+                            </div> : null
+                    }
                     <div className="d-none d-sm-block col-md-10 offset-md-1 col-lg-5 offset-lg-0">
                         <p className="description">{ config.description }</p>
                     </div>

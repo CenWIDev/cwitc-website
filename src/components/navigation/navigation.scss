@@ -10,7 +10,19 @@
         height: 10vw;
 
         @include media-breakpoint-up(sm) {
+            height: 6vw;
+        }
+
+        @include media-breakpoint-up(md) {
+            height: 5vw;
+        }
+
+        @include media-breakpoint-up(lg) {
             height: 4vw;
+        }
+
+        @include media-breakpoint-up(xl) {
+            height: 3.5vw;
         }
     }
 
