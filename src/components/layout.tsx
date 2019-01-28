@@ -61,7 +61,7 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                 siteName: siteSettings.siteName
             };
 
-            let canonicalUrl: string = trimChar(siteSettings.siteUrl, '/');
+            let canonicalUrl: string = 'https://seo--cwitc.netlify.com'; //trimChar(siteSettings.siteUrl, '/');
 
             if (path) {
                 canonicalUrl += `/${ trimChar(path, '/') }`;
