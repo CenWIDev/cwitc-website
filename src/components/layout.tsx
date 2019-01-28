@@ -76,7 +76,7 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                             { property: 'og:url', content: canonicalUrl },
                             { property: 'twitter:card', content: 'summary' },
                             { property: 'twitter:site:id', content: siteSettings.twitterUsername },
-                            { property: 'og:image', content: siteSettings.headerLogo.fixed.src },
+                            { property: 'og:image', content: `https:${ siteSettings.headerLogo.fixed.src }` },
                             { property: 'og:description', content: hero.description.description }
                         ]}>
                         <html lang="en" />
