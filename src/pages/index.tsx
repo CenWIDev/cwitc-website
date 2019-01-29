@@ -1,15 +1,10 @@
 import React, { Component } from 'react'
 import { StaticQuery, graphql } from 'gatsby'
-import styled from 'styled-components';
-import { Container, Row, Col } from 'styled-bootstrap-grid';
 
 import Layout from '../components/layout';
 import IconCard , { IconCardProps, IconCardJustifications } from './../components/icon-card/icon-card';
 
-const CardRule = styled.hr`
-    margin: 3rem auto;
-    width: 100%;
-`;
+import './index.scss';
 
 class IndexPage extends Component {
     render() {
@@ -38,12 +33,12 @@ class IndexPage extends Component {
                 `}
                 render={({ landingPageContent, hero }) => (
                     <Layout isHomePage>
-                        <Container>
-                            <Row>
-                                <Col hiddenSmUp>
+                        <div className="home-container container">
+                            <div className="row">
+                                <div className="col d-block d-sm-none">
                                     <p>{ hero.description.description }</p>
-                                </Col>
-                            </Row>
+                                </div>
+                            </div>
                             {
                                 landingPageContent.cards.map((contentfulIconCard: any, index: number) => {
                                     const iconCardProps: IconCardProps = {
@@ -56,12 +51,12 @@ class IndexPage extends Component {
                                     return (
                                         <React.Fragment key={ index }>
                                             <IconCard { ...iconCardProps } />
-                                            { index !== landingPageContent.cards.length - 1 ? <CardRule /> : null }
+                                            { index !== landingPageContent.cards.length - 1 ? <hr /> : null }
                                         </React.Fragment>
                                     );
                                 })
                             }
-                        </Container>
+                        </div>
                     </Layout>
                 )}
             />

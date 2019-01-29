@@ -1,9 +1,10 @@
 import React from 'react';
 import { StaticQuery, graphql } from 'gatsby';
 
-import { Hero, HeroConfig } from './../hero/hero';
-import { HeaderWrapper } from './header-wrapper';
+import Hero, { HeroConfig } from './../hero/hero';
 import { Navigation } from './../navigation/navigation';
+
+import "./header.scss";
 
 type HeaderProps = {
     useHero: boolean;
@@ -34,32 +35,46 @@ const Header = ({ useHero }: HeaderProps) => (
                 }
                 hero: contentfulHomePageHero {
                     heading
+                    subheading
                     description {
-                      description
+                        description
                     }
-                    primaryButtonText
-                    secondaryButtonText
-                  }
+                    primaryButton {
+                        childContentfulRichText {
+                            html
+                        }
+                    }
+                    secondaryButton {
+                        childContentfulRichText {
+                            html
+                        }
+                    }
+                }
             }
         `}
         render={({ global, hero }) => {
             const heroConfig: HeroConfig = {
                 heading: hero.heading,
+                subheading: hero.subheading,
                 description: hero.description.description,
                 conferenceDate: global.conferenceDate,
                 startTime: global.startTime,
                 endTime: global.endTime,
-                primaryButtonText: hero.primaryButtonText,
-                secondaryButtonText: hero.secondaryButtonText
+                primaryButtonHtml: hero.primaryButton.childContentfulRichText.html,
+                secondaryButtonHtml: hero.secondaryButton.childContentfulRichText.html
             };
 
             return (
-                <HeaderWrapper useHero={ useHero } image={global.homePageHeroImage.fixed.src}>
+                <header
+                    className={`header-wrapper ${ useHero ? 'hero' : '' }`}
+                    style={{
+                        backgroundImage: useHero ? `url(${ global.homePageHeroImage.fixed.src })`: ''
+                    }}>
                     <Navigation
-                        logoSource={global.headerLogo.fixed.src}
-                        navigationItems={global.headerNavigationPages} />
+                        logoSource={ global.headerLogo.fixed.src }
+                        navigationItems={ global.headerNavigationPages } />
                     { useHero ? <Hero config={ heroConfig } /> : null }
-                </HeaderWrapper>
+                </header>
             );
         }}
     />

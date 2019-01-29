@@ -1,53 +1,26 @@
 import React from 'react';
-import { Row, Col } from 'styled-bootstrap-grid';
-import styled from 'styled-components';
 
-import { sizes } from './../../styles/variables';
 import Icon from './../icon/icon';
 
-const CenterRow = styled(Row)`
-    justify-content: center;
-
-    @media (max-width: ${ sizes.sm }) {
-        .icon svg {
-            height: 100px;
-        }
-    }
-`;
-
-const IconCol = styled(Col)`
-    order: ${ props => props.left ? 0 : 2 };
-
-    @media (max-width: ${ sizes.sm }) {
-        order: 0;
-    }
-`;
-
-const TextCol = styled(Col)`
-    order: 1;
-`;
-
-const Description = styled.span`
-    a {
-        display: block;
-        margin-top: 2rem;
-    }
-`;
+import './icon-card.scss';
 
 const IconCard = ({ title, descriptionHtml, iconName, justification = IconCardJustifications.LEFT }: IconCardProps) => {
 
     const isLeft = justification === IconCardJustifications.LEFT;
 
     return (
-        <CenterRow>
-            <IconCol left={ isLeft } sm={ 3 } md={ 2 } lg={ 1 }>
-                <Icon name={ iconName } />
-            </IconCol>
-            <TextCol sm={ 9 } md={ 8 } lg={ 7 }>
-                <h3>{ title }</h3>
-                <Description dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
-            </TextCol>
-        </CenterRow>
+        <div className="icon-card-container row justify-content-center">
+            <div className={`icon-col d-none d-sm-flex col-sm-2 col-lg-1 ${ isLeft ? '' : 'right' }`}>
+                <Icon className="large-icon" name={ iconName } />
+            </div>
+            <div className="text-col col-sm-9 col-md-8 col-md-7">
+                <h3>
+                    <Icon className="d-flex d-sm-none" name={ iconName } />
+                    { title }
+                </h3>
+                <span className="description" dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
+            </div>
+        </div>
     );
 };
 

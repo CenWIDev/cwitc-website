@@ -1,0 +1,88 @@
+@import "./../vars";
+
+
+.hero-container {
+
+    h1 {
+        @include media-breakpoint-down(xs) {
+            font-size: 1.5rem;
+        }
+    }
+
+    h1, h4 { color: $white; text-align: center; }
+
+    h4.date {
+        @include media-breakpoint-up(sm) {
+            text-align: right;
+        }
+    }
+
+    h4.time {
+        @include media-breakpoint-up(sm) {
+            text-align: left;
+        }
+    }
+
+    .subheading {
+        text-align: center;
+        color: $white;
+    }
+
+    .description {
+        color: $white;
+        margin: 0;
+
+        @include media-breakpoint-down(lg) {
+            margin-top: 1vh;
+        }
+    }
+
+    .button-column {
+        display: block;
+
+        p {
+            margin: 0;
+        }
+
+        a {
+            @extend .btn;
+            width: 100%;
+        }
+
+        .primary a {
+            @extend .btn-primary;
+        }
+
+        .secondary a {
+            @extend .btn-secondary;
+
+            @include media-breakpoint-down(xs) {
+                margin-top: 1vh;
+            }
+        }
+
+        @include media-breakpoint-up(sm) {
+            display: flex;
+        }
+
+        @include media-breakpoint-between(sm, md) {
+            > div:first-child {
+                padding-left: 0;
+            }
+
+            > div:last-child {
+                padding-right: 0;
+            }
+        }
+
+        @include media-breakpoint-up(lg) {
+            flex-direction: column;
+            justify-content: space-around;
+
+            > div {
+                flex-basis: auto;
+                padding: inherit;
+            }
+        }
+    }
+}

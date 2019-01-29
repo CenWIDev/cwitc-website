@@ -1,0 +1,61 @@
+@import "./../vars";
+
+.navigation-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+
+    img {
+        height: 10vw;
+
+        @include media-breakpoint-up(sm) {
+            height: 6vw;
+        }
+
+        @include media-breakpoint-up(md) {
+            height: 5vw;
+        }
+
+        @include media-breakpoint-up(lg) {
+            height: 4vw;
+        }
+
+        @include media-breakpoint-up(xl) {
+            height: 3.5vw;
+        }
+    }
+
+    .navigation-items {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+
+        li:first-child {
+            padding-left: 0;
+        }
+
+        li {
+            padding: 0 1vw;
+        }
+
+        li:last-child {
+            padding-right: 0;
+        }
+
+        a {
+            color: $white;
+
+            &:hover {
+                color: $gray;
+                text-decoration: none;
+            }
+        }
+
+        @include media-breakpoint-down(sm) {
+            display: none;
+        }
+    }
+}

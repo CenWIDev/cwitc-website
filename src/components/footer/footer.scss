@@ -1,0 +1,24 @@
+@import "./../vars";
+
+.footer-wrapper {
+    margin-top: 3vw;
+    padding: 5vw 0 10vw;
+    color: $white;
+    background-color: $dark;
+
+    .social-link {
+
+        svg {
+            height: 50px;
+            fill: $white;
+        }
+    }
+
+    .address-wrapper {
+        margin-bottom: 1rem;
+
+        p {
+            margin-bottom: 0;
+        }
+    }
+}

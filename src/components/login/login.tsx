@@ -1,13 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 import { navigate } from 'gatsby';
-import { Container, Row, Col } from 'styled-bootstrap-grid';
 
-import { Button } from './../button/button';
 import AuthService, { LoginProvider } from './../../services/auth';
-
-type LoginProps = {
-    path: string;
-};
 
 export default class Login extends Component {
 
@@ -24,14 +18,18 @@ export default class Login extends Component {
         }
 
         return (
-            <Container>
-                <Row>
-                    <Col sm={ 6 } smOffset={ 3 }>
+            <div className="container">
+                <div className="row">
+                    <div className="col-sm-6 offset-sm-3">
                         <h1>Log in</h1>
-                        <Button onClick={ async () => await this.handleSubmit(LoginProvider.github) }>Login with GitHub</Button>
-                    </Col>
-                </Row>
-            </Container>
+                        <button className="btn btn-outline-primary" onClick={ async () => await this.handleSubmit(LoginProvider.github) }>Login with GitHub</button>
+                    </div>
+                </div>
+            </div>
         );
     }
 }
+
+export type LoginProps = {
+    path: string;
+};

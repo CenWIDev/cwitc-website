@@ -1,0 +1,36 @@
+.icon-card-container {
+
+    .icon-col {
+        order: 0;
+
+        &.right {
+            order: 2;
+        }
+
+        .icon {
+            width: 100%;
+        }
+    }
+
+    .text-col {
+        order: 1;
+
+        h3 {
+            display: flex;
+        }
+
+        .icon {
+            align-items: center;
+            margin-right: 1rem;
+        }
+
+        h3 .icon svg {
+            height: 1.5rem;
+        }
+    }
+
+    .description a {
+        display: block;
+        margin-top: 2rem;
+    }
+}

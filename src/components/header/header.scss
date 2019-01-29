@@ -1,0 +1,46 @@
+@import "./../vars";
+
+.header-wrapper {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background-color: $dark;
+
+    &.hero {
+        background-position: center bottom;
+        background-size: cover;
+        align-items: center;
+        height: 60vh;
+        min-height: 380px;
+        margin-bottom: 3rem;
+
+        @include media-breakpoint-down(sm) {
+            margin-bottom: 2rem;
+        }
+
+        // Gray overlay over image
+        &:before {
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.80);
+            background-blend-mode: unset;
+        }
+
+        .navigation-wrapper {
+            position: absolute;
+            top: 0;
+
+            /* Internet Explorer Styles */
+            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                transform: translateX(-50%);
+            }
+        }
+    }
+}

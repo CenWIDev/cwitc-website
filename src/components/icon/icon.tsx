@@ -1,21 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 import feather from 'feather-icons';
 
-type IconProps = {
-    name: string,
-    className?: string,
-    onClick?: Function
-}
-
-const IconContainer = styled.span`
-    display: block;
-
-    svg {
-        width: 100%;
-        height: 100%;
-    }
-`;
+import './icon.scss';
 
 const Icon = ({ name, className, onClick }: IconProps) => {
     let iconHtml: string;
@@ -36,10 +22,16 @@ const Icon = ({ name, className, onClick }: IconProps) => {
     };
 
     return (
-        <IconContainer
+        <span
             className={ ['icon', `icon-${ name }`, className].join(' ') }
             onClick={ clickHandler }
             dangerouslySetInnerHTML={{ __html: iconHtml }} />);
 };
 
 export default Icon;
+
+export type IconProps = {
+    name: string,
+    className?: string,
+    onClick?: Function
+}

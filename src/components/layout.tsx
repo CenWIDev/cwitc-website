@@ -1,21 +1,23 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { StaticQuery, graphql } from 'gatsby';
-import { BaseCSS as BaseBootstrapGrid } from 'styled-bootstrap-grid';
 
-import GlobalStyle from '../styles/global-style';
 import Header from './header/header';
 import Footer, { FooterProps } from './footer/footer';
+
+// Imports Bootstrap
+import './_vars.scss';
 
 // Polyfills
 import 'core-js/es6/number';
 
 type Props = {
-    isHomePage?: boolean ;
+    isHomePage?: boolean;
+    className?: string;
     children: React.ReactNode;
 };
 
-const Layout = ({ isHomePage = false, children }: Props) => (
+const Layout = ({ isHomePage = false, className, children }: Props) => (
     <StaticQuery
         query={graphql`
             query GlobalSiteSettings {
@@ -48,8 +50,6 @@ const Layout = ({ isHomePage = false, children }: Props) => (
 
             return (
                 <>
-                    <GlobalStyle />
-                    <BaseBootstrapGrid />
                     <Helmet
                         title={`${ siteSettings.siteName }`}
                         meta={[
@@ -59,7 +59,7 @@ const Layout = ({ isHomePage = false, children }: Props) => (
                         <html lang="en" />
                     </Helmet>
                     <Header useHero={ isHomePage }/>
-                    <div>
+                    <div className={ className }>
                         { children }
                     </div>
                     <Footer { ...footerConfig }/>
