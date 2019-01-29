@@ -21,6 +21,7 @@
     "dotenv": "^6.0.0",
     "feather-icons": "^4.10.0",
     "firebase": "^5.8.0",
+    "formik": "^1.4.3",
     "gatsby": "^2.0.82",
     "gatsby-plugin-create-client-paths": "^2.0.3",
     "gatsby-plugin-manifest": "^2.0.2",
