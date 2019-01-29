@@ -67,6 +67,8 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                 canonicalUrl += `/${ trimChar(path, '/') }`;
             }
 
+            canonicalUrl += '/';
+
             return (
                 <>
                     <Helmet
