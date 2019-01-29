@@ -103,7 +103,7 @@ export default class SessionSubmission extends Component {
                                                     { values.presenters && values.presenters.length > 0 ? (
                                                         values.presenters.map((presenter, index) => this.renderPresenterForm(presenter, index, arrayHelpers))
                                                     ) : (<></>) }
-                                                    <div className="row">
+                                                    <div className="row mt-3">
                                                         <div className="col-sm-12 ">
                                                             <div className="d-flex justify-content-center">
                                                                 <button className="btn btn-outline-primary" type="button" onClick={() => arrayHelpers.push(this.buildEmptyPresenter())}>Add Presenter</button>
@@ -113,67 +113,33 @@ export default class SessionSubmission extends Component {
                                                 </>
                                             )}
                                         />
-
-                                        <div className="row">
-                                            <input name="interestedInOpenLab" onChange={handleChange} value={values.interestedInOpenLab} type="checkbox" />
-                                            <input name="title" onChange={handleChange} value={values.title} type="text" placeholder="Session Title" />
-                                            <button className="btn btn-outline-primary" type="submit" disabled={isSubmitting}>
-                                                Submit
-                                            </button>
+                                        <div className="row mt-5">
+                                            <div className="col-sm-12 col-md-6">
+                                                <div className="form-group">
+                                                    <label htmlFor="interestedInOpenLab">Are you interested in hosting an Open Lab?</label>
+                                                    <Field type="checkbox" className="form-control" name="interestedInOpenLab" id="interestedInOpenLab"/>
+                                                </div>
+                                            </div>
+                                            <div className="col-sm-12 col-md-6">
+                                                <div className="form-group">
+                                                    <label htmlFor="title">Session Title</label>
+                                                    <Field className="form-control" placeholder="How To Do Amazing Things" name="title" id="title"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row mt-3">
+                                            <div className="col-sm-12 ">
+                                                <div className="d-flex justify-content-center">
+                                                    <button className="btn btn-outline-primary" type="submit" disabled={isSubmitting}>
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </form>
                                 )}
                             </Formik>
-                        //     this.state.session.presenters.map((presenter: Presenter, i: number) => (
-                        //         <React.Fragment key={i}>
-                        //     <div className="col-sm-12 col-lg-6">
-                        //         <label>
-                        //             <span className="input-label">First Name</span>
-                        //             <input name="firstName" onChange={(e) => this.handlePresenterChange(e, i)} value={presenter.firstName} type="text" placeholder="First Name" />
-                        //         </label>
-                        //     </div>
-                        //     <div className="col-sm-12 col-lg-6">
-                        //         <label>
-                        //             <span className="input-label">Last Name</span>
-                        //             <input name="lastName" onChange={(e) => this.handlePresenterChange(e, i)} value={presenter.lastName} type="text" placeholder="Last Name" />
-                        //         </label>
-                        //     </div>
-                        //     <div className="col-sm-12 col-lg-6">
-                        //         <label>
-                        //             <span className="input-label">Bio</span>
-                        //             <textarea name="bio" onChange={(e) => this.handlePresenterChange(e, i)} value={presenter.bio} placeholder="Speaker Bio" />
-                        //         </label>
-                        //     </div>
-                        //     <div className="col-sm-12 col-lg-6">
-                        //         <label>
-                        //             <span className="input-label">Job Title</span>
-                        //             <input name="title" onChange={(e) => this.handlePresenterChange(e, i)} value={presenter.title} type="text" placeholder="Title" />
-                        //         </label>
-                        //     </div>
-                        //     <div className="col-sm-12 col-lg-6">
-                        //         <label>
-                        //             <span className="input-label">Company</span>
-                        //             <input name="company" onChange={(e) => this.handlePresenterChange(e, i)} value={presenter.company} type="text" placeholder="Company" />
-                        //         </label>
-                        //     </div>
-                        //     <div className="col-sm-12 col-lg-6">
-                        //         <label>
-                        //             <span className="input-label">Phone Number</span>
-                        //             <input name="phoneNumber" onChange={(e) => this.handlePresenterChange(e, i)} value={presenter.phoneNumber} type="text" placeholder="Phone Number" />
-                        //         </label>
-                        //     </div>
-                        //     <div className="col-sm-12 col-lg-6">
-                        //         <label>
-                        //             <span className="input-label">Email</span>
-                        //             <input name="email" onChange={(e) => this.handlePresenterChange(e, i)} value={presenter.email} type="text" placeholder="Email" />
-                        //         </label>
-                        //     </div>
-                        // </React.Fragment>
-                        // ))
                     }
-                    {/* <input name="interestedInOpenLab" onChange={this.handleChange} value={this.state.session.interestedInOpenLab} type="checkbox" />
-                    <input name="title" onChange={this.handleChange} value={this.state.session.title} type="text" placeholder="Session Title" />
-                    <input name="tags" onChange={this.handleTagsChange} value={this.state.session.tags.join(',')} type="text" placeholder="JavaScript, React, SASS" /> */}
             </div>
         );
     }
@@ -182,6 +148,10 @@ export default class SessionSubmission extends Component {
         const firstNamePath: string = `presenters.${index}.firstName`;
         const lastNamePath: string = `presenters.${index}.lastName`;
         const bioPath: string = `presenters.${index}.bio`;
+        const titlePath: string = `presenters.${index}.title`;
+        const companyPath: string = `presenters.${index}.company`;
+        const phoneNumberPath: string = `presenters.${index}.phoneNumber`;
+        const emailPath: string = `presenters.${index}.email`;
         
         return (
             <React.Fragment key={index}>
@@ -204,6 +174,34 @@ export default class SessionSubmission extends Component {
                         <div className="form-group">
                             <label htmlFor={bioPath}>Bio</label>
                             <Field component="textarea" className="form-control" placeholder="I am a blank at blank working mostly with...." name={bioPath} id={bioPath} />
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-sm-12 col-md-6">
+                        <div className="form-group">
+                            <label htmlFor={titlePath}>Title</label>
+                            <Field className="form-control" placeholder="Lead Doer of Stuff" name={titlePath} id={titlePath}/>
+                        </div>
+                    </div>
+                    <div className="col-sm-12 col-md-6">
+                        <div className="form-group">
+                            <label htmlFor={companyPath}>Company</label>
+                            <Field className="form-control" placeholder="Some Startup" name={companyPath} id={companyPath} />
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-sm-12 col-md-6">
+                        <div className="form-group">
+                            <label htmlFor={phoneNumberPath}>Phone Number</label>
+                            <Field type="phone" className="form-control" placeholder="715-123-4567" name={phoneNumberPath} id={phoneNumberPath}/>
+                        </div>
+                    </div>
+                    <div className="col-sm-12 col-md-6">
+                        <div className="form-group">
+                            <label htmlFor={emailPath}>Email</label>
+                            <Field type="email" className="form-control" placeholder="email@gmail.com" name={emailPath} id={emailPath} />
                         </div>
                     </div>
                 </div>
