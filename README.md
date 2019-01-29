@@ -1,6 +1,8 @@
 ![](https://raw.githubusercontent.com/CenWIDev/cwitc-website/master/src/images/cwitc_logo.png)
 # Central Wisconsin IT Conference
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/afc0ff50-3f62-4b40-b2dc-cc487f904e8f/deploy-status)](https://app.netlify.com/sites/cwitc/deploys)
+
 A work in progress site built using Gatsbyjs and hosted with Netlify.
 
 If you're looking to contribute, get in contact with Josh Evenson ([@joshin_my_tots](https://twitter.com/joshin_my_tots) on Twitter)
