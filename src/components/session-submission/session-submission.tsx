@@ -4,8 +4,6 @@ import { Session } from './session.model';
 import { Presenter } from './presenter.model';
 import { SessionLevels } from './session-level.enum';
 import { OpenLabInterests } from './open-lab-interest.enum';
-import { Row, Col } from 'styled-bootstrap-grid';
-import { Button } from './../button/button';
 
 type SessionSubmissionState = {
     session: Session;
@@ -36,7 +34,7 @@ export default class SessionSubmission extends Component {
 
             this.setState(updatedState);
         }
-        
+
     };
 
     public handleChange = (event: any) => {
@@ -68,68 +66,62 @@ export default class SessionSubmission extends Component {
             <>
                 <h1>Submit Session</h1>
                 <form>
-                <Row>
-                    <Col>
-                        <h1>Log in</h1>
-                    </Col>
-                </Row>
-                <Row>
-                    
+                    <div className="row">
                         {
                             this.state.session.presenters.map((presenter: Presenter, i: number) => (
-                                <React.Fragment key={ i }>
-                                    <Col sm={ 6 }>
+                                <React.Fragment key={i}>
+                                    <div className="col-sm-12 col-lg-6">
                                         <label>
                                             <span className="input-label">First Name</span>
-                                            <input name="firstName" onChange={ (e) => this.handlePresenterChange(e, i) } value={ presenter.firstName } type="text" placeholder="First Name" />
+                                            <input name="firstName" onChange={(e) => this.handlePresenterChange(e, i)} value={presenter.firstName} type="text" placeholder="First Name" />
                                         </label>
-                                    </Col>
-                                    <Col sm={ 6 }>
+                                    </div>
+                                    <div className="col-sm-12 col-lg-6">
                                         <label>
                                             <span className="input-label">Last Name</span>
-                                            <input name="lastName" onChange={ (e) => this.handlePresenterChange(e, i) } value={ presenter.lastName } type="text" placeholder="Last Name" />
+                                            <input name="lastName" onChange={(e) => this.handlePresenterChange(e, i)} value={presenter.lastName} type="text" placeholder="Last Name" />
                                         </label>
-                                    </Col>
-                                    <Col sm={ 6 }>
+                                    </div>
+                                    <div className="col-sm-12 col-lg-6">
                                         <label>
                                             <span className="input-label">Bio</span>
-                                            <textarea name="bio" onChange={ (e) => this.handlePresenterChange(e, i) } value={ presenter.bio } placeholder="Speaker Bio" />
+                                            <textarea name="bio" onChange={(e) => this.handlePresenterChange(e, i)} value={presenter.bio} placeholder="Speaker Bio" />
                                         </label>
-                                    </Col>
-                                    <Col sm={ 6 }>
+                                    </div>
+                                    <div className="col-sm-12 col-lg-6">
                                         <label>
                                             <span className="input-label">Job Title</span>
-                                            <input name="title" onChange={ (e) => this.handlePresenterChange(e, i) } value={ presenter.title } type="text" placeholder="Title" />
+                                            <input name="title" onChange={(e) => this.handlePresenterChange(e, i)} value={presenter.title} type="text" placeholder="Title" />
                                         </label>
-                                    </Col>
-                                    <Col sm={ 6 }>
+                                    </div>
+                                    <div className="col-sm-12 col-lg-6">
                                         <label>
                                             <span className="input-label">Company</span>
-                                            <input name="company" onChange={ (e) => this.handlePresenterChange(e, i) } value={ presenter.company } type="text" placeholder="Company" />
+                                            <input name="company" onChange={(e) => this.handlePresenterChange(e, i)} value={presenter.company} type="text" placeholder="Company" />
                                         </label>
-                                    </Col>
-                                    <Col sm={ 6 }>
+                                    </div>
+                                    <div className="col-sm-12 col-lg-6">
                                         <label>
                                             <span className="input-label">Phone Number</span>
-                                            <input name="phoneNumber" onChange={ (e) => this.handlePresenterChange(e, i) } value={ presenter.phoneNumber } type="text" placeholder="Phone Number" />
+                                            <input name="phoneNumber" onChange={(e) => this.handlePresenterChange(e, i)} value={presenter.phoneNumber} type="text" placeholder="Phone Number" />
                                         </label>
-                                    </Col>
-                                    <Col sm={ 6 }>
+                                    </div>
+                                    <div className="col-sm-12 col-lg-6">
                                         <label>
                                             <span className="input-label">Email</span>
-                                            <input name="email" onChange={ (e) => this.handlePresenterChange(e, i) } value={ presenter.email } type="text" placeholder="Email" />
+                                            <input name="email" onChange={(e) => this.handlePresenterChange(e, i)} value={presenter.email} type="text" placeholder="Email" />
                                         </label>
-                                    </Col>
+                                    </div>
                                 </React.Fragment>
                             ))
                         }
-                        <Col sm={ 6 }>
-                            <Button onClick={ (e) => this.onAddPresenter(e) }>Add Presenter</Button>
-                        </Col>
-                    </Row>
-                    <input name="interestedInOpenLab" onChange={ this.handleChange } value={ this.state.session.interestedInOpenLab } type="checkbox" />
-                    <input name="title" onChange={ this.handleChange } value={ this.state.session.title } type="text" placeholder="Session Title" />
-                    <input name="tags" onChange={ this.handleTagsChange } value={ this.state.session.tags.join(',') } type="text" placeholder="JavaScript, React, SASS" />
+                        <div className="col-sm-12 col-lg-6">
+                            <button className="btn btn-outline-primary" onClick={(e) => this.onAddPresenter(e)}>Add Presenter</button>
+                        </div>
+                    </div>
+                    <input name="interestedInOpenLab" onChange={this.handleChange} value={this.state.session.interestedInOpenLab} type="checkbox" />
+                    <input name="title" onChange={this.handleChange} value={this.state.session.title} type="text" placeholder="Session Title" />
+                    <input name="tags" onChange={this.handleTagsChange} value={this.state.session.tags.join(',')} type="text" placeholder="JavaScript, React, SASS" />
                 </form>
             </>
         );
