@@ -30,6 +30,11 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                     addressLine2
                     cityStatePostalCode
                     contactEmailAddress
+                    socialShareImage {
+                        fixed(width: 2160) {
+                            src
+                        }
+                    }
                     facebookEventUrl
                     twitterUsername
                     linkedInProfileUrl
@@ -78,7 +83,7 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                             { property: 'og:url', content: canonicalUrl },
                             { property: 'twitter:card', content: 'summary' },
                             { property: 'twitter:site:id', content: siteSettings.twitterUsername },
-                            { property: 'og:image', content: `https:${ siteSettings.headerLogo.fixed.src }` },
+                            { property: 'og:image', content: `https:${ siteSettings.socialShareImage.fixed.src }` },
                             { property: 'og:description', content: hero.description.description }
                         ]}>
                         <html lang="en" />
