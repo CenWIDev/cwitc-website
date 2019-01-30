@@ -1,7 +1,6 @@
 ![](https://raw.githubusercontent.com/CenWIDev/cwitc-website/master/src/images/cwitc_logo.png)
-# Central Wisconsin IT Conference
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/afc0ff50-3f62-4b40-b2dc-cc487f904e8f/deploy-status)](https://app.netlify.com/sites/cwitc/deploys)
+<h2>Central Wisconsin IT Conference<a href='https://app.netlify.com/sites/cwitc/deploys'><img align='right' src='https://api.netlify.com/api/v1/badges/afc0ff50-3f62-4b40-b2dc-cc487f904e8f/deploy-status' /></a></h2>
 
 A work in progress site built using Gatsbyjs and hosted with Netlify.
 
