@@ -36,21 +36,22 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                             width
                             height
                         }
+                        file {
+                            url
+                        }
                     }
                     socialShareImageSmall {
                         fixed(width: 2160) {
                             src
+                        }
+                        file {
+                            url
                         }
                     }
                     facebookEventUrl
                     twitterUsername
                     linkedInProfileUrl
                     gitHubProfileUrl
-                    headerLogo {
-                        fixed(width: 500) {
-                            src
-                        }
-                    }
                 }
                 hero: contentfulHomePageHero {
                     description {
@@ -90,9 +91,9 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                             { property: 'og:url', content: canonicalUrl },
                             { property: 'twitter:card', content: 'summary' },
                             { property: 'twitter:site:id', content: siteSettings.twitterUsername },
-                            { property: 'twitter:image', content: `https:${ siteSettings.socialShareImageSmall.fixed.src }` },
+                            { property: 'twitter:image', content: `https:${ siteSettings.socialShareImageSmall.fixed.src || siteSettings.socialShareImageSmall.file.url }` },
                             { property: 'twitter:image:alt', content: `${ siteSettings.siteName } Logo` },
-                            { property: 'og:image', content: `https:${ siteSettings.socialShareImageLarge.fixed.src }` },
+                            { property: 'og:image', content: `https:${ siteSettings.socialShareImageLarge.fixed.src || siteSettings.socialShareImageLarge.file.url }` },
                             { property: 'og:image:width', content: siteSettings.socialShareImageLarge.fixed.width },
                             { property: 'og:image:height', content: siteSettings.socialShareImageLarge.fixed.height },
                             { property: 'og:description', content: hero.description.description }
