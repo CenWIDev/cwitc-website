@@ -18,6 +18,7 @@ export default class ContentPageLayout extends Component {
             <Layout className="content-page-wrapper" path={ page.slug }>
                 <Helmet
                     meta={[
+                        !!page.socialMediaShareDescription ? { property: 'og:description', content: page.socialMediaShareDescription } : { },
                         { property: 'og:title', content: page.title },
                         !!page.socialMediaShareDescription ? { property: 'og:description', content: page.socialMediaShareDescription } : { }
                     ]}

@@ -36,16 +36,10 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                             width
                             height
                         }
-                        file {
-                            url
-                        }
                     }
                     socialShareImageSmall {
                         fixed(width: 2160) {
                             src
-                        }
-                        file {
-                            url
                         }
                     }
                     facebookEventUrl
@@ -87,14 +81,19 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                     <Helmet
                         title={`${ siteSettings.siteName }`}
                         meta={[
+                            { property: 'description', content: hero.description.description },
+
+                            // Facebook Share
                             { property: 'og:type', content: 'website' },
                             { property: 'og:url', content: canonicalUrl },
+                            { property: 'og:image', content: `https:${ siteSettings.socialShareImageLarge.fixed.src }` },
+                            { property: 'og:description', content: hero.description.description },
+
+                            // Twitter Share
                             { property: 'twitter:card', content: 'summary' },
                             { property: 'twitter:site:id', content: siteSettings.twitterUsername },
-                            { property: 'twitter:image', content: `https:${ siteSettings.socialShareImageSmall.fixed.src || siteSettings.socialShareImageSmall.file.url }` },
-                            { property: 'twitter:image:alt', content: `${ siteSettings.siteName } Logo` },
-                            { property: 'og:image', content: `https:${ siteSettings.socialShareImageLarge.fixed.src || siteSettings.socialShareImageLarge.file.url }` },
-                            { property: 'og:description', content: hero.description.description }
+                            { property: 'twitter:image', content: `https:${ siteSettings.socialShareImageSmall.fixed.src }` },
+                            { property: 'twitter:image:alt', content: `${ siteSettings.siteName } Logo` }
                         ]}>
                         <html lang="en" />
                         <link rel="canonical" href={ canonicalUrl } />
