@@ -94,8 +94,6 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                             { property: 'twitter:image', content: `https:${ siteSettings.socialShareImageSmall.fixed.src || siteSettings.socialShareImageSmall.file.url }` },
                             { property: 'twitter:image:alt', content: `${ siteSettings.siteName } Logo` },
                             { property: 'og:image', content: `https:${ siteSettings.socialShareImageLarge.fixed.src || siteSettings.socialShareImageLarge.file.url }` },
-                            // { property: 'og:image:width', content: siteSettings.socialShareImageLarge.fixed.width },
-                            // { property: 'og:image:height', content: siteSettings.socialShareImageLarge.fixed.height },
                             { property: 'og:description', content: hero.description.description }
                         ]}>
                         <html lang="en" />
