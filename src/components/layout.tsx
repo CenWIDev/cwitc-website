@@ -30,7 +30,14 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                     addressLine2
                     cityStatePostalCode
                     contactEmailAddress
-                    socialShareImage {
+                    socialShareImageLarge {
+                        fixed(width: 2160) {
+                            src
+                            width
+                            height
+                        }
+                    }
+                    socialShareImageSmall {
                         fixed(width: 2160) {
                             src
                         }
@@ -83,7 +90,11 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                             { property: 'og:url', content: canonicalUrl },
                             { property: 'twitter:card', content: 'summary' },
                             { property: 'twitter:site:id', content: siteSettings.twitterUsername },
-                            { property: 'og:image', content: `https:${ siteSettings.socialShareImage.fixed.src }` },
+                            { property: 'twitter:image', content: `https:${ siteSettings.socialShareImageSmall.fixed.src }` },
+                            { property: 'twitter:image:alt', content: `${ siteSettings.siteName } Logo` },
+                            { property: 'og:image', content: `https:${ siteSettings.socialShareImageLarge.fixed.src }` },
+                            { property: 'og:image:width', content: siteSettings.socialShareImageLarge.fixed.width },
+                            { property: 'og:image:height', content: siteSettings.socialShareImageLarge.fixed.height },
                             { property: 'og:description', content: hero.description.description }
                         ]}>
                         <html lang="en" />
