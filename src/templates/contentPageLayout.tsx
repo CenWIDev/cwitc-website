@@ -1,4 +1,5 @@
 import React, { Component, ReactNode } from 'react';
+import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
 
 import Layout from './../components/layout';
@@ -11,10 +12,17 @@ export default class ContentPageLayout extends Component {
 
     public render(): ReactNode {
         const { contentfulContentPageLayout } = this.props.data;
-        const { heading, subheading, heroImage, body } = contentfulContentPageLayout;
+        const { heading, subheading, heroImage, body, page } = contentfulContentPageLayout;
 
         return (
-            <Layout className="content-page-wrapper">
+            <Layout className="content-page-wrapper" path={ page.slug }>
+                <Helmet
+                    meta={[
+                        !!page.socialMediaShareDescription ? { property: 'description', content: page.socialMediaShareDescription } : { },
+                        { property: 'og:title', content: page.title },
+                        !!page.socialMediaShareDescription ? { property: 'og:description', content: page.socialMediaShareDescription } : { }
+                    ]}
+                />
                 <div
                     className="hero container-fluid"
                     style={{ backgroundImage: `url(${ heroImage.fixed.src })` }}>
@@ -22,7 +30,7 @@ export default class ContentPageLayout extends Component {
                     <h3>{ subheading }</h3>
                 </div>
                 <div className="container d-flex justify-content-center">
-                    <div className="col-10 col-sm-8"dangerouslySetInnerHTML={{ __html: body.childContentfulRichText.html }} />
+                    <div className="col col-md-8"dangerouslySetInnerHTML={{ __html: body.childContentfulRichText.html }} />
                 </div>
             </Layout>
         );

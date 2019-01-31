@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Helmet from 'react-helmet';
 import { StaticQuery, graphql } from 'gatsby'
 
 import Layout from '../components/layout';
@@ -23,6 +24,9 @@ class IndexPage extends Component {
                                 }
                                 iconName
                             }
+                            page {
+                                socialMediaShareDescription
+                            }
                         }
                         hero: contentfulHomePageHero {
                             description {
@@ -32,7 +36,13 @@ class IndexPage extends Component {
                     }
                 `}
                 render={({ landingPageContent, hero }) => (
-                    <Layout isHomePage>
+                    <Layout isHomePage path="">
+                        <Helmet
+                            meta={[
+                                { property: 'og:title', content: landingPageContent.title },
+                                !!landingPageContent.page.socialMediaShareDescription ? { property: 'og:description', content: landingPageContent.page.socialMediaShareDescription } : { }
+                            ]}
+                        />
                         <div className="home-container container">
                             <div className="row">
                                 <div className="col d-block d-sm-none">
