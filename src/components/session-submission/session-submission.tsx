@@ -103,7 +103,7 @@ export default class SessionSubmission extends Component {
                                                     { values.presenters && values.presenters.length > 0 ? (
                                                         values.presenters.map((presenter, index) => this.renderPresenterForm(presenter, index, arrayHelpers))
                                                     ) : (<></>) }
-                                                    <div className="row mt-3">
+                                                    <div className="form-row mt-3">
                                                         <div className="col-sm-12 ">
                                                             <div className="d-flex justify-content-center">
                                                                 <button className="btn btn-outline-primary" type="button" onClick={() => arrayHelpers.push(this.buildEmptyPresenter())}>Add Presenter</button>
@@ -113,21 +113,45 @@ export default class SessionSubmission extends Component {
                                                 </>
                                             )}
                                         />
-                                        <div className="row mt-5">
-                                            <div className="col-sm-12 col-md-6">
-                                                <div className="form-group">
-                                                    <label htmlFor="interestedInOpenLab">Are you interested in hosting an Open Lab?</label>
-                                                    <Field type="checkbox" className="form-control" name="interestedInOpenLab" id="interestedInOpenLab"/>
-                                                </div>
-                                            </div>
+                                        <div className="form-row mt-5">
                                             <div className="col-sm-12 col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="title">Session Title</label>
                                                     <Field className="form-control" placeholder="How To Do Amazing Things" name="title" id="title"/>
                                                 </div>
                                             </div>
+                                            <div className="col-sm-12">
+                                                <div className="form-group">
+                                                    <label htmlFor="summary">Summary</label>
+                                                    <Field component="textarea" className="form-control" placeholder="I am a blank at blank working mostly with...." name="summary" id="summary" />
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="row mt-3">
+                                        <div className="form-row">
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <label>Target Level</label>
+                                                    {['100', '200', '300', '400'].map((level) => (
+                                                        <div key={level} className="form-check">
+                                                            <Field type="radio" className="form-check-input"  name="targetLevel" id={`targetLevel${level}`} value={level} />
+                                                            <label className="form-check-label" htmlFor={`targetLevel${level}`}>{level}</label>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <div className="col-sm-12 col-md-6">
+                                                <div className="form-check">
+                                                    <label>Are you interested in hosting an Open Lab?</label>
+                                                    {['Yes', 'No', 'Maybe'].map((interestOption) => (
+                                                        <div key={interestOption} className="form-check">
+                                                            <Field type="radio" className="form-check-input"  name="interestedInOpenLab" id={`interestedInOpenLab${interestOption}`} value={interestOption} />
+                                                            <label className="form-check-label" htmlFor={`interestedInOpenLab${interestOption}`}>{interestOption}</label>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="form-row mt-3">
                                             <div className="col-sm-12 ">
                                                 <div className="d-flex justify-content-center">
                                                     <button className="btn btn-outline-primary" type="submit" disabled={isSubmitting}>
@@ -155,7 +179,7 @@ export default class SessionSubmission extends Component {
         
         return (
             <React.Fragment key={index}>
-                <div className="row">
+                <div className="form-row">
                     <div className="col-sm-12 col-md-6">
                         <div className="form-group">
                             <label htmlFor={firstNamePath}>First Name</label>
@@ -169,7 +193,7 @@ export default class SessionSubmission extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="row">
+                <div className="form-row">
                     <div className="col-sm-12">
                         <div className="form-group">
                             <label htmlFor={bioPath}>Bio</label>
@@ -177,7 +201,7 @@ export default class SessionSubmission extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="row">
+                <div className="form-row">
                     <div className="col-sm-12 col-md-6">
                         <div className="form-group">
                             <label htmlFor={titlePath}>Title</label>
@@ -191,7 +215,7 @@ export default class SessionSubmission extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="row">
+                <div className="form-row">
                     <div className="col-sm-12 col-md-6">
                         <div className="form-group">
                             <label htmlFor={phoneNumberPath}>Phone Number</label>
@@ -205,7 +229,7 @@ export default class SessionSubmission extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="row">
+                <div className="form-row">
                     <div className="col-sm-12 ">
                         <div className="d-flex justify-content-end">
                             <button className="btn btn-outline-primary" type="button" onClick={() => arrayHelpers.remove(index)}>Remove Presenter</button>
