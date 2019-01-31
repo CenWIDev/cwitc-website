@@ -33,8 +33,6 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                     socialShareImageLarge {
                         fixed(width: 2160) {
                             src
-                            width
-                            height
                         }
                     }
                     socialShareImageSmall {
