@@ -5,7 +5,7 @@ exports.createPages = ({ graphql, actions }) => {
 
     const DYNAMIC_PAGES_QUERY = `
         query ContentPagesQuery {
-            allContentfulContentPageLayout {
+            contentPages: allContentfulContentPageLayout {
                 edges {
                     node {
                         page {
@@ -14,17 +14,39 @@ exports.createPages = ({ graphql, actions }) => {
                     }
                 }
             }
+            sessionPages: allContentfulSessionsPageLayout {
+                edges {
+                  node {
+                    year
+                    page {
+                        slug
+                    }
+                  }
+                }
+              }
         }`;
 
     return new Promise((resolve) => {
         graphql(DYNAMIC_PAGES_QUERY)
             .then(({ data }) => {
-                data.allContentfulContentPageLayout.edges.forEach(({node}) => {
+                data.contentPages.edges.forEach(({node}) => {
                     createPage({
                         path: `/${ node.page.slug }`,
                         component: path.resolve('./src/templates/contentPageLayout.tsx'),
                         context: {
                             slug: node.page.slug
+                        }
+                    })
+                });
+
+                data.sessionPages.edges.forEach(({node}) => {
+                    createPage({
+                        path: `/${ node.page.slug }`,
+                        component: path.resolve('./src/templates/sessionsPageLayout.tsx'),
+                        context: {
+                            yearGlob: `${ node.year }*`,
+                            slug: node.page.slug
+
                         }
                     })
                 });
