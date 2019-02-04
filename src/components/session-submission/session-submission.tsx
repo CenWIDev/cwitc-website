@@ -5,6 +5,7 @@ import { Presenter } from './presenter.model';
 import { SessionLevels } from './session-level.enum';
 import { OpenLabInterests } from './open-lab-interest.enum';
 import { Formik, FieldArray, Field, ArrayHelpers, ErrorMessage, FormikErrors, FormikTouched, getIn } from 'formik';
+import { sessionSchema } from './session-schema';
 
 type SessionSubmissionState = {
   session: Session;
@@ -68,31 +69,8 @@ export default class SessionSubmission extends Component {
         <h1>Submit Session</h1>
         {
           <Formik
-            initialValues={this.state.session}
-            validate={values => {
-              const errors: any = {};
-              if (!values.title) {
-                  errors.title = 'Title is required';
-              }
-
-              if (!errors.presenters) {
-                errors.presenters = [];
-              }
-              if (!errors.presenters[0]) {
-                errors.presenters[0] = {};
-              }
-
-              if (values.presenters && values.presenters[0]) {
-                if (!values.presenters[0].firstName) {
-                  errors.presenters[0].firstName = 'First Name is required';
-                }
-                if (!values.presenters[0].lastName) {
-                  errors.presenters[0].lastName = 'Last Name is required';
-                }
-              }
-
-              return errors;
-            }}
+            initialValues={ this.state.session }
+            validationSchema={ sessionSchema }
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
                 alert(JSON.stringify(values, null, 2));
@@ -104,8 +82,6 @@ export default class SessionSubmission extends Component {
               values,
               errors,
               touched,
-              handleChange,
-              handleBlur,
               handleSubmit,
               isSubmitting,
               /* and other goodies */
