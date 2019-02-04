@@ -22,6 +22,9 @@ const Header = ({ useHero }: HeaderProps) => (
                         fixed(width: 500) {
                             src
                         }
+                        file {
+                            url
+                        }
                     }
                     headerNavigationPages {
                         navigationText
@@ -71,7 +74,7 @@ const Header = ({ useHero }: HeaderProps) => (
                         backgroundImage: useHero ? `url(${ global.homePageHeroImage.fixed.src })`: ''
                     }}>
                     <Navigation
-                        logoSource={ global.headerLogo.fixed.src }
+                        logoSource={ global.headerLogo.fixed.src || global.headerLogo.file.url }
                         navigationItems={ global.headerNavigationPages } />
                     { useHero ? <Hero config={ heroConfig } /> : null }
                 </header>

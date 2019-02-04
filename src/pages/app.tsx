@@ -6,8 +6,8 @@ import Profile from '../components/profile/profile';
 import Login from '../components/login/login';
 import SessionSubmission from '../components/session-submission/session-submission';
 
-const App = () => (
-  <Layout>
+const App = (props: any) => (
+  <Layout path={ props.location.pathname }>
     <Router>
       <PrivateRoute path="/app/profile" component={ Profile }/>
       <PrivateRoute path="/app/submit-session" component={ SessionSubmission }/>
