@@ -15,13 +15,13 @@ export default class SessionsPageLayout extends Component {
         const { sessionsPage, sessions } = this.props.data;
         const { page, heading, heroImage } = sessionsPage;
 
-        const sessionGroups = sessions.edges
+        const sessionGroups = sessions && sessions.edges ? sessions.edges
             .reduce((result: any, sessionNode: any) => {
                 const session = sessionNode.node;
                 result[session.startDateTime] = result[session.startDateTime] || [];
                 result[session.startDateTime].push(session);
                 return result;
-            }, { })
+            }, { }) : { };
 
         const sessionGroupsSorted = Object.keys(sessionGroups);
         sessionGroupsSorted

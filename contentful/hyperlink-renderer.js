@@ -11,5 +11,5 @@ module.exports.HyperlinkRenderer = node => {
 
     const location = node.data.uri;
 
-    return `<a href="${ location }" rel="noopener">${ text }</a>`;
+    return `<a href="${ location }" target="_blank" rel="noopener">${ text }</a>`;
 };
