@@ -85,7 +85,8 @@ export default class SessionSubmission extends Component {
               handleSubmit,
               isSubmitting,
               /* and other goodies */
-            }) => (
+            }) => {
+              return (
                 <form onSubmit={handleSubmit}>
 
                   <FieldArray
@@ -94,13 +95,28 @@ export default class SessionSubmission extends Component {
                       <>
                         {values.presenters && values.presenters.length > 0 ? (
                           values.presenters.map((presenter, index) => this.renderPresenterForm(presenter, index, arrayHelpers, errors, touched))
-                        ) : (<></>)}
+                        ) : undefined}
                         <div className="form-row mt-3">
-                          <div className="col-sm-12 ">
-                            <div className="d-flex justify-content-center">
-                              <button className="btn btn-outline-primary" type="button" onClick={ () => arrayHelpers.push(this.buildEmptyPresenter()) }>Add Presenter</button>
-                            </div>
-                          </div>
+                          {
+                            (values.presenters && values.presenters.length < 4) ?
+                              <div className="col-sm-12 ">
+                                <div className="d-flex justify-content-center">
+                                  <button className="btn btn-outline-primary" type="button" onClick={ () => arrayHelpers.push(this.buildEmptyPresenter()) }>Add Presenter</button>
+                                </div>
+                              </div> :
+                              undefined
+                          }
+                          {
+                            (errors && typeof errors.presenters === 'string') ?
+                              <div className="col-sm-12 ">
+                                <div className="d-flex justify-content-center">
+                                  <div style={ { display: 'block' } } className="invalid-feedback">
+                                    <ErrorMessage name="presenters" />
+                                  </div>
+                                </div>
+                              </div> :
+                              undefined
+                          }
                         </div>
                       </>
                     )}
@@ -109,7 +125,10 @@ export default class SessionSubmission extends Component {
                     <div className="col-sm-12 col-md-6">
                       <div className="form-group">
                         <label htmlFor="title">Session Title</label>
-                        <Field className={ `form-control ${ touched.title && errors.title ? 'is-invalid' : 'is-valid'}` } placeholder="How To Do Amazing Things" name="title" id="title" />
+                        <Field
+                          className={ `form-control ${getValidationClass('title')}` }
+                          placeholder="How To Do Amazing Things"
+                          name="title" id="title" />
                         <div className="invalid-feedback">
                           <ErrorMessage name="title" />
                         </div>
@@ -118,13 +137,20 @@ export default class SessionSubmission extends Component {
                     <div className="col-sm-12">
                       <div className="form-group">
                         <label htmlFor="summary">Summary</label>
-                        <Field component="textarea" className="form-control" placeholder="I am a blank at blank working mostly with...." name="summary" id="summary" />
+                        <Field 
+                          className={ `form-control ${getValidationClass('summary')}` }
+                          component="textarea"
+                          placeholder="I am a blank at blank working mostly with...."
+                          name="summary" id="summary" />
+                        <div className="invalid-feedback">
+                          <ErrorMessage name="summary" />
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div className="form-row">
                     <div className="col-md-6">
-                      <div className="form-group">
+                      <div className={ `form-group ${getValidationClass('targetLevel')}` } >
                         <label>Target Level</label>
                         {['100', '200', '300', '400'].map((level) => (
                           <div key={ level } className="form-check">
@@ -132,10 +158,13 @@ export default class SessionSubmission extends Component {
                             <label className="form-check-label" htmlFor={ `targetLevel${ level}` }>{level}</label>
                           </div>
                         ))}
+                        <div className="invalid-feedback">
+                          <ErrorMessage name="targetLevel" />
+                        </div>
                       </div>
                     </div>
                     <div className="col-sm-12 col-md-6">
-                      <div className="form-check">
+                      <div className={ `form-check ${getValidationClass('interestedInOpenLab')}` } >
                         <label>Are you interested in hosting an Open Lab?</label>
                         {['Yes', 'No', 'Maybe'].map((interestOption) => (
                           <div key={ interestOption } className="form-check">
@@ -143,6 +172,9 @@ export default class SessionSubmission extends Component {
                             <label className="form-check-label" htmlFor={ `interestedInOpenLab${ interestOption}` }>{interestOption}</label>
                           </div>
                         ))}
+                        <div className="invalid-feedback">
+                          <ErrorMessage name="interestedInOpenLab" />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -156,7 +188,18 @@ export default class SessionSubmission extends Component {
                     </div>
                   </div>
                 </form>
-              )}
+              );
+                function getValidationClass(path: string): string | void {
+                  if (getIn(touched, path.split('.'))) {
+                    if (getIn(errors, path.split('.'))) {
+                      return 'is-invalid';
+                    } else {
+                      return 'is-valid'
+                    }
+                  }
+                }
+              }
+            }
           </Formik>
         }
       </div>
@@ -207,7 +250,10 @@ export default class SessionSubmission extends Component {
           <div className="col-sm-12">
             <div className="form-group">
               <label htmlFor={ bioPath }>Bio</label>
-              <Field component="textarea" className="form-control" placeholder="I am a blank at blank working mostly with...." name={ bioPath } id={ bioPath } />
+              <Field
+                className={ `form-control ${ getValidationClass(bioPath) }`}
+                placeholder="I am a blank at blank working mostly with...."
+                component="textarea" name={ bioPath } id={ bioPath } />
               <div className="invalid-feedback">
                 <ErrorMessage name={ bioPath } />
               </div>
@@ -218,13 +264,23 @@ export default class SessionSubmission extends Component {
           <div className="col-sm-12 col-md-6">
             <div className="form-group">
               <label htmlFor={ titlePath }>Title</label>
-              <Field className="form-control" placeholder="Lead Doer of Stuff" name={ titlePath } id={ titlePath } />
+              <Field
+                className={ `form-control ${ getValidationClass(titlePath) }`}
+                placeholder="Lead Doer of Stuff" name={ titlePath } id={ titlePath } />
+              <div className="invalid-feedback">
+                <ErrorMessage name={ titlePath } />
+              </div>
             </div>
           </div>
           <div className="col-sm-12 col-md-6">
             <div className="form-group">
               <label htmlFor={ companyPath }>Company</label>
-              <Field className="form-control" placeholder="Some Startup" name={ companyPath } id={ companyPath } />
+              <Field
+                className={ `form-control ${ getValidationClass(companyPath) }`}
+                placeholder="Some Startup" name={ companyPath } id={ companyPath } />
+              <div className="invalid-feedback">
+                <ErrorMessage name={ companyPath } />
+              </div>
             </div>
           </div>
         </div>
@@ -232,13 +288,23 @@ export default class SessionSubmission extends Component {
           <div className="col-sm-12 col-md-6">
             <div className="form-group">
               <label htmlFor={ phoneNumberPath }>Phone Number</label>
-              <Field type="phone" className="form-control" placeholder="715-123-4567" name={ phoneNumberPath } id={ phoneNumberPath } />
+              <Field
+                className={ `form-control ${ getValidationClass(companyPath) }`}
+                type="phone" placeholder="715-123-4567" name={ phoneNumberPath } id={ phoneNumberPath } />
+              <div className="invalid-feedback">
+                <ErrorMessage name={ phoneNumberPath } />
+              </div>
             </div>
           </div>
           <div className="col-sm-12 col-md-6">
             <div className="form-group">
               <label htmlFor={ emailPath }>Email</label>
-              <Field type="email" className="form-control" placeholder="email@gmail.com" name={ emailPath } id={ emailPath } />
+              <Field
+                className={ `form-control ${ getValidationClass(emailPath) }`}
+                type="email" placeholder="email@gmail.com" name={ emailPath } id={ emailPath } />
+              <div className="invalid-feedback">
+                <ErrorMessage name={ emailPath } />
+              </div>
             </div>
           </div>
         </div>
@@ -260,10 +326,6 @@ export default class SessionSubmission extends Component {
           return 'is-valid'
         }
       }
-    }
-
-    function isInvalid(path: string): boolean {
-      return getIn(touched, path.split('.')) && getIn(errors, path.split('.'))
     }
   }
 

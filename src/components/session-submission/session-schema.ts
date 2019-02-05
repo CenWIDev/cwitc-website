@@ -38,7 +38,7 @@ export const sessionSchema = Yup.object().shape({
                 .string()
                 .required()
                 .max(300)
-                .label('Presenter Last Name'),
+                .label('Presenter Bio'),
             title: Yup
                 .string()
                 .required()
@@ -59,6 +59,6 @@ export const sessionSchema = Yup.object().shape({
                 .required()
                 .label('Presenter Email'),
         }))
-        .min(1)
-        .max(4)
+        .min(1, 'You must include at least one presenter')
+        .max(4, 'Only up to four presenters are allowed for one session')
 });
