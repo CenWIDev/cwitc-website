@@ -154,25 +154,25 @@ export default class SessionSubmission extends Component {
                         <label>Target Level</label>
                         {['100', '200', '300', '400'].map((level) => (
                           <div key={ level } className="form-check">
-                            <Field type="radio" className="form-check-input" name="targetLevel" id={ `targetLevel${ level}` } value={ level } />
+                            <Field type="radio" className="form-check-input" name="targetLevel" defaultChecked={values.targetLevel === level} id={ `targetLevel${ level}` } value={ level } />
                             <label className="form-check-label" htmlFor={ `targetLevel${ level}` }>{level}</label>
                           </div>
                         ))}
-                        <div className="invalid-feedback">
+                        <div  style={ { display: 'block' } } className="invalid-feedback">
                           <ErrorMessage name="targetLevel" />
                         </div>
                       </div>
                     </div>
                     <div className="col-sm-12 col-md-6">
-                      <div className={ `form-check ${getValidationClass('interestedInOpenLab')}` } >
+                      <div className={ `form-group ${getValidationClass('interestedInOpenLab')}` } >
                         <label>Are you interested in hosting an Open Lab?</label>
                         {['Yes', 'No', 'Maybe'].map((interestOption) => (
                           <div key={ interestOption } className="form-check">
-                            <Field type="radio" className="form-check-input" name="interestedInOpenLab" id={ `interestedInOpenLab${ interestOption}` } value={ interestOption } />
+                            <Field type="radio" className="form-check-input" name="interestedInOpenLab" defaultChecked={values.interestedInOpenLab === interestOption} id={ `interestedInOpenLab${ interestOption}` } value={ interestOption } />
                             <label className="form-check-label" htmlFor={ `interestedInOpenLab${ interestOption}` }>{interestOption}</label>
                           </div>
                         ))}
-                        <div className="invalid-feedback">
+                        <div style={ { display: 'block' } } className="invalid-feedback">
                           <ErrorMessage name="interestedInOpenLab" />
                         </div>
                       </div>
@@ -331,11 +331,11 @@ export default class SessionSubmission extends Component {
 
   private buildEmptySession(): Session {
     return {
-      interestedInOpenLab: OpenLabInterests.MAYBE,
+      interestedInOpenLab: OpenLabInterests.UNSELECTED,
       title: '',
       summary: '',
       acknowledgedTerms: false,
-      targetLevel: SessionLevels[100],
+      targetLevel: SessionLevels.UNSELECTED,
       presenters: [
         this.buildEmptyPresenter()
       ],

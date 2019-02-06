@@ -1,7 +1,8 @@
-export type OpenLabInterest = 'yes' | 'no' | 'maybe';
+export type OpenLabInterest = 'Yes' | 'No' | 'Maybe' | undefined;
 
 export class OpenLabInterests {
-    public static YES: 'yes' = 'yes';
-    public static NO: 'no' = 'no';
-    public static MAYBE: 'maybe' = 'maybe';
+    public static YES: 'Yes' = 'Yes';
+    public static NO: 'No' = 'No';
+    public static MAYBE: 'Maybe' = 'Maybe';
+    public static UNSELECTED: undefined = undefined;
 }
