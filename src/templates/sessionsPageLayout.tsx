@@ -13,7 +13,7 @@ export default class SessionsPageLayout extends Component {
 
     public render(): ReactNode {
         const { sessionsPage, sessions } = this.props.data;
-        const { page, heading, heroImage } = sessionsPage;
+        const { page, heading, heroImage, emptyPageContent } = sessionsPage;
 
         const sessionGroups = sessions && sessions.edges ? sessions.edges
             .reduce((result: any, sessionNode: any) => {
@@ -49,52 +49,61 @@ export default class SessionsPageLayout extends Component {
                     <h1>{ heading }</h1>
                 </div>
                 <div className="session-groups-container container">
-                    <div className="row justify-content-center">
                     {
-                        sessionGroupsSorted.map((key: string) => {
-                            const groupedSessions = sessionGroups[key];
+                        !sessions || !sessions.edges || sessions.edges.length === 0 ?
+                            /* Empty Page Content: No sessions have been published */
+                            <div className="row justify-content-center">
+                                <div className="col-12 col-sm-8" dangerouslySetInnerHTML={{ __html: emptyPageContent.childContentfulRichText.html }} />
+                            </div> :
 
-                            let startTime, endTime = null;
+                            /* Grouped list of sesions and events by time */
+                            <div className="row justify-content-center">
+                            {
+                                sessionGroupsSorted.map((key: string) => {
+                                    const groupedSessions = sessionGroups[key];
 
-                            const sessionChildren = groupedSessions.map((session: any) => {
-                                startTime = session.startTime;
-                                endTime = session.endTime;
+                                    let startTime, endTime = null;
 
-                                const sessionProps: SessionProps = {
-                                    session: {
-                                        id: session.id,
-                                        title: session.title,
-                                        speakers: session.speakers ?
-                                            session.speakers.map((speaker: any) => ({ name: speaker.name })):
-                                            undefined,
-                                        abstractHtml: session.description.childContentfulRichText.html,
-                                        startTime: session.startTime,
-                                        endTime: session.endTime,
-                                        room: session.room,
-                                        category: session.category ? {
-                                            name: session.category.name,
-                                            colorHex: session.category.color
-                                        } : undefined,
-                                        sessionType: session.sessionType
-                                    }
-                                };
+                                    const sessionChildren = groupedSessions.map((session: any) => {
+                                        startTime = session.startTime;
+                                        endTime = session.endTime;
 
-                                return (
-                                    <Session key={ session.id } session={ sessionProps.session } />
-                                );
-                            });
+                                        const sessionProps: SessionProps = {
+                                            session: {
+                                                id: session.id,
+                                                title: session.title,
+                                                speakers: session.speakers ?
+                                                    session.speakers.map((speaker: any) => ({ name: speaker.name })):
+                                                    undefined,
+                                                abstractHtml: session.description.childContentfulRichText.html,
+                                                startTime: session.startTime,
+                                                endTime: session.endTime,
+                                                room: session.room,
+                                                category: session.category ? {
+                                                    name: session.category.name,
+                                                    colorHex: session.category.color
+                                                } : undefined,
+                                                sessionType: session.sessionType
+                                            }
+                                        };
 
-                            const displayTime: string = `${ startTime }${ endTime ? ' - ' + endTime : '' }`;
+                                        return (
+                                            <Session key={ session.id } session={ sessionProps.session } />
+                                        );
+                                    });
 
-                            return (
-                                <div className="session-group-container col-md-10" key={ key }>
-                                    <h4 className="h1 session-group-heading text-center text-sm-left">{ displayTime }</h4>
-                                    { sessionChildren }
-                                </div>
-                            );
-                        })
+                                    const displayTime: string = `${ startTime }${ endTime ? ' - ' + endTime : '' }`;
+
+                                    return (
+                                        <div className="session-group-container col-md-10" key={ key }>
+                                            <h4 className="h1 session-group-heading text-center text-sm-left">{ displayTime }</h4>
+                                            { sessionChildren }
+                                        </div>
+                                    );
+                                })
+                            }
+                            </div>
                     }
-                    </div>
                 </div>
             </Layout>
         );
@@ -117,6 +126,11 @@ export const query = graphql`
             page {
                 title
                 slug
+            }
+            emptyPageContent {
+                childContentfulRichText {
+                    html
+                }
             }
         }
         sessions: allContentfulSession(
