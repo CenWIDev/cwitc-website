@@ -1,0 +1,38 @@
+@import "./../vars";
+
+.session-container {
+
+    border: 2px solid darken($secondary, 15%);
+
+    .header {
+        padding: 1rem 0;
+        margin-bottom: 1rem;
+        background-color: $secondary;
+        color: darken($secondary, 35%);
+
+        .session-title {
+            margin: 0;
+        }
+
+        .session-authors {
+            margin-top: 1rem;
+            color: $white;
+        }
+
+        .session-room {
+            margin: 0;
+        }
+    }
+
+    .categories {
+
+        .category p {
+            display: inline-block;
+            text-transform: lowercase;
+            border: 1px solid darken($secondary, 35%);
+            padding: .25rem .50rem;
+            color: darken($secondary, 35%);
+            background: lighten($secondary, 35%);
+        }
+    }
+}
