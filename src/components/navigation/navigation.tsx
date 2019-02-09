@@ -49,7 +49,7 @@ export class Navigation extends Component {
                             <li><Link to="/app/profile">Profile</Link></li>
                             <li><a href="/" onClick={ this.logout }>Logout</a></li>
                         </> :
-                        <li><Link to="/app/login">Login</Link></li>
+                        <li><Link to="/app/log-in">Log In</Link></li>
                 }
             </>;
 

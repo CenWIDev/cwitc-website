@@ -9,7 +9,7 @@ const App = (props: any) => (
   <Layout path={ props.location.pathname }>
     <Router>
       <PrivateRoute path="/app/profile" component={ Profile }/>
-      <Login path="/app/login" />
+      <Login path="/app/log-in" />
     </Router>
   </Layout>
 );

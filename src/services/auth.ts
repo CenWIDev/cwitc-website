@@ -56,6 +56,15 @@ export const login = async (provider: LoginProvider): Promise<User> => {
         case LoginProvider.github:
             authProvider = new firebase.auth.GithubAuthProvider();
             break;
+        case LoginProvider.facebook:
+            authProvider = new firebase.auth.FacebookAuthProvider();
+            break;
+        case LoginProvider.twitter:
+            authProvider = new firebase.auth.TwitterAuthProvider();
+            break;
+        case LoginProvider.google:
+            authProvider = new firebase.auth.GoogleAuthProvider();
+            break;
         default:
             throw new Error('Unsupported auth provider!');
     }

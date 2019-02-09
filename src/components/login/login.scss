@@ -1,0 +1,51 @@
+$github-brand: #2b3137;
+$facebook-brand: #3b5998;
+$twitter-brand: #1da1f2;
+$google-brand: #ea4335;
+
+.login-container {
+    margin-top: 3vw;
+
+    .row { margin-bottom: 1rem;}
+
+    .social-button {
+        display: flex;
+        align-items: center;
+        color: white;
+
+        .social-button-icon {
+            flex-grow: 1;
+            flex-basis: 20%;
+
+            .icon {
+                height: 2rem;
+                fill: white;
+            }
+        }
+
+        &.github {
+            background-color: $github-brand;
+        }
+
+        &.facebook {
+            background-color: $facebook-brand;
+        }
+
+        &.twitter {
+            background-color: $twitter-brand;
+        }
+
+        &.google {
+            background-color: $google-brand;
+        }
+
+        .social-button-text {
+            flex-grow: 2;
+        }
+
+        div {
+            flex-grow: 1;
+            flex-basis: 20%;
+        }
+    }
+}
