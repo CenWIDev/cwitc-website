@@ -8,11 +8,13 @@ export type User = {
     email: string | null;
 };
 
-export enum LoginProvider {
-    github,
-    facebook,
-    twitter,
-    google
+export type LoginProvider = 'GitHub' | 'Facebook' | 'Twitter' | 'Google';
+
+export class LoginProviders {
+    public static github: 'GitHub' = 'GitHub';
+    public static facebook: 'Facebook' = 'Facebook';
+    public static twitter: 'Twitter' = 'Twitter';
+    public static google: 'Google' = 'Google';
 }
 
 const user_storage_key: string = 'gatsbyUser';
@@ -26,7 +28,7 @@ const createUser = (credential: firebase.auth.UserCredential): User => {
         return {
             userId: credential.user.uid,
             name: credential.user.displayName,
-            email: credential.user.email
+            email: credential.user.email || credential.user!.providerData[0]!.email
         }
     }
 
@@ -53,16 +55,16 @@ export const login = async (provider: LoginProvider): Promise<User> => {
     let authProvider: firebase.auth.AuthProvider;
 
     switch (provider) {
-        case LoginProvider.github:
+        case LoginProviders.github:
             authProvider = new firebase.auth.GithubAuthProvider();
             break;
-        case LoginProvider.facebook:
+        case LoginProviders.facebook:
             authProvider = new firebase.auth.FacebookAuthProvider();
             break;
-        case LoginProvider.twitter:
+        case LoginProviders.twitter:
             authProvider = new firebase.auth.TwitterAuthProvider();
             break;
-        case LoginProvider.google:
+        case LoginProviders.google:
             authProvider = new firebase.auth.GoogleAuthProvider();
             break;
         default:
