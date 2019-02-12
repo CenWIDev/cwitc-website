@@ -1,12 +1,18 @@
 import React, { Component, ReactNode } from 'react';
-import AuthService, { User } from '../../services/auth'
 import { Session } from './session.model';
 import { Presenter } from './presenter.model';
 import { SessionLevels } from './session-level.enum';
 import { OpenLabInterests } from './open-lab-interest.enum';
 import { Formik, FieldArray, Field, ArrayHelpers, ErrorMessage, FormikErrors, FormikTouched, getIn } from 'formik';
 import { sessionSchema } from './session-schema';
-
+import { WithContext as ReactTags } from 'react-tag-input';
+ 
+const KeyCodes = {
+  comma: 188,
+  enter: 13,
+};
+ 
+const delimiters = [KeyCodes.comma, KeyCodes.enter];
 type SessionSubmissionState = {
   session: Session;
 };
@@ -17,60 +23,14 @@ export default class SessionSubmission extends Component {
     session: this.buildEmptySession()
   };
 
-  public get user(): User {
-    return AuthService.getUser();
-  }
-
-  public handlePresenterChange = (event: any, i: number) => {
-    if (event.target) {
-      const updatedPresenter: Presenter = {
-        ...this.state.session.presenters[i],
-        [event.target.name]: event.target.value
-      };
-
-      const updatedState: SessionSubmissionState = {
-        ...this.state,
-      };
-
-      updatedState.session.presenters[i] = updatedPresenter;
-
-      this.setState(updatedState);
-    }
-
-  };
-
-  public handleChange = (event: any) => {
-    if (event.target) {
-      const updatedSubmission = {
-        ...this.state.session,
-        [event.target.name]: event.target.value
-      };
-
-      this.setState({
-        session: updatedSubmission
-      });
-    }
-  };
-
-  public handleTagsChange = (event: any) => {
-    if (event.target) {
-      this.setState({
-        ...this.state.session,
-        session: {
-          tags: event.target.value.split(',').map((v: string) => v.trim())
-        }
-      });
-    }
-  }
-
   public render(): ReactNode {
     return (
       <div className="container">
         <h1>Submit Session</h1>
         {
           <Formik
-            initialValues={ this.state.session }
-            validationSchema={ sessionSchema }
+            initialValues={this.state.session}
+            validationSchema={sessionSchema}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
                 alert(JSON.stringify(values, null, 2));
@@ -84,6 +44,7 @@ export default class SessionSubmission extends Component {
               touched,
               handleSubmit,
               isSubmitting,
+              setFieldValue
               /* and other goodies */
             }) => {
               return (
@@ -101,7 +62,7 @@ export default class SessionSubmission extends Component {
                             (values.presenters && values.presenters.length < 4) ?
                               <div className="col-sm-12 ">
                                 <div className="d-flex justify-content-center">
-                                  <button className="btn btn-outline-primary" type="button" onClick={ () => arrayHelpers.push(this.buildEmptyPresenter()) }>Add Presenter</button>
+                                  <button className="btn btn-outline-primary" type="button" onClick={() => arrayHelpers.push(this.buildEmptyPresenter())}>Add Presenter</button>
                                 </div>
                               </div> :
                               undefined
@@ -110,7 +71,7 @@ export default class SessionSubmission extends Component {
                             (errors && typeof errors.presenters === 'string') ?
                               <div className="col-sm-12 ">
                                 <div className="d-flex justify-content-center">
-                                  <div style={ { display: 'block' } } className="invalid-feedback">
+                                  <div style={{ display: 'block' }} className="invalid-feedback">
                                     <ErrorMessage name="presenters" />
                                   </div>
                                 </div>
@@ -126,7 +87,7 @@ export default class SessionSubmission extends Component {
                       <div className="form-group">
                         <label htmlFor="title">Session Title</label>
                         <Field
-                          className={ `form-control ${getValidationClass('title')}` }
+                          className={`form-control ${getValidationClass('title')}`}
                           placeholder="How To Do Amazing Things"
                           name="title" id="title" />
                         <div className="invalid-feedback">
@@ -137,10 +98,10 @@ export default class SessionSubmission extends Component {
                     <div className="col-sm-12">
                       <div className="form-group">
                         <label htmlFor="summary">Summary</label>
-                        <Field 
-                          className={ `form-control ${getValidationClass('summary')}` }
+                        <Field
+                          className={`form-control ${getValidationClass('summary')}`}
                           component="textarea"
-                          placeholder="I am a blank at blank working mostly with...."
+                          placeholder="I will be talking about how to blank with blank"
                           name="summary" id="summary" />
                         <div className="invalid-feedback">
                           <ErrorMessage name="summary" />
@@ -150,30 +111,70 @@ export default class SessionSubmission extends Component {
                   </div>
                   <div className="form-row">
                     <div className="col-md-6">
-                      <div className={ `form-group ${getValidationClass('targetLevel')}` } >
+                      <div className={`form-group ${getValidationClass('targetLevel')}`} >
                         <label>Target Level</label>
                         {['100', '200', '300', '400'].map((level) => (
-                          <div key={ level } className="form-check">
-                            <Field type="radio" className="form-check-input" name="targetLevel" defaultChecked={values.targetLevel === level} id={ `targetLevel${ level}` } value={ level } />
-                            <label className="form-check-label" htmlFor={ `targetLevel${ level}` }>{level}</label>
+                          <div key={level} className="form-check">
+                            <Field type="radio" className="form-check-input" name="targetLevel" defaultChecked={values.targetLevel === level} id={`targetLevel${level}`} value={level} />
+                            <label className="form-check-label" htmlFor={`targetLevel${level}`}>{level}</label>
                           </div>
                         ))}
-                        <div  style={ { display: 'block' } } className="invalid-feedback">
+                        <div style={{ display: 'block' }} className="invalid-feedback">
                           <ErrorMessage name="targetLevel" />
                         </div>
                       </div>
                     </div>
                     <div className="col-sm-12 col-md-6">
-                      <div className={ `form-group ${getValidationClass('interestedInOpenLab')}` } >
+                      <div className={`form-group ${getValidationClass('interestedInOpenLab')}`} >
                         <label>Are you interested in hosting an Open Lab?</label>
                         {['Yes', 'No', 'Maybe'].map((interestOption) => (
-                          <div key={ interestOption } className="form-check">
-                            <Field type="radio" className="form-check-input" name="interestedInOpenLab" defaultChecked={values.interestedInOpenLab === interestOption} id={ `interestedInOpenLab${ interestOption}` } value={ interestOption } />
-                            <label className="form-check-label" htmlFor={ `interestedInOpenLab${ interestOption}` }>{interestOption}</label>
+                          <div key={interestOption} className="form-check">
+                            <Field type="radio" className="form-check-input" name="interestedInOpenLab" defaultChecked={values.interestedInOpenLab === interestOption} id={`interestedInOpenLab${interestOption}`} value={interestOption} />
+                            <label className="form-check-label" htmlFor={`interestedInOpenLab${interestOption}`}>{interestOption}</label>
                           </div>
                         ))}
-                        <div style={ { display: 'block' } } className="invalid-feedback">
+                        <div style={{ display: 'block' }} className="invalid-feedback">
                           <ErrorMessage name="interestedInOpenLab" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-sm-12 col-md-6">
+                      <div className="form-group">
+                        <label htmlFor="tags">Session Tags</label>
+                        <ReactTags
+                          inline
+                          id="tags"
+                          tags={values.tags}
+                          suggestions={[]}
+                          classNames={{
+                            tag: 'btn btn-primary btn-sm mr-1 mb-2',
+                            remove: 'ml-2',
+                            tagInputField: 'form-control'
+                          }}
+                          delimiters={delimiters}
+                          // tslint:disable-next-line:no-console
+                          handleAddition={(tag) => setFieldValue('tags', [...values.tags, tag])}
+                          // tslint:disable-next-line:no-console
+                          handleDelete={(i) => setFieldValue('tags', values.tags.filter((tag, index) => index !== i))} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="form-row">
+                    <div className="col-sm-12 col-md-6">
+                      <div className={`form-group ${getValidationClass('acknowledgedTerms')}`} >
+                        <label>I agree with the terms and conditions outlined in this call for speakers. In the event of a cancellation, I will notify Central Wisconsin IT Conference Comittee in a timely manner.</label>
+                        <div className="form-check">
+                          {/* eslint-disable-next-line react/jsx-boolean-value */ }
+                          <Field type="radio" className="form-check-input" name="acknowledgedTerms" defaultChecked={values.acknowledgedTerms === true} id={`acknowledgedTerms${true}`} value={true} />
+                          <label className="form-check-label" htmlFor={`acknowledgedTerms${true}`}>Yes, I agree</label>
+                        </div>
+                        <div className="form-check">
+                          {/* eslint-disable-next-line react/jsx-boolean-value */ }
+                          <Field type="radio" className="form-check-input" name="acknowledgedTerms" defaultChecked={values.acknowledgedTerms === false} id={`acknowledgedTerms${false}`} value={false} />
+                          <label className="form-check-label" htmlFor={`acknowledgedTerms${false}`}>No, I choose not to submit my session presentation</label>
+                        </div>
+                        <div style={{ display: 'block' }} className="invalid-feedback">
+                          <ErrorMessage name="acknowledgedTerms" />
                         </div>
                       </div>
                     </div>
@@ -181,7 +182,7 @@ export default class SessionSubmission extends Component {
                   <div className="form-row mt-3">
                     <div className="col-sm-12 ">
                       <div className="d-flex justify-content-center">
-                        <button className="btn btn-outline-primary" type="submit" disabled={ isSubmitting }>
+                        <button className="btn btn-outline-primary" type="submit" disabled={isSubmitting}>
                           Submit
                         </button>
                       </div>
@@ -189,16 +190,16 @@ export default class SessionSubmission extends Component {
                   </div>
                 </form>
               );
-                function getValidationClass(path: string): string | void {
-                  if (getIn(touched, path.split('.'))) {
-                    if (getIn(errors, path.split('.'))) {
-                      return 'is-invalid';
-                    } else {
-                      return 'is-valid'
-                    }
+              function getValidationClass(path: string): string | void {
+                if (getIn(touched, path.split('.'))) {
+                  if (getIn(errors, path.split('.'))) {
+                    return 'is-invalid';
+                  } else {
+                    return 'is-valid'
                   }
                 }
               }
+            }
             }
           </Formik>
         }
@@ -207,41 +208,41 @@ export default class SessionSubmission extends Component {
   }
 
   public renderPresenterForm(
-      presenter: Presenter,
-      index: number,
-      arrayHelpers: ArrayHelpers,
-      errors: FormikErrors<Session>,
-      touched: FormikTouched<Session>): any {
-    const firstNamePath: string = `presenters.${ index }.firstName`;
-    const lastNamePath: string = `presenters.${ index }.lastName`;
-    const bioPath: string = `presenters.${ index }.bio`;
-    const titlePath: string = `presenters.${ index }.title`;
-    const companyPath: string = `presenters.${ index }.company`;
-    const phoneNumberPath: string = `presenters.${ index }.phoneNumber`;
-    const emailPath: string = `presenters.${ index }.email`;
+    presenter: Presenter,
+    index: number,
+    arrayHelpers: ArrayHelpers,
+    errors: FormikErrors<Session>,
+    touched: FormikTouched<Session>): any {
+    const firstNamePath: string = `presenters.${index}.firstName`;
+    const lastNamePath: string = `presenters.${index}.lastName`;
+    const bioPath: string = `presenters.${index}.bio`;
+    const titlePath: string = `presenters.${index}.title`;
+    const companyPath: string = `presenters.${index}.company`;
+    const phoneNumberPath: string = `presenters.${index}.phoneNumber`;
+    const emailPath: string = `presenters.${index}.email`;
 
     return (
-      <React.Fragment key={ index }>
+      <React.Fragment key={index}>
         <div className="form-row">
           <div className="col-sm-12 col-md-6">
             <div className="form-group">
-              <label htmlFor={ firstNamePath }>First Name</label>
+              <label htmlFor={firstNamePath}>First Name</label>
               <Field
-                className={ `form-control ${ getValidationClass(firstNamePath) }`}
-                placeholder="John" name={ firstNamePath } id={ firstNamePath } />
+                className={`form-control ${getValidationClass(firstNamePath)}`}
+                placeholder="John" name={firstNamePath} id={firstNamePath} />
               <div className="invalid-feedback">
-                <ErrorMessage name={ firstNamePath } />
+                <ErrorMessage name={firstNamePath} />
               </div>
             </div>
           </div>
           <div className="col-sm-12 col-md-6">
             <div className="form-group">
-              <label htmlFor={ lastNamePath }>Last Name</label>
+              <label htmlFor={lastNamePath}>Last Name</label>
               <Field
-                className={ `form-control ${ getValidationClass(lastNamePath) }`}
-                placeholder="Doe" name={ lastNamePath } id={ lastNamePath } />
+                className={`form-control ${getValidationClass(lastNamePath)}`}
+                placeholder="Doe" name={lastNamePath} id={lastNamePath} />
               <div className="invalid-feedback">
-                <ErrorMessage name={ lastNamePath } />
+                <ErrorMessage name={lastNamePath} />
               </div>
             </div>
           </div>
@@ -249,13 +250,13 @@ export default class SessionSubmission extends Component {
         <div className="form-row">
           <div className="col-sm-12">
             <div className="form-group">
-              <label htmlFor={ bioPath }>Bio</label>
+              <label htmlFor={bioPath}>Bio</label>
               <Field
-                className={ `form-control ${ getValidationClass(bioPath) }`}
+                className={`form-control ${getValidationClass(bioPath)}`}
                 placeholder="I am a blank at blank working mostly with...."
-                component="textarea" name={ bioPath } id={ bioPath } />
+                component="textarea" name={bioPath} id={bioPath} />
               <div className="invalid-feedback">
-                <ErrorMessage name={ bioPath } />
+                <ErrorMessage name={bioPath} />
               </div>
             </div>
           </div>
@@ -263,23 +264,23 @@ export default class SessionSubmission extends Component {
         <div className="form-row">
           <div className="col-sm-12 col-md-6">
             <div className="form-group">
-              <label htmlFor={ titlePath }>Title</label>
+              <label htmlFor={titlePath}>Title</label>
               <Field
-                className={ `form-control ${ getValidationClass(titlePath) }`}
-                placeholder="Lead Doer of Stuff" name={ titlePath } id={ titlePath } />
+                className={`form-control ${getValidationClass(titlePath)}`}
+                placeholder="Lead Doer of Stuff" name={titlePath} id={titlePath} />
               <div className="invalid-feedback">
-                <ErrorMessage name={ titlePath } />
+                <ErrorMessage name={titlePath} />
               </div>
             </div>
           </div>
           <div className="col-sm-12 col-md-6">
             <div className="form-group">
-              <label htmlFor={ companyPath }>Company</label>
+              <label htmlFor={companyPath}>Company</label>
               <Field
-                className={ `form-control ${ getValidationClass(companyPath) }`}
-                placeholder="Some Startup" name={ companyPath } id={ companyPath } />
+                className={`form-control ${getValidationClass(companyPath)}`}
+                placeholder="Some Startup" name={companyPath} id={companyPath} />
               <div className="invalid-feedback">
-                <ErrorMessage name={ companyPath } />
+                <ErrorMessage name={companyPath} />
               </div>
             </div>
           </div>
@@ -287,23 +288,23 @@ export default class SessionSubmission extends Component {
         <div className="form-row">
           <div className="col-sm-12 col-md-6">
             <div className="form-group">
-              <label htmlFor={ phoneNumberPath }>Phone Number</label>
+              <label htmlFor={phoneNumberPath}>Phone Number</label>
               <Field
-                className={ `form-control ${ getValidationClass(companyPath) }`}
-                type="phone" placeholder="715-123-4567" name={ phoneNumberPath } id={ phoneNumberPath } />
+                className={`form-control ${getValidationClass(companyPath)}`}
+                type="phone" placeholder="715-123-4567" name={phoneNumberPath} id={phoneNumberPath} />
               <div className="invalid-feedback">
-                <ErrorMessage name={ phoneNumberPath } />
+                <ErrorMessage name={phoneNumberPath} />
               </div>
             </div>
           </div>
           <div className="col-sm-12 col-md-6">
             <div className="form-group">
-              <label htmlFor={ emailPath }>Email</label>
+              <label htmlFor={emailPath}>Email</label>
               <Field
-                className={ `form-control ${ getValidationClass(emailPath) }`}
-                type="email" placeholder="email@gmail.com" name={ emailPath } id={ emailPath } />
+                className={`form-control ${getValidationClass(emailPath)}`}
+                type="email" placeholder="email@gmail.com" name={emailPath} id={emailPath} />
               <div className="invalid-feedback">
-                <ErrorMessage name={ emailPath } />
+                <ErrorMessage name={emailPath} />
               </div>
             </div>
           </div>
@@ -311,7 +312,7 @@ export default class SessionSubmission extends Component {
         <div className="form-row">
           <div className="col-sm-12 ">
             <div className="d-flex justify-content-end">
-              <button className="btn btn-outline-primary" type="button" onClick={ () => arrayHelpers.remove(index) }>Remove Presenter</button>
+              <button className="btn btn-outline-primary" type="button" onClick={() => arrayHelpers.remove(index)}>Remove Presenter</button>
             </div>
           </div>
         </div>
@@ -322,7 +323,7 @@ export default class SessionSubmission extends Component {
       if (getIn(touched, path.split('.'))) {
         if (getIn(errors, path.split('.'))) {
           return 'is-invalid';
-         } else {
+        } else {
           return 'is-valid'
         }
       }
@@ -339,7 +340,7 @@ export default class SessionSubmission extends Component {
       presenters: [
         this.buildEmptyPresenter()
       ],
-      tags: ['']
+      tags: []
     };
   }
 

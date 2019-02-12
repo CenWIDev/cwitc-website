@@ -8,6 +8,6 @@ export class Session {
     public title: string;
     public summary: string;
     public targetLevel: SessionLevel;
-    public tags: string[];
+    public tags: { id: string, text: string }[];
     public acknowledgedTerms: boolean;
 }
