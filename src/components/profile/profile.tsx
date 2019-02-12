@@ -17,10 +17,14 @@ export default class Profile extends Component {
         return AuthService.getUser();
     }
 
-    handleSubmit = async (provider: LoginProvider): Promise<void> => {
+    public getButtonDisplayText = (provider: LoginProvider): string => {
+        return this.user.linkedProviders.includes(provider) ? `Unlink ${ provider }` : `Link ${ provider }`;
+    };
+
+    public handleSubmit = async (provider: LoginProvider): Promise<void> => {
         await AuthService.link(provider);
         // navigate(`/app/profile`);
-    }
+    };
 
     public render(): ReactNode {
         return (
@@ -34,24 +38,28 @@ export default class Profile extends Component {
                     <div className="col-10 col-md-5">
                         <h4 className="text-center">Link other Providers</h4>
                         <LoginButton
+                            displayText={ this.getButtonDisplayText(LoginProviders.github) }
                             provider={ LoginProviders.github }
                             providerEnabled={ true }
                             onClick={ this.handleSubmit }>
                             <GitHubIcon />
                         </LoginButton>
                         <LoginButton
+                            displayText={ this.getButtonDisplayText(LoginProviders.facebook) }
                             provider={ LoginProviders.facebook }
                             providerEnabled={ true }
                             onClick={ this.handleSubmit }>
                             <FacebookIcon />
                         </LoginButton>
                         <LoginButton
+                            displayText={ this.getButtonDisplayText(LoginProviders.twitter) }
                             provider={ LoginProviders.twitter }
                             providerEnabled={ true }
                             onClick={ this.handleSubmit }>
                             <TwitterIcon />
                         </LoginButton>
                         <LoginButton
+                            displayText={ this.getButtonDisplayText(LoginProviders.google) }
                             provider={ LoginProviders.google }
                             providerEnabled={ true }
                             onClick={ this.handleSubmit }>

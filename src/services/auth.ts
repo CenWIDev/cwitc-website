@@ -2,12 +2,13 @@ import firebase from 'firebase';
 import 'firebase/auth';
 import { firebaseApp } from './firebase';
 
-export type User = {
+export class User {
     userId: string;
     name: string | null;
     email: string | null;
     photoUrl: string | null;
-};
+    linkedProviders: LoginProvider[];
+}
 
 export type LoginProvider = 'GitHub' | 'Facebook' | 'Twitter' | 'Google';
 
@@ -26,12 +27,26 @@ const isBrowser = () => {
 
 const createUser = (credential: firebase.auth.UserCredential): User => {
     if (credential && credential.user) {
-        return {
-            userId: credential.user.uid,
-            name: credential.user.displayName,
-            email: credential.user.email || credential.user!.providerData[0]!.email,
-            photoUrl: credential.user!.providerData[0]!.photoURL
-        }
+        const user: User = new User();
+
+        user.userId = credential.user.uid,
+        user.name = credential.user.displayName,
+        user.email = credential.user.email || credential.user!.providerData[0]!.email,
+        user.photoUrl = credential.user!.providerData[0]!.photoURL
+
+        user.linkedProviders = [];
+
+        credential.user!.providerData!.forEach((providerData) => {
+            switch (providerData!.providerId) {
+                case 'github.com':
+                    user.linkedProviders.push(LoginProviders.github);
+                    break;
+                default:
+                    return;
+            }
+        });
+
+        return user;
     }
 
     throw new Error('Failed to create user');
@@ -54,7 +69,7 @@ export const setUser = (user: User): void => {
 };
 
 export const login = async (provider: LoginProvider): Promise<User> => {
-    let authProvider: firebase.auth.AuthProvider = getProvider(provider);
+    const authProvider: firebase.auth.AuthProvider = getProvider(provider);
 
     const credential: firebase.auth.UserCredential = await firebaseApp.auth().signInWithPopup(authProvider);
 
@@ -68,7 +83,7 @@ export const login = async (provider: LoginProvider): Promise<User> => {
 };
 
 export const link = async (provider: LoginProvider): Promise<User> => {
-    let authProvider: firebase.auth.AuthProvider = getProvider(provider);
+    const authProvider: firebase.auth.AuthProvider = getProvider(provider);
 
     const credential: firebase.auth.UserCredential = await firebaseApp.auth().currentUser!.linkWithPopup(authProvider);
 
