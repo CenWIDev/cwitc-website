@@ -56,7 +56,7 @@ exports.createPages = ({ graphql, actions }) => {
 };
 
 // https://github.com/gatsbyjs/gatsby/issues/8612#issuecomment-428820523
-exports.onCreateWebpackConfig = ({actions, stage}) => {
+exports.onCreateWebpackConfig = ({ actions, stage }) => {
     if (stage === "build-html") {
         actions.setWebpackConfig({
             module: {
@@ -68,5 +68,11 @@ exports.onCreateWebpackConfig = ({actions, stage}) => {
                 ],
             }
         })
+    }
+
+    if (stage === 'develop') {
+        actions.setWebpackConfig({
+            devtool: 'cheap-module-source-map'
+        });
     }
 };

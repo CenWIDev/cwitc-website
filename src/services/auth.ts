@@ -6,6 +6,7 @@ export type User = {
     userId: string;
     name: string | null;
     email: string | null;
+    photoUrl: string | null;
 };
 
 export type LoginProvider = 'GitHub' | 'Facebook' | 'Twitter' | 'Google';
@@ -28,7 +29,8 @@ const createUser = (credential: firebase.auth.UserCredential): User => {
         return {
             userId: credential.user.uid,
             name: credential.user.displayName,
-            email: credential.user.email || credential.user!.providerData[0]!.email
+            email: credential.user.email || credential.user!.providerData[0]!.email,
+            photoUrl: credential.user!.providerData[0]!.photoURL
         }
     }
 
@@ -52,6 +54,40 @@ export const setUser = (user: User): void => {
 };
 
 export const login = async (provider: LoginProvider): Promise<User> => {
+    let authProvider: firebase.auth.AuthProvider = getProvider(provider);
+
+    const credential: firebase.auth.UserCredential = await firebaseApp.auth().signInWithPopup(authProvider);
+
+    const user: User = createUser(credential);
+
+    console.log(credential);
+
+    setUser(user);
+
+    return user;
+};
+
+export const link = async (provider: LoginProvider): Promise<User> => {
+    let authProvider: firebase.auth.AuthProvider = getProvider(provider);
+
+    const credential: firebase.auth.UserCredential = await firebaseApp.auth().currentUser!.linkWithPopup(authProvider);
+
+    console.log(credential);
+
+    const user: User = createUser(credential);
+
+    // setUser(user);
+
+    return user;
+}
+
+export const logout = async (callback: Function): Promise<void> => {
+    await firebase.auth().signOut();
+    window.localStorage.removeItem(user_storage_key);
+    callback();
+}
+
+function getProvider(provider: LoginProvider): firebase.auth.AuthProvider {
     let authProvider: firebase.auth.AuthProvider;
 
     switch (provider) {
@@ -66,26 +102,16 @@ export const login = async (provider: LoginProvider): Promise<User> => {
             break;
         case LoginProviders.google:
             authProvider = new firebase.auth.GoogleAuthProvider();
+            authProvider.addScope('profile');
+            authProvider.addScope('email');
             break;
         default:
             throw new Error('Unsupported auth provider!');
     }
 
-    const credential: firebase.auth.UserCredential = await firebaseApp.auth().signInWithPopup(authProvider);
-
-    const user: User = createUser(credential);
-
-    setUser(user);
-
-    return user;
-};
-
-export const logout = async (callback: Function): Promise<void> => {
-    await firebase.auth().signOut();
-    window.localStorage.removeItem(user_storage_key);
-    callback();
+    return authProvider;
 }
 
-const AuthService = { isLoggedIn, getUser, setUser, login, logout };
+const AuthService = { isLoggedIn, getUser, setUser, login, logout, link };
 
 export default AuthService;

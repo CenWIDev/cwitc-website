@@ -1,0 +1,17 @@
+.profile-container {
+    margin-top: 3vw;
+
+    .row { margin-bottom: 1rem; }
+
+    .bio {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+            width: 50%;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+    }
+}
