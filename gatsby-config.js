@@ -1,6 +1,7 @@
 const { INLINES } = require('@contentful/rich-text-types');
 const { HyperlinkRenderer } = require('./contentful/hyperlink-renderer');
 const { EntryHyperlinkRenderer } = require('./contentful/entry-hyperlink-renderer');
+const { AssetHyperlinkRenderer } = require('./contentful/asset-hyperlink-renderer');
 
 if (process.env.ENVIROMENT !== 'production') {
   require('dotenv').config()
@@ -45,7 +46,8 @@ module.exports = {
         renderOptions: {
           renderNode: {
             [INLINES.HYPERLINK]: HyperlinkRenderer,
-            [INLINES.ENTRY_HYPERLINK]: EntryHyperlinkRenderer
+            [INLINES.ENTRY_HYPERLINK]: EntryHyperlinkRenderer,
+            [INLINES.ASSET_HYPERLINK]: AssetHyperlinkRenderer
           }
         }
       }

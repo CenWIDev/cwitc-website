@@ -1,0 +1,33 @@
+@import "./../components/vars";
+
+.sessions-page-wrapper {
+
+    .hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 3vw;
+        position: relative;
+
+        height: 20vh;
+        min-height: 150px;
+
+        h1, h3 {
+            color: $white;
+            text-align: center;
+            z-index: 2;
+        }
+    }
+
+    .session-group-container {
+        margin-bottom: 2rem;
+
+        .session-group-heading {
+            padding-left: 1rem;
+        }
+
+        .session-container:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+    }
+}
