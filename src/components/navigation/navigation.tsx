@@ -1,6 +1,6 @@
 import React, { Component, ReactNode } from 'react';
 import { Link, navigate } from 'gatsby';
-import AuthService from '../../services/auth';
+import { AuthService } from '../../services/authentication';
 
 import Icon from './../icon/icon';
 

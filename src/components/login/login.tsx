@@ -1,7 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 import { StaticQuery, graphql, navigate } from 'gatsby';
 
-import AuthService, { LoginProvider, LoginProviders } from './../../services/auth';
+import { AuthService, ILoginProvider, LoginProviders } from './../../services/authentication';
 import { GitHubIcon, FacebookIcon, TwitterIcon, GoogleIcon } from './../icon';
 import LoginButton from './login-button/login-button';
 
@@ -11,7 +11,7 @@ export default class Login extends Component {
 
     public props: LoginProps;
 
-    handleSubmit = async (provider: LoginProvider): Promise<void> => {
+    handleSubmit = async (provider: ILoginProvider): Promise<void> => {
         await AuthService.login(provider);
         navigate(`/app/profile`);
     }

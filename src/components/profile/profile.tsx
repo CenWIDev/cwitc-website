@@ -1,13 +1,9 @@
 import React, { Component, ReactNode } from 'react';
-import AuthService, { User, LoginProvider, LoginProviders } from './../../services/auth';
+import { AuthService, User, ILoginProvider, LoginProviders } from './../../services/authentication';
 import { GitHubIcon, FacebookIcon, TwitterIcon, GoogleIcon } from './../icon';
 import LoginButton from './../login/login-button/login-button';
 
 import './profile.scss';
-
-type ProfileProps = {
-    path: string;
-};
 
 export default class Profile extends Component {
 
@@ -17,13 +13,18 @@ export default class Profile extends Component {
         return AuthService.getUser();
     }
 
-    public getButtonDisplayText = (provider: LoginProvider): string => {
-        return this.user.linkedProviders.includes(provider) ? `Unlink ${ provider }` : `Link ${ provider }`;
+    public disableButton = (provider: ILoginProvider): boolean => {
+        return this.user.linkedProviders.length === 1 && this.user.linkedProviders.includes(provider) ;
+    }
+
+    public getButtonDisplayText = (provider: ILoginProvider): string => {
+        return this.user.linkedProviders.includes(provider) ? `Unlink ${ provider.providerName }` : `Link ${ provider.providerName }`;
     };
 
-    public handleSubmit = async (provider: LoginProvider): Promise<void> => {
-        await AuthService.link(provider);
-        // navigate(`/app/profile`);
+    public handleSubmit = async (provider: ILoginProvider): Promise<void> => {
+        this.user.linkedProviders.includes(provider) ?
+            await AuthService.unlink(provider) :
+            await AuthService.link(provider);
     };
 
     public render(): ReactNode {
@@ -39,6 +40,7 @@ export default class Profile extends Component {
                         <h4 className="text-center">Link other Providers</h4>
                         <LoginButton
                             displayText={ this.getButtonDisplayText(LoginProviders.github) }
+                            disabled={ this.disableButton(LoginProviders.github) }
                             provider={ LoginProviders.github }
                             providerEnabled={ true }
                             onClick={ this.handleSubmit }>
@@ -46,6 +48,7 @@ export default class Profile extends Component {
                         </LoginButton>
                         <LoginButton
                             displayText={ this.getButtonDisplayText(LoginProviders.facebook) }
+                            disabled={ this.disableButton(LoginProviders.facebook) }
                             provider={ LoginProviders.facebook }
                             providerEnabled={ true }
                             onClick={ this.handleSubmit }>
@@ -53,6 +56,7 @@ export default class Profile extends Component {
                         </LoginButton>
                         <LoginButton
                             displayText={ this.getButtonDisplayText(LoginProviders.twitter) }
+                            disabled={ this.disableButton(LoginProviders.twitter) }
                             provider={ LoginProviders.twitter }
                             providerEnabled={ true }
                             onClick={ this.handleSubmit }>
@@ -60,6 +64,7 @@ export default class Profile extends Component {
                         </LoginButton>
                         <LoginButton
                             displayText={ this.getButtonDisplayText(LoginProviders.google) }
+                            disabled={ this.disableButton(LoginProviders.google) }
                             provider={ LoginProviders.google }
                             providerEnabled={ true }
                             onClick={ this.handleSubmit }>
@@ -71,3 +76,7 @@ export default class Profile extends Component {
         );
     }
 }
+
+export type ProfileProps = {
+    path: string;
+};

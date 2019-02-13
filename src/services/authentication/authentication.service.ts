@@ -1,22 +1,15 @@
 import firebase from 'firebase';
 import 'firebase/auth';
-import { firebaseApp } from './firebase';
+import { firebaseApp } from './../firebase';
+
+import { ILoginProvider, LoginProviders } from './login-providers';
 
 export class User {
     userId: string;
     name: string | null;
     email: string | null;
     photoUrl: string | null;
-    linkedProviders: LoginProvider[];
-}
-
-export type LoginProvider = 'GitHub' | 'Facebook' | 'Twitter' | 'Google';
-
-export class LoginProviders {
-    public static github: 'GitHub' = 'GitHub';
-    public static facebook: 'Facebook' = 'Facebook';
-    public static twitter: 'Twitter' = 'Twitter';
-    public static google: 'Google' = 'Google';
+    linkedProviders: ILoginProvider[];
 }
 
 const user_storage_key: string = 'gatsbyUser';
@@ -25,24 +18,25 @@ const isBrowser = () => {
     return typeof window !== 'undefined';
 };
 
-const createUser = (credential: firebase.auth.UserCredential): User => {
-    if (credential && credential.user) {
+const createUser = (firebaseUser: firebase.User | null): User => {
+    console.log(firebaseUser);
+
+    if (firebaseUser) {
         const user: User = new User();
 
-        user.userId = credential.user.uid,
-        user.name = credential.user.displayName,
-        user.email = credential.user.email || credential.user!.providerData[0]!.email,
-        user.photoUrl = credential.user!.providerData[0]!.photoURL
+        user.userId = firebaseUser.uid,
+        user.name = firebaseUser.displayName,
+        user.email = firebaseUser.email || firebaseUser!.providerData[0]!.email,
+        user.photoUrl = firebaseUser!.providerData[0]!.photoURL
 
         user.linkedProviders = [];
 
-        credential.user!.providerData!.forEach((providerData) => {
-            switch (providerData!.providerId) {
-                case 'github.com':
-                    user.linkedProviders.push(LoginProviders.github);
-                    break;
-                default:
-                    return;
+        // PROVIDER DATA IS ON THE CREDENTIAL
+        firebaseUser!.providerData!.forEach((providerData) => {
+            const loginProvider: ILoginProvider | undefined = LoginProviders.list.find(provider => provider.providerId === providerData!.providerId);
+
+            if (loginProvider) {
+                user.linkedProviders.push()
             }
         });
 
@@ -68,30 +62,36 @@ export const setUser = (user: User): void => {
     window.localStorage.setItem('gatsbyUser', JSON.stringify(user));
 };
 
-export const login = async (provider: LoginProvider): Promise<User> => {
+export const login = async (provider: ILoginProvider): Promise<User> => {
     const authProvider: firebase.auth.AuthProvider = getProvider(provider);
 
     const credential: firebase.auth.UserCredential = await firebaseApp.auth().signInWithPopup(authProvider);
 
-    const user: User = createUser(credential);
-
-    console.log(credential);
+    const user: User = createUser(credential.user);
 
     setUser(user);
 
     return user;
 };
 
-export const link = async (provider: LoginProvider): Promise<User> => {
+export const link = async (provider: ILoginProvider): Promise<User> => {
     const authProvider: firebase.auth.AuthProvider = getProvider(provider);
 
     const credential: firebase.auth.UserCredential = await firebaseApp.auth().currentUser!.linkWithPopup(authProvider);
 
-    console.log(credential);
+    const user: User = createUser(credential.user);
 
-    const user: User = createUser(credential);
+    setUser(user);
 
-    // setUser(user);
+    return user;
+}
+
+export const unlink = async (provider: ILoginProvider): Promise<User> => {
+    const firebaseUser: firebase.User = await firebaseApp.auth().currentUser!.unlink(provider.providerId)
+
+    const user: User = createUser(firebaseUser);
+
+    setUser(user);
 
     return user;
 }
@@ -102,7 +102,7 @@ export const logout = async (callback: Function): Promise<void> => {
     callback();
 }
 
-function getProvider(provider: LoginProvider): firebase.auth.AuthProvider {
+function getProvider(provider: ILoginProvider): firebase.auth.AuthProvider {
     let authProvider: firebase.auth.AuthProvider;
 
     switch (provider) {
@@ -127,6 +127,4 @@ function getProvider(provider: LoginProvider): firebase.auth.AuthProvider {
     return authProvider;
 }
 
-const AuthService = { isLoggedIn, getUser, setUser, login, logout, link };
-
-export default AuthService;
+export const AuthService = { isLoggedIn, getUser, setUser, login, logout, link, unlink };

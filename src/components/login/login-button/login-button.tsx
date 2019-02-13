@@ -1,14 +1,20 @@
 import React, { ReactNode } from 'react';
-import { LoginProvider } from '../../../services/auth';
+import { ILoginProvider } from '../../../services/authentication';
 
 import './login-button.scss'
 
-const LoginButton = ({ provider, displayText = provider, providerEnabled, children, onClick }: LoginButtonProps) => {
+const LoginButton = ({ provider, displayText = provider.providerName, disabled = false, providerEnabled, children, onClick }: LoginButtonProps) => {
+    const onButtonClick = async () => {
+        if (!disabled) {
+            await onClick(provider);
+        }
+    };
+
     return providerEnabled ? (
         <div className="row justify-content-center">
             <span
-                className={ `${ provider.toLowerCase() } social-button col-12 col-md-8 btn` }
-                onClick={ async () => await onClick(provider) }>
+                className={ `${ provider.providerName.toLowerCase() } social-button col-12 col-md-8 btn ${ disabled ? 'disabled' : '' }` }
+                onClick={ async () => await onButtonClick() }>
                 <span className="social-button-icon">{ children }</span>
                 <span className="social-button-text">{ displayText }</span>
                 <div />
@@ -19,7 +25,8 @@ const LoginButton = ({ provider, displayText = provider, providerEnabled, childr
 
 export type LoginButtonProps = {
     displayText?: string;
-    provider: LoginProvider;
+    disabled?: boolean;
+    provider: ILoginProvider;
     providerEnabled: boolean;
     children: ReactNode;
     onClick: Function;

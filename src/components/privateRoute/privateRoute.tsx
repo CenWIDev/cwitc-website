@@ -1,6 +1,6 @@
 import React, { Component, ReactNode } from 'react';
 import { navigate } from 'gatsby';
-import AuthService from './../../services/auth';
+import { AuthService } from './../../services/authentication';
 
 type PrivateRouteProps = {
     component: Component;
