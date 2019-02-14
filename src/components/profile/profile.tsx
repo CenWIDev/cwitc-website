@@ -32,47 +32,63 @@ export default class Profile extends Component {
     };
 
     public handleSubmit = async (provider: ILoginProvider): Promise<void> => {
-        let user: User = this.state.user;
-        let status = null;
 
         this.setState({ isLoading: true });
 
         if (this.providerIsLinked(provider)) {
-            try {
-                user = await AuthService.unlink(provider);
-                status = {
-                    type: 'success',
-                    message: `Unlinked ${ provider.providerName }`
-                };
-            }
-            catch (err) {
-                console.error(err);
-
-                status = {
-                    type: 'danger',
-                    message: `Failed to unlink ${ provider.providerName }. Try logging out and logging back in again.`
-                };
-            }
+            await this.unlinkProvider(provider);
         }
         else {
-            try {
-                user = await AuthService.link(provider);
-                status = {
-                    type: 'success',
-                    message: `Linked ${ provider.providerName }!`
-                };
-            }
-            catch (err) {
-                console.error(err);
-
-                status = {
-                    type: 'danger',
-                    message: `Failed to link ${ provider.providerName }. This ${ provider.providerName } account might be used for a different CWITC account. Try logging out of CWITC and logging in with ${ provider.providerName } or login with a different ${ provider.providerName } account.`
-                };
-            }
+            await this.linkProvider(provider);
         }
 
-        this.setState({ user, isLoading: false, status });
+        this.setState({ isLoading: false });
+    };
+
+    private linkProvider = async (provider: ILoginProvider) => {
+        let user: User = this.state.user;
+        let status = null;
+
+        try {
+            user = await AuthService.link(provider);
+            status = {
+                type: 'success',
+                message: `Linked ${ provider.providerName }!`
+            };
+        }
+        catch (err) {
+            console.error(err);
+
+            status = {
+                type: 'danger',
+                message: `Failed to link ${ provider.providerName }. This ${ provider.providerName } account might be used for a different CWITC account. Try logging out of CWITC and logging in with ${ provider.providerName } or login with a different ${ provider.providerName } account.`
+            };
+        }
+
+        this.setState({ user, status });
+    };
+
+    private unlinkProvider = async (provider: ILoginProvider) => {
+        let user: User = this.state.user;
+        let status = null;
+
+        try {
+            user = await AuthService.unlink(provider);
+            status = {
+                type: 'success',
+                message: `Unlinked ${ provider.providerName }`
+            };
+        }
+        catch (err) {
+            console.error(err);
+
+            status = {
+                type: 'danger',
+                message: `Failed to unlink ${ provider.providerName }. Try logging out and logging back in again.`
+            };
+        }
+
+        this.setState({ user, status });
     };
 
     public render(): ReactNode {
