@@ -19,23 +19,24 @@ const isBrowser = () => {
 };
 
 const createUser = (credential: firebase.auth.UserCredential | null): User => {
-    console.log(credential);
-
     if (credential && credential.user) {
         const user: User = new User();
 
-        user.userId = credential.user.uid,
-        user.name = credential.user.displayName,
-        user.email = credential.user.email || credential.user!.providerData[0]!.email,
-        user.photoUrl = credential.user!.providerData[0]!.photoURL
+        user.userId = credential.user.uid;
+        user.name = credential.user.displayName;
 
         user.linkedProviders = [];
 
-        credential.user!.providerData!.forEach((providerData) => {
-            const loginProvider: ILoginProvider | undefined = LoginProviders.list.find(provider => provider.providerId === providerData!.providerId);
+        credential.user.providerData.forEach((providerData) => {
+            if (providerData) {
+                const loginProvider: ILoginProvider | undefined = LoginProviders.list.find(provider => provider.providerId === providerData.providerId);
 
-            if (loginProvider) {
-                user.linkedProviders.push(loginProvider);
+                if (loginProvider) {
+                    user.linkedProviders.push(loginProvider);
+                }
+
+                user.email = user.email || providerData.email;
+                user.photoUrl = user.photoUrl || providerData.photoURL;
             }
         });
 
