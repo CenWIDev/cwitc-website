@@ -18,25 +18,24 @@ const isBrowser = () => {
     return typeof window !== 'undefined';
 };
 
-const createUser = (firebaseUser: firebase.User | null): User => {
-    console.log(firebaseUser);
+const createUser = (credential: firebase.auth.UserCredential | null): User => {
+    console.log(credential);
 
-    if (firebaseUser) {
+    if (credential && credential.user) {
         const user: User = new User();
 
-        user.userId = firebaseUser.uid,
-        user.name = firebaseUser.displayName,
-        user.email = firebaseUser.email || firebaseUser!.providerData[0]!.email,
-        user.photoUrl = firebaseUser!.providerData[0]!.photoURL
+        user.userId = credential.user.uid,
+        user.name = credential.user.displayName,
+        user.email = credential.user.email || credential.user!.providerData[0]!.email,
+        user.photoUrl = credential.user!.providerData[0]!.photoURL
 
         user.linkedProviders = [];
 
-        // PROVIDER DATA IS ON THE CREDENTIAL
-        firebaseUser!.providerData!.forEach((providerData) => {
+        credential.user!.providerData!.forEach((providerData) => {
             const loginProvider: ILoginProvider | undefined = LoginProviders.list.find(provider => provider.providerId === providerData!.providerId);
 
             if (loginProvider) {
-                user.linkedProviders.push()
+                user.linkedProviders.push(loginProvider);
             }
         });
 
@@ -67,29 +66,31 @@ export const login = async (provider: ILoginProvider): Promise<User> => {
 
     const credential: firebase.auth.UserCredential = await firebaseApp.auth().signInWithPopup(authProvider);
 
-    const user: User = createUser(credential.user);
+    const user: User = createUser(credential);
 
     setUser(user);
 
     return user;
 };
 
-export const link = async (provider: ILoginProvider): Promise<User> => {
-    const authProvider: firebase.auth.AuthProvider = getProvider(provider);
+export const link = async (providerToAdd: ILoginProvider): Promise<User> => {
+    const authProvider: firebase.auth.AuthProvider = getProvider(providerToAdd);
 
     const credential: firebase.auth.UserCredential = await firebaseApp.auth().currentUser!.linkWithPopup(authProvider);
 
-    const user: User = createUser(credential.user);
+    const user: User = createUser(credential);
 
     setUser(user);
 
     return user;
 }
 
-export const unlink = async (provider: ILoginProvider): Promise<User> => {
-    const firebaseUser: firebase.User = await firebaseApp.auth().currentUser!.unlink(provider.providerId)
+export const unlink = async (providerToRemove: ILoginProvider): Promise<User> => {
+    await firebaseApp.auth().currentUser!.unlink(providerToRemove.providerId)
 
-    const user: User = createUser(firebaseUser);
+    const user: User = getUser();
+
+    user.linkedProviders = user.linkedProviders.filter((provider) => provider.providerId != providerToRemove.providerId);
 
     setUser(user);
 
@@ -117,7 +118,11 @@ function getProvider(provider: ILoginProvider): firebase.auth.AuthProvider {
             break;
         case LoginProviders.google:
             authProvider = new firebase.auth.GoogleAuthProvider();
+
+            // @ts-ignore
             authProvider.addScope('profile');
+
+            // @ts-ignore
             authProvider.addScope('email');
             break;
         default:
