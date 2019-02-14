@@ -1,4 +1,5 @@
 import React, { Component, ReactNode } from 'react';
+import { StaticQuery, graphql } from 'gatsby';
 import { AuthService, User, ILoginProvider, LoginProviders } from './../../services/authentication';
 import { GitHubIcon, FacebookIcon, TwitterIcon, GoogleIcon } from './../icon';
 import LoginButton from './../login/login-button/login-button';
@@ -93,73 +94,91 @@ export default class Profile extends Component {
 
     public render(): ReactNode {
         return (
-            <div className="profile-container container">
-                <div className="row justify-content-center">
-                    <div className="bio col-10 col-md-5">
-                        { this.state.user.photoUrl ? <img src={ this.state.user.photoUrl } /> : null }
-                        <h3>{ this.state.user.name }</h3>
-                        <p>{ this.state.user.email }</p>
-                    </div>
-                    {
-                        this.state.isLoading ?
-                            <div className="col-10 col-md-5 d-flex justify-content-center align-items-center">
-                                <div className="spinner-border" role="status">
-                                    <span className="sr-only">Loading...</span>
+            <StaticQuery
+                query={ profilePageQuery }
+                render={ ({ global }) => {
+                    const { enableGithubAuth, enableFacebookAuth, enableTwitterAuth, enableGoogleAuth } = global;
+
+                    return (
+                        <div className="profile-container container">
+                            <div className="row justify-content-center">
+                                <div className="bio col-10 col-md-5">
+                                    { this.state.user.photoUrl ? <img src={ this.state.user.photoUrl } /> : null }
+                                    <h3>{ this.state.user.name }</h3>
+                                    <p>{ this.state.user.email }</p>
                                 </div>
-                            </div>
-                            :
-                            <div className="col-10 col-md-5">
-                                <h4 className="text-center">Link other Providers</h4>
-                                <LoginButton
-                                    displayText={ this.getButtonDisplayText(LoginProviders.github) }
-                                    disabled={ this.disableButton(LoginProviders.github) }
-                                    provider={ LoginProviders.github }
-                                    providerEnabled={ true }
-                                    onClick={ this.handleSubmit }>
-                                    <GitHubIcon />
-                                </LoginButton>
-                                <LoginButton
-                                    displayText={ this.getButtonDisplayText(LoginProviders.facebook) }
-                                    disabled={ this.disableButton(LoginProviders.facebook) }
-                                    provider={ LoginProviders.facebook }
-                                    providerEnabled={ true }
-                                    onClick={ this.handleSubmit }>
-                                    <FacebookIcon />
-                                </LoginButton>
-                                <LoginButton
-                                    displayText={ this.getButtonDisplayText(LoginProviders.twitter) }
-                                    disabled={ this.disableButton(LoginProviders.twitter) }
-                                    provider={ LoginProviders.twitter }
-                                    providerEnabled={ true }
-                                    onClick={ this.handleSubmit }>
-                                    <TwitterIcon />
-                                </LoginButton>
-                                <LoginButton
-                                    displayText={ this.getButtonDisplayText(LoginProviders.google) }
-                                    disabled={ this.disableButton(LoginProviders.google) }
-                                    provider={ LoginProviders.google }
-                                    providerEnabled={ true }
-                                    onClick={ this.handleSubmit }>
-                                    <GoogleIcon />
-                                </LoginButton>
                                 {
-                                    this.state.status ?
-                                        <div className="row justify-content-center">
-                                            <div className={`col-12 col-md-8 alert alert-${ this.state.status.type } d-flex justify-content-between`} role="alert">
-                                                { this.state.status.message }
-                                                <button type="button" className="close align-self-start mt-n1" onClick={ this.dismissAlert }>
-                                                    <span className="close align-self-start">&times;</span>
-                                                </button>
+                                    this.state.isLoading ?
+                                        <div className="col-10 col-md-5 d-flex justify-content-center align-items-center">
+                                            <div className="spinner-border" role="status">
+                                                <span className="sr-only">Loading...</span>
                                             </div>
-                                        </div> : null
+                                        </div>
+                                        :
+                                        <div className="col-10 col-md-5">
+                                            <h4 className="text-center">Link other Providers</h4>
+                                            <LoginButton
+                                                displayText={ this.getButtonDisplayText(LoginProviders.github) }
+                                                disabled={ this.disableButton(LoginProviders.github) }
+                                                provider={ LoginProviders.github }
+                                                providerEnabled={ enableGithubAuth }
+                                                onClick={ this.handleSubmit }>
+                                                <GitHubIcon />
+                                            </LoginButton>
+                                            <LoginButton
+                                                displayText={ this.getButtonDisplayText(LoginProviders.facebook) }
+                                                disabled={ this.disableButton(LoginProviders.facebook) }
+                                                provider={ LoginProviders.facebook }
+                                                providerEnabled={ enableFacebookAuth }
+                                                onClick={ this.handleSubmit }>
+                                                <FacebookIcon />
+                                            </LoginButton>
+                                            <LoginButton
+                                                displayText={ this.getButtonDisplayText(LoginProviders.twitter) }
+                                                disabled={ this.disableButton(LoginProviders.twitter) }
+                                                provider={ LoginProviders.twitter }
+                                                providerEnabled={ enableTwitterAuth }
+                                                onClick={ this.handleSubmit }>
+                                                <TwitterIcon />
+                                            </LoginButton>
+                                            <LoginButton
+                                                displayText={ this.getButtonDisplayText(LoginProviders.google) }
+                                                disabled={ this.disableButton(LoginProviders.google) }
+                                                provider={ LoginProviders.google }
+                                                providerEnabled={ enableGoogleAuth }
+                                                onClick={ this.handleSubmit }>
+                                                <GoogleIcon />
+                                            </LoginButton>
+                                            {
+                                                this.state.status ?
+                                                    <div className="row justify-content-center">
+                                                        <div className={`col-12 col-md-8 alert alert-${ this.state.status.type } d-flex justify-content-between`} role="alert">
+                                                            { this.state.status.message }
+                                                            <button type="button" className="close align-self-start mt-n1" onClick={ this.dismissAlert }>
+                                                                <span className="close align-self-start">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                    </div> : null
+                                            }
+                                        </div>
                                 }
                             </div>
-                    }
-                </div>
-            </div>
+                        </div>
+                )}} />
         );
     }
 }
+
+const profilePageQuery = graphql`
+    query ProfilePageQuery {
+        global: contentfulGlobalSiteSettings {
+            enableGithubAuth
+            enableFacebookAuth
+            enableTwitterAuth
+            enableGoogleAuth
+        }
+    }
+`;
 
 export type ProfileProps = {
     path: string;
@@ -169,7 +188,7 @@ export type ProfileState = {
     user: User;
     isLoading: boolean;
     status?: {
-        type: "success" | "danger";
+        type: 'success' | 'danger';
         message: string;
     };
 };

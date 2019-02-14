@@ -5,7 +5,7 @@ import { AuthService, ILoginProvider, LoginProviders } from './../../services/au
 import { GitHubIcon, FacebookIcon, TwitterIcon, GoogleIcon } from './../icon';
 import LoginButton from './login-button/login-button';
 
-import "./login.scss";
+import './login.scss';
 
 export default class Login extends Component {
 
@@ -16,39 +16,44 @@ export default class Login extends Component {
         navigate(`/app/profile`);
     }
 
-    renderPage = ({ body, enableGithubAuth, enableFacebookAuth, enableTwitterAuth, enableGoogleAuth }: any): ReactNode => (
-        <div className="login-container container">
-            <div className="row align-items-center justify-content-center">
-                <div className="col-10 col-sm-5" dangerouslySetInnerHTML={{ __html: body.childContentfulRichText.html }} />
-                <div className="col-10 col-sm-5">
-                    <LoginButton
-                        provider={ LoginProviders.github }
-                        providerEnabled={ enableGithubAuth }
-                        onClick={ this.handleSubmit }>
-                        <GitHubIcon />
-                    </LoginButton>
-                    <LoginButton
-                        provider={ LoginProviders.facebook }
-                        providerEnabled={ enableFacebookAuth }
-                        onClick={ this.handleSubmit }>
-                        <FacebookIcon />
-                    </LoginButton>
-                    <LoginButton
-                        provider={ LoginProviders.twitter }
-                        providerEnabled={ enableTwitterAuth }
-                        onClick={ this.handleSubmit }>
-                        <TwitterIcon />
-                    </LoginButton>
-                    <LoginButton
-                        provider={ LoginProviders.google }
-                        providerEnabled={ enableGoogleAuth }
-                        onClick={ this.handleSubmit }>
-                        <GoogleIcon />
-                    </LoginButton>
+    renderPage = (landingPageContent: any, global: any): ReactNode => {
+        const { body } = landingPageContent;
+        const { enableGithubAuth, enableFacebookAuth, enableTwitterAuth, enableGoogleAuth } = global;
+
+        return (
+            <div className="login-container container">
+                <div className="row align-items-center justify-content-center">
+                    <div className="col-10 col-sm-5" dangerouslySetInnerHTML={{ __html: body.childContentfulRichText.html }} />
+                    <div className="col-10 col-sm-5">
+                        <LoginButton
+                            provider={ LoginProviders.github }
+                            providerEnabled={ enableGithubAuth }
+                            onClick={ this.handleSubmit }>
+                            <GitHubIcon />
+                        </LoginButton>
+                        <LoginButton
+                            provider={ LoginProviders.facebook }
+                            providerEnabled={ enableFacebookAuth }
+                            onClick={ this.handleSubmit }>
+                            <FacebookIcon />
+                        </LoginButton>
+                        <LoginButton
+                            provider={ LoginProviders.twitter }
+                            providerEnabled={ enableTwitterAuth }
+                            onClick={ this.handleSubmit }>
+                            <TwitterIcon />
+                        </LoginButton>
+                        <LoginButton
+                            provider={ LoginProviders.google }
+                            providerEnabled={ enableGoogleAuth }
+                            onClick={ this.handleSubmit }>
+                            <GoogleIcon />
+                        </LoginButton>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        )
+    };
 
     public render(): ReactNode {
         if (AuthService.isLoggedIn()) {
@@ -58,7 +63,7 @@ export default class Login extends Component {
         return (
             <StaticQuery
                 query={ loginPageQuery }
-                render={ ({ landingPageContent }) => this.renderPage(landingPageContent) }/>
+                render={ ({ landingPageContent, global }) => this.renderPage(landingPageContent, global) }/>
         );
     }
 }
@@ -72,6 +77,8 @@ const loginPageQuery = graphql`
                     html
                 }
             }
+        }
+        global: contentfulGlobalSiteSettings {
             enableGithubAuth
             enableFacebookAuth
             enableTwitterAuth
