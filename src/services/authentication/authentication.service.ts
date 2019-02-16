@@ -36,7 +36,21 @@ const createUser = (credential: firebase.auth.UserCredential | null): User => {
                 }
 
                 user.email = user.email || providerData.email;
-                user.photoUrl = user.photoUrl || providerData.photoURL;
+
+                if (!user.photoUrl) {
+                    user.photoUrl = user.photoUrl || providerData.photoURL;
+                }
+
+                if (user.photoUrl) {
+                    if (providerData.providerId === LoginProviders.facebook.providerId)
+                    {
+                        user.photoUrl = `${ user.photoUrl }?height=500`;
+                    }
+                    else if (providerData.providerId === LoginProviders.twitter.providerId)
+                    {
+                        user.photoUrl = user.photoUrl.split("_normal").join('');
+                    }
+                }
             }
         });
 

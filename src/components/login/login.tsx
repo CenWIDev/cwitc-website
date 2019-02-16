@@ -9,14 +9,31 @@ import './login.scss';
 
 export default class Login extends Component {
 
-    public props: LoginProps;
+    public state: LoginState;
 
-    handleSubmit = async (provider: ILoginProvider): Promise<void> => {
-        await AuthService.login(provider);
-        navigate(`/app/profile`);
+    constructor(props: LoginProps) {
+        super(props);
+
+        this.state = { };
     }
 
-    renderPage = (landingPageContent: any, global: any): ReactNode => {
+    public dismissAlert = () => {
+        this.setState({ error: null });
+    };
+
+    public handleSubmit = async (provider: ILoginProvider): Promise<void> => {
+        try {
+            await AuthService.login(provider);
+            navigate(`/app/profile`);
+        }
+        catch (err) {
+            console.error(err);
+
+            this.setState({ error: 'Sorry, there was a problem logging in. Please try again later or try using a different log in method.' })
+        }
+    }
+
+    public renderPage = (landingPageContent: any, global: any): ReactNode => {
         const { body } = landingPageContent;
         const { enableGithubAuth, enableFacebookAuth, enableTwitterAuth, enableGoogleAuth } = global;
 
@@ -49,6 +66,17 @@ export default class Login extends Component {
                             onClick={ this.handleSubmit }>
                             <GoogleIcon />
                         </LoginButton>
+                        {
+                            this.state.error ?
+                                <div className="row justify-content-center">
+                                    <div className={`col-12 col-md-8 alert alert-danger d-flex justify-content-between`} role="alert">
+                                        { this.state.error }
+                                        <button type="button" className="close align-self-start mt-n1" onClick={ this.dismissAlert }>
+                                            <span className="close align-self-start">&times;</span>
+                                        </button>
+                                    </div>
+                                </div> : null
+                        }
                     </div>
                 </div>
             </div>
@@ -89,4 +117,8 @@ const loginPageQuery = graphql`
 
 export type LoginProps = {
     path: string;
+};
+
+export type LoginState = {
+    error?: string;
 };
