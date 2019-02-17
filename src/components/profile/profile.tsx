@@ -102,7 +102,7 @@ export default class Profile extends Component {
                     return (
                         <div className="profile-container container">
                             <div className="row justify-content-center">
-                                <div className="bio col-10 col-md-5">
+                                <div className="bio col-10 col-md-5 d-flex flex-column align-items-center">
                                     { this.state.user.photoUrl ? <img src={ this.state.user.photoUrl } /> : null }
                                     <h3>{ this.state.user.name }</h3>
                                     <p>{ this.state.user.email }</p>

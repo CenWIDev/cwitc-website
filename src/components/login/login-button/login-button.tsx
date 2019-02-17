@@ -13,7 +13,7 @@ const LoginButton = ({ provider, displayText = provider.providerName, disabled =
     return providerEnabled ? (
         <div className="row justify-content-center">
             <span
-                className={ `${ provider.providerName.toLowerCase() } social-button col-12 col-md-8 btn ${ disabled ? 'disabled' : '' }` }
+                className={ `${ provider.providerName.toLowerCase() } social-button d-flex align-items-center col-12 col-md-8 btn ${ disabled ? 'disabled' : '' }` }
                 onClick={ async () => await onButtonClick() }>
                 <span className="social-button-icon">{ children }</span>
                 <span className="social-button-text">{ displayText }</span>
