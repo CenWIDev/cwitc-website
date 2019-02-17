@@ -1,0 +1,64 @@
+@import "./../../vars";
+
+.social-button {
+    color: $white;
+
+    .social-button-icon {
+        flex-grow: 1;
+        flex-basis: 20%;
+
+        .icon {
+            height: 2rem;
+            fill: $white;
+        }
+    }
+
+    &:hover {
+        color: $white;
+    }
+
+    &.disabled {
+        cursor: not-allowed;
+    }
+
+    &.github {
+        background-color: $github-brand;
+
+        &:hover {
+            background-color: darken($github-brand, 15%);
+        }
+    }
+
+    &.facebook {
+        background-color: $facebook-brand;
+
+        &:hover {
+            background-color: darken($facebook-brand, 15%);
+        }
+    }
+
+    &.twitter {
+        background-color: $twitter-brand;
+
+        &:hover {
+            background-color: darken($twitter-brand, 15%);
+        }
+    }
+
+    &.google {
+        background-color: $google-brand;
+
+        &:hover {
+            background-color: darken($google-brand, 15%);
+        }
+    }
+
+    .social-button-text {
+        flex-grow: 2;
+    }
+
+    div {
+        flex-grow: 1;
+        flex-basis: 20%;
+    }
+}
