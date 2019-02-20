@@ -1,6 +1,6 @@
 import React, { Component, ReactNode } from 'react';
 import { Link, navigate } from 'gatsby';
-import AuthService from '../../services/auth';
+import { AuthService } from '../../services/authentication';
 
 import Icon from './../icon/icon';
 
@@ -50,7 +50,7 @@ export class Navigation extends Component {
                             <li><Link to="/app/submit-session">Submit Session</Link></li>
                             <li><a href="/" onClick={ this.logout }>Logout</a></li>
                         </> :
-                        <li><Link to="/app/login">Login</Link></li>
+                        <li><Link to="/app/log-in">Log In</Link></li>
                 }
             </>;
 
