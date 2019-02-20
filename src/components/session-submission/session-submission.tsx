@@ -6,12 +6,15 @@ import { OpenLabInterests } from './open-lab-interest.enum';
 import { Formik, FieldArray, Field, ArrayHelpers, ErrorMessage, FormikErrors, FormikTouched, getIn } from 'formik';
 import { sessionSchema } from './session-schema';
 import { WithContext as ReactTags } from 'react-tag-input';
- 
+
+import base from './../../services/firebase';
+import { AuthService } from './../../services/authentication'
+
 const KeyCodes = {
   comma: 188,
   enter: 13,
 };
- 
+
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 type SessionSubmissionState = {
   session: Session;
@@ -32,6 +35,14 @@ export default class SessionSubmission extends Component {
             initialValues={this.state.session}
             validationSchema={sessionSchema}
             onSubmit={(values, { setSubmitting }) => {
+              base.post(
+                `2019/sessions/${ AuthService.getUser().userId }/${ values.title }`, {
+                  data: values,
+                  then(err) {
+                    console.error(err);
+                  }
+                });
+
               setTimeout(() => {
                 alert(JSON.stringify(values, null, 2));
                 setSubmitting(false);

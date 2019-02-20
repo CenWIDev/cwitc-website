@@ -11,7 +11,7 @@ const App = (props: any) => (
     <Router>
       <PrivateRoute path="/app/profile" component={ Profile }/>
       <PrivateRoute path="/app/submit-session" component={ SessionSubmission }/>
-      <Login path="/app/login" />
+      <Login path="/app/log-in" />
     </Router>
   </Layout>
 );
