@@ -36,7 +36,7 @@ export default class SessionSubmission extends Component {
             validationSchema={sessionSchema}
             onSubmit={(values, { setSubmitting }) => {
               base.post(
-                `2019/sessions/${ AuthService.getUser().userId }/${ values.title }`, {
+                `2019/${ AuthService.getUser().userId }/submitted-sessions/${ values.title }`, {
                   data: values,
                   then(err) {
                     console.error(err);
