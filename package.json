@@ -52,6 +52,7 @@
   "devDependencies": {
     "@types/feather-icons": "^4.7.0",
     "@types/re-base": "^3.2.0",
+    "@types/reach__router": "^1.2.3",
     "@types/styled-components": "^4.1.4",
     "@types/yup": "^0.26.7",
     "prettier": "^1.14.2",
