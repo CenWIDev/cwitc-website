@@ -42,13 +42,11 @@ const createUser = (credential: firebase.auth.UserCredential | null): User => {
                 }
 
                 if (user.photoUrl) {
-                    if (providerData.providerId === LoginProviders.facebook.providerId)
-                    {
+                    if (providerData.providerId === LoginProviders.facebook.providerId) {
                         user.photoUrl = `${ user.photoUrl }?height=500`;
                     }
-                    else if (providerData.providerId === LoginProviders.twitter.providerId)
-                    {
-                        user.photoUrl = user.photoUrl.split("_normal").join('');
+                    else if (providerData.providerId === LoginProviders.twitter.providerId) {
+                        user.photoUrl = user.photoUrl.split('_normal').join('');
                     }
                 }
             }
@@ -105,7 +103,7 @@ export const unlink = async (providerToRemove: ILoginProvider): Promise<User> =>
 
     const user: User = getUser();
 
-    user.linkedProviders = user.linkedProviders.filter((provider) => provider.providerId != providerToRemove.providerId);
+    user.linkedProviders = user.linkedProviders.filter((provider) => provider.providerId !== providerToRemove.providerId);
 
     setUser(user);
 
