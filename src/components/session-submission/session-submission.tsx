@@ -34,19 +34,17 @@ export default class SessionSubmission extends Component {
           <Formik
             initialValues={this.state.session}
             validationSchema={sessionSchema}
-            onSubmit={(values, { setSubmitting }) => {
-              base.post(
-                `2019/sessions/${ AuthService.getUser().userId }/${ values.title }`, {
-                  data: values,
-                  then(err) {
-                    console.error(err);
-                  }
-                });
-
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
+            onSubmit={async (values, { setSubmitting }) => {
+              try {
+                await base.post(
+                  `2019/sessions/${ AuthService.getUser().userId }/${ values.title }`, {
+                    data: values
+                  });
+              } catch (error) {
+                console.error(error);
+              } finally {
                 setSubmitting(false);
-              }, 400);
+              }
             }}
           >
             {({
@@ -163,9 +161,7 @@ export default class SessionSubmission extends Component {
                             tagInputField: 'form-control'
                           }}
                           delimiters={delimiters}
-                          // tslint:disable-next-line:no-console
                           handleAddition={(tag) => setFieldValue('tags', [...values.tags, tag])}
-                          // tslint:disable-next-line:no-console
                           handleDelete={(i) => setFieldValue('tags', values.tags.filter((tag, index) => index !== i))} />
                       </div>
                     </div>
@@ -175,7 +171,7 @@ export default class SessionSubmission extends Component {
                       <div className={`form-group ${getValidationClass('acknowledgedTerms')}`} >
                         <label>I agree with the terms and conditions outlined in this call for speakers. In the event of a cancellation, I will notify Central Wisconsin IT Conference Comittee in a timely manner.</label>
                         <div className="form-check">
-                          {/* eslint-disable-next-line react/jsx-boolean-value */ }
+                          {/* tslint:disable-next-line:jsx-boolean-value */}
                           <Field type="radio" className="form-check-input" name="acknowledgedTerms" defaultChecked={values.acknowledgedTerms === true} id={`acknowledgedTerms${true}`} value={true} />
                           <label className="form-check-label" htmlFor={`acknowledgedTerms${true}`}>Yes, I agree</label>
                         </div>
@@ -301,7 +297,7 @@ export default class SessionSubmission extends Component {
             <div className="form-group">
               <label htmlFor={phoneNumberPath}>Phone Number</label>
               <Field
-                className={`form-control ${getValidationClass(companyPath)}`}
+                className={`form-control ${getValidationClass(phoneNumberPath)}`}
                 type="phone" placeholder="715-123-4567" name={phoneNumberPath} id={phoneNumberPath} />
               <div className="invalid-feedback">
                 <ErrorMessage name={phoneNumberPath} />
