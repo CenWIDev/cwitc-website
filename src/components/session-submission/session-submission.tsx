@@ -6,7 +6,6 @@ import { OpenLabInterests } from './open-lab-interest.enum';
 import { Formik, FieldArray, Field, ArrayHelpers, ErrorMessage, FormikErrors, FormikTouched, getIn } from 'formik';
 import { sessionSchema } from './session-schema';
 import { WithContext as ReactTags } from 'react-tag-input';
-
 import base from './../../services/firebase';
 import { AuthService } from './../../services/authentication'
 
@@ -37,7 +36,7 @@ export default class SessionSubmission extends Component {
             onSubmit={async (values, { setSubmitting }) => {
               try {
                 await base.post(
-                  `2019/sessions/${ AuthService.getUser().userId }/${ values.title }`, {
+                  `2019/sessions/${AuthService.getUser().userId}/${values.title}`, {
                     data: values
                   });
               } catch (error) {
@@ -54,17 +53,15 @@ export default class SessionSubmission extends Component {
               handleSubmit,
               isSubmitting,
               setFieldValue
-              /* and other goodies */
             }) => {
               return (
                 <form onSubmit={handleSubmit}>
-
                   <FieldArray
                     name="presenters"
                     render={(arrayHelpers: ArrayHelpers) => (
                       <>
                         {values.presenters && values.presenters.length > 0 ? (
-                          values.presenters.map((presenter, index) => this.renderPresenterForm(presenter, index, arrayHelpers, errors, touched))
+                          values.presenters.map((presenter, index) => this.renderPresenterForm(index, arrayHelpers, errors, touched))
                         ) : undefined}
                         <div className="form-row mt-3">
                           {
@@ -176,7 +173,7 @@ export default class SessionSubmission extends Component {
                           <label className="form-check-label" htmlFor={`acknowledgedTerms${true}`}>Yes, I agree</label>
                         </div>
                         <div className="form-check">
-                          {/* eslint-disable-next-line react/jsx-boolean-value */ }
+                          {/* eslint-disable-next-line react/jsx-boolean-value */}
                           <Field type="radio" className="form-check-input" name="acknowledgedTerms" defaultChecked={values.acknowledgedTerms === false} id={`acknowledgedTerms${false}`} value={false} />
                           <label className="form-check-label" htmlFor={`acknowledgedTerms${false}`}>No, I choose not to submit my session presentation</label>
                         </div>
@@ -191,11 +188,11 @@ export default class SessionSubmission extends Component {
                       <div className="d-flex justify-content-center">
                         <button className="btn btn-outline-primary" type="submit" disabled={isSubmitting}>
                           Submit
-                        </button>
+                    </button>
                       </div>
                     </div>
                   </div>
-                </form>
+            </form>
               );
               function getValidationClass(path: string): string | void {
                 if (getIn(touched, path.split('.'))) {
@@ -215,7 +212,6 @@ export default class SessionSubmission extends Component {
   }
 
   public renderPresenterForm(
-    presenter: Presenter,
     index: number,
     arrayHelpers: ArrayHelpers,
     errors: FormikErrors<Session>,
