@@ -13,7 +13,8 @@ export const sessionSchema = Yup.object().shape({
     summary: Yup
         .string()
         .required()
-        .max(300)
+        .min(100)
+        .max(3000)
         .label('Session Summary'),
     targetLevel: Yup
         .string()
@@ -37,7 +38,7 @@ export const sessionSchema = Yup.object().shape({
             bio: Yup
                 .string()
                 .required()
-                .max(300)
+                .max(1000)
                 .label('Presenter Bio'),
             title: Yup
                 .string()
@@ -52,11 +53,14 @@ export const sessionSchema = Yup.object().shape({
             phoneNumber: Yup
                 .string()
                 .required()
+                .min(7)
+                .max(15)
                 .label('Presenter Phone Number'),
             email: Yup
                 .string()
                 .email()
                 .required()
+                .max(150)
                 .label('Presenter Email'),
         }))
         .min(1, 'You must include at least one presenter')
