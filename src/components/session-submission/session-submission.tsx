@@ -92,8 +92,8 @@ export default class SessionSubmission extends Component {
                                                             {
                                                                 (values.presenters && values.presenters.length < 4) ?
                                                                     <div className="col-sm-12 ">
-                                                                        <div className="d-flex justify-content-center">
-                                                                            <button className="btn btn-outline-primary" type="button" onClick={() => arrayHelpers.push(this.buildEmptyPresenter())}>Add Presenter</button>
+                                                                        <div className="d-flex justify-content-end">
+                                                                            <button className="btn btn-outline-secondary" type="button" onClick={() => arrayHelpers.push(this.buildEmptyPresenter())}>Add Presenter</button>
                                                                         </div>
                                                                     </div> :
                                                                     undefined
@@ -207,26 +207,26 @@ export default class SessionSubmission extends Component {
                                                     <label dangerouslySetInnerHTML={{ __html: termsAndConditionsAgreement.childContentfulRichText.html}} />
                                                 </div>
                                                 <div className="col-sm-12 col-md-6 d-flex align-items-center">
-                                                    <div className="form-check form-check-inline w-50">
-                                                        {/* tslint:disable-next-line:jsx-boolean-value */}
-                                                        <Field type="checkbox" className="form-check-input" name="acknowledgedTerms" defaultChecked={values.acknowledgedTerms === true} id={`acknowledgedTerms${true}`} />
-                                                        <label className="form-check-label" htmlFor={`acknowledgedTerms${true}`}>Yes, I agree</label>
-                                                    </div>
-                                                    <div className="invalid-feedback d-block">
-                                                        <ErrorMessage name="acknowledgedTerms" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="form-row mt-3">
-                                                <div className="col-sm-12 ">
-                                                    <div className="d-flex justify-content-center">
-                                                        <button className="btn btn-outline-primary" type="submit" disabled={isSubmitting}>
-                                                            {isSubmitting ?
-                                                                <div className="spinner-border" role="status">
-                                                                    <span className="sr-only">Loading...</span>
-                                                                </div> :
-                                                                'Submit'}
-                                                        </button>
+                                                    <div className="row w-100 no-gutters">
+                                                        <div className="col-6 d-flex flex-column justify-content-center">
+                                                            <div className="form-check form-check-inline w-50">
+                                                                {/* tslint:disable-next-line:jsx-boolean-value */}
+                                                                <Field type="checkbox" className="form-check-input" name="acknowledgedTerms" defaultChecked={values.acknowledgedTerms === true} id={`acknowledgedTerms${true}`} />
+                                                                <label className="form-check-label" htmlFor={`acknowledgedTerms${true}`}>Yes, I agree</label>
+                                                            </div>
+                                                            <div className="invalid-feedback d-block">
+                                                                <ErrorMessage name="acknowledgedTerms" />
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-6 d-flex justify-content-end">
+                                                            <button className="btn btn-secondary" type="submit" disabled={isSubmitting}>
+                                                                {isSubmitting ?
+                                                                    <div className="spinner-border" role="status">
+                                                                        <span className="sr-only">Loading...</span>
+                                                                    </div> :
+                                                                    'Submit Talk for Review'}
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
