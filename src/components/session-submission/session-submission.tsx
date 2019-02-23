@@ -6,7 +6,6 @@ import { OpenLabInterests } from './open-lab-interest.enum';
 import { Formik, FieldArray, Field, ArrayHelpers, ErrorMessage, FormikErrors, FormikTouched, getIn } from 'formik';
 import { sessionSchema } from './session-schema';
 import { WithContext as ReactTags } from 'react-tag-input';
-
 import base from './../../services/firebase';
 import { AuthService } from './../../services/authentication'
 
@@ -18,208 +17,232 @@ const KeyCodes = {
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 type SessionSubmissionState = {
   session: Session;
+  validSubmission: boolean;
+  submissionError?: string;
 };
 
 export default class SessionSubmission extends Component {
 
   public state: SessionSubmissionState = {
-    session: this.buildEmptySession()
+    session: this.buildEmptySession(),
+    validSubmission: false,
+    submissionError: undefined
   };
 
   public render(): ReactNode {
     return (
       <div className="container">
-        <h1>Submit Session</h1>
         {
-          <Formik
-            initialValues={this.state.session}
-            validationSchema={sessionSchema}
-            onSubmit={(values, { setSubmitting }) => {
-              base.post(
-                `2019/${ AuthService.getUser().userId }/submitted-sessions/${ values.title }`, {
-                  data: values,
-                  then(err) {
-                    console.error(err);
+          this.state.validSubmission ?
+            <div className="row justify-content-center">
+              <div className="col-12 col-md-10 mt-5">
+                <h3>Thanks for your submission!</h3>
+                <p>Thank you for responding to the Central Wisconsin IT Conference Call for Speakers. In order to ensure a balanced conference program, all submissions are reviewed and selected by the Central Wisconsin Information Technology Alliance(CWITA) Conference Committee. You are allowed to submit multiple submissions. Thank you for your interest in presenting at the Central Wisconsin IT Conference!</p>
+              </div>
+            </div> :
+            <>
+              <h1>Submit Session</h1>
+              <Formik
+                initialValues={this.state.session}
+                validationSchema={sessionSchema}
+                onSubmit={async (values, { setSubmitting }) => {
+                  try {
+                    await base.post(
+                      `2019/${AuthService.getUser().userId}/submitted-sessions/${values.title}`, {
+                        data: values
+                      });
+                    this.setState({
+                      ...this.state,
+                      validSubmission: true
+                    });
+                  } catch (error) {
+                    this.setState({
+                      ...this.state,
+                      submissionError: 'There was an error trying to submit your session. Please try again.'
+                    });
+                  } finally {
+                    setSubmitting(false);
                   }
-                });
-
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-              }, 400);
-            }}
-          >
-            {({
-              values,
-              errors,
-              touched,
-              handleSubmit,
-              isSubmitting,
-              setFieldValue
-              /* and other goodies */
-            }) => {
-              return (
-                <form onSubmit={handleSubmit}>
-
-                  <FieldArray
-                    name="presenters"
-                    render={(arrayHelpers: ArrayHelpers) => (
-                      <>
-                        {values.presenters && values.presenters.length > 0 ? (
-                          values.presenters.map((presenter, index) => this.renderPresenterForm(presenter, index, arrayHelpers, errors, touched))
-                        ) : undefined}
-                        <div className="form-row mt-3">
-                          {
-                            (values.presenters && values.presenters.length < 4) ?
-                              <div className="col-sm-12 ">
-                                <div className="d-flex justify-content-center">
-                                  <button className="btn btn-outline-primary" type="button" onClick={() => arrayHelpers.push(this.buildEmptyPresenter())}>Add Presenter</button>
-                                </div>
-                              </div> :
-                              undefined
-                          }
-                          {
-                            (errors && typeof errors.presenters === 'string') ?
-                              <div className="col-sm-12 ">
-                                <div className="d-flex justify-content-center">
-                                  <div style={{ display: 'block' }} className="invalid-feedback">
-                                    <ErrorMessage name="presenters" />
-                                  </div>
-                                </div>
-                              </div> :
-                              undefined
-                          }
-                        </div>
-                      </>
-                    )}
-                  />
-                  <div className="form-row mt-5">
-                    <div className="col-sm-12 col-md-6">
-                      <div className="form-group">
-                        <label htmlFor="title">Session Title</label>
-                        <Field
-                          className={`form-control ${getValidationClass('title')}`}
-                          placeholder="How To Do Amazing Things"
-                          name="title" id="title" />
-                        <div className="invalid-feedback">
-                          <ErrorMessage name="title" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-sm-12">
-                      <div className="form-group">
-                        <label htmlFor="summary">Summary</label>
-                        <Field
-                          className={`form-control ${getValidationClass('summary')}`}
-                          component="textarea"
-                          placeholder="I will be talking about how to blank with blank"
-                          name="summary" id="summary" />
-                        <div className="invalid-feedback">
-                          <ErrorMessage name="summary" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="form-row">
-                    <div className="col-md-6">
-                      <div className={`form-group ${getValidationClass('targetLevel')}`} >
-                        <label>Target Level</label>
-                        {['100', '200', '300', '400'].map((level) => (
-                          <div key={level} className="form-check">
-                            <Field type="radio" className="form-check-input" name="targetLevel" defaultChecked={values.targetLevel === level} id={`targetLevel${level}`} value={level} />
-                            <label className="form-check-label" htmlFor={`targetLevel${level}`}>{level}</label>
+                }}
+              >
+                {({
+                  values,
+                  errors,
+                  touched,
+                  handleSubmit,
+                  isSubmitting,
+                  setFieldValue
+                }) => {
+                  return (
+                    <form onSubmit={handleSubmit}>
+                      <FieldArray
+                        name="presenters"
+                        render={(arrayHelpers: ArrayHelpers) => (
+                          <>
+                            {values.presenters && values.presenters.length > 0 ? (
+                              values.presenters.map((presenter, index) => this.renderPresenterForm(index, arrayHelpers, errors, touched))
+                            ) : undefined}
+                            <div className="form-row mt-3">
+                              {
+                                (values.presenters && values.presenters.length < 4) ?
+                                  <div className="col-sm-12 ">
+                                    <div className="d-flex justify-content-center">
+                                      <button className="btn btn-outline-primary" type="button" onClick={() => arrayHelpers.push(this.buildEmptyPresenter())}>Add Presenter</button>
+                                    </div>
+                                  </div> :
+                                  undefined
+                              }
+                              {
+                                (errors && typeof errors.presenters === 'string') ?
+                                  <div className="col-sm-12 ">
+                                    <div className="d-flex justify-content-center">
+                                      <div style={{ display: 'block' }} className="invalid-feedback">
+                                        <ErrorMessage name="presenters" />
+                                      </div>
+                                    </div>
+                                  </div> :
+                                  undefined
+                              }
+                            </div>
+                          </>
+                        )}
+                      />
+                      <div className="form-row mt-5">
+                        <div className="col-sm-12 col-md-6">
+                          <div className="form-group">
+                            <label htmlFor="title">Session Title</label>
+                            <Field
+                              className={`form-control ${getValidationClass('title')}`}
+                              placeholder="How To Do Amazing Things"
+                              name="title" id="title" />
+                            <div className="invalid-feedback">
+                              <ErrorMessage name="title" />
+                            </div>
                           </div>
-                        ))}
-                        <div style={{ display: 'block' }} className="invalid-feedback">
-                          <ErrorMessage name="targetLevel" />
                         </div>
-                      </div>
-                    </div>
-                    <div className="col-sm-12 col-md-6">
-                      <div className={`form-group ${getValidationClass('interestedInOpenLab')}`} >
-                        <label>Are you interested in hosting an Open Lab?</label>
-                        {['Yes', 'No', 'Maybe'].map((interestOption) => (
-                          <div key={interestOption} className="form-check">
-                            <Field type="radio" className="form-check-input" name="interestedInOpenLab" defaultChecked={values.interestedInOpenLab === interestOption} id={`interestedInOpenLab${interestOption}`} value={interestOption} />
-                            <label className="form-check-label" htmlFor={`interestedInOpenLab${interestOption}`}>{interestOption}</label>
+                        <div className="col-sm-12">
+                          <div className="form-group">
+                            <label htmlFor="summary">Summary</label>
+                            <Field
+                              className={`form-control ${getValidationClass('summary')}`}
+                              component="textarea"
+                              placeholder="I will be talking about how to blank with blank"
+                              name="summary" id="summary" />
+                            <div className="invalid-feedback">
+                              <ErrorMessage name="summary" />
+                            </div>
                           </div>
-                        ))}
-                        <div style={{ display: 'block' }} className="invalid-feedback">
-                          <ErrorMessage name="interestedInOpenLab" />
                         </div>
                       </div>
-                    </div>
-                    <div className="col-sm-12 col-md-6">
-                      <div className="form-group">
-                        <label htmlFor="tags">Session Tags</label>
-                        <ReactTags
-                          inline
-                          id="tags"
-                          tags={values.tags}
-                          suggestions={[]}
-                          classNames={{
-                            tag: 'btn btn-primary btn-sm mr-1 mb-2',
-                            remove: 'ml-2',
-                            tagInputField: 'form-control'
-                          }}
-                          delimiters={delimiters}
-                          // tslint:disable-next-line:no-console
-                          handleAddition={(tag) => setFieldValue('tags', [...values.tags, tag])}
-                          // tslint:disable-next-line:no-console
-                          handleDelete={(i) => setFieldValue('tags', values.tags.filter((tag, index) => index !== i))} />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="form-row">
-                    <div className="col-sm-12 col-md-6">
-                      <div className={`form-group ${getValidationClass('acknowledgedTerms')}`} >
-                        <label>I agree with the terms and conditions outlined in this call for speakers. In the event of a cancellation, I will notify Central Wisconsin IT Conference Comittee in a timely manner.</label>
-                        <div className="form-check">
-                          {/* eslint-disable-next-line react/jsx-boolean-value */ }
-                          <Field type="radio" className="form-check-input" name="acknowledgedTerms" defaultChecked={values.acknowledgedTerms === true} id={`acknowledgedTerms${true}`} value={true} />
-                          <label className="form-check-label" htmlFor={`acknowledgedTerms${true}`}>Yes, I agree</label>
+                      <div className="form-row">
+                        <div className="col-md-6">
+                          <div className={`form-group ${getValidationClass('targetLevel')}`} >
+                            <label>Target Level</label>
+                            {['100', '200', '300', '400'].map((level) => (
+                              <div key={level} className="form-check">
+                                <Field type="radio" className="form-check-input" name="targetLevel" defaultChecked={values.targetLevel === level} id={`targetLevel${level}`} value={level} />
+                                <label className="form-check-label" htmlFor={`targetLevel${level}`}>{level}</label>
+                              </div>
+                            ))}
+                            <div style={{ display: 'block' }} className="invalid-feedback">
+                              <ErrorMessage name="targetLevel" />
+                            </div>
+                          </div>
                         </div>
-                        <div className="form-check">
-                          {/* eslint-disable-next-line react/jsx-boolean-value */ }
-                          <Field type="radio" className="form-check-input" name="acknowledgedTerms" defaultChecked={values.acknowledgedTerms === false} id={`acknowledgedTerms${false}`} value={false} />
-                          <label className="form-check-label" htmlFor={`acknowledgedTerms${false}`}>No, I choose not to submit my session presentation</label>
+                        <div className="col-sm-12 col-md-6">
+                          <div className={`form-group ${getValidationClass('interestedInOpenLab')}`} >
+                            <label>Are you interested in hosting an Open Lab?</label>
+                            {['Yes', 'No', 'Maybe'].map((interestOption) => (
+                              <div key={interestOption} className="form-check">
+                                <Field type="radio" className="form-check-input" name="interestedInOpenLab" defaultChecked={values.interestedInOpenLab === interestOption} id={`interestedInOpenLab${interestOption}`} value={interestOption} />
+                                <label className="form-check-label" htmlFor={`interestedInOpenLab${interestOption}`}>{interestOption}</label>
+                              </div>
+                            ))}
+                            <div style={{ display: 'block' }} className="invalid-feedback">
+                              <ErrorMessage name="interestedInOpenLab" />
+                            </div>
+                          </div>
                         </div>
-                        <div style={{ display: 'block' }} className="invalid-feedback">
-                          <ErrorMessage name="acknowledgedTerms" />
+                        <div className="col-sm-12 col-md-6">
+                          <div className="form-group">
+                            <label htmlFor="tags">Session Tags</label>
+                            <ReactTags
+                              inline
+                              id="tags"
+                              tags={values.tags}
+                              suggestions={[]}
+                              classNames={{
+                                tag: 'btn btn-primary btn-sm mr-1 mb-2',
+                                remove: 'ml-2',
+                                tagInputField: 'form-control'
+                              }}
+                              delimiters={delimiters}
+                              handleAddition={(tag) => setFieldValue('tags', [...values.tags, tag])}
+                              handleDelete={(i) => setFieldValue('tags', values.tags.filter((tag, index) => index !== i))} />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="form-row mt-3">
-                    <div className="col-sm-12 ">
-                      <div className="d-flex justify-content-center">
-                        <button className="btn btn-outline-primary" type="submit" disabled={isSubmitting}>
-                          Submit
-                        </button>
+                      <div className="form-row">
+                        <div className="col-sm-12 col-md-6">
+                          <div className={`form-group ${getValidationClass('acknowledgedTerms')}`} >
+                            <label>I agree with the terms and conditions outlined in this call for speakers. In the event of a cancellation, I will notify Central Wisconsin IT Conference Comittee in a timely manner.</label>
+                            <div className="form-check">
+                              {/* tslint:disable-next-line:jsx-boolean-value */}
+                              <Field type="radio" className="form-check-input" name="acknowledgedTerms" defaultChecked={values.acknowledgedTerms === true} id={`acknowledgedTerms${true}`} value={true} />
+                              <label className="form-check-label" htmlFor={`acknowledgedTerms${true}`}>Yes, I agree</label>
+                            </div>
+                            <div className="form-check">
+                              {/* eslint-disable-next-line react/jsx-boolean-value */}
+                              <Field type="radio" className="form-check-input" name="acknowledgedTerms" defaultChecked={values.acknowledgedTerms === false} id={`acknowledgedTerms${false}`} value={false} />
+                              <label className="form-check-label" htmlFor={`acknowledgedTerms${false}`}>No, I choose not to submit my session presentation</label>
+                            </div>
+                            <div style={{ display: 'block' }} className="invalid-feedback">
+                              <ErrorMessage name="acknowledgedTerms" />
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </form>
-              );
-              function getValidationClass(path: string): string | void {
-                if (getIn(touched, path.split('.'))) {
-                  if (getIn(errors, path.split('.'))) {
-                    return 'is-invalid';
-                  } else {
-                    return 'is-valid'
+                      <div className="form-row mt-3">
+                        <div className="col-sm-12 ">
+                          <div className="d-flex justify-content-center">
+                            <button className="btn btn-outline-primary" type="submit" disabled={isSubmitting}>
+                              {isSubmitting ?
+                                <div className="spinner-border" role="status">
+                                  <span className="sr-only">Loading...</span>
+                                </div> :
+                                'Submit'}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="form-row mt-3">
+                        <div className="col-sm-12 ">
+                          <div className="d-flex justify-content-center invalid-feedback">
+                            { this.state.submissionError }
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  );
+                  function getValidationClass(path: string): string | void {
+                    if (getIn(touched, path.split('.'))) {
+                      if (getIn(errors, path.split('.'))) {
+                        return 'is-invalid';
+                      } else {
+                        return 'is-valid'
+                      }
+                    }
                   }
                 }
-              }
-            }
-            }
-          </Formik>
+                }
+              </Formik>
+            </>
         }
       </div>
     );
   }
 
   public renderPresenterForm(
-    presenter: Presenter,
     index: number,
     arrayHelpers: ArrayHelpers,
     errors: FormikErrors<Session>,
@@ -301,7 +324,7 @@ export default class SessionSubmission extends Component {
             <div className="form-group">
               <label htmlFor={phoneNumberPath}>Phone Number</label>
               <Field
-                className={`form-control ${getValidationClass(companyPath)}`}
+                className={`form-control ${getValidationClass(phoneNumberPath)}`}
                 type="phone" placeholder="715-123-4567" name={phoneNumberPath} id={phoneNumberPath} />
               <div className="invalid-feedback">
                 <ErrorMessage name={phoneNumberPath} />
