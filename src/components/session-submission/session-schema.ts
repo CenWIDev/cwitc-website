@@ -22,7 +22,12 @@ export const sessionSchema = Yup.object().shape({
         .label('Target Level'),
     acknowledgedTerms: Yup
         .boolean()
+        .oneOf([true], 'You must acknowledge our terms.')
         .required('You must acknowledge our terms.'),
+    notes: Yup
+        .string()
+        .max(3000)
+        .label('Additional Notes or Comments'),
     presenters: Yup
         .array(Yup.object().shape({
             firstName: Yup

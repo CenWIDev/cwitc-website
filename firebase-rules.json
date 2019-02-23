@@ -1,0 +1,52 @@
+{
+    "rules": {
+        "2019":{
+            "$uid": {
+                ".write": "$uid === auth.uid",
+                "submitted-sessions": {
+                    "interestedInOpenLab": {
+                        ".validate": "newData.isString() && newData.val().length < 10"
+                    },
+                    "title": {
+                        ".validate": "newData.isString() && newData.val().length <= 50"
+                    },
+                    "summary": {
+                        ".validate": "newData.isString() && newData.val().length <= 3000"
+                    },
+                    "targetLevel": {
+                        ".validate": "newData.isString() && newData.val().length <= 10"
+                    },
+                    "acknowledgedTerms": {
+                        ".validate": "newData.isBoolean()"
+                    },
+                    "notes": {
+                        ".validate": "newData.isString() && newData.val().length <= 3000"
+                    },
+                    "presenters": {
+                        "firstName": {
+                            ".validate": "newData.isString() && newData.val().length <= 50"
+                        },
+                        "lastName": {
+                            ".validate": "newData.isString() && newData.val().length <= 50"
+                        },
+                        "bio": {
+                            ".validate": "newData.isString() && newData.val().length <= 1000"
+                        },
+                        "title": {
+                            ".validate": "newData.isString() && newData.val().length <= 50"
+                        },
+                        "company": {
+                            ".validate": "newData.isString() && newData.val().length <= 50"
+                        },
+                        "phone_number": {
+                            ".validate": "newData.isString() && newData.val().length <= 15"
+                        },
+                        "email": {
+                            ".validate": "newData.isString() && newData.val().length <= 150"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -143,9 +143,9 @@ export default class SessionSubmission extends Component {
                                             <div className="form-row">
                                                 <div className="col-md-6">
                                                     <div className={`form-group ${getValidationClass('targetLevel')}`} >
-                                                        <label>Target Level</label>
+                                                        <label className="d-block">Target Level</label>
                                                         {['100', '200', '300', '400'].map((level) => (
-                                                            <div key={level} className="form-check">
+                                                            <div key={level} className="form-check form-check-inline">
                                                                 <Field type="radio" className="form-check-input" name="targetLevel" defaultChecked={values.targetLevel === level} id={`targetLevel${level}`} value={level} />
                                                                 <label className="form-check-label" htmlFor={`targetLevel${level}`}>{level}</label>
                                                             </div>
@@ -157,9 +157,9 @@ export default class SessionSubmission extends Component {
                                                 </div>
                                                 <div className="col-sm-12 col-md-6">
                                                     <div className={`form-group ${getValidationClass('interestedInOpenLab')}`} >
-                                                        <label>Are you interested in hosting an Open Lab?</label>
+                                                        <label className="d-block">Are you interested in hosting an Open Lab?</label>
                                                         {['Yes', 'No', 'Maybe'].map((interestOption) => (
-                                                            <div key={interestOption} className="form-check">
+                                                            <div key={interestOption} className="form-check form-check-inline">
                                                                 <Field type="radio" className="form-check-input" name="interestedInOpenLab" defaultChecked={values.interestedInOpenLab === interestOption} id={`interestedInOpenLab${interestOption}`} value={interestOption} />
                                                                 <label className="form-check-label" htmlFor={`interestedInOpenLab${interestOption}`}>{interestOption}</label>
                                                             </div>
@@ -189,22 +189,31 @@ export default class SessionSubmission extends Component {
                                                 </div>
                                             </div>
                                             <div className="form-row">
+                                                <div className="col-sm-12">
+                                                    <div className="form-group">
+                                                        <label htmlFor="summary">Additional Notes or Comments</label>
+                                                        <Field
+                                                            className={`form-control ${getValidationClass('notes')}`}
+                                                            component="textarea"
+                                                            name="notes" id="notes" />
+                                                        <div className="invalid-feedback">
+                                                            <ErrorMessage name="notes" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className={`form-row form-group ${getValidationClass('acknowledgedTerms')}`}>
                                                 <div className="col-sm-12 col-md-6">
-                                                    <div className={`form-group ${getValidationClass('acknowledgedTerms')}`} >
-                                                        <label dangerouslySetInnerHTML={{ __html: termsAndConditionsAgreement.childContentfulRichText.html}} />
-                                                        <div className="form-check">
-                                                            {/* tslint:disable-next-line:jsx-boolean-value */}
-                                                            <Field type="radio" className="form-check-input" name="acknowledgedTerms" defaultChecked={values.acknowledgedTerms === true} id={`acknowledgedTerms${true}`} value={true} />
-                                                            <label className="form-check-label" htmlFor={`acknowledgedTerms${true}`}>Yes, I agree</label>
-                                                        </div>
-                                                        <div className="form-check">
-                                                            {/* eslint-disable-next-line react/jsx-boolean-value */}
-                                                            <Field type="radio" className="form-check-input" name="acknowledgedTerms" defaultChecked={values.acknowledgedTerms === false} id={`acknowledgedTerms${false}`} value={false} />
-                                                            <label className="form-check-label" htmlFor={`acknowledgedTerms${false}`}>No, I choose not to submit my session presentation</label>
-                                                        </div>
-                                                        <div style={{ display: 'block' }} className="invalid-feedback">
-                                                            <ErrorMessage name="acknowledgedTerms" />
-                                                        </div>
+                                                    <label dangerouslySetInnerHTML={{ __html: termsAndConditionsAgreement.childContentfulRichText.html}} />
+                                                </div>
+                                                <div className="col-sm-12 col-md-6 d-flex align-items-center">
+                                                    <div className="form-check form-check-inline w-50">
+                                                        {/* tslint:disable-next-line:jsx-boolean-value */}
+                                                        <Field type="checkbox" className="form-check-input" name="acknowledgedTerms" defaultChecked={values.acknowledgedTerms === true} id={`acknowledgedTerms${true}`} />
+                                                        <label className="form-check-label" htmlFor={`acknowledgedTerms${true}`}>Yes, I agree</label>
+                                                    </div>
+                                                    <div className="invalid-feedback d-block">
+                                                        <ErrorMessage name="acknowledgedTerms" />
                                                     </div>
                                                 </div>
                                             </div>
