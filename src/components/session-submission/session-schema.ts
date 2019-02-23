@@ -53,7 +53,7 @@ export const sessionSchema = Yup.object().shape({
             phoneNumber: Yup
                 .string()
                 .required()
-                .min(7)
+                .min(10)
                 .max(15)
                 .label('Presenter Phone Number'),
             email: Yup
