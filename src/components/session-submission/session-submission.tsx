@@ -28,7 +28,7 @@ export default class SessionSubmission extends Component {
     constructor(props: any, context?: any) {
       super(props, context);
       window.onbeforeunload = () => {
-          return this.state && this.state.formTouched ? 'Are you sure you are ready to leave?' : undefined;
+          return this.state && this.state.formTouched && !this.state.validSubmission ? 'Are you sure you are ready to leave?' : undefined;
       }
     }
 
