@@ -15,11 +15,13 @@
     "@contentful/gatsby-transformer-contentful-richtext": "12.0.4",
     "@reach/router": "^1.2.1",
     "@types/react-helmet": "^5.0.7",
+    "@types/react-tag-input": "^6.1.0",
     "bootstrap": "^4.2.1",
     "core-js": "^2.6.2",
     "dotenv": "^6.0.0",
     "feather-icons": "^4.10.0",
     "firebase": "^5.8.0",
+    "formik": "^1.4.3",
     "gatsby": "^2.0.82",
     "gatsby-plugin-create-client-paths": "^2.0.3",
     "gatsby-plugin-manifest": "^2.0.2",
@@ -34,10 +36,14 @@
     "node-sass": "^4.11.0",
     "re-base": "^4.0.0",
     "react": "^16.5.1",
+    "react-dnd": "^5.0.0",
+    "react-dnd-html5-backend": "^3.0.2",
     "react-dom": "^16.5.1",
     "react-helmet": "^5.2.0",
+    "react-tag-input": "^6.2.1",
     "tslint": "^5.11.0",
-    "typescript": "^3.1.1"
+    "typescript": "^3.1.1",
+    "yup": "^0.26.10"
   },
   "keywords": [
     "gatsby"
@@ -46,7 +52,9 @@
   "devDependencies": {
     "@types/feather-icons": "^4.7.0",
     "@types/re-base": "^3.2.0",
+    "@types/reach__router": "^1.2.3",
     "@types/styled-components": "^4.1.4",
+    "@types/yup": "^0.26.7",
     "prettier": "^1.14.2",
     "tslint-config-prettier": "^1.15.0",
     "tslint-react": "^3.6.0"

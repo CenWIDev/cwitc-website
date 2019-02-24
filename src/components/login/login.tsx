@@ -1,4 +1,5 @@
 import React, { Component, ReactNode } from 'react';
+import { RouteComponentProps } from '@reach/router';
 import { StaticQuery, graphql, navigate } from 'gatsby';
 
 import { AuthService, ILoginProvider, LoginProviders } from './../../services/authentication';
@@ -7,7 +8,7 @@ import LoginButton from './login-button/login-button';
 
 import './login.scss';
 
-export default class Login extends Component {
+export default class Login extends Component<LoginProps> {
 
     public state: LoginState;
 
@@ -115,9 +116,9 @@ const loginPageQuery = graphql`
     }
 `;
 
-export type LoginProps = {
+export interface LoginProps extends RouteComponentProps {
     path: string;
-};
+}
 
 export type LoginState = {
     error?: string;
