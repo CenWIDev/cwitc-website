@@ -20,6 +20,7 @@ export default class SessionsPageLayout extends Component {
                 const session = sessionNode.node;
                 result[session.startDateTime] = result[session.startDateTime] || [];
                 result[session.startDateTime].push(session);
+
                 return result;
             }, { }) : { };
 
@@ -29,14 +30,16 @@ export default class SessionsPageLayout extends Component {
                 const aTime = new Date(b).getTime();
                 const bTime = new Date(a).getTime();
 
-                if (aTime > bTime) return -1;
-                if (aTime < bTime) return 1;
+                if (aTime > bTime) { return -1; }
+                if (aTime < bTime) { return 1; }
+
                 return 0;
             });
 
         return (
             <Layout className="sessions-page-wrapper" path={ page.slug }>
                 <Helmet
+                    title={ page.title }
                     meta={[
                         !!page.socialMediaShareDescription ? { property: 'description', content: page.socialMediaShareDescription } : { },
                         { property: 'og:title', content: page.title },
@@ -73,7 +76,7 @@ export default class SessionsPageLayout extends Component {
                                                 id: session.id,
                                                 title: session.title,
                                                 speakers: session.speakers ?
-                                                    session.speakers.map((speaker: any) => ({ name: speaker.name })):
+                                                    session.speakers.map((speaker: any) => ({ name: speaker.name })) :
                                                     undefined,
                                                 abstractHtml: session.description.childContentfulRichText.html,
                                                 startTime: session.startTime,
