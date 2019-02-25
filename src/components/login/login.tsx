@@ -28,6 +28,7 @@ export default class Login extends Component<LoginProps> {
             navigate(`/app/profile`);
         }
         catch (err) {
+            // tslint:disable-next-line:no-console
             console.error(err);
 
             this.setState({ error: 'Sorry, there was a problem logging in. Please try again later or try using a different log in method.' })
