@@ -47,7 +47,6 @@ export class Navigation extends Component {
                     AuthService.isLoggedIn() ?
                         <>
                             <li><Link to="/app/profile">Profile</Link></li>
-                            <li><Link to="/app/submit-session">Submit Session</Link></li>
                             <li><a href="/" onClick={ this.logout }>Logout</a></li>
                         </> :
                         <li><Link to="/app/log-in">Log In</Link></li>

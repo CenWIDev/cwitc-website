@@ -77,7 +77,8 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
             return (
                 <>
                     <Helmet
-                        title={`${ siteSettings.siteName }`}
+                        titleTemplate={`%s - ${ siteSettings.siteName }`}
+                        defaultTitle={ siteSettings.siteName }
                         meta={[
                             { property: 'description', content: hero.description.description },
 

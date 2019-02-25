@@ -14,9 +14,9 @@ export class PrivateRoute extends Component {
     public render(): ReactNode {
         const { component: Component, location, ...rest } = this.props;
 
-        if (!AuthService.isLoggedIn() && location.pathname !== `/app/login`) {
+        if (!AuthService.isLoggedIn() && location.pathname !== `/app/log-in`) {
             // If the user is not logged in, redirect to the login page.
-            navigate(`/app/login`);
+            navigate(`/app/log-in`);
 
             return null;
         }

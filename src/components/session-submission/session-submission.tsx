@@ -71,6 +71,9 @@ export default class SessionSubmission extends Component {
                                             validSubmission: true
                                         });
                                     } catch (error) {
+                                        // tslint:disable-next-line:no-console
+                                        console.error(error);
+
                                         this.setState({
                                             ...this.state,
                                             submissionError: 'There was an error trying to submit your session. Please try again.'
