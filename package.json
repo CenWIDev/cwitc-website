@@ -30,6 +30,7 @@
     "gatsby-plugin-react-helmet": "^3.0.0",
     "gatsby-plugin-sass": "^2.0.7",
     "gatsby-plugin-sharp": "^2.0.5",
+    "gatsby-plugin-sitemap": "^2.0.6",
     "gatsby-plugin-typescript": "^2.0.0",
     "gatsby-source-contentful": "^2.0.22",
     "gatsby-transformer-remark": "^2.1.5",
