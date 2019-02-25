@@ -14,6 +14,9 @@ const contentfulConfig = {
 }
 
 module.exports = {
+  siteMetadata: {
+    siteUrl: 'https://cwitc.org'
+  },
   plugins: [
     'gatsby-plugin-react-helmet',
     {
@@ -31,6 +34,12 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-create-client-paths',
       options: { prefixes: [`/app/*`] }
+    },
+    {
+      resolve: 'gatsby-plugin-sitemap',
+      options: {
+        exclude: ['/app', '/app/*']
+      }
     },
     'gatsby-plugin-offline',
     'gatsby-plugin-typescript',
