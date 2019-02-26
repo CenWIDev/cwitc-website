@@ -35,6 +35,7 @@
     "gatsby-source-contentful": "^2.0.22",
     "gatsby-transformer-remark": "^2.1.5",
     "node-sass": "^4.11.0",
+    "query-string": "^6.2.0",
     "re-base": "^4.0.0",
     "react": "^16.5.1",
     "react-dnd": "^5.0.0",
@@ -52,6 +53,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/feather-icons": "^4.7.0",
+    "@types/query-string": "^6.2.0",
     "@types/re-base": "^3.2.0",
     "@types/reach__router": "^1.2.3",
     "@types/styled-components": "^4.1.4",

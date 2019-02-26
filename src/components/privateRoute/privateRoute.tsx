@@ -16,7 +16,7 @@ export class PrivateRoute extends Component {
 
         if (!AuthService.isLoggedIn() && location.pathname !== `/app/log-in`) {
             // If the user is not logged in, redirect to the login page.
-            navigate(`/app/log-in`);
+            navigate(`/app/log-in?redirectPath=${ location.pathname }`);
 
             return null;
         }
