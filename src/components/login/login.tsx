@@ -1,6 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { StaticQuery, graphql, navigate } from 'gatsby';
+import * as queryString from 'query-string';
 
 import { AuthService, ILoginProvider, LoginProviders } from './../../services/authentication';
 import { GitHubIcon, FacebookIcon, TwitterIcon, GoogleIcon } from './../icon';
@@ -25,7 +26,8 @@ export default class Login extends Component<LoginProps> {
     public handleSubmit = async (provider: ILoginProvider): Promise<void> => {
         try {
             await AuthService.login(provider);
-            navigate(`/app/profile`);
+
+            this.redirect();
         }
         catch (err) {
             // tslint:disable-next-line:no-console
@@ -34,6 +36,23 @@ export default class Login extends Component<LoginProps> {
             this.setState({ error: 'Sorry, there was a problem logging in. Please try again later or try using a different log in method.' })
         }
     }
+
+    private redirect = () => {
+        let redirectPath: string | undefined;
+
+        if (this.props.location && this.props.location.search) {
+            const queryStringValues: any = queryString.parse(this.props.location.search)
+            redirectPath = queryStringValues.redirectPath;
+        }
+
+        // Using the navigate method prevents cross domain redirect attacks
+        if (redirectPath) {
+            navigate(redirectPath);
+        }
+        else {
+            navigate(`/app/profile`);
+        }
+    };
 
     public renderPage = (landingPageContent: any, global: any): ReactNode => {
         const { body } = landingPageContent;
