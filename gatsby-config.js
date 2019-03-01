@@ -41,6 +41,25 @@ module.exports = {
         exclude: ['/app', '/app/*']
       }
     },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://www.cwitc.org',
+        sitemap: 'https://www.cwitc.org/sitemap.xml',
+        resolveEnv: () => process.env.ENV,
+        env: {
+          development: {
+            policy: [{ userAgent: '*', disallow: ['/'] }]
+          },
+          preview: {
+            policy: [{ userAgent: '*', disallow: ['/'] }]
+          },
+          production: {
+            policy: [{ userAgent: '*', allow: '/' }]
+          }
+        }
+      }
+    },
     'gatsby-plugin-offline',
     'gatsby-plugin-typescript',
     'gatsby-transformer-remark',
