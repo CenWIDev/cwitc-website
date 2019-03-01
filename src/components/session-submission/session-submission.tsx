@@ -9,6 +9,7 @@ import { sessionSchema } from './session-schema';
 import { WithContext as ReactTags } from 'react-tag-input';
 import base from './../../services/firebase';
 import { AuthService } from './../../services/authentication'
+import { NavigationConfirm } from '../navigation-confirm/navigationConfirm';
 
 const KeyCodes = {
     comma: 188,
@@ -19,23 +20,14 @@ const delimiters = [KeyCodes.comma, KeyCodes.enter];
 type SessionSubmissionState = {
     session: Session;
     validSubmission: boolean;
-    formTouched: boolean;
     submissionError?: string;
 };
 
 export default class SessionSubmission extends Component {
 
-    constructor(props: any, context?: any) {
-      super(props, context);
-      window.onbeforeunload = () => {
-          return this.state && this.state.formTouched && !this.state.validSubmission ? 'Are you sure you are ready to leave?' : undefined;
-      }
-    }
-
     public state: SessionSubmissionState = {
         session: this.buildEmptySession(),
         validSubmission: false,
-        formTouched: false,
         submissionError: undefined
     };
 
@@ -91,15 +83,9 @@ export default class SessionSubmission extends Component {
                                     isSubmitting,
                                     setFieldValue
                                 }) => {
-                                    if (touched !== this.state.formTouched) {
-                                      this.setState({
-                                        ...this.state,
-                                        formTouched: touched
-                                      });
-                                    }
-
                                     return (
                                         <form onSubmit={handleSubmit}>
+                                            {Object.keys(touched).length > 0 ? <NavigationConfirm /> : null }
                                             <FieldArray
                                                 name="presenters"
                                                 render={(arrayHelpers: ArrayHelpers) => (
