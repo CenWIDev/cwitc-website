@@ -13,13 +13,15 @@ export class NavigationConfirm extends Component {
 
     public props: NavigationConfirmProps & any;
 
-    constructor(props: any, context?: any) {
-        super(props, context);
+    public componentDidMount() {
         window.onbeforeunload = this.beforeUnloadHandler;
+    }
+
+    public componentWillUnmount() {
+        window.onbeforeunload = null;
     }
 
     public render(): ReactNode {
         return null;
     }
-
 }
