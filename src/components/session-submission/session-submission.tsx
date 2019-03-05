@@ -31,6 +31,10 @@ export default class SessionSubmission extends Component {
         submissionError: undefined
     };
 
+    public showNavigationConfirmation(touched: any): boolean {
+        return !this.state.validSubmission && touched && Object.keys(touched).length > 0;
+    }
+
     public render(): ReactNode {
         return (
             <StaticQuery
@@ -85,7 +89,9 @@ export default class SessionSubmission extends Component {
                                 }) => {
                                     return (
                                         <form onSubmit={handleSubmit}>
-                                            {Object.keys(touched).length > 0 ? <NavigationConfirm /> : null }
+                                            {
+                                                this.showNavigationConfirmation(touched) ? <NavigationConfirm /> : null
+                                            }
                                             <FieldArray
                                                 name="presenters"
                                                 render={(arrayHelpers: ArrayHelpers) => (
