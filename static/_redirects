@@ -1,0 +1,2 @@
+# Redirect default Netlify subdomain to primary domain
+https://cwitc.netlify.com/* https://cwitc.org/:splat 301!
