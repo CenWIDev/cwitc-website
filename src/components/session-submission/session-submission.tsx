@@ -58,8 +58,11 @@ export default class SessionSubmission extends Component {
                                 validationSchema={sessionSchema}
                                 onSubmit={async (values, { setSubmitting }) => {
                                     try {
+                                        // only allow alphanumeric characters and spaces in the path
+                                        const scrubbedTitle: string = values.title.replace(/[^A-Za-z0-9 ]/g, '')
+
                                         await base.post(
-                                            `2019/${AuthService.getUser().userId}/submitted-sessions/${values.title}`, {
+                                            `2019/${ AuthService.getUser().userId }/submitted-sessions/${ scrubbedTitle }`, {
                                                 data: values
                                             });
                                         this.setState({
