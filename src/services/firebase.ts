@@ -1,5 +1,6 @@
 import Rebase from 're-base';
 import firebase from 'firebase/app';
+import 'firebase/database';
 
 const config = {
     apiKey: 'AIzaSyDtQKM8PfvrWoDH3BATaNV9ERyHdAOYNZw',

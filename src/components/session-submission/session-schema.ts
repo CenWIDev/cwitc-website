@@ -8,7 +8,7 @@ export const sessionSchema = Yup.object().shape({
     title: Yup
         .string()
         .required()
-        .max(50)
+        .max(100)
         .label('Session Title'),
     summary: Yup
         .string()
