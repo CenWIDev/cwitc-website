@@ -4,4 +4,60 @@
         margin: 3rem auto;
         width: 100%;
     }
+
+    // .sponsor-card-container {
+    //     flex-grow: 0;
+    //     flex-basis: calc(100% / 3);
+    // }
+
+    .sponsor-card {
+        border-radius: 5px;
+        position: relative;
+        height: 250px;
+
+        img {
+            padding: 1rem;
+        }
+
+        &.sponsor-gold {
+            border: 5px solid gold;
+
+            .sponsor-level {
+                background-color: gold;
+            }
+        }
+
+        &.sponsor-silver {
+            border: 5px solid silver;
+
+            .sponsor-level {
+                background-color: silver;
+            }
+        }
+
+        &.sponsor-bronze {
+            border: 5px solid brown;
+
+            .sponsor-level {
+                background-color: brown;
+            }
+        }
+
+        &.sponsor-other {
+            border: 5px solid black;
+
+            .sponsor-level {
+                background-color: black;
+            }
+        }
+
+        .sponsor-level {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-transform: uppercase;
+            color: white;
+            font-weight: bold;
+        }
+    }
 }

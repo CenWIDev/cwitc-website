@@ -1,4 +1,5 @@
-const { INLINES } = require('@contentful/rich-text-types');
+const { INLINES, BLOCKS } = require('@contentful/rich-text-types');
+const { ParagraphRenderer } = require('./contentful/paragraph-renderer');
 const { HyperlinkRenderer } = require('./contentful/hyperlink-renderer');
 const { EntryHyperlinkRenderer } = require('./contentful/entry-hyperlink-renderer');
 const { AssetHyperlinkRenderer } = require('./contentful/asset-hyperlink-renderer');
@@ -74,6 +75,7 @@ module.exports = {
       options: {
         renderOptions: {
           renderNode: {
+            [BLOCKS.PARAGRAPH]: ParagraphRenderer,
             [INLINES.HYPERLINK]: HyperlinkRenderer,
             [INLINES.ENTRY_HYPERLINK]: EntryHyperlinkRenderer,
             [INLINES.ASSET_HYPERLINK]: AssetHyperlinkRenderer

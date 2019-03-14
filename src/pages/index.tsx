@@ -34,6 +34,7 @@ export default class IndexPage extends Component {
                     </div>
                     { this.renderPartners(landingPageContent.partners) }
                     { this.renderCards(landingPageContent.cards) }
+                    { this.renderSponsors(landingPageContent.sponsors) }
                 </div>
             </Layout>
         );
@@ -42,21 +43,70 @@ export default class IndexPage extends Component {
     public renderPartners(partners: any[]): ReactNode | null {
         return partners && partners.length > 0 ?
             <>
-                <div className="row">
+                <div className="row mb-3">
                     <h3 className="col text-center">Organizers and Community Partners</h3>
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-10">
                         <div className="row justify-content-center align-items-center">
                             {
-                                partners.map(({ name, siteUrl, logo }: any) => (
-                                    <div className="col-6 col-sm">
+                                partners
+                                    .map(({ name, siteUrl, logo }: any) => (
+                                        <div className="col-6 col-sm">
+                                            <a href={ siteUrl } title={ name } target="_blank" rel="noopener">
+                                                <img className="w-100" src={ logo.fixed.src } alt={ name } />
+                                            </a>
+                                        </div>
+                                    ))
+                            }
+                        </div>
+                    </div>
+                </div>
+            </> :
+            null;
+    }
+
+    public renderSponsors(partners: any[]): ReactNode | null {
+        partners.sort((a, b) => {
+            let sortValueA: number = determineSortValue(a.sponsorshipLevel);
+            let sortValueB: number = determineSortValue(b.sponsorshipLevel);
+
+            return sortValueA - sortValueB;
+
+            function determineSortValue(level: string) {
+                switch (level) {
+                    case 'Gold': return 1;
+                    case 'Silver': return 2;
+                    case 'Bronze': return 3;
+                    case 'Other': return 4;
+                    default: return 5;
+                }
+            }
+        });
+
+        return partners && partners.length > 0 ?
+            <>
+                <div className="row mb-3">
+                    <h3 className="col text-center">Thank you to our Sponsors!</h3>
+                </div>
+                <div className="row justify-content-center">
+                    <div className="col-10">
+                        <div className="row justify-content-start align-items-center">
+                        {
+                            partners.map(({ name, siteUrl, logo, sponsorshipLevel }: any) => (
+                                <div className="sponsor-card-container col-12 col-sm-6 col-md-4 mb-3">
+                                    <div className={ `sponsor-card sponsor-${ sponsorshipLevel.toLowerCase() } d-flex flex-column justify-content-center` }>
                                         <a href={ siteUrl } title={ name } target="_blank" rel="noopener">
                                             <img className="w-100" src={ logo.fixed.src } alt={ name } />
                                         </a>
+                                        <h5 className="sponsor-level text-center mb-0">{ sponsorshipLevel }</h5>
                                     </div>
-                                ))
-                            }
+                                    <a href={ siteUrl } title={ name } target="_blank" rel="noopener">
+                                        <h5 className="text-center">{ name }</h5>
+                                    </a>
+                                </div>
+                            ))
+                        }
                         </div>
                     </div>
                 </div>
@@ -79,6 +129,7 @@ export default class IndexPage extends Component {
                 <React.Fragment key={ index }>
                     <hr />
                     <IconCard { ...iconCardProps } />
+                    { index === cards.length - 1 ? <hr /> : null }
                 </React.Fragment>
             );
         }
@@ -106,6 +157,16 @@ const homePageQuery = graphql`
                     }
                 }
                 iconName
+            }
+            sponsors {
+                name
+                siteUrl
+                sponsorshipLevel
+                logo {
+                    fixed(width: 500) {
+                        src
+                    }
+                }
             }
             page {
                 socialMediaShareDescription
