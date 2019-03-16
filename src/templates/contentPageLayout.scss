@@ -31,4 +31,17 @@
             z-index: 1;
         }
     }
+
+    .cta {
+
+        a {
+            @extend .btn;
+            @extend .btn-primary;
+            width: 100%;
+        }
+
+        p {
+            margin: 0;
+        }
+    }
 }
