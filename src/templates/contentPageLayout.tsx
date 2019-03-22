@@ -12,7 +12,7 @@ export default class ContentPageLayout extends Component {
 
     public render(): ReactNode {
         const { contentfulContentPageLayout } = this.props.data;
-        const { heading, subheading, heroImage, body, page } = contentfulContentPageLayout;
+        const { heading, subheading, heroImage, body, callToActionButton, page } = contentfulContentPageLayout;
 
         return (
             <Layout className="content-page-wrapper" path={ page.slug }>
@@ -30,8 +30,19 @@ export default class ContentPageLayout extends Component {
                     <h1>{ heading }</h1>
                     <h3>{ subheading }</h3>
                 </div>
-                <div className="container d-flex justify-content-center">
-                    <div className="col col-md-8"dangerouslySetInnerHTML={{ __html: body.childContentfulRichText.html }} />
+                <div className="container">
+                    <div className="row justify-content-center">
+                        <div className="col col-md-8"dangerouslySetInnerHTML={{ __html: body.childContentfulRichText.html }} />
+                    </div>
+                    {
+                        callToActionButton ?
+                            <div className="row justify-content-center mt-3">
+                                <div
+                                    className="cta col-12 col-md-4"
+                                    dangerouslySetInnerHTML={{ __html: callToActionButton.childContentfulRichText.html }} />
+                            </div> :
+                            null
+                    }
                 </div>
             </Layout>
         );
@@ -53,6 +64,11 @@ export const query = graphql`
                 }
             }
             body {
+                childContentfulRichText {
+                    html
+                }
+            }
+            callToActionButton {
                 childContentfulRichText {
                     html
                 }
