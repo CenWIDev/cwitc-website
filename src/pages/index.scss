@@ -1,7 +1,71 @@
+@import "./../components/vars";
+
 .home-container {
 
     hr {
         margin: 3rem auto;
         width: 100%;
+    }
+
+    .sponsor-card {
+        $border: 5px;
+
+        border-radius: $border;
+        position: relative;
+        height: 250px;
+
+        &:hover {
+
+            .sponsor-name {
+                text-decoration: none;
+            }
+        }
+
+        img {
+            padding: 1rem;
+        }
+
+        &.sponsor-gold {
+            border: $border solid $gold;
+
+            .sponsor-level {
+                background-color: $gold;
+            }
+        }
+
+        &.sponsor-silver {
+            border: $border solid $silver;
+
+            .sponsor-level {
+                background-color: $silver;
+            }
+        }
+
+        &.sponsor-bronze {
+            border: $border solid $bronze;
+
+            .sponsor-level {
+                background-color: $bronze;
+            }
+        }
+
+        &.sponsor-other {
+            border: $border solid $dark;
+
+            .sponsor-level {
+                background-color: $dark;
+            }
+        }
+
+        .sponsor-level {
+            letter-spacing: $border;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-transform: uppercase;
+            color: $white;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
     }
 }
