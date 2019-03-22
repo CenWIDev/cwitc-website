@@ -68,8 +68,8 @@ export default class IndexPage extends Component {
 
     public renderSponsors(partners: any[]): ReactNode | null {
         partners.sort((a, b) => {
-            let sortValueA: number = determineSortValue(a.sponsorshipLevel);
-            let sortValueB: number = determineSortValue(b.sponsorshipLevel);
+            const sortValueA: number = determineSortValue(a.sponsorshipLevel);
+            const sortValueB: number = determineSortValue(b.sponsorshipLevel);
 
             return sortValueA - sortValueB;
 
@@ -94,15 +94,13 @@ export default class IndexPage extends Component {
                         <div className="row justify-content-start align-items-center">
                         {
                             partners.map(({ name, siteUrl, logo, sponsorshipLevel }: any) => (
-                                <div className="sponsor-card-container col-12 col-sm-6 col-md-4 mb-3">
-                                    <div className={ `sponsor-card sponsor-${ sponsorshipLevel.toLowerCase() } d-flex flex-column justify-content-center` }>
-                                        <a href={ siteUrl } title={ name } target="_blank" rel="noopener">
+                                <div className="sponsor-card-container col-12 col-md-6 col-lg-4 mb-3">
+                                    <a href={ siteUrl } title={ name } target="_blank" rel="noopener" className="d-block">
+                                        <div className={ `sponsor-card sponsor-${ sponsorshipLevel.toLowerCase() } d-flex flex-column justify-content-center mb-1` }>
                                             <img className="w-100" src={ logo.fixed.src } alt={ name } />
-                                        </a>
-                                        <h5 className="sponsor-level text-center mb-0">{ sponsorshipLevel }</h5>
-                                    </div>
-                                    <a href={ siteUrl } title={ name } target="_blank" rel="noopener">
-                                        <h5 className="text-center">{ name }</h5>
+                                            <span className="sponsor-level text-center mb-0">{ sponsorshipLevel }</span>
+                                        </div>
+                                        <p className="sponsor-name text-center">{ name }</p>
                                     </a>
                                 </div>
                             ))

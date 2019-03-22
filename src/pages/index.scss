@@ -1,3 +1,5 @@
+@import "./../components/vars";
+
 .home-container {
 
     hr {
@@ -5,59 +7,65 @@
         width: 100%;
     }
 
-    // .sponsor-card-container {
-    //     flex-grow: 0;
-    //     flex-basis: calc(100% / 3);
-    // }
-
     .sponsor-card {
-        border-radius: 5px;
+        $border: 5px;
+
+        border-radius: $border;
         position: relative;
         height: 250px;
+
+        &:hover {
+
+            .sponsor-name {
+                text-decoration: none;
+            }
+        }
 
         img {
             padding: 1rem;
         }
 
         &.sponsor-gold {
-            border: 5px solid gold;
+            border: $border solid $gold;
 
             .sponsor-level {
-                background-color: gold;
+                background-color: $gold;
             }
         }
 
         &.sponsor-silver {
-            border: 5px solid silver;
+            border: $border solid $silver;
 
             .sponsor-level {
-                background-color: silver;
+                background-color: $silver;
             }
         }
 
         &.sponsor-bronze {
-            border: 5px solid brown;
+            border: $border solid $bronze;
 
             .sponsor-level {
-                background-color: brown;
+                background-color: $bronze;
             }
         }
 
         &.sponsor-other {
-            border: 5px solid black;
+            border: $border solid $dark;
 
             .sponsor-level {
-                background-color: black;
+                background-color: $dark;
             }
         }
 
         .sponsor-level {
+            letter-spacing: $border;
             position: absolute;
             bottom: 0;
             width: 100%;
             text-transform: uppercase;
-            color: white;
+            color: $white;
             font-weight: bold;
+            font-size: 1.25rem;
         }
     }
 }
