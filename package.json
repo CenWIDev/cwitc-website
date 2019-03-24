@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-starter-contentful-typescript",
-  "description": "Gatsby Contentful TypeScript starter",
-  "version": "0.3.0",
-  "author": "Filip Havrlent <filip@havrlent.com>",
+  "name": "cwitc-website",
+  "description": "Website for the Central Wisconsin IT Conference",
+  "version": "1.0.0",
+  "author": "Josh Evenson <jevenson@outlook.com>",
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
