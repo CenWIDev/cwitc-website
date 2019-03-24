@@ -1,7 +1,6 @@
 @import "./../../vars";
 
 .social-button {
-    color: $white;
 
     .social-button-icon {
         flex-grow: 1;
@@ -54,6 +53,7 @@
     }
 
     .social-button-text {
+        color: $white;
         flex-grow: 2;
     }
 
