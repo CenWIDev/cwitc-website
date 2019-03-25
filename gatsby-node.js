@@ -17,7 +17,7 @@ exports.createPages = ({ graphql, actions }) => {
             sessionPages: allContentfulSessionsPageLayout {
                 edges {
                   node {
-                    year
+                    conferenceDate
                     page {
                         slug
                     }
@@ -40,13 +40,19 @@ exports.createPages = ({ graphql, actions }) => {
                 });
 
                 data.sessionPages.edges.forEach(({node}) => {
+                    const conferenceStartOfDay = new Date(node.conferenceDate);
+                    conferenceStartOfDay.setUTCHours(0, 0, 0, 0);
+
+                    const conferenceEndOfDay = new Date(node.conferenceDate);
+                    conferenceEndOfDay.setUTCHours(23, 59, 59, 999);
+
                     createPage({
                         path: `/${ node.page.slug }`,
                         component: path.resolve('./src/templates/sessionsPageLayout.tsx'),
                         context: {
-                            yearGlob: `${ node.year }*`,
+                            conferenceStartOfDay: conferenceStartOfDay.toISOString(),
+                            conferenceEndOfDay: conferenceEndOfDay.toISOString(),
                             slug: node.page.slug
-
                         }
                     })
                 });

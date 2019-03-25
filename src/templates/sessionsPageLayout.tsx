@@ -114,7 +114,7 @@ export default class SessionsPageLayout extends Component {
 }
 
 export const query = graphql`
-    query SessionsPageQuery($slug: String!, $yearGlob: String!) {
+    query SessionsPageQuery($slug: String!, $conferenceStartOfDay: Date!, $conferenceEndOfDay: Date!) {
         sessionsPage: contentfulSessionsPageLayout(page: {
             slug: {
                 eq: $slug
@@ -138,31 +138,31 @@ export const query = graphql`
         }
         sessions: allContentfulSession(
             filter: {
-              startTime: { glob: $yearGlob }
+            startTime: { gte: $conferenceStartOfDay, lt: $conferenceEndOfDay }
             }
         ) {
             edges {
-            node {
-                id
-                title
-                description {
-                    childContentfulRichText {
-                        html
+                node {
+                    id
+                    title
+                    description {
+                        childContentfulRichText {
+                            html
+                        }
                     }
-                }
-                sessionType
-                startDateTime: startTime
-                startTime(formatString: "h:mma")
-                endTime(formatString: "h:mma")
-                room
-                category {
-                    name
-                    color
-                }
-                speakers {
-                    name
+                    sessionType
+                    startDateTime: startTime
+                    startTime(formatString: "h:mma")
+                    endTime(formatString: "h:mma")
+                    room
+                    category {
+                        name
+                        color
+                    }
+                    speakers {
+                        name
+                    }
                 }
             }
         }
-    }
-}`;
+    }`;
