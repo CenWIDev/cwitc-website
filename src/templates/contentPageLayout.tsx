@@ -1,6 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 import Layout from './../components/layout';
 
@@ -32,14 +33,22 @@ export default class ContentPageLayout extends Component {
                 </div>
                 <div className="container">
                     <div className="row justify-content-center">
-                        <div className="col col-md-8"dangerouslySetInnerHTML={{ __html: body.childContentfulRichText.html }} />
+                        <div className="col col-md-8">
+                        {
+                            documentToReactComponents(body.json)
+                        }
+                        </div>
+                        {/* dangerouslySetInnerHTML={{ __html: body.childContentfulRichText.html }} /> */}
                     </div>
                     {
                         callToActionButton ?
                             <div className="row justify-content-center mt-3">
-                                <div
-                                    className="cta col-12 col-md-4"
-                                    dangerouslySetInnerHTML={{ __html: callToActionButton.childContentfulRichText.html }} />
+                                <div className="cta col-12 col-md-4">
+                                {
+                                    documentToReactComponents(callToActionButton.json)
+                                }
+                                </div>
+                                    {/* dangerouslySetInnerHTML={{ __html: callToActionButton.childContentfulRichText.html }} /> */}
                             </div> :
                             null
                     }
@@ -64,14 +73,10 @@ export const query = graphql`
                 }
             }
             body {
-                childContentfulRichText {
-                    html
-                }
+                json
             }
             callToActionButton {
-                childContentfulRichText {
-                    html
-                }
+                json
             }
             page {
                 title

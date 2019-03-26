@@ -1,4 +1,6 @@
 import React from 'react';
+import { Document } from '@contentful/rich-text-types';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 import './session.scss';
 
@@ -19,7 +21,7 @@ const Session = ({ session }: SessionProps) => (
                 session.sessionType || session.room ?
                     <div className="col-12 col-sm text-sm-right flex-grow-0 text-nowrap">
                     {
-                        session.sessionType !== "Event" ?
+                        session.sessionType !== 'Event' ?
                             <h5 className="d-inline-block d-sm-block mr-2 mr-sm-0">{ session.sessionType }</h5> :
                             null
                     }
@@ -33,7 +35,12 @@ const Session = ({ session }: SessionProps) => (
             }
         </div>
         <div className="abstract row">
-            <div className="col" dangerouslySetInnerHTML={{ __html: session.abstractHtml}} />
+            <div className="col">
+            {
+                documentToReactComponents(session.abstractRichText)
+            }
+            </div>
+            {/* dangerouslySetInnerHTML={{ __html: session.abstractHtml}} /> */}
         </div>
         <div className="categories row">
             {
@@ -54,7 +61,7 @@ export type Session = {
     id: string;
     title: string;
     speakers?: Speaker[];
-    abstractHtml: string;
+    abstractRichText: Document;
     startTime: string;
     endTime: string;
     room: string;

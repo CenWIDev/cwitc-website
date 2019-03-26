@@ -1,6 +1,27 @@
 import React, { Component, ReactNode } from 'react';
+import { Link } from 'gatsby';
+import { Document, INLINES } from '@contentful/rich-text-types';
+import { documentToReactComponents, Options } from '@contentful/rich-text-react-renderer';
 
-import "./hero.scss";
+import './hero.scss';
+
+const renderer = (node: any) => {
+    const text = node.content
+        .reduce((accumulator: any, currentContent: any) => {
+            return `${ accumulator } ${ currentContent.value }`;
+        }, '')
+        .trim();
+
+    const slug = `/${ node.data.target.fields.slug['en-US'] }`;
+
+    return <Link to={ slug }>{ text }</Link>;
+}
+
+const options: Options = {
+    renderNode: {
+        [INLINES.ENTRY_HYPERLINK]: renderer
+    }
+};
 
 export default class Hero extends Component {
 
@@ -31,19 +52,25 @@ export default class Hero extends Component {
                 </div>
                 <div className="row">
                     {
-                        config.primaryButtonHtml || config.secondaryButtonHtml ?
+                        config.primaryButtonRichText || config.secondaryButtonRichText ?
                             <div className="button-column col-sm-12 col-md-10 offset-md-1 col-lg-3 offset-lg-2">
                                 {
-                                    config.primaryButtonHtml ?
+                                    config.primaryButtonRichText ?
                                         <div
-                                            className="primary col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12"
-                                            dangerouslySetInnerHTML={{ __html: config.primaryButtonHtml }}/> : null
+                                            className="primary col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12">
+                                            {
+                                                documentToReactComponents(config.primaryButtonRichText, options)
+                                            }
+                                        </div> : null
                                 }
                                 {
-                                    config.secondaryButtonHtml ?
+                                    config.secondaryButtonRichText ?
                                         <div
-                                            className="secondary col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12"
-                                            dangerouslySetInnerHTML={{ __html: config.secondaryButtonHtml }} /> : null
+                                            className="secondary col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12">
+                                            {
+                                                documentToReactComponents(config.secondaryButtonRichText, options)
+                                            }
+                                        </div> : null
                                 }
                             </div> : null
                     }
@@ -63,8 +90,8 @@ export type HeroConfig = {
     startTime: string;
     endTime: string;
     description: string;
-    primaryButtonHtml: string;
-    secondaryButtonHtml: string;
+    primaryButtonRichText: Document;
+    secondaryButtonRichText: Document;
 };
 
 export type HeroProps = {

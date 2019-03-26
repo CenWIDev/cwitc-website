@@ -43,14 +43,10 @@ const Header = ({ useHero }: HeaderProps) => (
                         description
                     }
                     primaryButton {
-                        childContentfulRichText {
-                            html
-                        }
+                        json
                     }
                     secondaryButton {
-                        childContentfulRichText {
-                            html
-                        }
+                        json
                     }
                 }
             }
@@ -63,8 +59,8 @@ const Header = ({ useHero }: HeaderProps) => (
                 conferenceDate: global.conferenceDate,
                 startTime: global.startTime,
                 endTime: global.endTime,
-                primaryButtonHtml: hero.primaryButton.childContentfulRichText.html,
-                secondaryButtonHtml: hero.secondaryButton.childContentfulRichText.html
+                primaryButtonRichText: hero.primaryButton.json,
+                secondaryButtonRichText: hero.secondaryButton.json
             };
 
             return (

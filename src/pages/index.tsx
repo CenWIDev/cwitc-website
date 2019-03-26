@@ -118,7 +118,7 @@ export default class IndexPage extends Component {
         function mapCard(contentfulIconCard: any, index: number) {
             const iconCardProps: IconCardProps = {
                 title: contentfulIconCard.title,
-                descriptionHtml: contentfulIconCard.description.childContentfulRichText.html,
+                descriptionRichText: contentfulIconCard.description.json,
                 iconName: contentfulIconCard.iconName,
                 justification: index % 2 === 0 ? IconCardJustifications.LEFT : IconCardJustifications.RIGHT
             };
@@ -150,9 +150,7 @@ const homePageQuery = graphql`
             cards {
                 title
                 description {
-                    childContentfulRichText {
-                        html
-                    }
+                    json
                 }
                 iconName
             }

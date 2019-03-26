@@ -1,5 +1,6 @@
 import React, { Component, ReactNode } from 'react';
 import { RouteComponentProps } from '@reach/router';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { StaticQuery, graphql, navigate } from 'gatsby';
 import * as queryString from 'query-string';
 
@@ -61,7 +62,12 @@ export default class Login extends Component<LoginProps> {
         return (
             <div className="login-container container">
                 <div className="row align-items-center justify-content-center">
-                    <div className="col-10 col-sm-5" dangerouslySetInnerHTML={{ __html: body.childContentfulRichText.html }} />
+                    <div className="col-10 col-sm-5">
+                    {
+                        documentToReactComponents(body.json)
+                    }
+                    </div>
+                    {/* </div> dangerouslySetInnerHTML={{ __html: body.childContentfulRichText.html }} /> */}
                     <div className="col-10 col-sm-5">
                         <LoginButton
                             provider={ LoginProviders.github }
@@ -122,9 +128,7 @@ const loginPageQuery = graphql`
         landingPageContent: contentfulLogInPageLayout {
             title
             body {
-                childContentfulRichText {
-                    html
-                }
+                json
             }
         }
         global: contentfulGlobalSiteSettings {
