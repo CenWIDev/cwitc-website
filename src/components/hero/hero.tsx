@@ -1,27 +1,8 @@
 import React, { Component, ReactNode } from 'react';
-import { Link } from 'gatsby';
-import { Document, INLINES } from '@contentful/rich-text-types';
-import { documentToReactComponents, Options } from '@contentful/rich-text-react-renderer';
+import { Document } from '@contentful/rich-text-types';
+import RichText from './../richText/richText';
 
 import './hero.scss';
-
-const renderer = (node: any) => {
-    const text = node.content
-        .reduce((accumulator: any, currentContent: any) => {
-            return `${ accumulator } ${ currentContent.value }`;
-        }, '')
-        .trim();
-
-    const slug = `/${ node.data.target.fields.slug['en-US'] }`;
-
-    return <Link to={ slug }>{ text }</Link>;
-}
-
-const options: Options = {
-    renderNode: {
-        [INLINES.ENTRY_HYPERLINK]: renderer
-    }
-};
 
 export default class Hero extends Component {
 
@@ -58,18 +39,14 @@ export default class Hero extends Component {
                                     config.primaryButtonRichText ?
                                         <div
                                             className="primary col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12">
-                                            {
-                                                documentToReactComponents(config.primaryButtonRichText, options)
-                                            }
+                                            <RichText richText={ config.primaryButtonRichText } />
                                         </div> : null
                                 }
                                 {
                                     config.secondaryButtonRichText ?
                                         <div
                                             className="secondary col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12">
-                                            {
-                                                documentToReactComponents(config.secondaryButtonRichText, options)
-                                            }
+                                            <RichText richText={ config.secondaryButtonRichText } />
                                         </div> : null
                                 }
                             </div> : null
