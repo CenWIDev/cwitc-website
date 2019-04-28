@@ -4,7 +4,7 @@ import { StaticQuery, graphql } from 'gatsby';
 import Hero, { HeroConfig } from './../hero/hero';
 import { Navigation } from './../navigation/navigation';
 
-import "./header.scss";
+import './header.scss';
 
 type HeaderProps = {
     useHero: boolean;
@@ -67,7 +67,7 @@ const Header = ({ useHero }: HeaderProps) => (
                 <header
                     className={`header-wrapper ${ useHero ? 'hero' : '' }`}
                     style={{
-                        backgroundImage: useHero ? `url(${ global.homePageHeroImage.fixed.src })`: ''
+                        backgroundImage: useHero ? `url(${ global.homePageHeroImage.fixed.src })` : ''
                     }}>
                     <Navigation
                         logoSource={ global.headerLogo.fixed.src || global.headerLogo.file.url }

@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
 import { Link } from 'gatsby';
-import { BLOCKS, Document, INLINES } from '@contentful/rich-text-types';
+import { Document, INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents, Options } from '@contentful/rich-text-react-renderer';
 
-const entryHyperlinkRenderer = (node: any) => {
+const entryHyperlinkRenderer = (node: any): ReactNode => {
     const text = node.content
         .reduce((accumulator: any, currentContent: any) => {
             return `${ accumulator } ${ currentContent.value }`;
@@ -15,7 +15,7 @@ const entryHyperlinkRenderer = (node: any) => {
     return <Link to={ slug }>{ text }</Link>;
 }
 
-const assetHyperlinkRenderer = (node: any) => {
+const assetHyperlinkRenderer = (node: any): ReactNode => {
     const text = node.content
         .reduce((accumulator: any, currentContent: any) => {
             return `${ accumulator } ${ currentContent.value }`;
@@ -24,10 +24,10 @@ const assetHyperlinkRenderer = (node: any) => {
 
     const fileUrl = node.data.target.fields.file['en-US'].url;
 
-    return <a href={ `https:${ fileUrl }` } target="_blank" rel="noopener">${ text }</a>;
+    return <a href={ `https:${ fileUrl }` } target="_blank" rel="noopener">{ text }</a>;
 };
 
-const externalHyperlinkRenderer = (node: any) => {
+const externalHyperlinkRenderer = (node: any): ReactNode => {
     const text = node.content
         .reduce((accumulator: any, currentContent: any) => {
             return `${ accumulator } ${ currentContent.value }`;
@@ -36,30 +36,25 @@ const externalHyperlinkRenderer = (node: any) => {
 
     const location = node.data.uri;
 
-    return <a href={` ${ location } `} target="_blank" rel="noopener">${ text }</a>;
+    return <a href={` ${ location } `} target="_blank" rel="noopener">{ text }</a>;
 };
 
-const paragraphRenderer = (node: any) => {
-    const text = node.content
-        .reduce((accumulator: any, currentContent: any) => {
-            return `${ accumulator } ${ currentContent.value }`;
-        }, '')
-        .trim();
-
-    return <p>{ text.replace(/\n/g, `</br>`) }</p>;
-};
-
-const RichText = ({ richText }: { richText: Document }) => {
+const RichText = ({ richText }: { richText: Document }): React.ReactElement<any> => {
     const options: Options = {
         renderNode: {
             [INLINES.ENTRY_HYPERLINK]: entryHyperlinkRenderer,
             [INLINES.ASSET_HYPERLINK]: assetHyperlinkRenderer,
-            [INLINES.HYPERLINK]: externalHyperlinkRenderer,
-            // [BLOCKS.PARAGRAPH]: paragraphRenderer
+            [INLINES.HYPERLINK]: externalHyperlinkRenderer
+        },
+        // https://github.com/contentful/rich-text/tree/master/packages/rich-text-react-renderer
+        renderText: text => {
+            return text.split('\n').reduce((children: ReactNode, textSegment: string, index: number) => {
+                return [...children, index > 0 && <br key={ index } />, textSegment];
+            }, []);
         }
     };
 
-    return documentToReactComponents(richText, options);
+    return documentToReactComponents(richText, options) as React.ReactElement<any>;
 };
 
 export default RichText;

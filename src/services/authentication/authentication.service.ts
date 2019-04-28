@@ -2,14 +2,14 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { firebaseApp } from './../firebase';
 
-import { ILoginProvider, LoginProviders } from './login-providers';
+import { LoginProvider, LoginProviders } from './login-providers';
 
 export class User {
     userId: string;
     name: string | null;
     email: string | null;
     photoUrl: string | null;
-    linkedProviders: ILoginProvider[];
+    linkedProviders: LoginProvider[];
 }
 
 const user_storage_key: string = 'gatsbyUser';
@@ -29,7 +29,7 @@ const createUser = (credential: firebase.auth.UserCredential | null): User => {
 
         credential.user.providerData.forEach((providerData) => {
             if (providerData) {
-                const loginProvider: ILoginProvider | undefined = LoginProviders.list.find(provider => provider.providerId === providerData.providerId);
+                const loginProvider: LoginProvider | undefined = LoginProviders.list.find(provider => provider.providerId === providerData.providerId);
 
                 if (loginProvider) {
                     user.linkedProviders.push(loginProvider);
@@ -74,7 +74,7 @@ export const setUser = (user: User): void => {
     window.localStorage.setItem('gatsbyUser', JSON.stringify(user));
 };
 
-export const login = async (provider: ILoginProvider): Promise<User> => {
+export const login = async (provider: LoginProvider): Promise<User> => {
     const authProvider: firebase.auth.AuthProvider = getProvider(provider);
 
     const credential: firebase.auth.UserCredential = await firebaseApp.auth().signInWithPopup(authProvider);
@@ -86,7 +86,7 @@ export const login = async (provider: ILoginProvider): Promise<User> => {
     return user;
 };
 
-export const link = async (providerToAdd: ILoginProvider): Promise<User> => {
+export const link = async (providerToAdd: LoginProvider): Promise<User> => {
     const authProvider: firebase.auth.AuthProvider = getProvider(providerToAdd);
 
     const credential: firebase.auth.UserCredential = await firebaseApp.auth().currentUser!.linkWithPopup(authProvider);
@@ -98,7 +98,7 @@ export const link = async (providerToAdd: ILoginProvider): Promise<User> => {
     return user;
 }
 
-export const unlink = async (providerToRemove: ILoginProvider): Promise<User> => {
+export const unlink = async (providerToRemove: LoginProvider): Promise<User> => {
     await firebaseApp.auth().currentUser!.unlink(providerToRemove.providerId)
 
     const user: User = getUser();
@@ -116,7 +116,7 @@ export const logout = async (callback: Function): Promise<void> => {
     callback();
 }
 
-function getProvider(provider: ILoginProvider): firebase.auth.AuthProvider {
+function getProvider(provider: LoginProvider): firebase.auth.AuthProvider {
     let authProvider: firebase.auth.AuthProvider;
 
     switch (provider) {

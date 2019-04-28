@@ -1,6 +1,6 @@
 import React, { Component, ReactNode } from 'react';
 import { StaticQuery, graphql } from 'gatsby';
-import { AuthService, User, ILoginProvider, LoginProviders } from './../../services/authentication';
+import { AuthService, User, LoginProvider, LoginProviders } from './../../services/authentication';
 import { GitHubIcon, FacebookIcon, TwitterIcon, GoogleIcon } from './../icon';
 import LoginButton from './../login/login-button/login-button';
 
@@ -16,15 +16,15 @@ export default class Profile extends Component {
         this.state = { user: AuthService.getUser(), isLoading: false };
     }
 
-    public providerIsLinked(providerToCheck: ILoginProvider): boolean {
+    public providerIsLinked(providerToCheck: LoginProvider): boolean {
         return  !!this.state.user.linkedProviders.find(provider => provider.providerId === providerToCheck.providerId);
     }
 
-    public disableButton = (provider: ILoginProvider): boolean => {
+    public disableButton = (provider: LoginProvider): boolean => {
         return this.state.user.linkedProviders.length === 1 && this.providerIsLinked(provider);
     }
 
-    public getButtonDisplayText = (provider: ILoginProvider): string => {
+    public getButtonDisplayText = (provider: LoginProvider): string => {
         return this.providerIsLinked(provider) ? `Unlink ${ provider.providerName }` : `Link ${ provider.providerName }`;
     };
 
@@ -32,7 +32,7 @@ export default class Profile extends Component {
         this.setState({ status: null });
     };
 
-    public handleSubmit = async (provider: ILoginProvider): Promise<void> => {
+    public handleSubmit = async (provider: LoginProvider): Promise<void> => {
 
         this.setState({ isLoading: true });
 
@@ -46,7 +46,7 @@ export default class Profile extends Component {
         this.setState({ isLoading: false });
     };
 
-    private linkProvider = async (provider: ILoginProvider) => {
+    private linkProvider = async (provider: LoginProvider) => {
         let user: User = this.state.user;
         let status = null;
 
@@ -69,7 +69,7 @@ export default class Profile extends Component {
         this.setState({ user, status });
     };
 
-    private unlinkProvider = async (provider: ILoginProvider) => {
+    private unlinkProvider = async (provider: LoginProvider) => {
         let user: User = this.state.user;
         let status = null;
 

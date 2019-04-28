@@ -40,14 +40,14 @@ export default class Hero extends Component {
                                         <div
                                             className="primary col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12">
                                             <RichText richText={ config.primaryButtonRichText } />
-                                        </div> : null
+                                        </div> : undefined
                                 }
                                 {
                                     config.secondaryButtonRichText ?
                                         <div
                                             className="secondary col-10 offset-1 col-sm-6 offset-sm-0 col-lg-12">
                                             <RichText richText={ config.secondaryButtonRichText } />
-                                        </div> : null
+                                        </div> : undefined
                                 }
                             </div> : null
                     }

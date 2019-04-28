@@ -1,6 +1,6 @@
 import React from 'react';
 import { Document } from '@contentful/rich-text-types';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import RichText from './../richText/richText';
 
 import './session.scss';
 
@@ -37,10 +37,9 @@ const Session = ({ session }: SessionProps) => (
         <div className="abstract row">
             <div className="col">
             {
-                documentToReactComponents(session.abstractRichText)
+                <RichText richText={ session.abstractRichText } />
             }
             </div>
-            {/* dangerouslySetInnerHTML={{ __html: session.abstractHtml}} /> */}
         </div>
         <div className="categories row">
             {

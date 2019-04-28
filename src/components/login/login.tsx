@@ -4,7 +4,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { StaticQuery, graphql, navigate } from 'gatsby';
 import * as queryString from 'query-string';
 
-import { AuthService, ILoginProvider, LoginProviders } from './../../services/authentication';
+import { AuthService, LoginProvider, LoginProviders } from './../../services/authentication';
 import { GitHubIcon, FacebookIcon, TwitterIcon, GoogleIcon } from './../icon';
 import LoginButton from './login-button/login-button';
 
@@ -24,7 +24,7 @@ export default class Login extends Component<LoginProps> {
         this.setState({ error: null });
     };
 
-    public handleSubmit = async (provider: ILoginProvider): Promise<void> => {
+    public handleSubmit = async (provider: LoginProvider): Promise<void> => {
         try {
             await AuthService.login(provider);
 

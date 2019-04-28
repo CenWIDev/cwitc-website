@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { ILoginProvider } from '../../../services/authentication';
+import { LoginProvider } from '../../../services/authentication';
 
 import './login-button.scss'
 
@@ -26,7 +26,7 @@ const LoginButton = ({ provider, displayText = provider.providerName, disabled =
 export type LoginButtonProps = {
     displayText?: string;
     disabled?: boolean;
-    provider: ILoginProvider;
+    provider: LoginProvider;
     providerEnabled: boolean;
     children: ReactNode;
     onClick: Function;
