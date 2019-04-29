@@ -1,6 +1,5 @@
 import React, { Component, ReactNode } from 'react';
-import { Document } from '@contentful/rich-text-types';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import RichText from './../components/richText/richText';
 import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
 
@@ -59,12 +58,8 @@ export default class SessionsPageLayout extends Component {
                             /* Empty Page Content: No sessions have been published */
                             <div className="row justify-content-center">
                                 <div className="col-12 col-sm-8">
-                                {
-                                    documentToReactComponents(emptyPageContent.json)
-                                }
+                                    <RichText richText={ emptyPageContent.json } />
                                 </div>
-
-                                 {/* dangerouslySetInnerHTML={{ __html: emptyPageContent.childContentfulRichText.html }} /> */}
                             </div> :
 
                             /* Grouped list of sesions and events by time */
@@ -144,7 +139,7 @@ export const query = graphql`
         }
         sessions: allContentfulSession(
             filter: {
-            startTime: { gte: $conferenceStartOfDay, lt: $conferenceEndOfDay }
+                startTime: { gte: $conferenceStartOfDay, lt: $conferenceEndOfDay }
             }
         ) {
             edges {

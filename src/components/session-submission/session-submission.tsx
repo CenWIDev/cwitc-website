@@ -10,8 +10,7 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import base from './../../services/firebase';
 import { AuthService } from './../../services/authentication'
 import { NavigationConfirm } from '../navigation-confirm/navigationConfirm';
-import { Document } from '@contentful/rich-text-types';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import RichText from './../richText/richText';
 
 const KeyCodes = {
     comma: 188,
@@ -52,11 +51,8 @@ export default class SessionSubmission extends Component {
                     this.state.validSubmission ?
                         <div className="row justify-content-center">
                             <div className="col-12 col-md-10 mt-5">
-                            {
-                                documentToReactComponents(submissionConfirmation.json)
-                            }
+                                <RichText richText={ submissionConfirmation.json } />
                             </div>
-                            {/* dangerouslySetInnerHTML={{ __html: submissionConfirmation.childContentfulRichText.html }} /> */}
                         </div> :
                         <>
                             <h1>{ title }</h1>
@@ -225,7 +221,9 @@ export default class SessionSubmission extends Component {
                                             </div>
                                             <div className={`form-row form-group ${getValidationClass('acknowledgedTerms')}`}>
                                                 <div className="col-sm-12 col-md-6">
-                                                    <label>{ documentToReactComponents(termsAndConditionsAgreement.json) }</label>
+                                                    <label>
+                                                        <RichText richText={ termsAndConditionsAgreement.json } />
+                                                    </label>
                                                     {/* dangerouslySetInnerHTML={{ __html: termsAndConditionsAgreement.childContentfulRichText.html}} /> */}
                                                 </div>
                                                 <div className="col-sm-12 col-md-6 d-flex align-items-center">

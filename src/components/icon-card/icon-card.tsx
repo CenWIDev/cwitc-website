@@ -1,6 +1,6 @@
 import React from 'react';
 import { Document } from '@contentful/rich-text-types';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import RichText from './../richText/richText';
 
 import Icon from './../icon/icon';
 
@@ -21,11 +21,8 @@ const IconCard = ({ title, descriptionRichText, iconName, justification = IconCa
                     { title }
                 </h3>
                 <span className="description">
-                {
-                    documentToReactComponents(descriptionRichText)
-                }
+                    <RichText richText={ descriptionRichText }/>
                 </span>
-                {/* dangerouslySetInnerHTML={{ __html: descriptionHtml }} /> */}
             </div>
         </div>
     );

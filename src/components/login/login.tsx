@@ -1,6 +1,6 @@
 import React, { Component, ReactNode } from 'react';
 import { RouteComponentProps } from '@reach/router';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import RichText from './../richText/richText';
 import { StaticQuery, graphql, navigate } from 'gatsby';
 import * as queryString from 'query-string';
 
@@ -63,9 +63,7 @@ export default class Login extends Component<LoginProps> {
             <div className="login-container container">
                 <div className="row align-items-center justify-content-center">
                     <div className="col-10 col-sm-5">
-                    {
-                        documentToReactComponents(body.json)
-                    }
+                        <RichText richText={ body.json } />
                     </div>
                     {/* </div> dangerouslySetInnerHTML={{ __html: body.childContentfulRichText.html }} /> */}
                     <div className="col-10 col-sm-5">

@@ -1,7 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import RichText from './../components/richText/richText';
 
 import Layout from './../components/layout';
 
@@ -34,21 +34,15 @@ export default class ContentPageLayout extends Component {
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col col-md-8">
-                        {
-                            documentToReactComponents(body.json)
-                        }
+                            <RichText richText={ body.json } />
                         </div>
-                        {/* dangerouslySetInnerHTML={{ __html: body.childContentfulRichText.html }} /> */}
                     </div>
                     {
                         callToActionButton ?
                             <div className="row justify-content-center mt-3">
                                 <div className="cta col-12 col-md-4">
-                                {
-                                    documentToReactComponents(callToActionButton.json)
-                                }
+                                    <RichText richText={ callToActionButton.json } />
                                 </div>
-                                    {/* dangerouslySetInnerHTML={{ __html: callToActionButton.childContentfulRichText.html }} /> */}
                             </div> :
                             null
                     }
