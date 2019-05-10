@@ -51,8 +51,8 @@ export default class IndexPage extends Component {
                         <div className="row justify-content-center align-items-center">
                             {
                                 partners
-                                    .map(({ name, siteUrl, logo }: any) => (
-                                        <div className="col-6 col-sm">
+                                    .map(({ name, siteUrl, logo }: any, index: number) => (
+                                        <div className="col-6 col-sm" key={ index }>
                                             <a href={ siteUrl } title={ name } target="_blank" rel="noopener">
                                                 <img className="w-100" src={ logo.fixed.src } alt={ name } />
                                             </a>
@@ -93,8 +93,8 @@ export default class IndexPage extends Component {
                     <div className="col-10">
                         <div className="row justify-content-start align-items-center">
                         {
-                            partners.map(({ name, siteUrl, logo, sponsorshipLevel }: any) => (
-                                <div className="sponsor-card-container col-12 col-md-6 col-lg-4 mb-3">
+                            partners.map(({ name, siteUrl, logo, sponsorshipLevel }: any, index: number) => (
+                                <div className="sponsor-card-container col-12 col-md-6 col-lg-4 mb-3" key={ index }>
                                     <a href={ siteUrl } title={ name } target="_blank" rel="noopener" className="d-block">
                                         <div className={ `sponsor-card sponsor-${ sponsorshipLevel.toLowerCase() } d-flex flex-column justify-content-center mb-1` }>
                                             <img className="w-100" src={ logo.fixed.src } alt={ name } />
