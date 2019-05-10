@@ -1,6 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
+import RichText from './../components/richText/richText';
 
 import Layout from './../components/layout';
 
@@ -32,14 +33,16 @@ export default class ContentPageLayout extends Component {
                 </div>
                 <div className="container">
                     <div className="row justify-content-center">
-                        <div className="col col-md-8"dangerouslySetInnerHTML={{ __html: body.childContentfulRichText.html }} />
+                        <div className="col col-md-8">
+                            <RichText richText={ body.json } />
+                        </div>
                     </div>
                     {
                         callToActionButton ?
                             <div className="row justify-content-center mt-3">
-                                <div
-                                    className="cta col-12 col-md-4"
-                                    dangerouslySetInnerHTML={{ __html: callToActionButton.childContentfulRichText.html }} />
+                                <div className="cta col-12 col-md-4">
+                                    <RichText richText={ callToActionButton.json } />
+                                </div>
                             </div> :
                             null
                     }
@@ -64,14 +67,10 @@ export const query = graphql`
                 }
             }
             body {
-                childContentfulRichText {
-                    html
-                }
+                json
             }
             callToActionButton {
-                childContentfulRichText {
-                    html
-                }
+                json
             }
             page {
                 title

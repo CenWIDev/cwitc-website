@@ -1,4 +1,4 @@
-export interface ILoginProvider {
+export interface LoginProvider {
     providerId: string;
     providerName: LoginProviderName;
 }
@@ -13,27 +13,27 @@ export class LoginProviderNames {
 }
 
 export class LoginProviders  {
-    public static github: ILoginProvider = {
+    public static github: LoginProvider = {
         providerId: 'github.com',
         providerName: LoginProviderNames.github
     };
 
-    public static facebook: ILoginProvider = {
+    public static facebook: LoginProvider = {
         providerId: 'facebook.com',
         providerName: LoginProviderNames.facebook
     };
 
-    public static twitter: ILoginProvider = {
+    public static twitter: LoginProvider = {
         providerId: 'twitter.com',
         providerName: LoginProviderNames.twitter
     };
 
-    public static google: ILoginProvider = {
+    public static google: LoginProvider = {
         providerId: 'google.com',
         providerName: LoginProviderNames.google
     };
 
-    public static list: ILoginProvider[] = [
+    public static list: LoginProvider[] = [
         LoginProviders.github,
         LoginProviders.facebook,
         LoginProviders.twitter,

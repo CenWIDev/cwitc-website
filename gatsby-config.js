@@ -1,9 +1,3 @@
-const { INLINES, BLOCKS } = require('@contentful/rich-text-types');
-const { ParagraphRenderer } = require('./contentful/paragraph-renderer');
-const { HyperlinkRenderer } = require('./contentful/hyperlink-renderer');
-const { EntryHyperlinkRenderer } = require('./contentful/entry-hyperlink-renderer');
-const { AssetHyperlinkRenderer } = require('./contentful/asset-hyperlink-renderer');
-
 if (process.env.ENVIROMENT !== 'production') {
   require('dotenv').config()
 }
@@ -69,19 +63,6 @@ module.exports = {
     {
       resolve: `gatsby-source-contentful`,
       options: contentfulConfig,
-    },
-    {
-      resolve: '@contentful/gatsby-transformer-contentful-richtext',
-      options: {
-        renderOptions: {
-          renderNode: {
-            [BLOCKS.PARAGRAPH]: ParagraphRenderer,
-            [INLINES.HYPERLINK]: HyperlinkRenderer,
-            [INLINES.ENTRY_HYPERLINK]: EntryHyperlinkRenderer,
-            [INLINES.ASSET_HYPERLINK]: AssetHyperlinkRenderer
-          }
-        }
-      }
     },
     'gatsby-plugin-netlify' // This must be last in the config list
   ]

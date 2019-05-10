@@ -1,7 +1,7 @@
 import React from 'react';
 import { FacebookIcon, TwitterIcon, GitHubIcon, LinkedInIcon } from './../icon';
 
-import "./footer.scss";
+import './footer.scss';
 
 const Footer = (props: FooterProps) => (
     <footer className="footer-wrapper">

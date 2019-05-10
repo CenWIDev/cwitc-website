@@ -4,7 +4,7 @@ import { StaticQuery, graphql } from 'gatsby';
 import Hero, { HeroConfig } from './../hero/hero';
 import { Navigation } from './../navigation/navigation';
 
-import "./header.scss";
+import './header.scss';
 
 type HeaderProps = {
     useHero: boolean;
@@ -43,14 +43,10 @@ const Header = ({ useHero }: HeaderProps) => (
                         description
                     }
                     primaryButton {
-                        childContentfulRichText {
-                            html
-                        }
+                        json
                     }
                     secondaryButton {
-                        childContentfulRichText {
-                            html
-                        }
+                        json
                     }
                 }
             }
@@ -63,15 +59,15 @@ const Header = ({ useHero }: HeaderProps) => (
                 conferenceDate: global.conferenceDate,
                 startTime: global.startTime,
                 endTime: global.endTime,
-                primaryButtonHtml: hero.primaryButton.childContentfulRichText.html,
-                secondaryButtonHtml: hero.secondaryButton.childContentfulRichText.html
+                primaryButtonRichText: hero.primaryButton.json,
+                secondaryButtonRichText: hero.secondaryButton.json
             };
 
             return (
                 <header
                     className={`header-wrapper ${ useHero ? 'hero' : '' }`}
                     style={{
-                        backgroundImage: useHero ? `url(${ global.homePageHeroImage.fixed.src })`: ''
+                        backgroundImage: useHero ? `url(${ global.homePageHeroImage.fixed.src })` : ''
                     }}>
                     <Navigation
                         logoSource={ global.headerLogo.fixed.src || global.headerLogo.file.url }

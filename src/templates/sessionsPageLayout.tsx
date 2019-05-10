@@ -1,4 +1,5 @@
 import React, { Component, ReactNode } from 'react';
+import RichText from './../components/richText/richText';
 import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
 
@@ -56,7 +57,9 @@ export default class SessionsPageLayout extends Component {
                         !sessions || !sessions.edges || sessions.edges.length === 0 ?
                             /* Empty Page Content: No sessions have been published */
                             <div className="row justify-content-center">
-                                <div className="col-12 col-sm-8" dangerouslySetInnerHTML={{ __html: emptyPageContent.childContentfulRichText.html }} />
+                                <div className="col-12 col-sm-8">
+                                    <RichText richText={ emptyPageContent.json } />
+                                </div>
                             </div> :
 
                             /* Grouped list of sesions and events by time */
@@ -78,7 +81,7 @@ export default class SessionsPageLayout extends Component {
                                                 speakers: session.speakers ?
                                                     session.speakers.map((speaker: any) => ({ name: speaker.name })) :
                                                     undefined,
-                                                abstractHtml: session.description.childContentfulRichText.html,
+                                                abstractRichText: session.description.json,
                                                 startTime: session.startTime,
                                                 endTime: session.endTime,
                                                 room: session.room,
@@ -114,7 +117,7 @@ export default class SessionsPageLayout extends Component {
 }
 
 export const query = graphql`
-    query SessionsPageQuery($slug: String!, $yearGlob: String!) {
+    query SessionsPageQuery($slug: String!, $conferenceStartOfDay: Date!, $conferenceEndOfDay: Date!) {
         sessionsPage: contentfulSessionsPageLayout(page: {
             slug: {
                 eq: $slug
@@ -131,38 +134,34 @@ export const query = graphql`
                 slug
             }
             emptyPageContent {
-                childContentfulRichText {
-                    html
-                }
+                json
             }
         }
         sessions: allContentfulSession(
             filter: {
-              startTime: { glob: $yearGlob }
+                startTime: { gte: $conferenceStartOfDay, lt: $conferenceEndOfDay }
             }
         ) {
             edges {
-            node {
-                id
-                title
-                description {
-                    childContentfulRichText {
-                        html
+                node {
+                    id
+                    title
+                    description {
+                        json
                     }
-                }
-                sessionType
-                startDateTime: startTime
-                startTime(formatString: "h:mma")
-                endTime(formatString: "h:mma")
-                room
-                category {
-                    name
-                    color
-                }
-                speakers {
-                    name
+                    sessionType
+                    startDateTime: startTime
+                    startTime(formatString: "h:mma")
+                    endTime(formatString: "h:mma")
+                    room
+                    category {
+                        name
+                        color
+                    }
+                    speakers {
+                        name
+                    }
                 }
             }
         }
-    }
-}`;
+    }`;

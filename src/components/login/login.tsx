@@ -1,9 +1,10 @@
 import React, { Component, ReactNode } from 'react';
 import { RouteComponentProps } from '@reach/router';
+import RichText from './../richText/richText';
 import { StaticQuery, graphql, navigate } from 'gatsby';
 import * as queryString from 'query-string';
 
-import { AuthService, ILoginProvider, LoginProviders } from './../../services/authentication';
+import { AuthService, LoginProvider, LoginProviders } from './../../services/authentication';
 import { GitHubIcon, FacebookIcon, TwitterIcon, GoogleIcon } from './../icon';
 import LoginButton from './login-button/login-button';
 
@@ -23,7 +24,7 @@ export default class Login extends Component<LoginProps> {
         this.setState({ error: null });
     };
 
-    public handleSubmit = async (provider: ILoginProvider): Promise<void> => {
+    public handleSubmit = async (provider: LoginProvider): Promise<void> => {
         try {
             await AuthService.login(provider);
 
@@ -61,7 +62,9 @@ export default class Login extends Component<LoginProps> {
         return (
             <div className="login-container container">
                 <div className="row align-items-center justify-content-center">
-                    <div className="col-10 col-sm-5" dangerouslySetInnerHTML={{ __html: body.childContentfulRichText.html }} />
+                    <div className="col-10 col-sm-5">
+                        <RichText richText={ body.json } />
+                    </div>
                     <div className="col-10 col-sm-5">
                         <LoginButton
                             provider={ LoginProviders.github }
@@ -122,9 +125,7 @@ const loginPageQuery = graphql`
         landingPageContent: contentfulLogInPageLayout {
             title
             body {
-                childContentfulRichText {
-                    html
-                }
+                json
             }
         }
         global: contentfulGlobalSiteSettings {

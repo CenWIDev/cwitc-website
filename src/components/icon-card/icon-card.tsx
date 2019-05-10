@@ -1,10 +1,12 @@
 import React from 'react';
+import { Document } from '@contentful/rich-text-types';
+import RichText from './../richText/richText';
 
 import Icon from './../icon/icon';
 
 import './icon-card.scss';
 
-const IconCard = ({ title, descriptionHtml, iconName, justification = IconCardJustifications.LEFT }: IconCardProps) => {
+const IconCard = ({ title, descriptionRichText, iconName, justification = IconCardJustifications.LEFT }: IconCardProps) => {
 
     const isLeft = justification === IconCardJustifications.LEFT;
 
@@ -18,7 +20,9 @@ const IconCard = ({ title, descriptionHtml, iconName, justification = IconCardJu
                     <Icon className="d-flex d-sm-none" name={ iconName } />
                     { title }
                 </h3>
-                <span className="description" dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
+                <span className="description">
+                    <RichText richText={ descriptionRichText }/>
+                </span>
             </div>
         </div>
     );
@@ -33,7 +37,7 @@ export class IconCardJustifications {
 
 export type IconCardProps = {
     title: string,
-    descriptionHtml: string,
+    descriptionRichText: Document,
     iconName: string,
     justification: IconCardJustification
 }
