@@ -224,7 +224,6 @@ export default class SessionSubmission extends Component {
                                                     <label>
                                                         <RichText richText={ termsAndConditionsAgreement.json } />
                                                     </label>
-                                                    {/* dangerouslySetInnerHTML={{ __html: termsAndConditionsAgreement.childContentfulRichText.html}} /> */}
                                                 </div>
                                                 <div className="col-sm-12 col-md-6 d-flex align-items-center">
                                                     <div className="row w-100 no-gutters">

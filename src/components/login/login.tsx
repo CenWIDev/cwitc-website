@@ -65,7 +65,6 @@ export default class Login extends Component<LoginProps> {
                     <div className="col-10 col-sm-5">
                         <RichText richText={ body.json } />
                     </div>
-                    {/* </div> dangerouslySetInnerHTML={{ __html: body.childContentfulRichText.html }} /> */}
                     <div className="col-10 col-sm-5">
                         <LoginButton
                             provider={ LoginProviders.github }
