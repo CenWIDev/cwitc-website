@@ -19,7 +19,7 @@ export default class IndexPage extends Component {
     }
 
     public renderPage(landingPageContent: any, hero: any, keynotes: any[], latestSessionsPage: any[]): ReactNode {
-        const sessionsPageSlug = latestSessionsPage[0].node.page.slug;
+        const sessionsPageSlug: string = latestSessionsPage && latestSessionsPage.length === 1 && latestSessionsPage[0].node && latestSessionsPage[0].node.page ? latestSessionsPage[0].node.page.slug : '';
 
         return (
             <Layout isHomePage path="">
@@ -102,9 +102,13 @@ export default class IndexPage extends Component {
                                                         <p className="font-italic mb-0">{ node.title }</p>
                                                         <small className="text-muted">{ node.sessionType } &#64; { node.startTime }</small>
                                                     </div>
-                                                    <Link to={`${ sessionsPageSlug }#${ getUrlSafeId(node.title) }`}>
-                                                        <small>Read More...</small>
-                                                    </Link>
+                                                    {
+                                                        sessionsPageSlug ?
+                                                            <Link to={`${ sessionsPageSlug }#${ getUrlSafeId(node.title) }`}>
+                                                                <small>Read More...</small>
+                                                            </Link> :
+                                                            null
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
