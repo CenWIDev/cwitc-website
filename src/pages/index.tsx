@@ -14,11 +14,13 @@ export default class IndexPage extends Component {
         return (
             <StaticQuery
                 query={ homePageQuery }
-                render={({ landingPageContent, hero, keynotes }) => this.renderPage(landingPageContent, hero, keynotes.edges)} />
+                render={({ landingPageContent, hero, keynotes, latestSessionsPage }) => this.renderPage(landingPageContent, hero, keynotes.edges, latestSessionsPage.edges)} />
         );
     }
 
-    public renderPage(landingPageContent: any, hero: any, keynotes: any[]): ReactNode {
+    public renderPage(landingPageContent: any, hero: any, keynotes: any[], latestSessionsPage: any[]): ReactNode {
+        const sessionsPageSlug = latestSessionsPage[0].node.page.slug;
+
         return (
             <Layout isHomePage path="">
                 <Helmet
@@ -35,7 +37,7 @@ export default class IndexPage extends Component {
                     </div>
                     { this.renderPartners(landingPageContent.partners) }
                     <hr />
-                    { this.renderKeynotes(keynotes) }
+                    { this.renderKeynotes(keynotes, sessionsPageSlug) }
                     { this.renderCards(landingPageContent.cards) }
                     { this.renderSponsors(landingPageContent.sponsors) }
                 </div>
@@ -69,7 +71,7 @@ export default class IndexPage extends Component {
             null;
     }
 
-    public renderKeynotes(keynotes: any[]): ReactNode | null {
+    public renderKeynotes(keynotes: any[], sessionsPageSlug: string): ReactNode | null {
         return keynotes && keynotes.length > 0 ?
             <>
                 <div className="row mb-3">
@@ -100,7 +102,7 @@ export default class IndexPage extends Component {
                                                         <p className="font-italic mb-0">{ node.title }</p>
                                                         <small className="text-muted">{ node.sessionType } &#64; { node.startTime }</small>
                                                     </div>
-                                                    <Link to={`/2019/sessions#${ getUrlSafeId(node.title) }`}>
+                                                    <Link to={`${ sessionsPageSlug }#${ getUrlSafeId(node.title) }`}>
                                                         <small>Read More...</small>
                                                     </Link>
                                                 </div>
@@ -222,27 +224,42 @@ const homePageQuery = graphql`
                 description
             }
         }
-        keynotes: allContentfulSession(filter: {
-            sessionType: {
-              in: ["Opening Keynote", "Closing Keynote"]
-            }
-          }) {
-            edges {
-              node {
-                title
-                sessionType
-                startDateTime: startTime
-                startTime(formatString: "h:mma")
-                speakers {
-                  name
-                  photo {
-                    fixed {
-                      src
-                    }
+        latestSessionsPage: allContentfulSessionsPageLayout(
+            sort: {
+                fields: [page___slug],
+                order: DESC
+            },
+            limit:1
+          ) {
+              edges {
+                node {
+                  page {
+                    slug
                   }
                 }
               }
-            }
           }
+        keynotes: allContentfulSession(filter: {
+            sessionType: {
+                in: ["Opening Keynote", "Closing Keynote"]
+            }
+        }) {
+            edges {
+                node {
+                    title
+                    sessionType
+                    startDateTime: startTime
+                    startTime(formatString: "h:mma")
+                    speakers {
+                        name
+                        photo {
+                            fixed {
+                                src
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 `;
