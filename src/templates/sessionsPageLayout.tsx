@@ -12,6 +12,15 @@ export default class SessionsPageLayout extends Component {
 
     public props: any;
 
+    public componentDidMount(): void {
+        const sessionId: string = window.location.hash.replace('#', '');
+        const session: HTMLElement | null = document.getElementById(sessionId);
+
+        if (session) {
+            session.scrollIntoView();
+        }
+    }
+
     public render(): ReactNode {
         const { sessionsPage, sessions } = this.props.data;
         const { page, heading, heroImage, emptyPageContent } = sessionsPage;
