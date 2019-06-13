@@ -3,7 +3,7 @@ import feather from 'feather-icons';
 
 import './icon.scss';
 
-const Icon = ({ name, className, onClick }: IconProps) => {
+const Icon = ({ name, className, onClick, onMouseEnter, onMouseLeave }: IconProps) => {
     let iconHtml: string;
 
     try {
@@ -21,10 +21,24 @@ const Icon = ({ name, className, onClick }: IconProps) => {
         }
     };
 
+    const onMouseEnterHandler = () => {
+        if (onMouseEnter) {
+            onMouseEnter();
+        }
+    };
+
+    const onMouseLeaveHandler = () => {
+        if (onMouseLeave) {
+            onMouseLeave();
+        }
+    };
+
     return (
         <span
             className={ ['icon', `icon-${ name }`, className].join(' ') }
             onClick={ clickHandler }
+            onMouseEnter={ onMouseEnterHandler }
+            onMouseLeave={ onMouseLeaveHandler }
             dangerouslySetInnerHTML={{ __html: iconHtml }} />);
 };
 
@@ -33,5 +47,7 @@ export default Icon;
 export type IconProps = {
     name: string,
     className?: string,
-    onClick?: Function
+    onClick?: Function,
+    onMouseEnter?: Function,
+    onMouseLeave?: Function
 }

@@ -1,9 +1,10 @@
 import React, { Component, ReactNode } from 'react'
 import Helmet from 'react-helmet';
-import { StaticQuery, graphql } from 'gatsby'
+import { StaticQuery, graphql, Link } from 'gatsby'
 
 import Layout from '../components/layout';
 import IconCard , { IconCardProps, IconCardJustifications } from './../components/icon-card/icon-card';
+import { getUrlSafeId } from '../services/text-helper';
 
 import './index.scss';
 
@@ -13,11 +14,13 @@ export default class IndexPage extends Component {
         return (
             <StaticQuery
                 query={ homePageQuery }
-                render={({ landingPageContent, hero }) => this.renderPage(landingPageContent, hero)} />
+                render={({ landingPageContent, hero, keynotes, latestSessionsPage }) => this.renderPage(landingPageContent, hero, keynotes.edges, latestSessionsPage.edges)} />
         );
     }
 
-    public renderPage(landingPageContent: any, hero: any): ReactNode {
+    public renderPage(landingPageContent: any, hero: any, keynotes: any[], latestSessionsPage: any[]): ReactNode {
+        const sessionsPageSlug: string = latestSessionsPage && latestSessionsPage.length === 1 && latestSessionsPage[0].node && latestSessionsPage[0].node.page ? latestSessionsPage[0].node.page.slug : '';
+
         return (
             <Layout isHomePage path="">
                 <Helmet
@@ -33,6 +36,8 @@ export default class IndexPage extends Component {
                         </div>
                     </div>
                     { this.renderPartners(landingPageContent.partners) }
+                    <hr />
+                    { this.renderKeynotes(keynotes, sessionsPageSlug) }
                     { this.renderCards(landingPageContent.cards) }
                     { this.renderSponsors(landingPageContent.sponsors) }
                 </div>
@@ -61,6 +66,56 @@ export default class IndexPage extends Component {
                             }
                         </div>
                     </div>
+                </div>
+            </> :
+            null;
+    }
+
+    public renderKeynotes(keynotes: any[], sessionsPageSlug: string): ReactNode | null {
+        return keynotes && keynotes.length > 0 ?
+            <>
+                <div className="row mb-3">
+                    <h3 className="col text-center">Our Keynote Speakers</h3>
+                </div>
+                <div className="row justify-content-center">
+                    {
+                        keynotes
+                            .sort((a: any, b: any) => {
+                                const aTime = new Date(a.node.startDateTime);
+                                const bTime = new Date(b.node.startDateTime);
+                                if (aTime > bTime) { return 1; }
+                                if (aTime < bTime) { return -1; }
+
+                                return 0;
+                            })
+                            .map(({ node }: any, index: number) => (
+                                <div className="col-md-6 col-lg-5 col-sm-7 col-8 mb-3 mb-lg-0 keynote-speaker-card" key={ index }>
+                                    <div className="card mb-3 h-100">
+                                        <div className="row no-gutters h-100">
+                                            <div className="col-md-5 col-lg-4">
+                                                <img src={ node.speakers[0].photo.fixed.src } className="card-img h-100 w-100" alt={ node.speakers[0].name } />
+                                            </div>
+                                            <div className="col-md-7 col-lg-8">
+                                                <div className="card-body h-100 d-flex flex-column">
+                                                    <h5 className="card-title">{ node.speakers[0].name }</h5>
+                                                    <div className="flex-grow-1">
+                                                        <p className="font-italic mb-0">{ node.title }</p>
+                                                        <small className="text-muted">{ node.sessionType } &#64; { node.startTime }</small>
+                                                    </div>
+                                                    {
+                                                        sessionsPageSlug ?
+                                                            <Link to={`${ sessionsPageSlug }#${ getUrlSafeId(node.title) }`}>
+                                                                <small>Read More...</small>
+                                                            </Link> :
+                                                            null
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                    }
                 </div>
             </> :
             null;
@@ -171,6 +226,43 @@ const homePageQuery = graphql`
         hero: contentfulHomePageHero {
             description {
                 description
+            }
+        }
+        latestSessionsPage: allContentfulSessionsPageLayout(
+            sort: {
+                fields: [page___slug],
+                order: DESC
+            },
+            limit:1
+          ) {
+              edges {
+                node {
+                  page {
+                    slug
+                  }
+                }
+              }
+          }
+        keynotes: allContentfulSession(filter: {
+            sessionType: {
+                in: ["Opening Keynote", "Closing Keynote"]
+            }
+        }) {
+            edges {
+                node {
+                    title
+                    sessionType
+                    startDateTime: startTime
+                    startTime(formatString: "h:mma")
+                    speakers {
+                        name
+                        photo {
+                            fixed {
+                                src
+                            }
+                        }
+                    }
+                }
             }
         }
     }

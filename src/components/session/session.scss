@@ -24,15 +24,37 @@
         }
     }
 
-    .categories {
+    .footer {
+        padding-bottom: 1rem;
 
-        .category p {
+        .category span {
             display: inline-block;
             text-transform: lowercase;
             border: 1px solid darken($secondary, 35%);
-            padding: .25rem .50rem;
+            padding: 0.25rem 0.50rem;
             color: darken($secondary, 35%);
             background: lighten($secondary, 35%);
+        }
+    }
+}
+
+.share-container {
+
+    .copy-text {
+        color: $secondary;
+        padding: 0 1em;
+    }
+
+    .share-link {
+        height: 2rem;
+        width: 2rem;
+        cursor: pointer;
+
+        &:hover {
+
+            svg {
+                stroke: $secondary;
+            }
         }
     }
 }
