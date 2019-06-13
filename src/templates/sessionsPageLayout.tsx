@@ -75,7 +75,7 @@ export default class SessionsPageLayout extends Component {
                                         endTime = session.endTime;
 
                                         const sessionProps: SessionProps = {
-                                            sessionListPageUrl: this.props.location.href,
+                                            sessionListPageUrl: `${ this.props.location.origin }${ this.props.location.pathname }`,
                                             session: {
                                                 id: session.id,
                                                 title: session.title,

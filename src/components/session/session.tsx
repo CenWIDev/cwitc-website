@@ -8,7 +8,9 @@ import './session.scss';
 
 export default class Session extends Component<SessionProps> {
 
-    public state: SessionState = { copyTextHover: false, copyTextMessage: 'Copy share link' };
+    private defaultState: SessionState = { copyTextHover: false, copyTextMessage: 'Copy share link' };
+
+    public state: SessionState = { ...this.defaultState };
 
     public copyButtonOnClick = (sessionTitle: string) => {
         const textToCopy = `${ this.props.sessionListPageUrl }#${ getUrlSafeId(sessionTitle) }`;
@@ -17,11 +19,11 @@ export default class Session extends Component<SessionProps> {
     };
 
     public copyButtonOnMouseHover = () => {
-        this.setState({ copyTextHover: true, copyTextMessage: 'Copy share link' });
+        this.setState({ ...this.defaultState, copyTextHover: true });
     };
 
     public copyButtonOnMouseLeave = () => {
-        this.setState({ copyTextHover: false, copyTextMessage: 'Copy share link' });
+        this.setState({ ...this.defaultState, copyTextHover: false });
     };
 
     public render(): ReactNode {
