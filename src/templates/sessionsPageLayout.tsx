@@ -28,11 +28,11 @@ export default class SessionsPageLayout extends Component {
         const sessionGroupsSorted = Object.keys(sessionGroups);
         sessionGroupsSorted
             .sort((a: any, b: any) => {
-                const aTime = new Date(b).getTime();
-                const bTime = new Date(a).getTime();
+                const aTime = new Date(a).getTime();
+                const bTime = new Date(b).getTime();
 
-                if (aTime > bTime) { return -1; }
-                if (aTime < bTime) { return 1; }
+                if (aTime > bTime) { return 1; }
+                if (aTime < bTime) { return -1; }
 
                 return 0;
             });
@@ -75,6 +75,7 @@ export default class SessionsPageLayout extends Component {
                                         endTime = session.endTime;
 
                                         const sessionProps: SessionProps = {
+                                            sessionListPageUrl: this.props.location.href,
                                             session: {
                                                 id: session.id,
                                                 title: session.title,
@@ -94,7 +95,7 @@ export default class SessionsPageLayout extends Component {
                                         };
 
                                         return (
-                                            <Session key={ session.id } session={ sessionProps.session } />
+                                            <Session key={ session.id } { ...sessionProps } />
                                         );
                                     });
 
