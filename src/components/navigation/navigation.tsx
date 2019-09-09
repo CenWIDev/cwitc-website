@@ -39,7 +39,7 @@ export class Navigation extends Component {
                     this.props.navigationItems.map(({ slug, navigationText }: HeaderNavigationPage) => {
                         return slug && navigationText ?
                             <li key={ slug }>
-                                <Link to={ slug }>{ navigationText }</Link>
+                                <Link to={ `/${ slug }` }>{ navigationText }</Link>
                             </li> : '';
                     })
                 }

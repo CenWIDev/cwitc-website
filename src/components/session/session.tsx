@@ -26,6 +26,10 @@ export default class Session extends Component<SessionProps> {
         this.setState({ ...this.defaultState, copyTextHover: false });
     };
 
+    public onFavoriteClick = (sessionId: string) => {
+        this.props.onSessionFavorited(sessionId);
+    };
+
     public render(): ReactNode {
         const { session } = this.props;
 
@@ -34,7 +38,7 @@ export default class Session extends Component<SessionProps> {
                 <div className="session-container container">
                     <a href="#" id={ getUrlSafeId(session.title) } />
                     <div className="header row justify-content-between align-items-center">
-                        <div className="col-12 col-sm order-1 order-sm-0">
+                        <div className="col order-1 order-sm-0">
                             <h4 className="session-title">{ session.title }</h4>
                             {
                                 session.speakers ?
@@ -46,7 +50,7 @@ export default class Session extends Component<SessionProps> {
                         </div>
                         {
                             session.sessionType || session.room ?
-                                <div className="col-12 col-sm text-sm-right flex-grow-0 text-nowrap">
+                                <div className="col text-sm-right flex-sm-grow-0 text-nowrap session-aside">
                                 {
                                     session.sessionType !== 'Event' ?
                                         <h5 className="d-inline-block d-sm-block mr-2 mr-sm-0">{ session.sessionType }</h5> :
@@ -60,11 +64,15 @@ export default class Session extends Component<SessionProps> {
                                 </div>
                                 : null
                         }
+                        <Icon className="favorite-icon" name="star" onClick={ () => { this.onFavoriteClick(session.id) }} />
                     </div>
                     <div className="abstract row">
                         <div className="col">
                         {
                             <RichText richText={ session.abstractRichText } />
+                        }
+                        {
+                            session.favorite ? 'favorite' : 'not favorite'
                         }
                         </div>
                     </div>
@@ -93,7 +101,8 @@ export default class Session extends Component<SessionProps> {
 
 export type SessionProps = {
     session: SessionModel,
-    sessionListPageUrl: string
+    sessionListPageUrl: string,
+    onSessionFavorited: Function
 };
 
 export type SessionState = {
@@ -111,6 +120,7 @@ export type SessionModel = {
     room: string;
     category?: Category;
     sessionType: string;
+    favorite: boolean;
 };
 
 export type Speaker = {

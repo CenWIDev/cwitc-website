@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { useEffect, useState } from 'react';
 import RichText from './../components/richText/richText';
 import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
@@ -8,123 +8,136 @@ import Session, { SessionProps } from './../components/session/session';
 
 import './sessionsPageLayout.scss';
 
-export default class SessionsPageLayout extends Component {
+const SessionsPageLayout = (props: any) => {
 
-    public props: any;
+    const [favoritedSessions, setFavoritedSessions] = useState<string[]>([]);
 
-    public componentDidMount(): void {
+    useEffect((): void => {
+        setFavoritedSessions(['33c8234f-19dc-57be-8feb-fad265b3714a']);
+    });
+
+    useEffect((): void => {
         const sessionId: string = window.location.hash.replace('#', '');
-        const session: HTMLElement | null = document.getElementById(sessionId);
 
-        if (session) {
-            session.scrollIntoView();
+        if (sessionId) {
+            const session: HTMLElement | null = document.getElementById(sessionId);
+
+            if (session) {
+                session.scrollIntoView();
+            }
         }
-    }
+    });
 
-    public render(): ReactNode {
-        const { sessionsPage, sessions } = this.props.data;
-        const { page, heading, heroImage, emptyPageContent } = sessionsPage;
+    const onSessionFavorited = (sessionId: string) => {
+        console.log(`${ sessionId } favorited`);
+    };
 
-        const sessionGroups = sessions && sessions.edges ? sessions.edges
-            .reduce((result: any, sessionNode: any) => {
-                const session = sessionNode.node;
-                result[session.startDateTime] = result[session.startDateTime] || [];
-                result[session.startDateTime].push(session);
+    const { sessionsPage, sessions } = props.data;
+    const { page, heading, heroImage, emptyPageContent } = sessionsPage;
 
-                return result;
-            }, { }) : { };
+    const sessionGroups = sessions && sessions.edges ? sessions.edges
+        .reduce((result: any, sessionNode: any) => {
+            const session = sessionNode.node;
+            result[session.startDateTime] = result[session.startDateTime] || [];
+            result[session.startDateTime].push(session);
 
-        const sessionGroupsSorted = Object.keys(sessionGroups);
-        sessionGroupsSorted
-            .sort((a: any, b: any) => {
-                const aTime = new Date(a).getTime();
-                const bTime = new Date(b).getTime();
+            return result;
+        }, { }) : { };
 
-                if (aTime > bTime) { return 1; }
-                if (aTime < bTime) { return -1; }
+    const sessionGroupsSorted = Object.keys(sessionGroups);
+    sessionGroupsSorted
+        .sort((a: any, b: any) => {
+            const aTime = new Date(a).getTime();
+            const bTime = new Date(b).getTime();
 
-                return 0;
-            });
+            if (aTime > bTime) { return 1; }
+            if (aTime < bTime) { return -1; }
 
-        return (
-            <Layout className="sessions-page-wrapper" path={ page.slug }>
-                <Helmet
-                    title={ page.title }
-                    meta={[
-                        !!page.socialMediaShareDescription ? { property: 'description', content: page.socialMediaShareDescription } : { },
-                        { property: 'og:title', content: page.title },
-                        !!page.socialMediaShareDescription ? { property: 'og:description', content: page.socialMediaShareDescription } : { }
-                    ]}
-                />
-                <div
-                    className="hero container-fluid text-center"
-                    style={{ backgroundImage: `url(${ heroImage.fixed.src })` }}>
-                    <h1>{ heading }</h1>
-                </div>
-                <div className="session-groups-container container">
-                    {
-                        !sessions || !sessions.edges || sessions.edges.length === 0 ?
-                            /* Empty Page Content: No sessions have been published */
-                            <div className="row justify-content-center">
-                                <div className="col-12 col-sm-8">
-                                    <RichText richText={ emptyPageContent.json } />
-                                </div>
-                            </div> :
+            return 0;
+        });
 
-                            /* Grouped list of sesions and events by time */
-                            <div className="row justify-content-center">
-                            {
-                                sessionGroupsSorted.map((key: string) => {
-                                    const groupedSessions = sessionGroups[key];
+    return (
+        <Layout className="sessions-page-wrapper" path={ page.slug }>
+            <Helmet
+                title={ page.title }
+                meta={[
+                    !!page.socialMediaShareDescription ? { property: 'description', content: page.socialMediaShareDescription } : { },
+                    { property: 'og:title', content: page.title },
+                    !!page.socialMediaShareDescription ? { property: 'og:description', content: page.socialMediaShareDescription } : { }
+                ]}
+            />
+            <div
+                className="hero container-fluid text-center"
+                style={{ backgroundImage: `url(${ heroImage.fixed.src })` }}>
+                <h1>{ heading }</h1>
+            </div>
+            <div className="session-groups-container container">
+                {
+                    !sessions || !sessions.edges || sessions.edges.length === 0 ?
+                        /* Empty Page Content: No sessions have been published */
+                        <div className="row justify-content-center">
+                            <div className="col-12 col-sm-8">
+                                <RichText richText={ emptyPageContent.json } />
+                            </div>
+                        </div> :
 
-                                    let startTime, endTime = null;
+                        /* Grouped list of sesions and events by time */
+                        <div className="row justify-content-center">
+                        {
+                            sessionGroupsSorted.map((key: string) => {
+                                const groupedSessions = sessionGroups[key];
 
-                                    const sessionChildren = groupedSessions.map((session: any) => {
-                                        startTime = session.startTime;
-                                        endTime = session.endTime;
+                                let startTime, endTime = null;
 
-                                        const sessionProps: SessionProps = {
-                                            sessionListPageUrl: `${ this.props.location.origin }${ this.props.location.pathname }`,
-                                            session: {
-                                                id: session.id,
-                                                title: session.title,
-                                                speakers: session.speakers ?
-                                                    session.speakers.map((speaker: any) => ({ name: speaker.name })) :
-                                                    undefined,
-                                                abstractRichText: session.description.json,
-                                                startTime: session.startTime,
-                                                endTime: session.endTime,
-                                                room: session.room,
-                                                category: session.category ? {
-                                                    name: session.category.name,
-                                                    colorHex: session.category.color
-                                                } : undefined,
-                                                sessionType: session.sessionType
-                                            }
-                                        };
+                                const sessionChildren = groupedSessions.map((session: any) => {
+                                    startTime = session.startTime;
+                                    endTime = session.endTime;
 
-                                        return (
-                                            <Session key={ session.id } { ...sessionProps } />
-                                        );
-                                    });
-
-                                    const displayTime: string = `${ startTime }${ endTime ? ' - ' + endTime : '' }`;
+                                    const sessionProps: SessionProps = {
+                                        sessionListPageUrl: `${ props.location.origin }${ props.location.pathname }`,
+                                        session: {
+                                            id: session.id,
+                                            title: session.title,
+                                            speakers: session.speakers ?
+                                                session.speakers.map((speaker: any) => ({ name: speaker.name })) :
+                                                undefined,
+                                            abstractRichText: session.description.json,
+                                            startTime: session.startTime,
+                                            endTime: session.endTime,
+                                            room: session.room,
+                                            category: session.category ? {
+                                                name: session.category.name,
+                                                colorHex: session.category.color
+                                            } : undefined,
+                                            sessionType: session.sessionType,
+                                            favorite: favoritedSessions.some(sessionId => sessionId === session.id)
+                                        },
+                                        onSessionFavorited: onSessionFavorited
+                                    };
 
                                     return (
-                                        <div className="session-group-container col-md-10" key={ key }>
-                                            <h4 className="h1 session-group-heading text-center text-sm-left">{ displayTime }</h4>
-                                            { sessionChildren }
-                                        </div>
+                                        <Session key={ session.id } { ...sessionProps } />
                                     );
-                                })
-                            }
-                            </div>
-                    }
-                </div>
-            </Layout>
-        );
-    }
-}
+                                });
+
+                                const displayTime: string = `${ startTime }${ endTime ? ' - ' + endTime : '' }`;
+
+                                return (
+                                    <div className="session-group-container col-md-10" key={ key }>
+                                        <h4 className="h1 session-group-heading text-center text-sm-left">{ displayTime }</h4>
+                                        { sessionChildren }
+                                    </div>
+                                );
+                            })
+                        }
+                        </div>
+                }
+            </div>
+        </Layout>
+    );
+};
+
+export default SessionsPageLayout;
 
 export const query = graphql`
     query SessionsPageQuery($slug: String!, $conferenceStartOfDay: Date!, $conferenceEndOfDay: Date!) {
