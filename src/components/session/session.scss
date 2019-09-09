@@ -38,7 +38,11 @@
             }
 
             &:hover {
-                svg { stroke: white; }
+                svg { stroke: $white; }
+            }
+
+            &.favorited {
+                svg { fill: $gold;}
             }
         }
     }

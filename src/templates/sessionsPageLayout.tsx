@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import RichText from './../components/richText/richText';
 import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
+import base from './../services/firebase';
+import { AuthService } from './../services/authentication'
 
 import Layout from './../components/layout';
 import Session, { SessionProps } from './../components/session/session';
@@ -28,8 +30,16 @@ const SessionsPageLayout = (props: any) => {
         }
     });
 
-    const onSessionFavorited = (sessionId: string) => {
+    const onSessionFavorited = async (sessionId: string) => {
         console.log(`${ sessionId } favorited`);
+        try {
+            await base.post(`2019/${ AuthService.getUser().userId }/favorited-sessions/${ sessionId }`, { data: { contentfulId: sessionId } });
+
+            setFavoritedSessions([...favoritedSessions, sessionId]);
+        } catch (error) {
+            // tslint:disable-next-line:no-console
+            console.error(error);
+        }
     };
 
     const { sessionsPage, sessions } = props.data;

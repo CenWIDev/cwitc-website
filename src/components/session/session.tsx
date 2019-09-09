@@ -64,7 +64,7 @@ export default class Session extends Component<SessionProps> {
                                 </div>
                                 : null
                         }
-                        <Icon className="favorite-icon" name="star" onClick={ () => { this.onFavoriteClick(session.id) }} />
+                        <Icon className={ `favorite-icon ${ session.favorite ? 'favorited' : '' } `} name="star" onClick={ () => { this.onFavoriteClick(session.id) }} />
                     </div>
                     <div className="abstract row">
                         <div className="col">
