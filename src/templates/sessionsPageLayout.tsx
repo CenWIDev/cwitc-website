@@ -16,7 +16,7 @@ const SessionsPageLayout = (props: any) => {
 
     useEffect((): void => {
         setFavoritedSessions(['33c8234f-19dc-57be-8feb-fad265b3714a']);
-    });
+    }, []);
 
     useEffect((): void => {
         const sessionId: string = window.location.hash.replace('#', '');
@@ -28,14 +28,24 @@ const SessionsPageLayout = (props: any) => {
                 session.scrollIntoView();
             }
         }
-    });
+    }, []);
 
-    const onSessionFavorited = async (sessionId: string) => {
-        console.log(`${ sessionId } favorited`);
+    const onSessionFavorited = async (favoritedSessionId: string) => {
         try {
-            await base.post(`2019/${ AuthService.getUser().userId }/favorited-sessions/${ sessionId }`, { data: { contentfulId: sessionId } });
+            await base.post(`2019/${ AuthService.getUser().userId }/favorited-sessions/${ favoritedSessionId }`, { data: { contentfulId: favoritedSessionId } });
 
-            setFavoritedSessions([...favoritedSessions, sessionId]);
+            setFavoritedSessions([...favoritedSessions, favoritedSessionId]);
+        } catch (error) {
+            // tslint:disable-next-line:no-console
+            console.error(error);
+        }
+    };
+
+    const onSessionUnfavorited = async (unfavoritedSessionId: string) => {
+        try {
+            await base.remove(`2019/${ AuthService.getUser().userId }/favorited-sessions/${ unfavoritedSessionId }`);
+
+            setFavoritedSessions(favoritedSessions.filter(sessionId => sessionId !== unfavoritedSessionId));
         } catch (error) {
             // tslint:disable-next-line:no-console
             console.error(error);
@@ -122,7 +132,8 @@ const SessionsPageLayout = (props: any) => {
                                             sessionType: session.sessionType,
                                             favorite: favoritedSessions.some(sessionId => sessionId === session.id)
                                         },
-                                        onSessionFavorited: onSessionFavorited
+                                        onSessionFavorited: onSessionFavorited,
+                                        onSessionUnfavorited: onSessionUnfavorited
                                     };
 
                                     return (

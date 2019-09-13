@@ -8,7 +8,11 @@ import './session.scss';
 
 export default class Session extends Component<SessionProps> {
 
-    private defaultState: SessionState = { copyTextHover: false, copyTextMessage: 'Copy share link' };
+    private defaultState: SessionState = {
+        copyTextHover: false,
+        copyTextMessage: 'Copy share link',
+        favorited: false
+    };
 
     public state: SessionState = { ...this.defaultState };
 
@@ -27,7 +31,13 @@ export default class Session extends Component<SessionProps> {
     };
 
     public onFavoriteClick = (sessionId: string) => {
-        this.props.onSessionFavorited(sessionId);
+        this.state.favorited ?
+            this.props.onSessionUnfavorited(sessionId) :
+            this.props.onSessionFavorited(sessionId);
+    };
+
+    public componentWillReceiveProps = ({ session }: SessionProps) => {
+        this.setState({ ...this.defaultState, favorited: session.favorite });
     };
 
     public render(): ReactNode {
@@ -64,15 +74,12 @@ export default class Session extends Component<SessionProps> {
                                 </div>
                                 : null
                         }
-                        <Icon className={ `favorite-icon ${ session.favorite ? 'favorited' : '' } `} name="star" onClick={ () => { this.onFavoriteClick(session.id) }} />
+                        <Icon className={ `favorite-icon ${ this.state.favorited ? 'favorited' : '' } `} name="star" onClick={ () => { this.onFavoriteClick(session.id) }} />
                     </div>
                     <div className="abstract row">
                         <div className="col">
                         {
                             <RichText richText={ session.abstractRichText } />
-                        }
-                        {
-                            session.favorite ? 'favorite' : 'not favorite'
                         }
                         </div>
                     </div>
@@ -102,12 +109,14 @@ export default class Session extends Component<SessionProps> {
 export type SessionProps = {
     session: SessionModel,
     sessionListPageUrl: string,
-    onSessionFavorited: Function
+    onSessionFavorited: Function,
+    onSessionUnfavorited: Function,
 };
 
 export type SessionState = {
     copyTextHover: boolean,
-    copyTextMessage: string
+    copyTextMessage: string,
+    favorited: boolean
 };
 
 export type SessionModel = {
