@@ -14,8 +14,14 @@ const SessionsPageLayout = (props: any) => {
 
     const [favoritedSessions, setFavoritedSessions] = useState<string[]>([]);
 
-    useEffect((): void => {
-        setFavoritedSessions(['33c8234f-19dc-57be-8feb-fad265b3714a']);
+    useEffect(() => {
+        async function getFavoritedSessions() {
+            const favoritedSessions = await base.fetch(`2019/${ AuthService.getUser().userId }/favorited-sessions`, { context: { }, asArray: true });
+
+            setFavoritedSessions(favoritedSessions.map(((favorite: any) => favorite.contentfulId)));
+        }
+
+        getFavoritedSessions();
     }, []);
 
     useEffect((): void => {

@@ -45,6 +45,9 @@
                             ".validate": "newData.isString() && newData.val().length <= 150"
                         }
                     }
+                },
+                "favorited-sessions": {
+                    ".read": "$uid === auth.uid"
                 }
             }
         }
