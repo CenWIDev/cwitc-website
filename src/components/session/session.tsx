@@ -74,7 +74,13 @@ export default class Session extends Component<SessionProps> {
                                 </div>
                                 : null
                         }
-                        <Icon className={ `favorite-icon ${ this.state.favorited ? 'favorited' : '' } `} name="star" onClick={ () => { this.onFavoriteClick(session.id) }} />
+                        {
+                            this.props.enableFavoriting ?
+                                <Icon
+                                    className={ `favorite-icon ${ this.state.favorited ? 'favorited' : '' } `}
+                                    name="star"
+                                    onClick={ () => { this.onFavoriteClick(session.id) }} /> : null
+                        }
                     </div>
                     <div className="abstract row">
                         <div className="col">
@@ -109,6 +115,7 @@ export default class Session extends Component<SessionProps> {
 export type SessionProps = {
     session: SessionModel,
     sessionListPageUrl: string,
+    enableFavoriting: boolean,
     onSessionFavorited: Function,
     onSessionUnfavorited: Function,
 };

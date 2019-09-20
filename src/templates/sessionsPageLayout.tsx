@@ -115,14 +115,18 @@ const SessionsPageLayout = (props: any) => {
             <div className="container mb-3">
                 <div className="row">
                     <div className="col d-flex justify-content-center">
-                        <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                            <button
-                                className={ `btn ${ sessionFilter === SessionFilter.ALL ? 'btn-primary active' : 'btn-outline-primary' }` }
-                                onClick={ () => setSessionFilterState(SessionFilter.ALL) }>View All</button>
-                            <button
-                                className={ `btn ${ sessionFilter === SessionFilter.FAVORITED ? 'btn-primary active' : 'btn-outline-primary' }` }
-                                onClick={ () => setSessionFilterState(SessionFilter.FAVORITED) }>View Favorites</button>
-                        </div>
+                    {
+                        AuthService.isLoggedIn() ?
+                            <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                                <button
+                                    className={ `btn ${ sessionFilter === SessionFilter.ALL ? 'btn-primary active' : 'btn-outline-primary' }` }
+                                    onClick={ () => setSessionFilterState(SessionFilter.ALL) }>View All</button>
+                                <button
+                                    className={ `btn ${ sessionFilter === SessionFilter.FAVORITED ? 'btn-primary active' : 'btn-outline-primary' }` }
+                                    onClick={ () => setSessionFilterState(SessionFilter.FAVORITED) }>View Favorites</button>
+                            </div> :
+                            <p>Login to save your favorite sessions!</p>
+                    }
                     </div>
                 </div>
             </div>
@@ -167,6 +171,7 @@ const SessionsPageLayout = (props: any) => {
                                             sessionType: session.sessionType,
                                             favorite: favoritedSessions.some(sessionId => sessionId === session.id)
                                         },
+                                        enableFavoriting: AuthService.isLoggedIn(),
                                         onSessionFavorited: onSessionFavorited,
                                         onSessionUnfavorited: onSessionUnfavorited
                                     };
