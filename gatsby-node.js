@@ -29,6 +29,7 @@ exports.createPages = ({ graphql, actions }) => {
     return new Promise((resolve) => {
         graphql(DYNAMIC_PAGES_QUERY)
             .then(({ data }) => {
+                // Create Content Pages: Dynamically created pages from Contentful Entries
                 data.contentPages.edges.forEach(({node}) => {
                     createPage({
                         path: `/${ node.page.slug }`,
@@ -39,6 +40,7 @@ exports.createPages = ({ graphql, actions }) => {
                     })
                 });
 
+                // Create Session Pages: A page that shows all the sessions from each conference year
                 data.sessionPages.edges.forEach(({node}) => {
                     const conferenceStartOfDay = new Date(node.conferenceDate);
                     conferenceStartOfDay.setUTCHours(0, 0, 0, 0);
@@ -56,6 +58,7 @@ exports.createPages = ({ graphql, actions }) => {
                         }
                     })
                 });
+
                 resolve();
             });
     });

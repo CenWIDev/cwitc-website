@@ -4,7 +4,6 @@ import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
 import base from './../services/firebase';
 import { AuthService } from './../services/authentication'
-
 import Layout from './../components/layout';
 import Session, { SessionProps } from './../components/session/session';
 
@@ -13,6 +12,7 @@ import './sessionsPageLayout.scss';
 const SessionsPageLayout = (props: any) => {
 
     const [favoritedSessions, setFavoritedSessions] = useState<string[]>([]);
+    const [sessionFilter, setSessionFilter] = useState<SessionFilter>(SessionFilter.ALL);
 
     useEffect(() => {
         async function getFavoritedSessions() {
@@ -21,7 +21,9 @@ const SessionsPageLayout = (props: any) => {
             setFavoritedSessions(favoritedSessions.map(((favorite: any) => favorite.contentfulId)));
         }
 
-        getFavoritedSessions();
+        if (AuthService.isLoggedIn()) {
+            getFavoritedSessions();
+        }
     }, []);
 
     useEffect((): void => {
@@ -58,10 +60,23 @@ const SessionsPageLayout = (props: any) => {
         }
     };
 
+    const setSessionFilterState = (filter: SessionFilter) => {
+        setSessionFilter(filter);
+    };
+
     const { sessionsPage, sessions } = props.data;
     const { page, heading, heroImage, emptyPageContent } = sessionsPage;
 
-    const sessionGroups = sessions && sessions.edges ? sessions.edges
+    let sessionEdges: any[];
+
+    if (sessionFilter === SessionFilter.FAVORITED) {
+        sessionEdges = sessions.edges.filter(({ node }: any) => favoritedSessions.some(id => id === node.id));
+    }
+    else {
+        sessionEdges = sessions.edges;
+    }
+
+    const sessionGroups = sessions && sessionEdges ? sessionEdges
         .reduce((result: any, sessionNode: any) => {
             const session = sessionNode.node;
             result[session.startDateTime] = result[session.startDateTime] || [];
@@ -70,8 +85,7 @@ const SessionsPageLayout = (props: any) => {
             return result;
         }, { }) : { };
 
-    const sessionGroupsSorted = Object.keys(sessionGroups);
-    sessionGroupsSorted
+    const sessionGroupsSorted = Object.keys(sessionGroups)
         .sort((a: any, b: any) => {
             const aTime = new Date(a).getTime();
             const bTime = new Date(b).getTime();
@@ -96,6 +110,21 @@ const SessionsPageLayout = (props: any) => {
                 className="hero container-fluid text-center"
                 style={{ backgroundImage: `url(${ heroImage.fixed.src })` }}>
                 <h1>{ heading }</h1>
+
+            </div>
+            <div className="container mb-3">
+                <div className="row">
+                    <div className="col d-flex justify-content-center">
+                        <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                            <button
+                                className={ `btn ${ sessionFilter === SessionFilter.ALL ? 'btn-primary active' : 'btn-outline-primary' }` }
+                                onClick={ () => setSessionFilterState(SessionFilter.ALL) }>View All</button>
+                            <button
+                                className={ `btn ${ sessionFilter === SessionFilter.FAVORITED ? 'btn-primary active' : 'btn-outline-primary' }` }
+                                onClick={ () => setSessionFilterState(SessionFilter.FAVORITED) }>View Favorites</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="session-groups-container container">
                 {
@@ -165,6 +194,11 @@ const SessionsPageLayout = (props: any) => {
 };
 
 export default SessionsPageLayout;
+
+enum SessionFilter {
+    ALL,
+    FAVORITED
+}
 
 export const query = graphql`
     query SessionsPageQuery($slug: String!, $conferenceStartOfDay: Date!, $conferenceEndOfDay: Date!) {
