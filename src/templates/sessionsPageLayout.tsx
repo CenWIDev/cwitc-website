@@ -65,6 +65,7 @@ const SessionsPageLayout = (props: any) => {
     };
 
     const { sessionsPage, sessions } = props.data;
+    const { isActive } = props.pageContext;
     const { page, heading, heroImage, emptyPageContent } = sessionsPage;
 
     let sessionEdges: any[];
@@ -112,24 +113,27 @@ const SessionsPageLayout = (props: any) => {
                 <h1>{ heading }</h1>
 
             </div>
-            <div className="container mb-3">
-                <div className="row">
-                    <div className="col d-flex justify-content-center">
-                    {
-                        AuthService.isLoggedIn() ?
-                            <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                                <button
-                                    className={ `btn ${ sessionFilter === SessionFilter.ALL ? 'btn-primary active' : 'btn-outline-primary' }` }
-                                    onClick={ () => setSessionFilterState(SessionFilter.ALL) }>View All</button>
-                                <button
-                                    className={ `btn ${ sessionFilter === SessionFilter.FAVORITED ? 'btn-primary active' : 'btn-outline-primary' }` }
-                                    onClick={ () => setSessionFilterState(SessionFilter.FAVORITED) }>View Favorites</button>
-                            </div> :
-                            <p>Login to save your favorite sessions!</p>
-                    }
-                    </div>
-                </div>
-            </div>
+            {
+                isActive ?
+                    <div className="container mb-3">
+                        <div className="row">
+                            <div className="col d-flex justify-content-center">
+                            {
+                                AuthService.isLoggedIn() ?
+                                <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                                        <button
+                                            className={ `btn ${ sessionFilter === SessionFilter.ALL ? 'btn-primary active' : 'btn-outline-primary' }` }
+                                            onClick={ () => setSessionFilterState(SessionFilter.ALL) }>View All</button>
+                                        <button
+                                            className={ `btn ${ sessionFilter === SessionFilter.FAVORITED ? 'btn-primary active' : 'btn-outline-primary' }` }
+                                            onClick={ () => setSessionFilterState(SessionFilter.FAVORITED) }>View Favorites</button>
+                                    </div> :
+                                    <p>Login to save your favorite sessions!</p>
+                            }
+                            </div>
+                        </div>
+                    </div> : null
+            }
             <div className="session-groups-container container">
                 {
                     !sessions || !sessions.edges || sessions.edges.length === 0 ?
