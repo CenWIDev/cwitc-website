@@ -12,18 +12,29 @@ import './sessionsPageLayout.scss';
 const SessionsPageLayout = (props: any) => {
 
     const [favoritedSessions, setFavoritedSessions] = useState<string[]>([]);
-    const [sessionFilter, setSessionFilter] = useState<SessionFilter>(SessionFilter.ALL);
+    const [isLoadingFavoritedSessions, setIsLoadingFavoritedSessions] = useState<boolean>(AuthService.isLoggedIn());
+
+    const [sessionFilter, setSessionFilter] = useState<SessionFilter | null>(null);
+    const [isLoadingSessionFilter, setIsLoadingSessionFilter] = useState<boolean>(true);
 
     useEffect(() => {
-        async function getFavoritedSessions() {
-            const favoritedSessions = await base.fetch(`2019/${ AuthService.getUser().userId }/favorited-sessions`, { context: { }, asArray: true });
+        async function getFavoritedSessions(): Promise<void> {
+            try {
+                if (AuthService.isLoggedIn()) {
+                    const favoritedSessions = await base.fetch(`2019/${ AuthService.getUser().userId }/favorited-sessions`, { context: { }, asArray: true });
 
-            setFavoritedSessions(favoritedSessions.map(((favorite: any) => favorite.contentfulId)));
+                    setFavoritedSessions(favoritedSessions.map(((favorite: any) => favorite.contentfulId)));
+                }
+            }
+            catch (err) {
+                console.error('Error loading favorited sessions', err);
+            }
+            finally {
+                setIsLoadingFavoritedSessions(false);
+            }
         }
 
-        if (AuthService.isLoggedIn()) {
-            getFavoritedSessions();
-        }
+        getFavoritedSessions();
     }, []);
 
     useEffect((): void => {
@@ -36,6 +47,16 @@ const SessionsPageLayout = (props: any) => {
                 session.scrollIntoView();
             }
         }
+    }, []);
+
+    useEffect((): void => {
+        const viewFavorites: boolean = props.location && props.location.search ?
+            props.location.search.includes('viewFavorites=true') :
+            false;
+
+        setSessionFilter(viewFavorites && AuthService.isLoggedIn() ? SessionFilter.FAVORITED : SessionFilter.ALL);
+
+        setIsLoadingSessionFilter(false);
     }, []);
 
     const onSessionFavorited = async (favoritedSessionId: string) => {
@@ -114,90 +135,102 @@ const SessionsPageLayout = (props: any) => {
 
             </div>
             {
-                isActive ?
-                    <div className="container mb-3">
-                        <div className="row">
-                            <div className="col d-flex justify-content-center">
-                            {
-                                AuthService.isLoggedIn() ?
-                                <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <button
-                                            className={ `btn ${ sessionFilter === SessionFilter.ALL ? 'btn-primary active' : 'btn-outline-primary' }` }
-                                            onClick={ () => setSessionFilterState(SessionFilter.ALL) }>View All</button>
-                                        <button
-                                            className={ `btn ${ sessionFilter === SessionFilter.FAVORITED ? 'btn-primary active' : 'btn-outline-primary' }` }
-                                            onClick={ () => setSessionFilterState(SessionFilter.FAVORITED) }>View Favorites</button>
-                                    </div> :
-                                    <p>Login to save your favorite sessions!</p>
-                            }
-                            </div>
-                        </div>
-                    </div> : null
-            }
-            <div className="session-groups-container container">
-                {
-                    !sessions || !sessions.edges || sessions.edges.length === 0 ?
-                        /* Empty Page Content: No sessions have been published */
-                        <div className="row justify-content-center">
-                            <div className="col-12 col-sm-8">
-                                <RichText richText={ emptyPageContent.json } />
-                            </div>
-                        </div> :
-
-                        /* Grouped list of sesions and events by time */
-                        <div className="row justify-content-center">
-                        {
-                            sessionGroupsSorted.map((key: string) => {
-                                const groupedSessions = sessionGroups[key];
-
-                                let startTime, endTime = null;
-
-                                const sessionChildren = groupedSessions.map((session: any) => {
-                                    startTime = session.startTime;
-                                    endTime = session.endTime;
-
-                                    const sessionProps: SessionProps = {
-                                        sessionListPageUrl: `${ props.location.origin }${ props.location.pathname }`,
-                                        session: {
-                                            id: session.id,
-                                            title: session.title,
-                                            speakers: session.speakers ?
-                                                session.speakers.map((speaker: any) => ({ name: speaker.name })) :
-                                                undefined,
-                                            abstractRichText: session.description.json,
-                                            startTime: session.startTime,
-                                            endTime: session.endTime,
-                                            room: session.room,
-                                            category: session.category ? {
-                                                name: session.category.name,
-                                                colorHex: session.category.color
-                                            } : undefined,
-                                            sessionType: session.sessionType,
-                                            favorite: favoritedSessions.some(sessionId => sessionId === session.id)
-                                        },
-                                        enableFavoriting: isActive && AuthService.isLoggedIn(),
-                                        onSessionFavorited: onSessionFavorited,
-                                        onSessionUnfavorited: onSessionUnfavorited
-                                    };
-
-                                    return (
-                                        <Session key={ session.id } { ...sessionProps } />
-                                    );
-                                });
-
-                                const displayTime: string = `${ startTime }${ endTime ? ' - ' + endTime : '' }`;
-
-                                return (
-                                    <div className="session-group-container col-md-10" key={ key }>
-                                        <h4 className="h1 session-group-heading text-center text-sm-left">{ displayTime }</h4>
-                                        { sessionChildren }
+                !isLoadingFavoritedSessions && !isLoadingSessionFilter ?
+                    <>
+                    {
+                        isActive ?
+                            <div className="container mb-3">
+                                <div className="row">
+                                    <div className="col d-flex justify-content-center">
+                                    {
+                                        AuthService.isLoggedIn() ?
+                                        <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                                                <button
+                                                    className={ `btn ${ sessionFilter === SessionFilter.ALL ? 'btn-primary active' : 'btn-outline-primary' }` }
+                                                    onClick={ () => setSessionFilterState(SessionFilter.ALL) }>View All</button>
+                                                <button
+                                                    className={ `btn ${ sessionFilter === SessionFilter.FAVORITED ? 'btn-primary active' : 'btn-outline-primary' }` }
+                                                    onClick={ () => setSessionFilterState(SessionFilter.FAVORITED) }>View Favorites</button>
+                                            </div> :
+                                            <p>Login to save your favorite sessions!</p>
+                                    }
                                     </div>
-                                );
-                            })
+                                </div>
+                            </div> : null
+                    }
+                    <div className="session-groups-container container">
+                        {
+                            !sessions || !sessions.edges || sessions.edges.length === 0 ?
+                                /* Empty Page Content: No sessions have been published */
+                                <div className="row justify-content-center">
+                                    <div className="col-12 col-sm-8">
+                                        <RichText richText={ emptyPageContent.json } />
+                                    </div>
+                                </div> :
+
+                                /* Grouped list of sesions and events by time */
+                                <div className="row justify-content-center">
+                                {
+                                    sessionGroupsSorted.map((key: string) => {
+                                        const groupedSessions = sessionGroups[key];
+
+                                        let startTime, endTime = null;
+
+                                        const sessionChildren = groupedSessions.map((session: any) => {
+                                            startTime = session.startTime;
+                                            endTime = session.endTime;
+
+                                            const sessionProps: SessionProps = {
+                                                sessionListPageUrl: `${ props.location.origin }${ props.location.pathname }`,
+                                                session: {
+                                                    id: session.id,
+                                                    title: session.title,
+                                                    speakers: session.speakers ?
+                                                        session.speakers.map((speaker: any) => ({ name: speaker.name })) :
+                                                        undefined,
+                                                    abstractRichText: session.description.json,
+                                                    startTime: session.startTime,
+                                                    endTime: session.endTime,
+                                                    room: session.room,
+                                                    category: session.category ? {
+                                                        name: session.category.name,
+                                                        colorHex: session.category.color
+                                                    } : undefined,
+                                                    sessionType: session.sessionType,
+                                                    favorite: favoritedSessions.some(sessionId => sessionId === session.id)
+                                                },
+                                                enableFavoriting: isActive && AuthService.isLoggedIn(),
+                                                onSessionFavorited: onSessionFavorited,
+                                                onSessionUnfavorited: onSessionUnfavorited
+                                            };
+
+                                            return (
+                                                <Session key={ session.id } { ...sessionProps } />
+                                            );
+                                        });
+
+                                        const displayTime: string = `${ startTime }${ endTime ? ' - ' + endTime : '' }`;
+
+                                        return (
+                                            <div className="session-group-container col-md-10" key={ key }>
+                                                <h4 className="h1 session-group-heading text-center text-sm-left">{ displayTime }</h4>
+                                                { sessionChildren }
+                                            </div>
+                                        );
+                                    })
+                                }
+                                </div>
                         }
+                    </div>
+                    </> :
+                    <div className="container">
+                        <div className="row justify-content-center">
+                            <div className="spinner-border text-primary" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
                         </div>
-                }
-            </div>
+                    </div>
+            }
         </Layout>
     );
 };
