@@ -6,6 +6,7 @@ import base from './../services/firebase';
 import { AuthService } from './../services/authentication'
 import Layout from './../components/layout';
 import Session, { SessionProps } from './../components/session/session';
+import PageLoader from '../components/page-loader/pageLoader';
 
 import './sessionsPageLayout.scss';
 
@@ -222,14 +223,7 @@ const SessionsPageLayout = (props: any) => {
                                 </div>
                         }
                     </div>
-                    </> :
-                    <div className="container">
-                        <div className="row justify-content-center">
-                            <div className="spinner-border text-primary" role="status">
-                                <span className="sr-only">Loading...</span>
-                            </div>
-                        </div>
-                    </div>
+                    </> : <PageLoader />
             }
         </Layout>
     );
