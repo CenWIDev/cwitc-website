@@ -175,7 +175,7 @@ const SessionsPageLayout = (props: any) => {
                                             sessionType: session.sessionType,
                                             favorite: favoritedSessions.some(sessionId => sessionId === session.id)
                                         },
-                                        enableFavoriting: AuthService.isLoggedIn(),
+                                        enableFavoriting: isActive && AuthService.isLoggedIn(),
                                         onSessionFavorited: onSessionFavorited,
                                         onSessionUnfavorited: onSessionUnfavorited
                                     };
