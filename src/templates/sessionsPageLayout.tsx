@@ -82,7 +82,17 @@ const SessionsPageLayout = (props: any) => {
         }
     };
 
-    const setSessionFilterState = (filter: SessionFilter) => {
+    const onSessionFilterClick = (filter: SessionFilter) => {
+        if (history.pushState) {
+            let newurl: string = window.location.protocol + '//' + window.location.host + window.location.pathname;
+
+            if (filter === SessionFilter.FAVORITED) {
+                newurl = newurl + '?viewFavorites=true';
+            }
+
+            window.history.pushState({ path: newurl }, '', newurl);
+        }
+
         setSessionFilter(filter);
     };
 
@@ -149,10 +159,10 @@ const SessionsPageLayout = (props: any) => {
                                                 <div className="btn-group btn-group-toggle" data-toggle="buttons">
                                                     <button
                                                         className={ `btn ${ sessionFilter === SessionFilter.ALL ? 'btn-primary active' : 'btn-outline-primary' }` }
-                                                        onClick={ () => setSessionFilterState(SessionFilter.ALL) }>View All</button>
+                                                        onClick={ () => onSessionFilterClick(SessionFilter.ALL) }>View All</button>
                                                     <button
                                                         className={ `btn ${ sessionFilter === SessionFilter.FAVORITED ? 'btn-primary active' : 'btn-outline-primary' }` }
-                                                        onClick={ () => setSessionFilterState(SessionFilter.FAVORITED) }>View Favorites</button>
+                                                        onClick={ () => onSessionFilterClick(SessionFilter.FAVORITED) }>View Favorites</button>
                                                 </div> :
                                                 <p>Login to save your favorite sessions!</p>
                                         }
