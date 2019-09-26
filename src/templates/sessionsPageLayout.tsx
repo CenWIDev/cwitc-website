@@ -136,41 +136,46 @@ const SessionsPageLayout = (props: any) => {
 
             </div>
             {
-                !isLoadingFavoritedSessions && !isLoadingSessionFilter ?
+                isLoadingFavoritedSessions || isLoadingSessionFilter ?
+                    <PageLoader /> :
                     <>
-                    {
-                        isActive ?
-                            <div className="container mb-3">
-                                <div className="row">
-                                    <div className="col d-flex justify-content-center">
-                                    {
-                                        AuthService.isLoggedIn() ?
-                                        <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                                                <button
-                                                    className={ `btn ${ sessionFilter === SessionFilter.ALL ? 'btn-primary active' : 'btn-outline-primary' }` }
-                                                    onClick={ () => setSessionFilterState(SessionFilter.ALL) }>View All</button>
-                                                <button
-                                                    className={ `btn ${ sessionFilter === SessionFilter.FAVORITED ? 'btn-primary active' : 'btn-outline-primary' }` }
-                                                    onClick={ () => setSessionFilterState(SessionFilter.FAVORITED) }>View Favorites</button>
-                                            </div> :
-                                            <p>Login to save your favorite sessions!</p>
-                                    }
-                                    </div>
-                                </div>
-                            </div> : null
-                    }
-                    <div className="session-groups-container container">
                         {
-                            !sessions || !sessions.edges || sessions.edges.length === 0 ?
+                            isActive ?
+                                <div className="container mb-3">
+                                    <div className="row">
+                                        <div className="col d-flex justify-content-center">
+                                        {
+                                            AuthService.isLoggedIn() ?
+                                                <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                                                    <button
+                                                        className={ `btn ${ sessionFilter === SessionFilter.ALL ? 'btn-primary active' : 'btn-outline-primary' }` }
+                                                        onClick={ () => setSessionFilterState(SessionFilter.ALL) }>View All</button>
+                                                    <button
+                                                        className={ `btn ${ sessionFilter === SessionFilter.FAVORITED ? 'btn-primary active' : 'btn-outline-primary' }` }
+                                                        onClick={ () => setSessionFilterState(SessionFilter.FAVORITED) }>View Favorites</button>
+                                                </div> :
+                                                <p>Login to save your favorite sessions!</p>
+                                        }
+                                        </div>
+                                    </div>
+                                </div> : null
+                        }
+                        <div className="session-groups-container container">
+                        {
+                            !sessionEdges || sessionEdges.length === 0 ?
                                 /* Empty Page Content: No sessions have been published */
                                 <div className="row justify-content-center">
                                     <div className="col-12 col-sm-8">
-                                        <RichText richText={ emptyPageContent.json } />
+                                        {
+                                            sessionFilter === SessionFilter.FAVORITED ?
+                                                <p className="text-center">You haven't favorited any sessions yet!</p> :
+                                                <RichText richText={ emptyPageContent.json } />
+                                        }
                                     </div>
                                 </div> :
 
                                 /* Grouped list of sesions and events by time */
-                                <div className="row justify-content-center">
+                                <div className="row justify-content-center somthing">
                                 {
                                     sessionGroupsSorted.map((key: string) => {
                                         const groupedSessions = sessionGroups[key];
@@ -222,8 +227,8 @@ const SessionsPageLayout = (props: any) => {
                                 }
                                 </div>
                         }
-                    </div>
-                    </> : <PageLoader />
+                        </div>
+                    </>
             }
         </Layout>
     );
