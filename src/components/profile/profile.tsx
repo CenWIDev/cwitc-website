@@ -95,7 +95,7 @@ export default class Profile extends Component {
     private getFavoritesLink = (sessionPages: any, currentYear: string): string | null => {
         let link: string | null = null;
 
-        if (sessionPages && sessionPages.edges) {
+        if (sessionPages && sessionPages.edges && currentYear) {
             const favoritePage = sessionPages.edges.find(({ node }: any) => node.conferenceYear === currentYear);
 
             if (favoritePage && favoritePage.node && favoritePage.node.page) {
