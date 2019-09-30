@@ -47,7 +47,10 @@
                     }
                 },
                 "favorited-sessions": {
-                    ".read": "$uid === auth.uid"
+                    ".read": "$uid === auth.uid",
+                    "contentfulId": {
+                        ".validate": "newData.isString() && newData.val().length < 50"
+                    }
                 }
             }
         }
