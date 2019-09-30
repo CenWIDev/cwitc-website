@@ -14,7 +14,13 @@ export default class Session extends Component<SessionProps> {
         favorited: false
     };
 
-    public state: SessionState = { ...this.defaultState };
+    public state: SessionState;
+
+    constructor(props: SessionProps) {
+        super(props);
+
+        this.state = {...this.defaultState, favorited: props.session.favorite };
+    }
 
     public copyButtonOnClick = (sessionTitle: string) => {
         const textToCopy = `${ this.props.sessionListPageUrl }#${ getUrlSafeId(sessionTitle) }`;
