@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import RichText from './../components/richText/richText';
 import Helmet from 'react-helmet';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import base from './../services/firebase';
 import { AuthService } from './../services/authentication'
 import Layout from './../components/layout';
@@ -164,7 +164,7 @@ const SessionsPageLayout = (props: any) => {
                                                         className={ `btn ${ sessionFilter === SessionFilter.FAVORITED ? 'btn-primary active' : 'btn-outline-primary' }` }
                                                         onClick={ () => onSessionFilterClick(SessionFilter.FAVORITED) }>View Favorites</button>
                                                 </div> :
-                                                <p>Login to save your favorite sessions!</p>
+                                                <Link to="/app/log-in">Log-in to save your favorite sessions!</Link>
                                         }
                                         </div>
                                     </div>
