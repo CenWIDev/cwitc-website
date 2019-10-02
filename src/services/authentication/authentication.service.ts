@@ -77,9 +77,15 @@ export const setUser = (user: User): void => {
 export const login = async (provider: LoginProvider): Promise<User> => {
     const authProvider: firebase.auth.AuthProvider = getProvider(provider);
 
-    await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-
     const credential: firebase.auth.UserCredential = await firebaseApp.auth().signInWithPopup(authProvider);
+
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        .then(() => {
+            console.log('promise resolved for set persistence');
+
+            return firebaseApp.auth().signInWithPopup(authProvider);
+        })
+        .catch((err) => console.error);
 
     const user: User = createUser(credential);
 
