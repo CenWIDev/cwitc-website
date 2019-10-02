@@ -13,6 +13,11 @@ const config = {
 
 const firebaseApp = firebase.initializeApp(config);
 
+firebase.auth().onAuthStateChanged((user) => {
+    console.log('AUTH STATE CHANGE');
+    console.log(user);
+});
+
 const base = Rebase.createClass(firebaseApp.database());
 
 export { firebaseApp };
