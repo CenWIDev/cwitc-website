@@ -77,6 +77,8 @@ export const setUser = (user: User): void => {
 export const login = async (provider: LoginProvider): Promise<User> => {
     const authProvider: firebase.auth.AuthProvider = getProvider(provider);
 
+    await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
     const credential: firebase.auth.UserCredential = await firebaseApp.auth().signInWithPopup(authProvider);
 
     const user: User = createUser(credential);
