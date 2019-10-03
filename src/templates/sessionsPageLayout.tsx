@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import RichText from './../components/richText/richText';
 import Helmet from 'react-helmet';
 import { graphql, Link } from 'gatsby';
-import base from './../services/firebase';
+import base, { firebaseApp } from './../services/firebase';
 import { AuthService } from './../services/authentication'
 import Layout from './../components/layout';
 import Session, { SessionProps } from './../components/session/session';
@@ -17,6 +17,13 @@ const SessionsPageLayout = (props: any) => {
 
     const [sessionFilter, setSessionFilter] = useState<SessionFilter | null>(null);
     const [isLoadingSessionFilter, setIsLoadingSessionFilter] = useState<boolean>(true);
+
+    if (firebaseApp) {
+        firebaseApp.auth().onAuthStateChanged((user) => {
+            console.log('AUTH STATE CHANGE');
+            console.log(user);
+        });
+    }
 
     useEffect(() => {
         async function getFavoritedSessions(): Promise<void> {
@@ -35,7 +42,9 @@ const SessionsPageLayout = (props: any) => {
             }
         }
 
-        getFavoritedSessions();
+        setTimeout(() => {
+            getFavoritedSessions();
+        }, 2000);
     }, []);
 
     useEffect((): void => {
