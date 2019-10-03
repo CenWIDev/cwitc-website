@@ -12,6 +12,7 @@
 
         .session-title {
             margin: 0;
+            flex-basis: 100%;
         }
 
         .session-authors {
@@ -21,6 +22,28 @@
 
         .session-room {
             margin: 0;
+        }
+
+        .session-aside {
+            @include media-breakpoint-down(xs) {
+                flex-basis: 80%;
+            }
+        }
+
+        .favorite-icon {
+            padding-right: 15px;
+
+            svg {
+                transition: all .2s ease-in-out;
+            }
+
+            &:hover {
+                svg { stroke: $white; }
+            }
+
+            &.favorited {
+                svg { fill: $gold;}
+            }
         }
     }
 

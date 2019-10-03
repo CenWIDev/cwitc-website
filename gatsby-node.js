@@ -5,6 +5,9 @@ exports.createPages = ({ graphql, actions }) => {
 
     const DYNAMIC_PAGES_QUERY = `
         query ContentPagesQuery {
+            global: contentfulGlobalSiteSettings {
+                currentYear: conferenceStartDateTime(formatString: "YYYY")
+            }
             contentPages: allContentfulContentPageLayout {
                 edges {
                     node {
@@ -16,19 +19,21 @@ exports.createPages = ({ graphql, actions }) => {
             }
             sessionPages: allContentfulSessionsPageLayout {
                 edges {
-                  node {
-                    conferenceDate
-                    page {
-                        slug
+                    node {
+                        conferenceDate
+                        conferenceYear: conferenceDate(formatString: "YYYY")
+                        page {
+                            slug
+                        }
                     }
-                  }
                 }
-              }
+            }
         }`;
 
     return new Promise((resolve) => {
         graphql(DYNAMIC_PAGES_QUERY)
             .then(({ data }) => {
+                // Create Content Pages: Dynamically created pages from Contentful Entries
                 data.contentPages.edges.forEach(({node}) => {
                     createPage({
                         path: `/${ node.page.slug }`,
@@ -39,6 +44,7 @@ exports.createPages = ({ graphql, actions }) => {
                     })
                 });
 
+                // Create Session Pages: A page that shows all the sessions from each conference year
                 data.sessionPages.edges.forEach(({node}) => {
                     const conferenceStartOfDay = new Date(node.conferenceDate);
                     conferenceStartOfDay.setUTCHours(0, 0, 0, 0);
@@ -52,10 +58,12 @@ exports.createPages = ({ graphql, actions }) => {
                         context: {
                             conferenceStartOfDay: conferenceStartOfDay.toISOString(),
                             conferenceEndOfDay: conferenceEndOfDay.toISOString(),
-                            slug: node.page.slug
+                            slug: node.page.slug,
+                            isActive: node.conferenceYear === data.global.currentYear
                         }
                     })
                 });
+
                 resolve();
             });
     });

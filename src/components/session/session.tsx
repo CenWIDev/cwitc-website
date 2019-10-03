@@ -8,9 +8,19 @@ import './session.scss';
 
 export default class Session extends Component<SessionProps> {
 
-    private defaultState: SessionState = { copyTextHover: false, copyTextMessage: 'Copy share link' };
+    private defaultState: SessionState = {
+        copyTextHover: false,
+        copyTextMessage: 'Copy share link',
+        favorited: false
+    };
 
-    public state: SessionState = { ...this.defaultState };
+    public state: SessionState;
+
+    constructor(props: SessionProps) {
+        super(props);
+
+        this.state = {...this.defaultState, favorited: props.session.favorite };
+    }
 
     public copyButtonOnClick = (sessionTitle: string) => {
         const textToCopy = `${ this.props.sessionListPageUrl }#${ getUrlSafeId(sessionTitle) }`;
@@ -26,6 +36,16 @@ export default class Session extends Component<SessionProps> {
         this.setState({ ...this.defaultState, copyTextHover: false });
     };
 
+    public onFavoriteClick = (sessionId: string) => {
+        this.state.favorited ?
+            this.props.onSessionUnfavorited(sessionId) :
+            this.props.onSessionFavorited(sessionId);
+    };
+
+    public componentWillReceiveProps = ({ session }: SessionProps) => {
+        this.setState({ ...this.defaultState, favorited: session.favorite });
+    };
+
     public render(): ReactNode {
         const { session } = this.props;
 
@@ -34,7 +54,7 @@ export default class Session extends Component<SessionProps> {
                 <div className="session-container container">
                     <a href="#" id={ getUrlSafeId(session.title) } />
                     <div className="header row justify-content-between align-items-center">
-                        <div className="col-12 col-sm order-1 order-sm-0">
+                        <div className="col order-1 order-sm-0">
                             <h4 className="session-title">{ session.title }</h4>
                             {
                                 session.speakers ?
@@ -46,7 +66,7 @@ export default class Session extends Component<SessionProps> {
                         </div>
                         {
                             session.sessionType || session.room ?
-                                <div className="col-12 col-sm text-sm-right flex-grow-0 text-nowrap">
+                                <div className="col text-sm-right flex-sm-grow-0 text-nowrap session-aside">
                                 {
                                     session.sessionType !== 'Event' ?
                                         <h5 className="d-inline-block d-sm-block mr-2 mr-sm-0">{ session.sessionType }</h5> :
@@ -59,6 +79,13 @@ export default class Session extends Component<SessionProps> {
                                 }
                                 </div>
                                 : null
+                        }
+                        {
+                            this.props.enableFavoriting ?
+                                <Icon
+                                    className={ `favorite-icon ${ this.state.favorited ? 'favorited' : '' } `}
+                                    name="star"
+                                    onClick={ () => { this.onFavoriteClick(session.id) }} /> : null
                         }
                     </div>
                     <div className="abstract row">
@@ -93,12 +120,16 @@ export default class Session extends Component<SessionProps> {
 
 export type SessionProps = {
     session: SessionModel,
-    sessionListPageUrl: string
+    sessionListPageUrl: string,
+    enableFavoriting: boolean,
+    onSessionFavorited: Function,
+    onSessionUnfavorited: Function,
 };
 
 export type SessionState = {
     copyTextHover: boolean,
-    copyTextMessage: string
+    copyTextMessage: string,
+    favorited: boolean
 };
 
 export type SessionModel = {
@@ -111,6 +142,7 @@ export type SessionModel = {
     room: string;
     category?: Category;
     sessionType: string;
+    favorite: boolean;
 };
 
 export type Speaker = {

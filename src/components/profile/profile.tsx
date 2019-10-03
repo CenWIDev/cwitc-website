@@ -1,5 +1,5 @@
 import React, { Component, ReactNode } from 'react';
-import { StaticQuery, graphql } from 'gatsby';
+import { StaticQuery, graphql, Link } from 'gatsby';
 import { AuthService, User, LoginProvider, LoginProviders } from './../../services/authentication';
 import { GitHubIcon, FacebookIcon, TwitterIcon, GoogleIcon } from './../icon';
 import LoginButton from './../login/login-button/login-button';
@@ -92,12 +92,28 @@ export default class Profile extends Component {
         this.setState({ user, status });
     };
 
+    private getFavoritesLink = (sessionPages: any, currentYear: string): string | null => {
+        let link: string | null = null;
+
+        if (sessionPages && sessionPages.edges && currentYear) {
+            const favoritePage = sessionPages.edges.find(({ node }: any) => node.conferenceYear === currentYear);
+
+            if (favoritePage && favoritePage.node && favoritePage.node.page) {
+                link = favoritePage.node.page.slug + '?viewFavorites=true';
+            }
+        }
+
+        return link;
+    }
+
     public render(): ReactNode {
         return (
             <StaticQuery
                 query={ profilePageQuery }
-                render={ ({ global }) => {
-                    const { enableGithubAuth, enableFacebookAuth, enableTwitterAuth, enableGoogleAuth } = global;
+                render={ ({ global, sessionPages }) => {
+                    const { enableGithubAuth, enableFacebookAuth, enableTwitterAuth, enableGoogleAuth, currentYear } = global;
+
+                    const favoritesPath: string | null = this.getFavoritesLink(sessionPages, currentYear);
 
                     return (
                         <div className="profile-container container">
@@ -106,6 +122,11 @@ export default class Profile extends Component {
                                     { this.state.user.photoUrl ? <img src={ this.state.user.photoUrl } /> : null }
                                     <h3>{ this.state.user.name }</h3>
                                     <p>{ this.state.user.email }</p>
+                                    {
+                                        favoritesPath ?
+                                            <Link className="mb-3"to={ favoritesPath }>View Favorited Sessions</Link> :
+                                            null
+                                    }
                                 </div>
                                 {
                                     this.state.isLoading ?
@@ -176,6 +197,17 @@ const profilePageQuery = graphql`
             enableFacebookAuth
             enableTwitterAuth
             enableGoogleAuth
+            currentYear: conferenceStartDateTime(formatString: "YYYY")
+        }
+        sessionPages: allContentfulSessionsPageLayout {
+            edges {
+                node {
+                    conferenceYear: conferenceDate(formatString: "YYYY")
+                    page {
+                        slug
+                    }
+                }
+            }
         }
     }
 `;
