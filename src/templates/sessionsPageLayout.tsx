@@ -18,13 +18,6 @@ const SessionsPageLayout = (props: any) => {
     const [sessionFilter, setSessionFilter] = useState<SessionFilter | null>(null);
     const [isLoadingSessionFilter, setIsLoadingSessionFilter] = useState<boolean>(true);
 
-    if (firebaseApp) {
-        firebaseApp.auth().onAuthStateChanged((user) => {
-            console.log('AUTH STATE CHANGE');
-            console.log(user);
-        });
-    }
-
     useEffect(() => {
         async function getFavoritedSessions(): Promise<void> {
             try {
@@ -42,9 +35,12 @@ const SessionsPageLayout = (props: any) => {
             }
         }
 
-        setTimeout(() => {
-            getFavoritedSessions();
-        }, 2000);
+        // Wait until a user has been attached to the firebase app
+        firebaseApp.auth().onAuthStateChanged((user) => {
+            if (user) {
+                getFavoritedSessions();
+            }
+        });
     }, []);
 
     useEffect((): void => {
