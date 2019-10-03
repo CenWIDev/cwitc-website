@@ -284,7 +284,7 @@ export const query = graphql`
         ) {
             edges {
                 node {
-                    id
+                    id: contentful_id
                     title
                     description {
                         json
