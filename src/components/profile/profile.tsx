@@ -124,7 +124,7 @@ export default class Profile extends Component {
                                     <p>{ this.state.user.email }</p>
                                     {
                                         favoritesPath ?
-                                            <Link className="mb-3"to={ favoritesPath }>View Favorited Sessions</Link> :
+                                            <Link className="mb-3"to={ `/${ favoritesPath }` }>View Favorited Sessions</Link> :
                                             null
                                     }
                                 </div>

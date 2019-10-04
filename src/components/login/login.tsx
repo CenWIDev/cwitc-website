@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { useState, ReactNode } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import RichText from './../richText/richText';
 import { StaticQuery, graphql, navigate } from 'gatsby';
@@ -7,42 +7,45 @@ import * as queryString from 'query-string';
 import { AuthService, LoginProvider, LoginProviders } from './../../services/authentication';
 import { GitHubIcon, FacebookIcon, TwitterIcon, GoogleIcon } from './../icon';
 import LoginButton from './login-button/login-button';
+import PageLoader from '../page-loader/pageLoader';
 
 import './login.scss';
 
-export default class Login extends Component<LoginProps> {
-
-    public state: LoginState;
-
-    constructor(props: LoginProps) {
-        super(props);
-
-        this.state = { };
+const Login = ({ location }: RouteComponentProps) => {
+    if (AuthService.isLoggedIn()) {
+        navigate(`/app/profile`);
     }
 
-    public dismissAlert = () => {
-        this.setState({ error: null });
+    const [error, setError] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const dismissAlert = () => {
+        setError(null);
     };
 
-    public handleSubmit = async (provider: LoginProvider): Promise<void> => {
+    const handleSubmit = async (provider: LoginProvider): Promise<void> => {
         try {
+            setIsLoading(true);
+
             await AuthService.login(provider);
 
-            this.redirect();
+            redirect();
         }
         catch (err) {
             // tslint:disable-next-line:no-console
             console.error(err);
 
-            this.setState({ error: 'Sorry, there was a problem logging in. Please try again later or try using a different log in method.' })
+            setIsLoading(false);
+
+            setError('Sorry, there was a problem logging in. Please try again later or try using a different log in method.');
         }
     }
 
-    private redirect = () => {
+    const redirect = () => {
         let redirectPath: string | undefined;
 
-        if (this.props.location && this.props.location.search) {
-            const queryStringValues: any = queryString.parse(this.props.location.search)
+        if (location && location.search) {
+            const queryStringValues: any = queryString.parse(location.search)
             redirectPath = queryStringValues.redirectPath;
         }
 
@@ -55,70 +58,70 @@ export default class Login extends Component<LoginProps> {
         }
     };
 
-    public renderPage = (landingPageContent: any, global: any): ReactNode => {
+    const renderPage = (landingPageContent: any, global: any): ReactNode => {
         const { body } = landingPageContent;
         const { enableGithubAuth, enableFacebookAuth, enableTwitterAuth, enableGoogleAuth } = global;
 
         return (
             <div className="login-container container">
-                <div className="row align-items-center justify-content-center">
-                    <div className="col-10 col-sm-5">
-                        <RichText richText={ body.json } />
-                    </div>
-                    <div className="col-10 col-sm-5">
-                        <LoginButton
-                            provider={ LoginProviders.github }
-                            providerEnabled={ enableGithubAuth }
-                            onClick={ this.handleSubmit }>
-                            <GitHubIcon />
-                        </LoginButton>
-                        <LoginButton
-                            provider={ LoginProviders.facebook }
-                            providerEnabled={ enableFacebookAuth }
-                            onClick={ this.handleSubmit }>
-                            <FacebookIcon />
-                        </LoginButton>
-                        <LoginButton
-                            provider={ LoginProviders.twitter }
-                            providerEnabled={ enableTwitterAuth }
-                            onClick={ this.handleSubmit }>
-                            <TwitterIcon />
-                        </LoginButton>
-                        <LoginButton
-                            provider={ LoginProviders.google }
-                            providerEnabled={ enableGoogleAuth }
-                            onClick={ this.handleSubmit }>
-                            <GoogleIcon />
-                        </LoginButton>
-                        {
-                            this.state.error ?
-                                <div className="row justify-content-center">
-                                    <div className={`col-12 col-md-8 alert alert-danger d-flex justify-content-between`} role="alert">
-                                        { this.state.error }
-                                        <button type="button" className="close align-self-start mt-n1" onClick={ this.dismissAlert }>
-                                            <span className="close align-self-start">&times;</span>
-                                        </button>
-                                    </div>
-                                </div> : null
-                        }
-                    </div>
-                </div>
+                {
+                    isLoading ?
+                        <PageLoader /> :
+                        <div className="row align-items-center justify-content-center">
+                            <div className="col-10 col-sm-5">
+                                <RichText richText={ body.json } />
+                            </div>
+                            <div className="col-10 col-sm-5">
+                                <LoginButton
+                                    provider={ LoginProviders.github }
+                                    providerEnabled={ enableGithubAuth }
+                                    onClick={ handleSubmit }>
+                                    <GitHubIcon />
+                                </LoginButton>
+                                <LoginButton
+                                    provider={ LoginProviders.facebook }
+                                    providerEnabled={ enableFacebookAuth }
+                                    onClick={ handleSubmit }>
+                                    <FacebookIcon />
+                                </LoginButton>
+                                <LoginButton
+                                    provider={ LoginProviders.twitter }
+                                    providerEnabled={ enableTwitterAuth }
+                                    onClick={ handleSubmit }>
+                                    <TwitterIcon />
+                                </LoginButton>
+                                <LoginButton
+                                    provider={ LoginProviders.google }
+                                    providerEnabled={ enableGoogleAuth }
+                                    onClick={ handleSubmit }>
+                                    <GoogleIcon />
+                                </LoginButton>
+                                {
+                                    error ?
+                                        <div className="row justify-content-center">
+                                            <div className={`col-12 col-md-8 alert alert-danger d-flex justify-content-between`} role="alert">
+                                                { error }
+                                                <button type="button" className="close align-self-start mt-n1" onClick={ dismissAlert }>
+                                                    <span className="close align-self-start">&times;</span>
+                                                </button>
+                                            </div>
+                                        </div> : null
+                                }
+                            </div>
+                        </div>
+                }
             </div>
         )
     };
 
-    public render(): ReactNode {
-        if (AuthService.isLoggedIn()) {
-            navigate(`/app/profile`);
-        }
+    return (
+        <StaticQuery
+            query={ loginPageQuery }
+            render={ ({ landingPageContent, global }) => renderPage(landingPageContent, global) }/>
+    );
+};
 
-        return (
-            <StaticQuery
-                query={ loginPageQuery }
-                render={ ({ landingPageContent, global }) => this.renderPage(landingPageContent, global) }/>
-        );
-    }
-}
+export default Login;
 
 const loginPageQuery = graphql`
     query LogInPageQuery {
@@ -136,10 +139,6 @@ const loginPageQuery = graphql`
         }
     }
 `;
-
-export interface LoginProps extends RouteComponentProps {
-    path: string;
-}
 
 export type LoginState = {
     error?: string;
