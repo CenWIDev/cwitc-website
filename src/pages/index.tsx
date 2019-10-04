@@ -104,7 +104,7 @@ export default class IndexPage extends Component {
                                                     </div>
                                                     {
                                                         sessionsPageSlug ?
-                                                            <Link to={`${ sessionsPageSlug }#${ getUrlSafeId(node.title) }`}>
+                                                            <Link to={`/${ sessionsPageSlug }#${ getUrlSafeId(node.title) }`}>
                                                                 <small>Read More...</small>
                                                             </Link> :
                                                             null
