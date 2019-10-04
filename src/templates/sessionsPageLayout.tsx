@@ -36,11 +36,15 @@ const SessionsPageLayout = (props: any) => {
         }
 
         // Wait until a user has been attached to the firebase app
-        firebaseApp.auth().onAuthStateChanged((user) => {
-            if (user) {
-                getFavoritedSessions();
-            }
-        });
+        const unsubscribe = firebaseApp.auth()
+            .onAuthStateChanged((user) => {
+                if (user) {
+                    getFavoritedSessions();
+                }
+            });
+
+        // return to clean up subscription to onAuthStateChanged
+        return unsubscribe;
     }, []);
 
     useEffect((): void => {
