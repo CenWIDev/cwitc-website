@@ -57,7 +57,7 @@ const SessionsPageLayout = (props: any) => {
                 session.scrollIntoView();
             }
         }
-    }, []);
+    }, [isLoadingFavoritedSessions, isLoadingSessionFilter]);
 
     useEffect((): void => {
         const viewFavorites: boolean = props.location && props.location.search ?
