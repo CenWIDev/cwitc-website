@@ -55,7 +55,8 @@ module.exports = {
         }
       }
     },
-    'gatsby-plugin-offline',
+    // 'gatsby-plugin-offline',
+    'gatsby-plugin-remove-serviceworker',
     'gatsby-plugin-typescript',
     'gatsby-transformer-remark',
     'gatsby-plugin-sass',
