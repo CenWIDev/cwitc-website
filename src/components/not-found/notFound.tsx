@@ -1,6 +1,5 @@
 import React from 'react';
 import Icon from '../icon/icon';
-// import { RouteComponentProps } from '@reach/router';
 
 const NotFound = () => (
     <div className="container mt-4">
