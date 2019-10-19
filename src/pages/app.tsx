@@ -6,6 +6,8 @@ import Profile from '../components/profile/profile';
 import Login from '../components/login/login';
 import NotFound from '../components/not-found/notFound';
 
+// import SessionSubmission from '../components/session-submission/session-submission';
+
 const App = (props: any) => (
     <Layout path={props.location.pathname}>
         <Router>
