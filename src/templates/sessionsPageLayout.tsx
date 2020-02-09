@@ -22,7 +22,7 @@ const SessionsPageLayout = (props: any) => {
         async function getFavoritedSessions(): Promise<void> {
             try {
                 if (AuthService.isLoggedIn()) {
-                    const favoritedSessions = await base.fetch(`2019/${ AuthService.getUser().userId }/favorited-sessions`, { context: { }, asArray: true });
+                    const favoritedSessions = await base.fetch(`2020/${ AuthService.getUser().userId }/favorited-sessions`, { context: { }, asArray: true });
 
                     setFavoritedSessions(favoritedSessions.map(((favorite: any) => favorite.contentfulId)));
                 }
@@ -71,7 +71,7 @@ const SessionsPageLayout = (props: any) => {
 
     const onSessionFavorited = async (favoritedSessionId: string) => {
         try {
-            await base.post(`2019/${ AuthService.getUser().userId }/favorited-sessions/${ favoritedSessionId }`, { data: { contentfulId: favoritedSessionId } });
+            await base.post(`2020/${ AuthService.getUser().userId }/favorited-sessions/${ favoritedSessionId }`, { data: { contentfulId: favoritedSessionId } });
 
             setFavoritedSessions([...favoritedSessions, favoritedSessionId]);
         } catch (error) {
@@ -82,7 +82,7 @@ const SessionsPageLayout = (props: any) => {
 
     const onSessionUnfavorited = async (unfavoritedSessionId: string) => {
         try {
-            await base.remove(`2019/${ AuthService.getUser().userId }/favorited-sessions/${ unfavoritedSessionId }`);
+            await base.remove(`2020/${ AuthService.getUser().userId }/favorited-sessions/${ unfavoritedSessionId }`);
 
             setFavoritedSessions(favoritedSessions.filter(sessionId => sessionId !== unfavoritedSessionId));
         } catch (error) {

@@ -53,6 +53,60 @@
                     }
                 }
             }
+        },
+        "2020":{
+            "$uid": {
+                ".write": "$uid === auth.uid",
+                "submitted-sessions": {
+                    "title": {
+                        ".validate": "newData.isString() && newData.val().length <= 50"
+                    },
+                    "summary": {
+                        ".validate": "newData.isString() && newData.val().length <= 3000"
+                    },
+                    "targetLevel": {
+                        ".validate": "newData.isString() && newData.val().length <= 10"
+                    },
+                    "category": {
+                        ".validate": "newData.isString() && newData.val().length < 100"
+                    },
+                    "acknowledgedTerms": {
+                        ".validate": "newData.isBoolean()"
+                    },
+                    "notes": {
+                        ".validate": "newData.isString() && newData.val().length <= 3000"
+                    },
+                    "presenters": {
+                        "firstName": {
+                            ".validate": "newData.isString() && newData.val().length <= 50"
+                        },
+                        "lastName": {
+                            ".validate": "newData.isString() && newData.val().length <= 50"
+                        },
+                        "bio": {
+                            ".validate": "newData.isString() && newData.val().length <= 1000"
+                        },
+                        "title": {
+                            ".validate": "newData.isString() && newData.val().length <= 50"
+                        },
+                        "company": {
+                            ".validate": "newData.isString() && newData.val().length <= 50"
+                        },
+                        "phone_number": {
+                            ".validate": "newData.isString() && newData.val().length <= 15"
+                        },
+                        "email": {
+                            ".validate": "newData.isString() && newData.val().length <= 150"
+                        }
+                    }
+                },
+                "favorited-sessions": {
+                    ".read": "$uid === auth.uid",
+                    "contentfulId": {
+                        ".validate": "newData.isString() && newData.val().length < 50"
+                    }
+                }
+            }
         }
     }
 }

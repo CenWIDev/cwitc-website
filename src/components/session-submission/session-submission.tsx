@@ -65,7 +65,7 @@ export default class SessionSubmission extends Component {
                                         const scrubbedTitle: string = values.title.replace(/[^A-Za-z0-9 ]/g, '')
 
                                         await base.post(
-                                            `2019/${ AuthService.getUser().userId }/submitted-sessions/${ scrubbedTitle }`, {
+                                            `2020/${ AuthService.getUser().userId }/submitted-sessions/${ scrubbedTitle }`, {
                                                 data: values
                                             });
                                         this.setState({
