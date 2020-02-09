@@ -48,6 +48,8 @@ const Header = ({ useHero }: HeaderProps) => (
                     secondaryButton {
                         json
                     }
+                    hideConferenceDate
+                    datePendingMessage
                 }
             }
         `}
@@ -60,7 +62,9 @@ const Header = ({ useHero }: HeaderProps) => (
                 startTime: global.startTime,
                 endTime: global.endTime,
                 primaryButtonRichText: hero.primaryButton.json,
-                secondaryButtonRichText: hero.secondaryButton.json
+                secondaryButtonRichText: hero.secondaryButton.json,
+                hideConferenceDate: hero.hideConferenceDate,
+                datePendingMessage: hero.datePendingMessage
             };
 
             return (

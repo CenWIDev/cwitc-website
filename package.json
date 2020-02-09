@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "author": "Josh Evenson <jevenson@outlook.com>",
   "scripts": {
+    "start": "gatsby develop",
     "build": "gatsby build",
-    "develop": "gatsby develop",
     "serve": "gatsby serve",
     "format": "prettier --write \"./**/*.tsx\"",
     "test": "echo \"Error: no test specified\" && exit 1",
