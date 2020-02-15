@@ -12,6 +12,7 @@ const entryHyperlinkRenderer = (node: any): ReactNode => {
         }, '')
         .trim();
 
+    // if this ever throws an undefined error during development, delete the gatsby cache and restart
     const slug = `/${ node.data.target.fields.slug[englishUsLocale] }`;
 
     return <Link to={ slug }>{ text }</Link>;

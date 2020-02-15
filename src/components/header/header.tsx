@@ -48,6 +48,8 @@ const Header = ({ useHero }: HeaderProps) => (
                     secondaryButton {
                         json
                     }
+                    hideConferenceDate
+                    datePendingMessage
                 }
             }
         `}
@@ -60,7 +62,9 @@ const Header = ({ useHero }: HeaderProps) => (
                 startTime: global.startTime,
                 endTime: global.endTime,
                 primaryButtonRichText: hero.primaryButton.json,
-                secondaryButtonRichText: hero.secondaryButton.json
+                secondaryButtonRichText: hero.secondaryButton.json,
+                hideConferenceDate: hero.hideConferenceDate,
+                datePendingMessage: hero.datePendingMessage
             };
 
             return (
@@ -70,7 +74,7 @@ const Header = ({ useHero }: HeaderProps) => (
                         backgroundImage: useHero ? `url(${ global.homePageHeroImage.fixed.src })` : ''
                     }}>
                     <Navigation
-                        logoSource={ global.headerLogo.fixed.src || global.headerLogo.file.url }
+                        logoSource={ global.headerLogo.fixed?.src || global.headerLogo.file.url }
                         navigationItems={ global.headerNavigationPages } />
                     { useHero ? <Hero config={ heroConfig } /> : null }
                 </header>
