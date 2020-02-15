@@ -3,21 +3,13 @@ import { graphql, StaticQuery } from 'gatsby';
 import { Session } from './session.model';
 import { Presenter } from './presenter.model';
 import { SessionLevels } from './session-level.enum';
-import { OpenLabInterests } from './open-lab-interest.enum';
 import { Formik, FieldArray, Field, ArrayHelpers, ErrorMessage, FormikErrors, FormikTouched, getIn } from 'formik';
 import { sessionSchema } from './session-schema';
-import { WithContext as ReactTags } from 'react-tag-input';
 import base from './../../services/firebase';
 import { AuthService } from './../../services/authentication'
 import { NavigationConfirm } from '../navigation-confirm/navigationConfirm';
 import RichText from './../richText/richText';
 
-const KeyCodes = {
-    comma: 188,
-    enter: 13,
-};
-
-const delimiters = [KeyCodes.comma, KeyCodes.enter];
 type SessionSubmissionState = {
     session: Session;
     validSubmission: boolean;
@@ -170,38 +162,6 @@ export default class SessionSubmission extends Component {
                                                         <div style={{ display: 'block' }} className="invalid-feedback">
                                                             <ErrorMessage name="targetLevel" />
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-sm-12 col-md-6">
-                                                    <div className={`form-group ${getValidationClass('interestedInOpenLab')}`} >
-                                                        <label className="d-block">Are you interested in hosting an Open Lab?</label>
-                                                        {['Yes', 'No', 'Maybe'].map((interestOption) => (
-                                                            <div key={interestOption} className="form-check form-check-inline">
-                                                                <Field type="radio" className="form-check-input" name="interestedInOpenLab" defaultChecked={values.interestedInOpenLab === interestOption} id={`interestedInOpenLab${interestOption}`} value={interestOption} />
-                                                                <label className="form-check-label" htmlFor={`interestedInOpenLab${interestOption}`}>{interestOption}</label>
-                                                            </div>
-                                                        ))}
-                                                        <div style={{ display: 'block' }} className="invalid-feedback">
-                                                            <ErrorMessage name="interestedInOpenLab" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-sm-12 col-md-6">
-                                                    <div className="form-group">
-                                                        <label htmlFor="tags">Session Tags</label>
-                                                        <ReactTags
-                                                            inline
-                                                            id="tags"
-                                                            tags={values.tags}
-                                                            suggestions={[]}
-                                                            classNames={{
-                                                                tag: 'btn btn-primary btn-sm mr-1 mb-2',
-                                                                remove: 'ml-2',
-                                                                tagInputField: 'form-control'
-                                                            }}
-                                                            delimiters={delimiters}
-                                                            handleAddition={(tag) => setFieldValue('tags', [...values.tags, tag])}
-                                                            handleDelete={(i) => setFieldValue('tags', values.tags.filter((tag, index) => index !== i))} />
                                                     </div>
                                                 </div>
                                             </div>
@@ -400,15 +360,13 @@ export default class SessionSubmission extends Component {
 
     private buildEmptySession(): Session {
         return {
-            interestedInOpenLab: OpenLabInterests.UNSELECTED,
             title: '',
             summary: '',
             acknowledgedTerms: false,
             targetLevel: SessionLevels.UNSELECTED,
             presenters: [
                 this.buildEmptyPresenter()
-            ],
-            tags: []
+            ]
         };
     }
 

@@ -1,10 +1,6 @@
 import * as Yup from 'yup';
 
 export const sessionSchema = Yup.object().shape({
-    interestedInOpenLab: Yup
-        .string()
-        .required()
-        .label('Open Lab Interest'),
     title: Yup
         .string()
         .required()
