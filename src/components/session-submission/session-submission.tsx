@@ -47,7 +47,8 @@ export default class SessionSubmission extends Component {
                             </div>
                         </div> :
                         <>
-                            <h1>{ title }</h1>
+                            <h1 className="mt-5">{ title }</h1>
+                            <hr />
                             <Formik
                                 initialValues={this.state.session}
                                 validationSchema={sessionSchema}
@@ -95,18 +96,9 @@ export default class SessionSubmission extends Component {
                                                 render={(arrayHelpers: ArrayHelpers) => (
                                                     <>
                                                         {values.presenters && values.presenters.length > 0 ? (
-                                                            values.presenters.map((presenter, index) => this.renderPresenterForm(index, arrayHelpers, errors, touched))
+                                                            values.presenters.map((presenter, index) => this.renderPresenterForm(index, arrayHelpers, errors, touched, values.presenters.length > 1, index === values.presenters.length - 1))
                                                         ) : undefined}
                                                         <div className="form-row mt-3">
-                                                            {
-                                                                (values.presenters && values.presenters.length < 4) ?
-                                                                    <div className="col-sm-12 ">
-                                                                        <div className="d-flex justify-content-end">
-                                                                            <button className="btn btn-outline-secondary" type="button" onClick={() => arrayHelpers.push(this.buildEmptyPresenter())}>Add Presenter</button>
-                                                                        </div>
-                                                                    </div> :
-                                                                    undefined
-                                                            }
                                                             {
                                                                 (errors && typeof errors.presenters === 'string') ?
                                                                     <div className="col-sm-12 ">
@@ -122,73 +114,80 @@ export default class SessionSubmission extends Component {
                                                     </>
                                                 )}
                                             />
-                                            <div className="form-row mt-5">
-                                                <div className="col-sm-12 col-md-6">
-                                                    <div className="form-group">
-                                                        <label htmlFor="title">Session Title</label>
-                                                        <Field
-                                                            className={`form-control ${getValidationClass('title')}`}
-                                                            placeholder="How To Do Amazing Things"
-                                                            name="title" id="title" />
-                                                        <div className="invalid-feedback">
-                                                            <ErrorMessage name="title" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-sm-12">
-                                                    <div className="form-group">
-                                                        <label htmlFor="summary">Summary</label>
-                                                        <Field
-                                                            className={`form-control ${getValidationClass('summary')}`}
-                                                            component="textarea"
-                                                            placeholder="I will be talking about how to blank with blank"
-                                                            name="summary" id="summary" />
-                                                        <div className="invalid-feedback">
-                                                            <ErrorMessage name="summary" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="form-row">
-                                                <div className="col-md-6">
-                                                    <div className={`form-group ${getValidationClass('targetLevel')}`} >
-                                                        <label className="d-block">Target Level</label>
-                                                        {['100', '200', '300', '400'].map((level) => (
-                                                            <div key={level} className="form-check form-check-inline">
-                                                                <Field type="radio" className="form-check-input" name="targetLevel" defaultChecked={values.targetLevel === level} id={`targetLevel${level}`} value={level} />
-                                                                <label className="form-check-label" htmlFor={`targetLevel${level}`}>{level}</label>
+                                            <div className="row">
+                                                <div className="col-md-4"><h2>Session Information</h2></div>
+                                                <div className="col-md-8">
+                                                    <div className="form-row">
+                                                        <div className="col-sm-12">
+                                                            <div className="form-group">
+                                                                <label htmlFor="title">Session Title</label>
+                                                                <Field
+                                                                    className={`form-control ${getValidationClass('title')}`}
+                                                                    placeholder="How To Do Amazing Things"
+                                                                    name="title" id="title" />
+                                                                <div className="invalid-feedback">
+                                                                    <ErrorMessage name="title" />
+                                                                </div>
                                                             </div>
-                                                        ))}
-                                                        <div style={{ display: 'block' }} className="invalid-feedback">
-                                                            <ErrorMessage name="targetLevel" />
+                                                        </div>
+                                                        <div className="col-sm-12">
+                                                            <div className="form-group">
+                                                                <label htmlFor="summary">Summary</label>
+                                                                <Field
+                                                                    className={`form-control ${getValidationClass('summary')}`}
+                                                                    component="textarea"
+                                                                    placeholder="I will be talking about how to blank with blank"
+                                                                    name="summary" id="summary" />
+                                                                <div className="invalid-feedback">
+                                                                    <ErrorMessage name="summary" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-row">
+                                                        <div className="col-md-6">
+                                                            <div className={`form-group ${getValidationClass('targetLevel')}`} >
+                                                                <label className="d-block">Target Level</label>
+                                                                {['100', '200', '300', '400'].map((level) => (
+                                                                    <div key={level} className="form-check form-check-inline">
+                                                                        <Field type="radio" className="form-check-input" name="targetLevel" defaultChecked={values.targetLevel === level} id={`targetLevel${level}`} value={level} />
+                                                                        <label className="form-check-label" htmlFor={`targetLevel${level}`}>{level}</label>
+                                                                    </div>
+                                                                ))}
+                                                                <div style={{ display: 'block' }} className="invalid-feedback">
+                                                                    <ErrorMessage name="targetLevel" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-row">
+                                                        <div className="col-sm-12">
+                                                            <div className="form-group">
+                                                                <label htmlFor="summary">Additional Notes or Comments</label>
+                                                                <Field
+                                                                    className={`form-control ${getValidationClass('notes')}`}
+                                                                    component="textarea"
+                                                                    name="notes" id="notes" />
+                                                                <div className="invalid-feedback">
+                                                                    <ErrorMessage name="notes" />
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="form-row">
-                                                <div className="col-sm-12">
-                                                    <div className="form-group">
-                                                        <label htmlFor="summary">Additional Notes or Comments</label>
-                                                        <Field
-                                                            className={`form-control ${getValidationClass('notes')}`}
-                                                            component="textarea"
-                                                            name="notes" id="notes" />
-                                                        <div className="invalid-feedback">
-                                                            <ErrorMessage name="notes" />
+                                            <hr/>
+                                            <div className="row">
+                                                <div className="col-md-4"><h2>Terms Agreement</h2></div>
+                                                <div className="col-md-8">
+                                                    <div className={`form-row form-group ${getValidationClass('acknowledgedTerms')}`}>
+                                                        <div className="col-sm-12">
+                                                            <label>
+                                                                <RichText richText={ termsAndConditionsAgreement.json } />
+                                                            </label>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className={`form-row form-group ${getValidationClass('acknowledgedTerms')}`}>
-                                                <div className="col-sm-12 col-md-6">
-                                                    <label>
-                                                        <RichText richText={ termsAndConditionsAgreement.json } />
-                                                    </label>
-                                                </div>
-                                                <div className="col-sm-12 col-md-6 d-flex align-items-center">
-                                                    <div className="row w-100 no-gutters">
-                                                        <div className="col-6 d-flex flex-column justify-content-center">
-                                                            <div className="form-check form-check-inline w-50">
+                                                        <div className="col-sm-12 d-flex align-items-center">
+                                                            <div className="form-check form-check-inline w-100">
                                                                 {/* tslint:disable-next-line:jsx-boolean-value */}
                                                                 <Field type="checkbox" className="form-check-input" name="acknowledgedTerms" defaultChecked={values.acknowledgedTerms === true} id={`acknowledgedTerms${true}`} />
                                                                 <label className="form-check-label" htmlFor={`acknowledgedTerms${true}`}>Yes, I agree</label>
@@ -197,16 +196,19 @@ export default class SessionSubmission extends Component {
                                                                 <ErrorMessage name="acknowledgedTerms" />
                                                             </div>
                                                         </div>
-                                                        <div className="col-6 d-flex justify-content-end">
-                                                            <button className="btn btn-secondary" type="submit" disabled={isSubmitting}>
-                                                                {isSubmitting ?
-                                                                    <div className="spinner-border" role="status">
-                                                                        <span className="sr-only">Loading...</span>
-                                                                    </div> :
-                                                                    'Submit Talk for Review'}
-                                                            </button>
-                                                        </div>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <div className="row">
+                                                <div className="col d-flex justify-content-end">
+                                                    <button className="btn btn-success" type="submit" disabled={isSubmitting}>
+                                                        {isSubmitting ?
+                                                            <div className="spinner-border" role="status">
+                                                                <span className="sr-only">Loading...</span>
+                                                            </div> :
+                                                            'Submit Talk for Review'}
+                                                    </button>
                                                 </div>
                                             </div>
                                             <div className="form-row mt-3">
@@ -240,7 +242,9 @@ export default class SessionSubmission extends Component {
         index: number,
         arrayHelpers: ArrayHelpers,
         errors: FormikErrors<Session>,
-        touched: FormikTouched<Session>): any {
+        touched: FormikTouched<Session>,
+        enableRemove: boolean,
+        isLast: boolean): any {
         const firstNamePath: string = `presenters.${index}.firstName`;
         const lastNamePath: string = `presenters.${index}.lastName`;
         const bioPath: string = `presenters.${index}.bio`;
@@ -251,99 +255,112 @@ export default class SessionSubmission extends Component {
 
         return (
             <React.Fragment key={index}>
-                <div className="form-row">
-                    <div className="col-sm-12 col-md-6">
-                        <div className="form-group">
-                            <label htmlFor={firstNamePath}>First Name</label>
-                            <Field
-                                className={`form-control ${getValidationClass(firstNamePath)}`}
-                                placeholder="John" name={firstNamePath} id={firstNamePath} />
-                            <div className="invalid-feedback">
-                                <ErrorMessage name={firstNamePath} />
+                <div className="row">
+                    <div className="col-md-4">
+                        <h2>{ index === 0 ? 'Speaker Information' : 'Co-Speaker Information' }</h2>
+                    </div>
+                    <div className="col-md-8">
+                        <div className="form-row">
+                            <div className="col-sm-12 col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor={firstNamePath}>First Name</label>
+                                    <Field
+                                        className={`form-control ${getValidationClass(firstNamePath)}`}
+                                        placeholder="John" name={firstNamePath} id={firstNamePath} />
+                                    <div className="invalid-feedback">
+                                        <ErrorMessage name={firstNamePath} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-sm-12 col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor={lastNamePath}>Last Name</label>
+                                    <Field
+                                        className={`form-control ${getValidationClass(lastNamePath)}`}
+                                        placeholder="Doe" name={lastNamePath} id={lastNamePath} />
+                                    <div className="invalid-feedback">
+                                        <ErrorMessage name={lastNamePath} />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="col-sm-12 col-md-6">
-                        <div className="form-group">
-                            <label htmlFor={lastNamePath}>Last Name</label>
-                            <Field
-                                className={`form-control ${getValidationClass(lastNamePath)}`}
-                                placeholder="Doe" name={lastNamePath} id={lastNamePath} />
-                            <div className="invalid-feedback">
-                                <ErrorMessage name={lastNamePath} />
+                        <div className="form-row">
+                            <div className="col-sm-12">
+                                <div className="form-group">
+                                    <label htmlFor={bioPath}>Bio</label>
+                                    <Field
+                                        className={`form-control ${getValidationClass(bioPath)}`}
+                                        placeholder="I am a blank at blank working mostly with...."
+                                        component="textarea" name={bioPath} id={bioPath} />
+                                    <div className="invalid-feedback">
+                                        <ErrorMessage name={bioPath} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <div className="col-sm-12 col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor={titlePath}>Title</label>
+                                    <Field
+                                        className={`form-control ${getValidationClass(titlePath)}`}
+                                        placeholder="Lead Doer of Stuff" name={titlePath} id={titlePath} />
+                                    <div className="invalid-feedback">
+                                        <ErrorMessage name={titlePath} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-sm-12 col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor={companyPath}>Company</label>
+                                    <Field
+                                        className={`form-control ${getValidationClass(companyPath)}`}
+                                        placeholder="Some Startup" name={companyPath} id={companyPath} />
+                                    <div className="invalid-feedback">
+                                        <ErrorMessage name={companyPath} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <div className="col-sm-12 col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor={phoneNumberPath}>Phone Number</label>
+                                    <Field
+                                        className={`form-control ${getValidationClass(phoneNumberPath)}`}
+                                        type="phone" placeholder="715-123-4567" name={phoneNumberPath} id={phoneNumberPath} />
+                                    <div className="invalid-feedback">
+                                        <ErrorMessage name={phoneNumberPath} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-sm-12 col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor={emailPath}>Email</label>
+                                    <Field
+                                        className={`form-control ${getValidationClass(emailPath)}`}
+                                        type="email" placeholder="email@gmail.com" name={emailPath} id={emailPath} />
+                                    <div className="invalid-feedback">
+                                        <ErrorMessage name={emailPath} />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="col-sm-12">
-                        <div className="form-group">
-                            <label htmlFor={bioPath}>Bio</label>
-                            <Field
-                                className={`form-control ${getValidationClass(bioPath)}`}
-                                placeholder="I am a blank at blank working mostly with...."
-                                component="textarea" name={bioPath} id={bioPath} />
-                            <div className="invalid-feedback">
-                                <ErrorMessage name={bioPath} />
-                            </div>
-                        </div>
+                <div className="row mt-3">
+                    <div className="col d-flex justify-content-end">
+                        {
+                            isLast ?
+                                <button className="btn btn-outline-secondary" type="button" onClick={() => arrayHelpers.push(this.buildEmptyPresenter())}>Add Additional Speaker</button> : null
+                        }
+                        {
+                            enableRemove ?
+                                <button className="btn btn-outline-primary ml-3" type="button" onClick={() => arrayHelpers.remove(index)}>Remove Presenter</button> : null
+                        }
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="col-sm-12 col-md-6">
-                        <div className="form-group">
-                            <label htmlFor={titlePath}>Title</label>
-                            <Field
-                                className={`form-control ${getValidationClass(titlePath)}`}
-                                placeholder="Lead Doer of Stuff" name={titlePath} id={titlePath} />
-                            <div className="invalid-feedback">
-                                <ErrorMessage name={titlePath} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-sm-12 col-md-6">
-                        <div className="form-group">
-                            <label htmlFor={companyPath}>Company</label>
-                            <Field
-                                className={`form-control ${getValidationClass(companyPath)}`}
-                                placeholder="Some Startup" name={companyPath} id={companyPath} />
-                            <div className="invalid-feedback">
-                                <ErrorMessage name={companyPath} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="form-row">
-                    <div className="col-sm-12 col-md-6">
-                        <div className="form-group">
-                            <label htmlFor={phoneNumberPath}>Phone Number</label>
-                            <Field
-                                className={`form-control ${getValidationClass(phoneNumberPath)}`}
-                                type="phone" placeholder="715-123-4567" name={phoneNumberPath} id={phoneNumberPath} />
-                            <div className="invalid-feedback">
-                                <ErrorMessage name={phoneNumberPath} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-sm-12 col-md-6">
-                        <div className="form-group">
-                            <label htmlFor={emailPath}>Email</label>
-                            <Field
-                                className={`form-control ${getValidationClass(emailPath)}`}
-                                type="email" placeholder="email@gmail.com" name={emailPath} id={emailPath} />
-                            <div className="invalid-feedback">
-                                <ErrorMessage name={emailPath} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="form-row">
-                    <div className="col-sm-12 ">
-                        <div className="d-flex justify-content-end">
-                            <button className="btn btn-outline-primary" type="button" onClick={() => arrayHelpers.remove(index)}>Remove Presenter</button>
-                        </div>
-                    </div>
-                </div>
+                <hr />
             </React.Fragment>
         )
 
