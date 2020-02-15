@@ -7,6 +7,8 @@ exports.createPages = ({ graphql, actions }) => {
         query ContentPagesQuery {
             global: contentfulGlobalSiteSettings {
                 currentYear: conferenceStartDateTime(formatString: "YYYY")
+                currentConferenceStartDate: conferenceStartDateTime(formatString: "YYYY-MM-DD")
+                currentConferenceEndDate: conferenceEndDateTime(formatString: "YYYY-MM-DD")
             }
             contentPages: allContentfulContentPageLayout {
                 edges {
@@ -33,6 +35,8 @@ exports.createPages = ({ graphql, actions }) => {
     return new Promise((resolve) => {
         graphql(DYNAMIC_PAGES_QUERY)
             .then(({ data }) => {
+                const { currentYear, currentConferenceStartDate, currentConferenceEndDate } = data.global;
+
                 // Create Content Pages: Dynamically created pages from Contentful Entries
                 data.contentPages.edges.forEach(({node}) => {
                     createPage({
@@ -59,10 +63,19 @@ exports.createPages = ({ graphql, actions }) => {
                             conferenceStartOfDay: conferenceStartOfDay.toISOString(),
                             conferenceEndOfDay: conferenceEndOfDay.toISOString(),
                             slug: node.page.slug,
-                            isActive: node.conferenceYear === data.global.currentYear
+                            isActive: node.conferenceYear === currentYear
                         }
                     })
                 });
+
+                createPage({
+                    path: `/`,
+                    component: path.resolve('./src/templates/index.tsx'),
+                    context: {
+                        currentConferenceStartDate,
+                        currentConferenceEndDate
+                    }
+                })
 
                 resolve();
             });

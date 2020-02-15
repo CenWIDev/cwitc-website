@@ -1,24 +1,18 @@
-import React, { Component, ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import Helmet from 'react-helmet';
-import { StaticQuery, graphql, Link } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 
 import Layout from '../components/layout';
-import IconCard , { IconCardProps, IconCardJustifications } from './../components/icon-card/icon-card';
+import IconCard , { IconCardProps, IconCardJustifications } from '../components/icon-card/icon-card';
 import { getUrlSafeId } from '../services/text-helper';
 
 import './index.scss';
 
-export default class IndexPage extends Component {
+const IndexPage = ({ data }: any) => {
 
-    public render(): ReactNode {
-        return (
-            <StaticQuery
-                query={ homePageQuery }
-                render={({ landingPageContent, hero, keynotes, latestSessionsPage }) => this.renderPage(landingPageContent, hero, keynotes.edges, latestSessionsPage.edges)} />
-        );
-    }
+    const { landingPageContent, hero, keynotes, latestSessionsPage } = data;
 
-    public renderPage(landingPageContent: any, hero: any, keynotes: any[], latestSessionsPage: any[]): ReactNode {
+    const renderPage = (landingPageContent: any, hero: any, keynotes: any[], latestSessionsPage: any[]): ReactNode => {
         const sessionsPageSlug: string = latestSessionsPage && latestSessionsPage.length === 1 && latestSessionsPage[0].node && latestSessionsPage[0].node.page ? latestSessionsPage[0].node.page.slug : '';
 
         return (
@@ -35,17 +29,16 @@ export default class IndexPage extends Component {
                             <p>{ hero.description.description }</p>
                         </div>
                     </div>
-                    { this.renderPartners(landingPageContent.partners) }
-                    <hr />
-                    { this.renderKeynotes(keynotes, sessionsPageSlug) }
-                    { this.renderCards(landingPageContent.cards) }
-                    { this.renderSponsors(landingPageContent.sponsors) }
+                    { renderPartners(landingPageContent.partners) }
+                    { renderKeynotes(keynotes, sessionsPageSlug) }
+                    { renderCards(landingPageContent.cards) }
+                    { renderSponsors(landingPageContent.sponsors) }
                 </div>
             </Layout>
         );
-    }
+    };
 
-    public renderPartners(partners: any[]): ReactNode | null {
+    const renderPartners = (partners: any[]): ReactNode | null => {
         return partners && partners.length > 0 ?
             <>
                 <div className="row mb-3">
@@ -69,11 +62,12 @@ export default class IndexPage extends Component {
                 </div>
             </> :
             null;
-    }
+    };
 
-    public renderKeynotes(keynotes: any[], sessionsPageSlug: string): ReactNode | null {
+    const renderKeynotes = (keynotes: any[], sessionsPageSlug: string): ReactNode | null => {
         return keynotes && keynotes.length > 0 ?
             <>
+                <hr />
                 <div className="row mb-3">
                     <h3 className="col text-center">Our Keynote Speakers</h3>
                 </div>
@@ -119,9 +113,9 @@ export default class IndexPage extends Component {
                 </div>
             </> :
             null;
-    }
+    };
 
-    public renderSponsors(partners: any[]): ReactNode | null {
+    const renderSponsors = (partners: any[]): ReactNode | null => {
         partners.sort((a, b) => {
             const sortValueA: number = determineSortValue(a.sponsorshipLevel);
             const sortValueB: number = determineSortValue(b.sponsorshipLevel);
@@ -146,7 +140,7 @@ export default class IndexPage extends Component {
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-10">
-                        <div className="row justify-content-start align-items-center">
+                        <div className="row justify-content-center align-items-center">
                         {
                             partners.map(({ name, siteUrl, logo, sponsorshipLevel }: any, index: number) => (
                                 <div className="sponsor-card-container col-12 col-md-6 col-lg-4 mb-3" key={ index }>
@@ -165,9 +159,9 @@ export default class IndexPage extends Component {
                 </div>
             </> :
             null;
-    }
+    };
 
-    public renderCards(cards: any[]): ReactNode | null {
+    const renderCards  = (cards: any[]): ReactNode | null => {
         return cards && cards.length > 0 ? cards.map(mapCard) : null;
 
         function mapCard(contentfulIconCard: any, index: number) {
@@ -186,11 +180,15 @@ export default class IndexPage extends Component {
                 </React.Fragment>
             );
         }
-    }
-}
+    };
 
-const homePageQuery = graphql`
-    query LandingPageQuery {
+    return renderPage(landingPageContent, hero, keynotes.edges, latestSessionsPage.edges);
+};
+
+export default IndexPage;
+
+export const query = graphql`
+    query LandingPageQuery($currentConferenceStartDate: Date!, $currentConferenceEndDate: Date!) {
         landingPageContent: contentfulLandingPageLayout {
             title
             partners {
@@ -246,6 +244,10 @@ const homePageQuery = graphql`
         keynotes: allContentfulSession(filter: {
             sessionType: {
                 in: ["Opening Keynote", "Closing Keynote"]
+            },
+            startTime:{
+              gte: $currentConferenceStartDate,
+              lte: $currentConferenceEndDate
             }
         }) {
             edges {

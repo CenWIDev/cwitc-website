@@ -18,14 +18,22 @@ export default class Hero extends Component {
                         <h1>{ config.heading }</h1>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-12 col-sm-6">
-                        <h4 className="date">{ config.conferenceDate }</h4>
-                    </div>
-                    <div className="col-12 col-sm-6">
-                        <h4 className="time">{ config.startTime } - { config.endTime }</h4>
-                    </div>
-                </div>
+                {
+                    config.hideConferenceDate ?
+                        <div className="row">
+                            <div className="col">
+                                <h4>{ config.datePendingMessage}</h4>
+                            </div>
+                        </div> :
+                        <div className="row">
+                            <div className="col-12 col-sm-6">
+                                <h4 className="date">{ config.conferenceDate }</h4>
+                            </div>
+                            <div className="col-12 col-sm-6">
+                                <h4 className="time">{ config.startTime } - { config.endTime }</h4>
+                            </div>
+                        </div>
+                }
                 <div className="row">
                     <div className="col">
                         <p className="subheading">{ config.subheading }</p>
@@ -69,6 +77,8 @@ export type HeroConfig = {
     description: string;
     primaryButtonRichText: Document;
     secondaryButtonRichText: Document;
+    hideConferenceDate: boolean;
+    datePendingMessage?: string;
 };
 
 export type HeroProps = {
