@@ -19,11 +19,19 @@ type SessionSubmissionState = {
 
 export default class SessionSubmission extends Component {
 
-    public state: SessionSubmissionState = {
+    private defaultState: SessionSubmissionState = {
         session: this.buildEmptySession(),
         validSubmission: false,
         submissionError: undefined
     };
+
+    public state: SessionSubmissionState = this.defaultState;
+
+    public resetForm(): void {
+        const defaultStateCopy = {...this.defaultState };
+        defaultStateCopy.session.presenters = this.state.session.presenters;
+        this.setState({...defaultStateCopy});
+    }
 
     public showNavigationConfirmation(touched: any): boolean {
         return !this.state.validSubmission && touched && Object.keys(touched).length > 0;
@@ -42,11 +50,18 @@ export default class SessionSubmission extends Component {
             <div className="container">
                 {
                     this.state.validSubmission ?
-                        <div className="row justify-content-center">
-                            <div className="col-12 col-md-10 mt-5">
-                                <RichText richText={ submissionConfirmation.json } />
+                        <>
+                            <div className="row justify-content-center">
+                                <div className="col-12 col-md-10 mt-5">
+                                    <RichText richText={ submissionConfirmation.json } />
+                                </div>
                             </div>
-                        </div> :
+                            <div className="row justify-content-center">
+                                <div className="col-12 col-md-10 mt-5">
+                                    <button className="btn btn-primary" onClick={() => this.resetForm()}>Submit Another Session</button>
+                                </div>
+                            </div>
+                        </> :
                         <>
                             <h1 className="mt-5">{ title }</h1>
                             <hr />
@@ -62,8 +77,10 @@ export default class SessionSubmission extends Component {
                                             `2020/${ AuthService.getUser().userId }/submitted-sessions/${ scrubbedTitle }`, {
                                                 data: values
                                             });
+
                                         this.setState({
                                             ...this.state,
+                                            session: values,
                                             validSubmission: true
                                         });
                                     } catch (error) {
