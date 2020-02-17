@@ -5,5 +5,6 @@ export const SessionCategories = [
     'Professional Skills',
     'Agile & Business Process',
     'Security/DevOps',
-    'Neat Tech'
+    'Neat Tech',
+    'Other'
 ];

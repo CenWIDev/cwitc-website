@@ -141,7 +141,6 @@ export default class SessionSubmission extends Component {
                                                                 <label htmlFor="title">Session Title</label>
                                                                 <Field
                                                                     className={`form-control ${getValidationClass('title')}`}
-                                                                    placeholder="How To Do Amazing Things"
                                                                     name="title" id="title" />
                                                                 <div className="invalid-feedback">
                                                                     <ErrorMessage name="title" />
@@ -155,7 +154,7 @@ export default class SessionSubmission extends Component {
                                                                     className={`form-control ${getValidationClass('summary')}`}
                                                                     component="textarea"
                                                                     rows="10"
-                                                                    placeholder="I will be talking about how to blank with blank"
+                                                                    placeholder="Provide at least 100 characters to describe your session"
                                                                     name="summary" id="summary" />
                                                                 <div className="invalid-feedback">
                                                                     <ErrorMessage name="summary" />
@@ -299,7 +298,7 @@ export default class SessionSubmission extends Component {
                                     <label htmlFor={firstNamePath}>First Name</label>
                                     <Field
                                         className={`form-control ${getValidationClass(firstNamePath)}`}
-                                        placeholder="John" name={firstNamePath} id={firstNamePath} />
+                                        name={firstNamePath} id={firstNamePath} />
                                     <div className="invalid-feedback">
                                         <ErrorMessage name={firstNamePath} />
                                     </div>
@@ -310,7 +309,7 @@ export default class SessionSubmission extends Component {
                                     <label htmlFor={lastNamePath}>Last Name</label>
                                     <Field
                                         className={`form-control ${getValidationClass(lastNamePath)}`}
-                                        placeholder="Doe" name={lastNamePath} id={lastNamePath} />
+                                        name={lastNamePath} id={lastNamePath} />
                                     <div className="invalid-feedback">
                                         <ErrorMessage name={lastNamePath} />
                                     </div>
@@ -323,7 +322,7 @@ export default class SessionSubmission extends Component {
                                     <label htmlFor={bioPath}>Bio</label>
                                     <Field
                                         className={`form-control ${getValidationClass(bioPath)}`}
-                                        placeholder="I am a blank at blank working mostly with...."
+                                        placeholder="A short description about yourself"
                                         component="textarea" name={bioPath} id={bioPath} />
                                     <div className="invalid-feedback">
                                         <ErrorMessage name={bioPath} />
@@ -337,7 +336,7 @@ export default class SessionSubmission extends Component {
                                     <label htmlFor={titlePath}>Title</label>
                                     <Field
                                         className={`form-control ${getValidationClass(titlePath)}`}
-                                        placeholder="Lead Doer of Stuff" name={titlePath} id={titlePath} />
+                                        name={titlePath} id={titlePath} />
                                     <div className="invalid-feedback">
                                         <ErrorMessage name={titlePath} />
                                     </div>
@@ -348,7 +347,7 @@ export default class SessionSubmission extends Component {
                                     <label htmlFor={companyPath}>Company</label>
                                     <Field
                                         className={`form-control ${getValidationClass(companyPath)}`}
-                                        placeholder="Some Startup" name={companyPath} id={companyPath} />
+                                        name={companyPath} id={companyPath} />
                                     <div className="invalid-feedback">
                                         <ErrorMessage name={companyPath} />
                                     </div>
