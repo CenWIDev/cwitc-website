@@ -6,5 +6,6 @@ export class Session {
     public title: string;
     public summary: string;
     public targetLevel: SessionLevel;
+    public category: string;
     public acknowledgedTerms: boolean;
 }

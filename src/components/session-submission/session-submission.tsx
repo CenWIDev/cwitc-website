@@ -3,6 +3,7 @@ import { graphql, StaticQuery } from 'gatsby';
 import { Session } from './session.model';
 import { Presenter } from './presenter.model';
 import { SessionLevels } from './session-level.enum';
+import { SessionCategories } from './session-categories';
 import { Formik, FieldArray, Field, ArrayHelpers, ErrorMessage, FormikErrors, FormikTouched, getIn } from 'formik';
 import { sessionSchema } from './session-schema';
 import base from './../../services/firebase';
@@ -136,6 +137,7 @@ export default class SessionSubmission extends Component {
                                                                 <Field
                                                                     className={`form-control ${getValidationClass('summary')}`}
                                                                     component="textarea"
+                                                                    rows="10"
                                                                     placeholder="I will be talking about how to blank with blank"
                                                                     name="summary" id="summary" />
                                                                 <div className="invalid-feedback">
@@ -156,6 +158,20 @@ export default class SessionSubmission extends Component {
                                                                 ))}
                                                                 <div style={{ display: 'block' }} className="invalid-feedback">
                                                                     <ErrorMessage name="targetLevel" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-md-6">
+                                                            <div className="form-group">
+                                                                <label className="d-block">Category</label>
+                                                                <Field name="category" component="select" className={`custom-select ${getValidationClass('category')}`}>
+                                                                    <option value="null">Select a Category</option>
+                                                                    {SessionCategories.map((category) => (
+                                                                        <option key={category} value={category}>{category}</option>
+                                                                    ))}
+                                                                </Field>
+                                                                <div style={{ display: 'block' }} className="invalid-feedback">
+                                                                    <ErrorMessage name="category" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -186,7 +202,7 @@ export default class SessionSubmission extends Component {
                                                                 <RichText richText={ termsAndConditionsAgreement.json } />
                                                             </label>
                                                         </div>
-                                                        <div className="col-sm-12 d-flex align-items-center">
+                                                        <div className="col-sm-12 d-flex align-items-center flex-column">
                                                             <div className="form-check form-check-inline w-100">
                                                                 {/* tslint:disable-next-line:jsx-boolean-value */}
                                                                 <Field type="checkbox" className="form-check-input" name="acknowledgedTerms" defaultChecked={values.acknowledgedTerms === true} id={`acknowledgedTerms${true}`} />
@@ -381,6 +397,7 @@ export default class SessionSubmission extends Component {
             summary: '',
             acknowledgedTerms: false,
             targetLevel: SessionLevels.UNSELECTED,
+            category: '',
             presenters: [
                 this.buildEmptyPresenter()
             ]
