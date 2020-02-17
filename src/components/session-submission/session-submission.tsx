@@ -41,11 +41,11 @@ export default class SessionSubmission extends Component {
         return (
             <StaticQuery
                 query={ submitSessionQuery }
-                render={ ({ content }) => this.renderForm(content) } />
+                render={ ({ global, content }) => this.renderForm(global.currentYear, content) } />
         );
     }
 
-    public renderForm({ title, termsAndConditionsAgreement, submissionConfirmation }: any): ReactNode {
+    public renderForm(currentYear: string, { title, termsAndConditionsAgreement, submissionConfirmation }: any): ReactNode {
         return (
             <div className="container">
                 {
@@ -71,10 +71,12 @@ export default class SessionSubmission extends Component {
                                 onSubmit={async (values, { setSubmitting }) => {
                                     try {
                                         // only allow alphanumeric characters and spaces in the path
-                                        const scrubbedTitle: string = values.title.replace(/[^A-Za-z0-9 ]/g, '')
+                                        const scrubbedTitle: string = values.title.replace(/[^A-Za-z0-9 ]/g, '');
+
+                                        (values as any).thisDoesntBelong = 'i dont belong here';
 
                                         await base.post(
-                                            `2020/${ AuthService.getUser().userId }/submitted-sessions/${ scrubbedTitle }`, {
+                                            `${currentYear}/${ AuthService.getUser().userId }/submitted-sessions/${ scrubbedTitle }`, {
                                                 data: values
                                             });
 
@@ -435,6 +437,9 @@ export default class SessionSubmission extends Component {
 
 const submitSessionQuery = graphql`
     query SubmitSessionQuery {
+        global: contentfulGlobalSiteSettings {
+            currentYear: conferenceStartDateTime(formatString: "YYYY")
+        }
         content: contentfulSubmitSessionPageLayout {
             title
             termsAndConditionsAgreement {

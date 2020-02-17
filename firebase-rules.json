@@ -7,7 +7,9 @@
         "2020":{
             "$uid": {
                 ".write": "$uid === auth.uid",
+                "$other": { ".validate": false },
                 "submitted-sessions": {
+                    "$other": { ".validate": false },
                     "title": {
                         ".validate": "newData.isString() && newData.val().length <= 50"
                     },
@@ -27,6 +29,7 @@
                         ".validate": "newData.isString() && newData.val().length <= 3000"
                     },
                     "presenters": {
+                        "$other": { ".validate": false },
                         "firstName": {
                             ".validate": "newData.isString() && newData.val().length <= 50"
                         },
@@ -52,6 +55,7 @@
                 },
                 "favorited-sessions": {
                     ".read": "$uid === auth.uid",
+                    "$other": { ".validate": false },
                     "contentfulId": {
                         ".validate": "newData.isString() && newData.val().length < 50"
                     }
