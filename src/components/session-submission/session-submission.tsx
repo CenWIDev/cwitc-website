@@ -73,8 +73,6 @@ export default class SessionSubmission extends Component {
                                         // only allow alphanumeric characters and spaces in the path
                                         const scrubbedTitle: string = values.title.replace(/[^A-Za-z0-9 ]/g, '');
 
-                                        (values as any).thisDoesntBelong = 'i dont belong here';
-
                                         await base.post(
                                             `${currentYear}/${ AuthService.getUser().userId }/submitted-sessions/${ scrubbedTitle }`, {
                                                 data: values
