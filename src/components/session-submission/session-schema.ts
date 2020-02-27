@@ -1,10 +1,7 @@
 import * as Yup from 'yup';
+import { SessionCategories } from './session-categories';
 
 export const sessionSchema = Yup.object().shape({
-    interestedInOpenLab: Yup
-        .string()
-        .required()
-        .label('Open Lab Interest'),
     title: Yup
         .string()
         .required()
@@ -20,10 +17,15 @@ export const sessionSchema = Yup.object().shape({
         .string()
         .required()
         .label('Target Level'),
+    category: Yup
+        .string()
+        .oneOf(SessionCategories)
+        .required()
+        .label('Category'),
     acknowledgedTerms: Yup
         .boolean()
-        .oneOf([true], 'You must acknowledge our terms.')
-        .required('You must acknowledge our terms.'),
+        .oneOf([true], 'You must agree to our terms.')
+        .required('You must agree to our terms.'),
     notes: Yup
         .string()
         .max(3000)
