@@ -1,8 +1,11 @@
 import React from 'react';
-import Icon from '../icon/icon';
+import Icon from '../icon/icon'
+
+const browser = typeof window !== 'undefined' && window;;
 
 const NotFound = () => (
-    <div className="container mt-4">
+    browser ?
+    <div className="404-container container mt-4">
         <div className="row">
             <div className="col d-flex flex-column align-items-center">
                 <Icon name="zap" />
@@ -10,7 +13,7 @@ const NotFound = () => (
                 <p>This page doesn't exist</p>
             </div>
         </div>
-    </div>
+    </div> : null
 );
 
 NotFound.defaultProps = {
