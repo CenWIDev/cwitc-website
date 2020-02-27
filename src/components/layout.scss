@@ -1,0 +1,17 @@
+// set all generated container elements to full height
+html, body, #___gatsby, #gatsby-focus-wrapper, div[role="group"][tabindex] {
+    height: 100%;
+}
+
+#gatsby-focus-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    margin: 0px;
+}
+
+.main {
+    flex-grow: 1;
+}

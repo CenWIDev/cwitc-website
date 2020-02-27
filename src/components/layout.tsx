@@ -8,6 +8,7 @@ import { trimChar } from './../services/text-helper';
 
 // Imports Bootstrap
 import './_vars.scss';
+import './layout.scss';
 
 // Polyfills
 import 'core-js/es6/number';
@@ -98,7 +99,7 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                         <link rel="canonical" href={ canonicalUrl } />
                     </Helmet>
                     <Header useHero={ isHomePage }/>
-                    <div className={ className }>
+                    <div className={ `main ${ className }` }>
                         { children }
                     </div>
                     <Footer { ...footerConfig }/>
