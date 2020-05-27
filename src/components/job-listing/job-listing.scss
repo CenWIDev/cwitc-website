@@ -1,0 +1,44 @@
+.job-listing {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+
+    grid-template-areas:
+        'header logo'
+        'body body'
+        'footer footer';
+
+    .job-listing_logo {
+        grid-area: logo;
+        height: 2rem;
+        align-self: center;
+        justify-self: end;
+    }
+
+    .job-listing_header {
+        grid-area: header;
+        align-self: center;
+
+        .job-listing_title {
+            margin: 0;
+        }
+
+        .job-listing_subtitle {
+            font-size: 1.5rem;
+        }
+    }
+
+    .job-listing_body {
+        grid-area: body;
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .job-listing_footer {
+        grid-area: footer;
+        justify-self: start;
+    }
+}

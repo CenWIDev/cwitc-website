@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react';
 import { Link } from 'gatsby';
-import { Document, INLINES } from '@contentful/rich-text-types';
+import { Document, INLINES, BLOCKS } from '@contentful/rich-text-types';
 import { documentToReactComponents, Options } from '@contentful/rich-text-react-renderer';
+import { JobListing } from './../job-listing/job-listing';
 
 const englishUsLocale: string = 'en-US';
 
@@ -60,13 +61,33 @@ const inlineEmbeddedEntryRenderer = (node: any): ReactNode => {
     return null;
 };
 
+const blockEmbeddedEntryRenderer = (node: any): ReactNode => {
+    try {
+        console.log(node.data.target.sys.contentType.sys.id);
+
+        if (node.data.target.sys.contentType.sys.id === 'jobListing') {
+            return (
+                <JobListing listing={node.data.target.fields} />
+            );
+        }
+    }
+    catch (err) {
+        console.warn('Renderer has not been implemented for block entry', err);
+    }
+
+    return null;
+};
+
 const RichText = ({ richText }: { richText: Document }): React.ReactElement<any> => {
+    console.log(richText);
+
     const options: Options = {
         renderNode: {
             [INLINES.ENTRY_HYPERLINK]: entryHyperlinkRenderer,
             [INLINES.ASSET_HYPERLINK]: assetHyperlinkRenderer,
             [INLINES.HYPERLINK]: externalHyperlinkRenderer,
-            [INLINES.EMBEDDED_ENTRY]: inlineEmbeddedEntryRenderer
+            [INLINES.EMBEDDED_ENTRY]: inlineEmbeddedEntryRenderer,
+            [BLOCKS.EMBEDDED_ENTRY]: blockEmbeddedEntryRenderer
         },
         // https://github.com/contentful/rich-text/tree/master/packages/rich-text-react-renderer
         renderText: newLineFormatter
