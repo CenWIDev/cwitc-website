@@ -1,31 +1,48 @@
+@import "./../vars";
+
 .job-listing {
     display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-template-rows: auto auto;
     padding-bottom: 2rem;
     margin-bottom: 2rem;
     border-bottom: 2px solid #222;
-
-    &:last-of-type {
-        border-bottom: 0;
-    }
 
     grid-template-areas:
         'header logo'
         'body body'
         'footer footer';
 
+    @include media-breakpoint-down(xs) {
+        grid-template-areas:
+            'logo'
+            'header'
+            'body'
+            'footer';
+    }
+
+    &:last-of-type {
+        border-bottom: 0;
+    }
+
     .job-listing_logo {
         grid-area: logo;
         height: 2rem;
         align-self: center;
         justify-self: end;
+
+        @include media-breakpoint-down(xs) {
+            justify-self: center;
+            margin-bottom: 1rem;
+        }
     }
 
     .job-listing_header {
         grid-area: header;
         align-self: center;
         margin-bottom: 1rem;
+
+        @include media-breakpoint-down(xs) {
+            justify-self: center;
+        }
 
         .job-listing_title {
             margin: 0;
