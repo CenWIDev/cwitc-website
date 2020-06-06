@@ -2,7 +2,13 @@
     display: grid;
     grid-template-columns: 3fr 1fr;
     grid-template-rows: auto auto;
-    gap: 1rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #222;
+
+    &:last-of-type {
+        border-bottom: 0;
+    }
 
     grid-template-areas:
         'header logo'
@@ -19,13 +25,22 @@
     .job-listing_header {
         grid-area: header;
         align-self: center;
+        margin-bottom: 1rem;
 
         .job-listing_title {
             margin: 0;
         }
 
-        .job-listing_subtitle {
+        .job-listing_link {
+            display: flex;
+            align-items: center;
             font-size: 1.5rem;
+
+            .icon {
+                height: 1.5rem;
+                width: 1.5rem;
+                margin-left: 1rem;
+            }
         }
     }
 
@@ -35,10 +50,5 @@
         p:last-child {
             margin-bottom: 0;
         }
-    }
-
-    .job-listing_footer {
-        grid-area: footer;
-        justify-self: start;
     }
 }

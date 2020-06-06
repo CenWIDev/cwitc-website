@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { Link } from 'gatsby';
 import { Document, INLINES, BLOCKS } from '@contentful/rich-text-types';
 import { documentToReactComponents, Options } from '@contentful/rich-text-react-renderer';
-import { JobListing } from './../job-listing/job-listing';
+import { JobListing, JobListingProps } from './../job-listing/job-listing';
 
 const englishUsLocale: string = 'en-US';
 
@@ -63,11 +63,21 @@ const inlineEmbeddedEntryRenderer = (node: any): ReactNode => {
 
 const blockEmbeddedEntryRenderer = (node: any): ReactNode => {
     try {
-        console.log(node.data.target.sys.contentType.sys.id);
+        const embeddedEntryType = node.data.target.sys.contentType.sys.id;
 
-        if (node.data.target.sys.contentType.sys.id === 'jobListing') {
+        if (embeddedEntryType === 'jobListing') {
+            const { fields } = node.data.target;
+
+            const listing: JobListingProps = {
+                logoUrl: fields.company[englishUsLocale].fields.logo[englishUsLocale].fields.file[englishUsLocale].url,
+                companyName: fields.company[englishUsLocale].fields.name[englishUsLocale],
+                title: fields.title[englishUsLocale],
+                applicationLink: fields.applicationLink[englishUsLocale],
+                description: fields.description[englishUsLocale]
+            };
+
             return (
-                <JobListing listing={node.data.target.fields} />
+                <JobListing {...listing} />
             );
         }
     }
@@ -79,8 +89,6 @@ const blockEmbeddedEntryRenderer = (node: any): ReactNode => {
 };
 
 const RichText = ({ richText }: { richText: Document }): React.ReactElement<any> => {
-    console.log(richText);
-
     const options: Options = {
         renderNode: {
             [INLINES.ENTRY_HYPERLINK]: entryHyperlinkRenderer,
