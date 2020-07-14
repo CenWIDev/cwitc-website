@@ -25,6 +25,14 @@
             padding: 1rem;
         }
 
+        &.sponsor-principal {
+            border: $border solid $principal;
+
+            .sponsor-level {
+                background-color: $principal;
+            }
+        }
+
         &.sponsor-gold {
             border: $border solid $gold;
 

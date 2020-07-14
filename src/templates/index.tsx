@@ -124,11 +124,12 @@ const IndexPage = ({ data }: any) => {
 
             function determineSortValue(level: string) {
                 switch (level) {
-                    case 'Gold': return 1;
-                    case 'Silver': return 2;
-                    case 'Bronze': return 3;
-                    case 'Other': return 4;
-                    default: return 5;
+                    case 'Principal': return 1;
+                    case 'Gold': return 2;
+                    case 'Silver': return 3;
+                    case 'Bronze': return 4;
+                    case 'Other': return 5;
+                    default: return 6;
                 }
             }
         });
