@@ -69,7 +69,7 @@ const IndexPage = ({ data }: any) => {
             <>
                 <hr />
                 <div className="row mb-3">
-                    <h3 className="col text-center">Our Keynote Speakers</h3>
+                    <h3 className="col text-center">{ keynotes.length === 1 ? 'Our Keynote Speaker' : 'Our Keynote Speakers' }</h3>
                 </div>
                 <div className="row justify-content-center">
                     {
@@ -189,7 +189,7 @@ const IndexPage = ({ data }: any) => {
 export default IndexPage;
 
 export const query = graphql`
-    query LandingPageQuery($currentConferenceStartDate: Date!, $currentConferenceEndDate: Date!) {
+    query LandingPageQuery($currentConferenceStartOfDay: Date!, $currentConferenceEndOfDay: Date!) {
         landingPageContent: contentfulLandingPageLayout {
             title
             partners {
@@ -247,8 +247,8 @@ export const query = graphql`
                 in: ["Opening Keynote", "Closing Keynote"]
             },
             startTime:{
-              gte: $currentConferenceStartDate,
-              lte: $currentConferenceEndDate
+              gte: $currentConferenceStartOfDay,
+              lte: $currentConferenceEndOfDay
             }
         }) {
             edges {

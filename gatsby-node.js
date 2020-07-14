@@ -37,6 +37,12 @@ exports.createPages = ({ graphql, actions }) => {
             .then(({ data }) => {
                 const { currentYear, currentConferenceStartDate, currentConferenceEndDate } = data.global;
 
+                const currentConferenceStartOfDay = new Date(currentConferenceStartDate);
+                currentConferenceStartOfDay.setUTCHours(0, 0, 0, 0);
+
+                const currentConferenceEndOfDay = new Date(currentConferenceEndDate);
+                currentConferenceEndOfDay.setUTCHours(23, 59, 59, 999);
+
                 // Create Content Pages: Dynamically created pages from Contentful Entries
                 data.contentPages.edges.forEach(({node}) => {
                     createPage({
@@ -72,8 +78,8 @@ exports.createPages = ({ graphql, actions }) => {
                     path: `/`,
                     component: path.resolve('./src/templates/index.tsx'),
                     context: {
-                        currentConferenceStartDate,
-                        currentConferenceEndDate
+                        currentConferenceStartOfDay: currentConferenceStartOfDay.toISOString(),
+                        currentConferenceEndOfDay: currentConferenceEndOfDay.toISOString()
                     }
                 })
 
