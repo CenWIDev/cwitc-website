@@ -141,7 +141,7 @@ const IndexPage = ({ data }: any) => {
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-10">
-                        <div className="row justify-content-center align-items-center">
+                        <div className="row justify-content-center align-items-top">
                         {
                             partners.map(({ name, siteUrl, logo, sponsorshipLevel }: any, index: number) => (
                                 <div className="sponsor-card-container col-12 col-md-6 col-lg-4 mb-3" key={ index }>
