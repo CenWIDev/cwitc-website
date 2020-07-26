@@ -35,6 +35,7 @@ const Header = ({ useHero }: HeaderProps) => (
                             src
                         }
                     }
+                    enableLogin
                 }
                 hero: contentfulHomePageHero {
                     heading
@@ -74,6 +75,7 @@ const Header = ({ useHero }: HeaderProps) => (
                         backgroundImage: useHero ? `url(${ global.homePageHeroImage.fixed.src })` : ''
                     }}>
                     <Navigation
+                        enableLogin={ global.enableLogin }
                         logoSource={ global.headerLogo.fixed?.src || global.headerLogo.file.url }
                         navigationItems={ global.headerNavigationPages } />
                     { useHero ? <Hero config={ heroConfig } /> : null }

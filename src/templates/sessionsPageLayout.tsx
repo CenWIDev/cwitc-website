@@ -97,15 +97,13 @@ const SessionsPageLayout = (props: any) => {
     };
 
     const onSessionFilterClick = (filter: SessionFilter) => {
-        if (history.pushState) {
-            let newurl: string = window.location.protocol + '//' + window.location.host + window.location.pathname;
+        let newurl: string = window.location.protocol + '//' + window.location.host + window.location.pathname;
 
-            if (filter === SessionFilter.FAVORITED) {
-                newurl = newurl + '?viewFavorites=true';
-            }
-
-            window.history.pushState({ path: newurl }, '', newurl);
+        if (filter === SessionFilter.FAVORITED) {
+            newurl = newurl + '?viewFavorites=true';
         }
+
+        window.history.pushState({ path: newurl }, '', newurl);
 
         setSessionFilter(filter);
     };
@@ -160,7 +158,7 @@ const SessionsPageLayout = (props: any) => {
                     <PageLoader /> :
                     <>
                         {
-                            isActive ?
+                            isActive && global.enableLogin ?
                                 <div className="container mb-3">
                                     <div className="row">
                                         <div className="col d-flex justify-content-center">
@@ -225,7 +223,7 @@ const SessionsPageLayout = (props: any) => {
                                                     sessionType: session.sessionType,
                                                     favorite: favoritedSessions.some(sessionId => sessionId === session.id)
                                                 },
-                                                enableFavoriting: isActive && AuthService.isLoggedIn(),
+                                                enableFavoriting: isActive && AuthService.isLoggedIn() && global.enableLogin,
                                                 onSessionFavorited: onSessionFavorited,
                                                 onSessionUnfavorited: onSessionUnfavorited
                                             };
@@ -265,6 +263,7 @@ export const query = graphql`
     query SessionsPageQuery($slug: String!, $conferenceStartOfDay: Date!, $conferenceEndOfDay: Date!) {
         global: contentfulGlobalSiteSettings {
             currentYear: conferenceStartDateTime(formatString: "YYYY")
+            enableLogin
         }
         sessionsPage: contentfulSessionsPageLayout(page: {
             slug: {

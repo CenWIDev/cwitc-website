@@ -5,6 +5,7 @@ import { StaticQuery, graphql } from 'gatsby';
 import Header from './header/header';
 import Footer, { FooterProps } from './footer/footer';
 import { trimChar } from './../services/text-helper';
+import { AuthService } from '../services/authentication';
 
 // Imports Bootstrap
 import './_vars.scss';
@@ -45,6 +46,7 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                     twitterUsername
                     linkedInProfileUrl
                     gitHubProfileUrl
+                    enableLogin
                 }
                 hero: contentfulHomePageHero {
                     description {
@@ -74,6 +76,10 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
             }
 
             canonicalUrl += '/';
+
+            if (!siteSettings.enableLogin) {
+                AuthService.clearAuthSession();
+            }
 
             return (
                 <>
