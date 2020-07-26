@@ -44,12 +44,16 @@ export class Navigation extends Component {
                     })
                 }
                 {
-                    AuthService.isLoggedIn() ?
-                        <>
-                            <li><Link to="/app/profile">Profile</Link></li>
-                            <li><a href="/" onClick={ this.logout }>Logout</a></li>
-                        </> :
-                        <li><Link to="/app/log-in">Log In</Link></li>
+                    this.props.enableLogin ? (
+                        AuthService.isLoggedIn() ?
+                            <>
+                                <li><Link to="/app/profile">Profile</Link></li>
+                                <li><a href="/" onClick={ this.logout }>Logout</a></li>
+                            </> :
+                            <li><Link to="/app/log-in">Log In</Link></li>
+                        ) : (
+                            null
+                        )
                 }
             </>;
 
@@ -82,6 +86,7 @@ export type HeaderNavigationPage = {
 };
 
 export type NavigationProps = {
+    enableLogin: boolean;
     logoSource: string;
     navigationItems: HeaderNavigationPage[];
 };
