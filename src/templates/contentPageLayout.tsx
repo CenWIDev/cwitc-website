@@ -38,28 +38,29 @@ export default class ContentPageLayout extends Component {
                         </div>
                     </div>
                     {
-                        entries &&
-                        <div className="row justify-content-center">
-                            {
-                                entries.map((entry: any, index: number, array: any[]) => {
-                                    const { __typename } = entry;
+                        entries && entries.length > 0
+                            ? <div className="row justify-content-center">
+                                {
+                                    entries.map((entry: any, index: number, array: any[]) => {
+                                        const { __typename } = entry;
 
-                                    switch (__typename) {
-                                        case 'ContentfulPartner':
-                                            return (
-                                                <div className={`col-12 col-md-6 mx-md-5 pb-3 d-flex flex-column align-items-center mb-5`} key={index}>
-                                                    <a href={entry.siteUrl} target="_blank" rel="noopener" className="mx-auto d-block border p-3">
-                                                        <img className="w-100" src={ entry.logo.fixed.src} alt={`${entry.name} logo`} />
-                                                    </a>
-                                                    <a href={entry.siteUrl} target="_blank" rel="noopener" className="w-75 mt-1 text-center">{entry.name}</a>
-                                                </div>
-                                            );
-                                        default:
-                                            return <span>No renderer for { __typename }</span>
-                                    }
-                                })
-                            }
-                        </div>
+                                        switch (__typename) {
+                                            case 'ContentfulPartner':
+                                                return (
+                                                    <div className={`col-12 col-md-6 mx-md-5 pb-3 d-flex flex-column align-items-center mb-5`} key={index}>
+                                                        <a href={entry.siteUrl} target="_blank" rel="noopener" className="mx-auto d-block border p-3">
+                                                            <img className="w-100" src={ entry.logo.fixed.src} alt={`${entry.name} logo`} />
+                                                        </a>
+                                                        <a href={entry.siteUrl} target="_blank" rel="noopener" className="w-75 mt-1 text-center">{entry.name}</a>
+                                                    </div>
+                                                );
+                                            default:
+                                                return <span>No renderer for { __typename }</span>
+                                        }
+                                    })
+                                }
+                            </div>
+                            : null
                     }
                     {
                         callToActionButton ?
