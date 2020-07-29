@@ -13,7 +13,7 @@ export default class ContentPageLayout extends Component {
 
     public render(): ReactNode {
         const { contentfulContentPageLayout } = this.props.data;
-        const { heading, subheading, heroImage, body, callToActionButton, page } = contentfulContentPageLayout;
+        const { heading, subheading, heroImage, body, entries, callToActionButton, page } = contentfulContentPageLayout;
 
         return (
             <Layout className="content-page-wrapper" path={ page.slug }>
@@ -37,6 +37,31 @@ export default class ContentPageLayout extends Component {
                             <RichText richText={ body.json } />
                         </div>
                     </div>
+                    {
+                        entries && entries.length > 0
+                            ? <div className="row justify-content-center">
+                                {
+                                    entries.map((entry: any, index: number, array: any[]) => {
+                                        const { __typename } = entry;
+
+                                        switch (__typename) {
+                                            case 'ContentfulPartner':
+                                                return (
+                                                    <div className={`col-12 col-md-6 mx-md-5 pb-3 d-flex flex-column align-items-center mb-5`} key={index}>
+                                                        <a href={entry.siteUrl} target="_blank" rel="noopener" className="mx-auto d-block border p-3">
+                                                            <img className="w-100" src={ entry.logo.fixed.src} alt={`${entry.name} logo`} />
+                                                        </a>
+                                                        <a href={entry.siteUrl} target="_blank" rel="noopener" className="w-75 mt-1 text-center">{entry.name}</a>
+                                                    </div>
+                                                );
+                                            default:
+                                                return <span>No renderer for { __typename }</span>
+                                        }
+                                    })
+                                }
+                            </div>
+                            : null
+                    }
                     {
                         callToActionButton ?
                             <div className="row justify-content-center mt-3">
@@ -68,6 +93,18 @@ export const query = graphql`
             }
             body {
                 json
+            }
+            entries {
+                ... on ContentfulPartner {
+                    __typename
+                    name
+                    siteUrl
+                    logo {
+                        fixed(width: 1000) {
+                            src
+                        }
+                    }
+                }
             }
             callToActionButton {
                 json
