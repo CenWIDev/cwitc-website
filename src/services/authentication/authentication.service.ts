@@ -110,10 +110,20 @@ export const unlink = async (providerToRemove: LoginProvider): Promise<User> => 
     return user;
 }
 
-export const logout = async (callback: Function): Promise<void> => {
+export const logout = async (callback?: Function): Promise<void> => {
     await firebase.auth().signOut();
     window.localStorage.removeItem(user_storage_key);
-    callback();
+
+    if (callback) {
+        callback();
+    }
+}
+
+export const clearAuthSession = async (): Promise<void> => {
+    if (isLoggedIn()) {
+        console.info('An authentication session was detected, logging the current user out because the login feature is disabled.');
+        await logout();
+    }
 }
 
 function getProvider(provider: LoginProvider): firebase.auth.AuthProvider {
@@ -145,4 +155,4 @@ function getProvider(provider: LoginProvider): firebase.auth.AuthProvider {
     return authProvider;
 }
 
-export const AuthService = { isLoggedIn, getUser, setUser, login, logout, link, unlink };
+export const AuthService = { isLoggedIn, getUser, setUser, login, logout, link, unlink, clearAuthSession };

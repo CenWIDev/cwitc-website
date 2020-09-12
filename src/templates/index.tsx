@@ -69,7 +69,7 @@ const IndexPage = ({ data }: any) => {
             <>
                 <hr />
                 <div className="row mb-3">
-                    <h3 className="col text-center">Our Keynote Speakers</h3>
+                    <h3 className="col text-center">{ keynotes.length === 1 ? 'Our Keynote Speaker' : 'Our Keynote Speakers' }</h3>
                 </div>
                 <div className="row justify-content-center">
                     {
@@ -124,11 +124,12 @@ const IndexPage = ({ data }: any) => {
 
             function determineSortValue(level: string) {
                 switch (level) {
-                    case 'Gold': return 1;
-                    case 'Silver': return 2;
-                    case 'Bronze': return 3;
-                    case 'Other': return 4;
-                    default: return 5;
+                    case 'Principal': return 1;
+                    case 'Gold': return 2;
+                    case 'Silver': return 3;
+                    case 'Bronze': return 4;
+                    case 'Other': return 5;
+                    default: return 6;
                 }
             }
         });
@@ -140,7 +141,7 @@ const IndexPage = ({ data }: any) => {
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-10">
-                        <div className="row justify-content-center align-items-center">
+                        <div className="row justify-content-center align-items-top">
                         {
                             partners.map(({ name, siteUrl, logo, sponsorshipLevel }: any, index: number) => (
                                 <div className="sponsor-card-container col-12 col-md-6 col-lg-4 mb-3" key={ index }>
@@ -188,7 +189,7 @@ const IndexPage = ({ data }: any) => {
 export default IndexPage;
 
 export const query = graphql`
-    query LandingPageQuery($currentConferenceStartDate: Date!, $currentConferenceEndDate: Date!) {
+    query LandingPageQuery($currentConferenceStartOfDay: Date!, $currentConferenceEndOfDay: Date!) {
         landingPageContent: contentfulLandingPageLayout {
             title
             partners {
@@ -246,8 +247,8 @@ export const query = graphql`
                 in: ["Opening Keynote", "Closing Keynote"]
             },
             startTime:{
-              gte: $currentConferenceStartDate,
-              lte: $currentConferenceEndDate
+              gte: $currentConferenceStartOfDay,
+              lte: $currentConferenceEndOfDay
             }
         }) {
             edges {

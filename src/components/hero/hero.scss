@@ -9,7 +9,7 @@
         }
     }
 
-    h1, h4 { color: $white; text-align: center; }
+    h1, h4 { color: $white; text-align: center; text-shadow: 5px 5px 10px $dark; }
 
     h4.date {
         @include media-breakpoint-up(sm) {
