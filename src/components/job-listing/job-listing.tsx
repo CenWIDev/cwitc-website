@@ -7,7 +7,7 @@ import { Document } from '@contentful/rich-text-types';
 export const JobListing = ({ logoUrl, companyName, title, applicationLink, description }: JobListingProps) => {
 
     return (
-        <div className="job-listing">
+        <div className="job-listing col-11 col-lg-8">
             <img
                 className="job-listing_logo"
                 src={ logoUrl }
@@ -21,6 +21,7 @@ export const JobListing = ({ logoUrl, companyName, title, applicationLink, descr
             <div className="job-listing_body">
                 <RichText richText={description} />
             </div>
+            <a href={ applicationLink} target="_blank" rel="noopener noreferrer" className="job-listing_link mt-3">View the complete job description</a>
         </div>
     );
 };

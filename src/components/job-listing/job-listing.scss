@@ -7,9 +7,9 @@
     border-bottom: 2px solid #222;
 
     grid-template-areas:
-        'header logo'
-        'body body'
-        'footer footer';
+        'header header logo'
+        'body body body'
+        'footer footer footer';
 
     @include media-breakpoint-down(xs) {
         grid-template-areas:
@@ -25,7 +25,7 @@
 
     .job-listing_logo {
         grid-area: logo;
-        height: 2rem;
+        height: 3rem;
         align-self: center;
         justify-self: end;
 
