@@ -6,6 +6,7 @@ import RichText from './../components/richText/richText';
 import Layout from './../components/layout';
 
 import './contentPageLayout.scss';
+import JobListing, { JobListingProps } from '../components/job-listing/job-listing';
 
 export default class ContentPageLayout extends Component {
 
@@ -32,16 +33,19 @@ export default class ContentPageLayout extends Component {
                     <h3>{ subheading }</h3>
                 </div>
                 <div className="container">
-                    <div className="row justify-content-center">
-                        <div className="col col-md-8">
-                            <RichText richText={ body.json } />
+                    {
+                        body &&
+                        <div className="row justify-content-center">
+                            <div className="col col-md-8">
+                                <RichText richText={ body.json } />
+                            </div>
                         </div>
-                    </div>
+                    }
                     {
                         entries && entries.length > 0
                             ? <div className="row justify-content-center">
                                 {
-                                    entries.map((entry: any, index: number, array: any[]) => {
+                                    entries.map((entry: any, index: number) => {
                                         const { __typename } = entry;
 
                                         switch (__typename) {
@@ -53,6 +57,18 @@ export default class ContentPageLayout extends Component {
                                                         </a>
                                                         <a href={entry.siteUrl} target="_blank" rel="noopener" className="w-75 mt-1 text-center">{entry.name}</a>
                                                     </div>
+                                                );
+                                            case 'ContentfulJobListing':
+                                                const listing: JobListingProps = {
+                                                    logoUrl: entry.company.logo.file.url,
+                                                    companyName: entry.company.name,
+                                                    title: entry.title,
+                                                    applicationLink: entry.applicationLink,
+                                                    description: entry.description.json
+                                                };
+
+                                                return (
+                                                    <JobListing {...listing} key={index} />
                                                 );
                                             default:
                                                 return <span>No renderer for { __typename }</span>
@@ -95,13 +111,28 @@ export const query = graphql`
                 json
             }
             entries {
+                __typename
                 ... on ContentfulPartner {
-                    __typename
                     name
                     siteUrl
                     logo {
                         fixed(width: 1000) {
                             src
+                        }
+                    }
+                }
+                ... on ContentfulJobListing {
+                    title
+                    applicationLink
+                    description {
+                        json
+                    }
+                    company {
+                        name
+                        logo {
+                            file {
+                                url
+                            }
                         }
                     }
                 }

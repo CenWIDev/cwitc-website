@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from '../icon/icon'
 
-const browser = typeof window !== 'undefined' && window;;
+const browser = typeof window !== 'undefined' && window;
 
 const NotFound = () => (
     browser ?

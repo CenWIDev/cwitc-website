@@ -1,0 +1,71 @@
+@import "./../vars";
+
+.job-listing {
+    display: grid;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #222;
+
+    grid-template-areas:
+        'header header logo'
+        'body body body'
+        'footer footer footer';
+
+    @include media-breakpoint-down(xs) {
+        grid-template-areas:
+            'logo'
+            'header'
+            'body'
+            'footer';
+    }
+
+    &:last-of-type {
+        border-bottom: 0;
+    }
+
+    .job-listing_logo {
+        grid-area: logo;
+        height: 3rem;
+        align-self: center;
+        justify-self: end;
+
+        @include media-breakpoint-down(xs) {
+            justify-self: center;
+            margin-bottom: 1rem;
+        }
+    }
+
+    .job-listing_header {
+        grid-area: header;
+        align-self: center;
+        margin-bottom: 1rem;
+
+        @include media-breakpoint-down(xs) {
+            justify-self: center;
+        }
+
+        .job-listing_title {
+            margin: 0;
+        }
+
+        .job-listing_link {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+
+            .icon {
+                height: 1.5rem;
+                width: 1.5rem;
+                margin-left: 1rem;
+            }
+        }
+    }
+
+    .job-listing_body {
+        grid-area: body;
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
