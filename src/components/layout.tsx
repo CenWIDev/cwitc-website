@@ -106,7 +106,7 @@ const Layout = ({ isHomePage = false, className, path, children }: Props) => (
                     </Helmet>
                     <div className="alert alert-secondary m-0 text-center d-flex flex-wrap flex-md-nowrap justify-content-center align-items-center" role="alert">
                         <span>We're using Whova to faciliate our online conference! Head on over to the website to participate or download the app!</span>
-                        <a href="https://whova.com/portal/webapp/cwic_202008/sign_in/" target="_blank" rel="noopener noreferer" className="btn btn-secondary ml-md-3 mt-3 mt-md-0">Go to Whova</a>
+                        <a href="https://whova.com/portal/cwic_202008/" target="_blank" rel="noopener noreferer" className="btn btn-secondary ml-md-3 mt-3 mt-md-0">Go to Whova</a>
                     </div>
                     <Header useHero={ isHomePage }/>
                     <div className={ `main ${ className }` }>
