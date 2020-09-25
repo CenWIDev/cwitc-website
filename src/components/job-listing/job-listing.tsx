@@ -8,10 +8,11 @@ export const JobListing = ({ logoUrl, companyName, title, applicationLink, descr
 
     return (
         <div className="job-listing col-11 col-lg-8">
-            <img
-                className="job-listing_logo"
-                src={ logoUrl }
-                alt={ companyName + ' logo'}/>
+            <div className="job-listing_logo">
+                <img
+                    src={ logoUrl }
+                    alt={ companyName + ' logo'}/>
+            </div>
             <div className="job-listing_header">
                 <h2 className="job-listing_title">{ title }</h2>
                 <a href={ applicationLink } target="_blank" rel="noopener noreferrer" className="job-listing_link">

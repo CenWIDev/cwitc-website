@@ -11,7 +11,10 @@
         'body body body'
         'footer footer footer';
 
+    grid-template-columns: 2fr 2fr 1fr;
+
     @include media-breakpoint-down(xs) {
+        grid-template-columns: 1fr;
         grid-template-areas:
             'logo'
             'header'
@@ -25,13 +28,20 @@
 
     .job-listing_logo {
         grid-area: logo;
-        height: 3rem;
         align-self: center;
         justify-self: end;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img { width: 100%; }
 
         @include media-breakpoint-down(xs) {
             justify-self: center;
             margin-bottom: 1rem;
+
+            img { width: 50%; }
         }
     }
 
@@ -67,5 +77,9 @@
         p:last-child {
             margin-bottom: 0;
         }
+    }
+
+    .job-listing_link {
+        grid-area: footer;
     }
 }
