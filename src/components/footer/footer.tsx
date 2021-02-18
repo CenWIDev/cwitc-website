@@ -23,9 +23,11 @@ const Footer = (props: FooterProps) => (
                 </div>
                 <div className="col-sm-12 col-md-5">
                     <div className="address-wrapper">
+                        {/*
                         <p>{ props.addressLine1 }</p>
                         <p>{ props.addressLine2 }</p>
                         <p>{ props.cityStatePostalCode }</p>
+                        */}
                         <a href={` mailto:${ props.contactEmailAddress } `}>{ props.contactEmailAddress }</a>
                     </div>
                     <p>&copy; { (new Date()).getFullYear() } { props.siteName }</p>
