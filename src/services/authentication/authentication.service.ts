@@ -10,6 +10,7 @@ export class User {
     email: string | null;
     photoUrl: string | null;
     linkedProviders: LoginProvider[];
+    claims: string[]
 }
 
 const user_storage_key: string = 'gatsbyUser';
@@ -64,6 +65,12 @@ export const isLoggedIn = (): boolean => {
     return !!user.userId;
 };
 
+export const isAdmin = (): boolean => {
+    const user = getUser();
+
+    return !!user.claims?.find(claim => claim === 'admin');
+};
+
 export const getUser = (): User => {
     return isBrowser() && window.localStorage.getItem(user_storage_key) ?
         JSON.parse(<string> window.localStorage.getItem(user_storage_key)) :
@@ -80,6 +87,12 @@ export const login = async (provider: LoginProvider): Promise<User> => {
     const credential: firebase.auth.UserCredential = await firebaseApp.auth().signInWithPopup(authProvider);
 
     const user: User = createUser(credential);
+
+    const result = await firebaseApp.auth().currentUser?.getIdTokenResult();
+
+    if (result?.claims.admin) {
+        user.claims = ['admin'];
+    }
 
     setUser(user);
 
@@ -155,4 +168,4 @@ function getProvider(provider: LoginProvider): firebase.auth.AuthProvider {
     return authProvider;
 }
 
-export const AuthService = { isLoggedIn, getUser, setUser, login, logout, link, unlink, clearAuthSession };
+export const AuthService = { isLoggedIn, isAdmin, getUser, setUser, login, logout, link, unlink, clearAuthSession };

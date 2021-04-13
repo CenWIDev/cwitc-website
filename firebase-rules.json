@@ -5,6 +5,11 @@
             ".write": "false"
         },
         "2020":{
+            ".read": "false",
+            ".write": "false"
+        },
+        "2021":{
+            ".read": "auth.token.admin === true",
             "$uid": {
                 ".write": "$uid === auth.uid",
                 "$other": { ".validate": false },
