@@ -56,7 +56,8 @@ const Admin = () => {
                                 session.presenters.map(presenter =>
                                     <div className="card-subtitle d-flex align-items-center mb-1">
                                         <h6 className="m-0 mr-2 text-muted">{presenter.firstName} {presenter.lastName}</h6>
-                                        <a href={`mailto:${presenter.email}`}>{presenter.email}</a>
+                                        <a href={`mailto:${presenter.email}`} className="mr-2">{presenter.email}</a>
+                                        <span>{presenter.company}</span>
                                     </div>)
                             }
                             </div>
@@ -66,7 +67,16 @@ const Admin = () => {
                             </div>
                         </div>
                         <div className="card-body">
+                            <h5>Abstract:</h5>
                             <p className="card-text">{session.summary}</p>
+
+                            {
+                                session.notes && session.notes !== '' ?
+                                <>
+                                    <h5>Notes:</h5>
+                                    <p className="card-text">{session.notes}</p>
+                                </> : null
+                            }
                         </div>
                     </div>
                 ))
