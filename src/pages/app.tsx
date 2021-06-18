@@ -9,6 +9,7 @@ import Login from '../components/login/login';
 import NotFound from '../components/not-found/notFound';
 import SessionSubmission from '../components/session-submission/session-submission';
 import Admin from '../components/admin/admin';
+import RegistrationRedirect from '../components/registration-redirect/registration-redirect';
 
 const App = (props: any) => {
     const { globalSettings } = useStaticQuery(appGlobalSettingsQuery);
@@ -20,12 +21,16 @@ const App = (props: any) => {
                 <PrivateRoute path="/app/submit-session" component={ SessionSubmission }/>
                 <AdminRoute path="/app/admin" component={ Admin } />
                 <Login path="/app/log-in" />
+                <RegistrationRedirect path="/app/register" registrationUrl={globalSettings.registrationUrl}/>
                 <NotFound default />
             </Router>
         </Layout>
     ) : (
         <Layout path={props.location.pathname}>
-            <NotFound default />
+            <Router>
+                <RegistrationRedirect path="/app/register" registrationUrl={globalSettings.registrationUrl}/>
+                <NotFound default />
+            </Router>
         </Layout>
     );
 };
@@ -36,6 +41,7 @@ const appGlobalSettingsQuery = graphql`
     query appGlobalSettingsQuery {
         globalSettings: contentfulGlobalSiteSettings {
             enableLogin
+            registrationUrl
         }
     }
 `;
