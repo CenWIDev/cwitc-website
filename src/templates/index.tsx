@@ -29,8 +29,8 @@ const IndexPage = ({ data }: any) => {
                             <p>{ hero.description.description }</p>
                         </div>
                     </div>
-                    { renderPartners(landingPageContent.partners) }
                     { renderKeynotes(keynotes, sessionsPageSlug) }
+                    { renderPartners(landingPageContent.partners) }
                     { renderCards(landingPageContent.cards) }
                     { renderSponsors(landingPageContent.sponsors) }
                 </div>
@@ -41,6 +41,7 @@ const IndexPage = ({ data }: any) => {
     const renderPartners = (partners: any[]): ReactNode | null => {
         return partners && partners.length > 0 ?
             <>
+                <hr />
                 <div className="row mb-3">
                     <h3 className="col text-center">Organizers and Community Partners</h3>
                 </div>
@@ -50,7 +51,7 @@ const IndexPage = ({ data }: any) => {
                             {
                                 partners
                                     .map(({ name, siteUrl, logo }: any, index: number) => (
-                                        <div className="col-6 col-sm" key={ index }>
+                                        <div className="col-5 col-md-4" key={ index }>
                                             <a href={ siteUrl } title={ name } target="_blank" rel="noopener">
                                                 <img className="w-100" src={ logo.fixed.src } alt={ name } />
                                             </a>
@@ -67,9 +68,8 @@ const IndexPage = ({ data }: any) => {
     const renderKeynotes = (keynotes: any[], sessionsPageSlug: string): ReactNode | null => {
         return keynotes && keynotes.length > 0 ?
             <>
-                <hr />
                 <div className="row mb-3">
-                    <h3 className="col text-center">{ keynotes.length === 1 ? 'Our Keynote Speaker' : 'Our Keynote Speakers' }</h3>
+                    <h3 className="col text-center">{ keynotes.length === 1 ? 'Introducing our Keynote Speaker' : 'Introducing our Keynote Speakers' }</h3>
                 </div>
                 <div className="row justify-content-center">
                     {
