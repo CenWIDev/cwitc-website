@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { useState } from 'react';
 import { StaticQuery, graphql, Link } from 'gatsby';
 import { AuthService, User, LoginProvider, LoginProviders } from './../../services/authentication';
 import { GitHubIcon, FacebookIcon, TwitterIcon, GoogleIcon } from './../icon';
@@ -6,93 +6,83 @@ import LoginButton from './../login/login-button/login-button';
 
 import './profile.scss';
 
-export default class Profile extends Component {
+const Profile = () => {
 
-    public state: ProfileState;
+    const [user, setUser] = useState<User>(AuthService.getUser());
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [status, setStatus] = useState<ProfileStatus | null>(null);
+    const [showUserId, setShowUserId] = useState<boolean>(false);
 
-    constructor(props: ProfileProps) {
-        super(props);
-
-        this.state = { user: AuthService.getUser(), isLoading: false };
-    }
-
-    public providerIsLinked(providerToCheck: LoginProvider): boolean {
-        return  !!this.state.user.linkedProviders.find(provider => provider.providerId === providerToCheck.providerId);
-    }
-
-    public disableButton = (provider: LoginProvider): boolean => {
-        return this.state.user.linkedProviders.length === 1 && this.providerIsLinked(provider);
-    }
-
-    public getButtonDisplayText = (provider: LoginProvider): string => {
-        return this.providerIsLinked(provider) ? `Unlink ${ provider.providerName }` : `Link ${ provider.providerName }`;
+    const toggleUserId = (): void => {
+        setShowUserId(!showUserId);
     };
 
-    public dismissAlert = () => {
-        this.setState({ status: null });
+    const providerIsLinked = (providerToCheck: LoginProvider): boolean => {
+        return  !!user.linkedProviders.find(provider => provider.providerId === providerToCheck.providerId);
     };
 
-    public handleSubmit = async (provider: LoginProvider): Promise<void> => {
+    const disableButton = (provider: LoginProvider): boolean => {
+        return user.linkedProviders.length === 1 && providerIsLinked(provider);
+    }
 
-        this.setState({ isLoading: true });
+    const getButtonDisplayText = (provider: LoginProvider): string => {
+        return providerIsLinked(provider) ? `Unlink ${ provider.providerName }` : `Link ${ provider.providerName }`;
+    };
 
-        if (this.providerIsLinked(provider)) {
-            await this.unlinkProvider(provider);
+    const dismissAlert = () => {
+        setStatus(null);
+    };
+
+    const handleSubmit = async (provider: LoginProvider): Promise<void> => {
+        setIsLoading(true);
+
+        if (providerIsLinked(provider)) {
+            await unlinkProvider(provider);
         }
         else {
-            await this.linkProvider(provider);
+            await linkProvider(provider);
         }
 
-        this.setState({ isLoading: false });
+        setIsLoading(false);
     };
 
-    private linkProvider = async (provider: LoginProvider) => {
-        let user: User = this.state.user;
-        let status = null;
-
+    const linkProvider = async (provider: LoginProvider) => {
         try {
-            user = await AuthService.link(provider);
-            status = {
+            setUser(await AuthService.link(provider));
+            setStatus({
                 type: 'success',
                 message: `Linked ${ provider.providerName }!`
-            };
+            });
         }
         catch (err) {
             console.error(err);
 
-            status = {
+            setStatus({
                 type: 'danger',
                 message: `Failed to link ${ provider.providerName }. This ${ provider.providerName } account might be used for a different CWITC account. Try logging out of CWITC and logging in with ${ provider.providerName } or login with a different ${ provider.providerName } account.`
-            };
+            });
         }
-
-        this.setState({ user, status });
     };
 
-    private unlinkProvider = async (provider: LoginProvider) => {
-        let user: User = this.state.user;
-        let status = null;
-
+    const unlinkProvider = async (provider: LoginProvider) => {
         try {
-            user = await AuthService.unlink(provider);
-            status = {
+            setUser(await AuthService.unlink(provider));
+            setStatus({
                 type: 'success',
                 message: `Unlinked ${ provider.providerName }`
-            };
+            });
         }
         catch (err) {
             console.error(err);
 
-            status = {
+            setStatus({
                 type: 'danger',
                 message: `Failed to unlink ${ provider.providerName }. Try logging out and logging back in again.`
-            };
+            });
         }
-
-        this.setState({ user, status });
     };
 
-    private getFavoritesLink = (sessionPages: any, currentYear: string): string | null => {
+    const getFavoritesLink = (sessionPages: any, currentYear: string): string | null => {
         let link: string | null = null;
 
         if (sessionPages && sessionPages.edges && currentYear) {
@@ -106,88 +96,89 @@ export default class Profile extends Component {
         return link;
     }
 
-    public render(): ReactNode {
-        return (
-            <StaticQuery
-                query={ profilePageQuery }
-                render={ ({ global, sessionPages }) => {
-                    const { enableGithubAuth, enableFacebookAuth, enableTwitterAuth, enableGoogleAuth, currentYear } = global;
+    return (
+        <StaticQuery
+            query={ profilePageQuery }
+            render={ ({ global, sessionPages }) => {
+                const { enableGithubAuth, enableFacebookAuth, enableTwitterAuth, enableGoogleAuth, currentYear } = global;
 
-                    const favoritesPath: string | null = this.getFavoritesLink(sessionPages, currentYear);
+                const favoritesPath: string | null = getFavoritesLink(sessionPages, currentYear);
 
-                    return (
-                        <div className="profile-container container">
-                            <div className="row justify-content-center">
-                                <div className="bio col-10 col-md-5 d-flex flex-column align-items-center">
-                                    { this.state.user.photoUrl ? <img src={ this.state.user.photoUrl } /> : null }
-                                    <h3>{ this.state.user.name }</h3>
-                                    <p>{ this.state.user.email }</p>
-                                    {
-                                        favoritesPath ?
-                                            <Link className="mb-3"to={ `/${ favoritesPath }` }>View Favorited Sessions</Link> :
-                                            null
-                                    }
-                                </div>
+                return (
+                    <div className="profile-container container">
+                        <div className="row justify-content-center">
+                            <div className="bio col-10 col-md-5 d-flex flex-column align-items-center">
+                                { user.photoUrl ? <img src={ user.photoUrl } /> : null }
+                                <h3>{ user.name }</h3>
+                                <p onClick={ toggleUserId }>{ user.email }</p>
                                 {
-                                    this.state.isLoading ?
-                                        <div className="col-10 col-md-5 d-flex justify-content-center align-items-center">
-                                            <div className="spinner-border" role="status">
-                                                <span className="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-                                        :
-                                        <div className="col-10 col-md-5">
-                                            <h4 className="text-center">Link other Providers</h4>
-                                            <LoginButton
-                                                displayText={ this.getButtonDisplayText(LoginProviders.github) }
-                                                disabled={ this.disableButton(LoginProviders.github) }
-                                                provider={ LoginProviders.github }
-                                                providerEnabled={ enableGithubAuth }
-                                                onClick={ this.handleSubmit }>
-                                                <GitHubIcon />
-                                            </LoginButton>
-                                            <LoginButton
-                                                displayText={ this.getButtonDisplayText(LoginProviders.facebook) }
-                                                disabled={ this.disableButton(LoginProviders.facebook) }
-                                                provider={ LoginProviders.facebook }
-                                                providerEnabled={ enableFacebookAuth }
-                                                onClick={ this.handleSubmit }>
-                                                <FacebookIcon />
-                                            </LoginButton>
-                                            <LoginButton
-                                                displayText={ this.getButtonDisplayText(LoginProviders.twitter) }
-                                                disabled={ this.disableButton(LoginProviders.twitter) }
-                                                provider={ LoginProviders.twitter }
-                                                providerEnabled={ enableTwitterAuth }
-                                                onClick={ this.handleSubmit }>
-                                                <TwitterIcon />
-                                            </LoginButton>
-                                            <LoginButton
-                                                displayText={ this.getButtonDisplayText(LoginProviders.google) }
-                                                disabled={ this.disableButton(LoginProviders.google) }
-                                                provider={ LoginProviders.google }
-                                                providerEnabled={ enableGoogleAuth }
-                                                onClick={ this.handleSubmit }>
-                                                <GoogleIcon />
-                                            </LoginButton>
-                                            {
-                                                this.state.status ?
-                                                    <div className="row justify-content-center">
-                                                        <div className={`col-12 col-md-8 alert alert-${ this.state.status.type } d-flex justify-content-between`} role="alert">
-                                                            { this.state.status.message }
-                                                            <button type="button" className="close align-self-start mt-n1" onClick={ this.dismissAlert }>
-                                                                <span className="close align-self-start">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                    </div> : null
-                                            }
-                                        </div>
+                                    showUserId && <pre>{ user.userId }</pre>
+                                }
+                                {
+                                    favoritesPath ?
+                                        <Link className="mb-3"to={ `/${ favoritesPath }` }>View Favorited Sessions</Link> :
+                                        null
                                 }
                             </div>
+                            {
+                                isLoading ?
+                                    <div className="col-10 col-md-5 d-flex justify-content-center align-items-center">
+                                        <div className="spinner-border" role="status">
+                                            <span className="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                    :
+                                    <div className="col-10 col-md-5">
+                                        <h4 className="text-center">Link other Providers</h4>
+                                        <LoginButton
+                                            displayText={ getButtonDisplayText(LoginProviders.github) }
+                                            disabled={ disableButton(LoginProviders.github) }
+                                            provider={ LoginProviders.github }
+                                            providerEnabled={ enableGithubAuth }
+                                            onClick={ handleSubmit }>
+                                            <GitHubIcon />
+                                        </LoginButton>
+                                        <LoginButton
+                                            displayText={ getButtonDisplayText(LoginProviders.facebook) }
+                                            disabled={ disableButton(LoginProviders.facebook) }
+                                            provider={ LoginProviders.facebook }
+                                            providerEnabled={ enableFacebookAuth }
+                                            onClick={ handleSubmit }>
+                                            <FacebookIcon />
+                                        </LoginButton>
+                                        <LoginButton
+                                            displayText={ getButtonDisplayText(LoginProviders.twitter) }
+                                            disabled={ disableButton(LoginProviders.twitter) }
+                                            provider={ LoginProviders.twitter }
+                                            providerEnabled={ enableTwitterAuth }
+                                            onClick={ handleSubmit }>
+                                            <TwitterIcon />
+                                        </LoginButton>
+                                        <LoginButton
+                                            displayText={ getButtonDisplayText(LoginProviders.google) }
+                                            disabled={ disableButton(LoginProviders.google) }
+                                            provider={ LoginProviders.google }
+                                            providerEnabled={ enableGoogleAuth }
+                                            onClick={ handleSubmit }>
+                                            <GoogleIcon />
+                                        </LoginButton>
+                                        {
+                                            status ?
+                                                <div className="row justify-content-center">
+                                                    <div className={`col-12 col-md-8 alert alert-${ status.type } d-flex justify-content-between`} role="alert">
+                                                        { status.message }
+                                                        <button type="button" className="close align-self-start mt-n1" onClick={ dismissAlert }>
+                                                            <span className="close align-self-start">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                </div> : null
+                                        }
+                                    </div>
+                            }
                         </div>
-                )}} />
-        );
-    }
+                    </div>
+            )}} />
+    );
 }
 
 const profilePageQuery = graphql`
@@ -212,15 +203,13 @@ const profilePageQuery = graphql`
     }
 `;
 
+export default Profile;
+
 export type ProfileProps = {
     path: string;
 };
 
-export type ProfileState = {
-    user: User;
-    isLoading: boolean;
-    status?: {
-        type: 'success' | 'danger';
-        message: string;
-    };
-};
+export type ProfileStatus = {
+    type: 'success' | 'danger';
+    message: string;
+}
