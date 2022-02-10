@@ -38,7 +38,7 @@
     "gatsby-plugin-typescript": "^2.1.27",
     "gatsby-source-contentful": "^2.1.86",
     "gatsby-transformer-remark": "^2.6.51",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "query-string": "^6.11.0",
     "re-base": "^4.0.0",
     "react": "^16.12.0",
